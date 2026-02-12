@@ -1050,6 +1050,23 @@
         .track-order:hover {
             background: var(--dark-gray);
         }
+        /* Admin full-screen mode: hide storefront when admin is active */
+        body.admin-active header,
+        body.admin-active .hero,
+        body.admin-active .filters-section,
+        body.admin-active .products-container,
+        body.admin-active footer {
+            display: none !important;
+        }
+
+        body.admin-active #admin-dashboard {
+            display: block !important;
+            position: fixed !important;
+            inset: 0 !important;
+            z-index: 9999 !important;
+            overflow: auto !important;
+            background: #fff !important;
+        }
     </style>
 </head>
 <body>
@@ -1282,6 +1299,17 @@
             <h1 style="color: var(--primary);">Safires Admin Dashboard</h1>
             <a href="?" style="padding: 10px 20px; background: var(--accent); color: white; text-decoration: none; border-radius: 6px;">Back to Store</a>
         </div>
+
+            <!-- Admin Instructions -->
+            <div id="admin-instructions" style="background: linear-gradient(90deg, #f7f7f7, #ffffff); border: 1px solid #eee; padding: 18px; border-radius: 8px; margin-bottom: 20px;">
+                <h2 style="margin-top:0;">Admin Quick Instructions</h2>
+                <ol style="color:#333; line-height:1.6; margin-left:18px;">
+                    <li>Set your <strong>Venmo Username</strong> (with or without leading @) and your notification email, then click <strong>Save Settings</strong>. The <em>Current Venmo</em> field will update immediately.</li>
+                    <li>Use the <strong>Orders</strong> list below to review orders saved locally. Use the status dropdown to mark orders <em>Paid</em> once you confirm Venmo payment.</li>
+                    <li>Click <strong>📥 Export CSV</strong> to download all orders for bookkeeping.</li>
+                    <li>If you want to hide the admin view and return to the storefront, click <strong>Back to Store</strong> at the top-left.</li>
+                </ol>
+            </div>
 
         <!-- Settings Section -->
         <div style="background: var(--light-gray); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
@@ -2014,12 +2042,9 @@ function checkAdminMode() {
             if (adminEmail === '') {
                 localStorage.setItem('adminEmail', requestedEmail);
             }
+            // Enter admin-active mode which hides the storefront and shows the dashboard full-screen
+            document.body.classList.add('admin-active');
             document.getElementById('admin-dashboard').style.display = 'block';
-            document.querySelector('header').style.display = 'none';
-            document.querySelector('.hero').style.display = 'none';
-            document.querySelector('.filters-section').style.display = 'none';
-            document.querySelector('.products-container').style.display = 'none';
-            document.querySelector('footer').style.display = 'none';
             loadSettings();
             loadOrders();
         } else {
