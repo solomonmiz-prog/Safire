@@ -119,18 +119,25 @@
 
         .cart-count {
             position: absolute;
-            top: -10px;
-            right: -10px;
+            top: -12px;
+            right: -12px;
             background: var(--accent);
             color: var(--secondary);
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            width: 32px;
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .wishlist-icon {
@@ -145,7 +152,7 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 60%, var(--accent) 100%);
             height: 300px;
             display: flex;
             justify-content: center;
@@ -153,6 +160,25 @@
             color: var(--secondary);
             text-align: center;
             padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero > div {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h2 {
@@ -228,8 +254,14 @@
         }
 
         .product:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            animation: shimmer 0.6s ease-in-out;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.95; }
         }
 
         .product-image-container {
@@ -310,13 +342,14 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            background: rgba(255, 107, 53, 0.95);
+            background: linear-gradient(135deg, #4CAF50, #45a049);
             color: white;
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: 20px;
             font-weight: 700;
             font-size: 12px;
             z-index: 12;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         .wishlist-btn.active {
             background: var(--accent);
@@ -643,22 +676,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.7);
             display: none;
             z-index: 999;
+            backdrop-filter: blur(3px);
         }
 
         .overlay.active {
-            display: block;
+            display: block !important;
         }
 
         /* Footer */
         footer {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 100%);
             color: var(--secondary);
             padding: 30px 20px;
             text-align: center;
             margin-top: 50px;
+            border-top: 2px solid var(--accent);
         }
 
         /* Mobile Responsive */
@@ -1085,7 +1120,7 @@
     <h1>SAFIRES</h1>
     <div class="header-right">
         <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
-        <div class="wishlist-icon" onclick="toggleWishlist()" title="Wishlist">❤️ <span id="wishlist-count">0</span></div>
+        <div class="wishlist-icon" onclick="toggleWishlist()" title="Wishlist">💎 <span id="wishlist-count">0</span></div>
         <div class="cart-icon" onclick="toggleCart()" title="Shopping Cart">
             🛒
             <span class="cart-count" id="cart-count">0</span>
@@ -1371,7 +1406,7 @@ const productsData = [
         description: "Brown hoodie with a distressed scratched finish.",
         freeShipping: true,
         sku: "BH-SCR-001",
-        stock: { S: 1, M: 0, L: 0, XL: 0 }
+        stock: { S: 1, M: 1, L: 1, XL: 0 }
     },
     {
         id: 2,
@@ -1381,7 +1416,9 @@ const productsData = [
         image1: "images/frontgraysweatpants.png",
         image2: "images/backgraysweatpants.png",
         description: "Saphire Flower gray sweatpants with printed design",
-        stock: { S: 1, M: 0, L: 0, XL: 0 }
+        freeShipping: true,
+        sku: "SGS-001",
+        stock: { S: 1, M: 1, L: 1, XL: 0 }
     }
 ];
 
@@ -1724,9 +1761,24 @@ function showConfirmation(customerInfo, orderId) {
             <li>Expect delivery in 5-7 business days</li>
         `;
         venmoLink.style.display = 'block';
-        venmoLink.href = 'https://venmo.com/' + venmoUsername + '?amount=' + customerInfo.orderTotal.toFixed(2) + '&note=Order%20%23' + orderId;
+        const amount = customerInfo.orderTotal.toFixed(2);
+        const note = 'Order #' + orderId;
+        const deepLink = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(venmoUsername)}&amount=${encodeURIComponent(amount)}&note=${encodeURIComponent(note)}`;
+        const webFallback = `https://venmo.com/${encodeURIComponent(venmoUsername)}?txn=pay&amount=${encodeURIComponent(amount)}&note=${encodeURIComponent(note)}`;
+        venmoLink.href = '#';
         venmoLink.target = '_blank';
         venmoLink.innerText = '💬 Open Venmo to Pay';
+        venmoLink.onclick = (e) => {
+            e.preventDefault();
+            try {
+                window.open(deepLink, '_blank');
+                setTimeout(() => {
+                    window.open(webFallback, '_blank');
+                }, 800);
+            } catch (e) {
+                window.open(webFallback, '_blank');
+            }
+        };
         
         // Send email notification
         sendOrderEmail(customerInfo, orderId);
