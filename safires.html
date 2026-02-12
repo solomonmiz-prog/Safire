@@ -753,7 +753,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: var(--secondary);
+            background: white;
             width: 90%;
             max-width: 500px;
             max-height: 90vh;
@@ -932,7 +932,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: var(--secondary);
+            background: white;
             width: 90%;
             max-width: 500px;
             border-radius: 10px;
@@ -945,6 +945,15 @@
 
         .confirmation-modal.open {
             display: block;
+        }
+
+        /* Hide storefront when modals are open */
+        body.modal-open header,
+        body.modal-open .hero,
+        body.modal-open .filters-section,
+        body.modal-open .products-container,
+        body.modal-open footer {
+            display: none !important;
         }
 
         .confirmation-icon {
@@ -1599,6 +1608,7 @@ function openCheckout() {
     
     checkoutModal.classList.add('open');
     overlay.classList.add('active');
+    document.body.classList.add('modal-open');
     
     // Update checkout items
     updateCheckoutSummary();
@@ -1607,6 +1617,7 @@ function openCheckout() {
 // Close Checkout
 function closeCheckout() {
     document.getElementById('checkout-modal').classList.remove('open');
+    document.body.classList.remove('modal-open');
 }
 
 // Update Checkout Summary
