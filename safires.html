@@ -106,6 +106,27 @@
             color: rgba(255,255,255,0.6);
         }
 
+        /* Site branding */
+        .site-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #site-logo {
+            height: 48px;
+            width: auto;
+            display: inline-block;
+        }
+
+        #footer-logo {
+            height: 36px;
+            width: auto;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 8px;
+        }
+
         .cart-icon {
             font-size: 20px;
             cursor: pointer;
@@ -1117,7 +1138,10 @@
 
 <!-- Header -->
 <header>
-    <h1>SAFIRES</h1>
+    <div class="site-brand">
+        <img id="site-logo" src="images/logo.png" alt="Safire Logo" onerror="this.style.display='none'">
+        <h1>SAFIRES</h1>
+    </div>
     <div class="header-right">
         <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
         <div class="wishlist-icon" onclick="toggleWishlist()" title="Wishlist">💎 <span id="wishlist-count">0</span></div>
@@ -1333,7 +1357,10 @@
 
 <!-- Footer -->
 <footer>
-    <p>&copy; 2026 SAFIRES. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
+    <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+        <img id="footer-logo" src="images/logo.png" alt="Safire Logo" onerror="this.style.display='none'">
+        <p style="margin:0;">&copy; 2026 SAFIRES. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
+    </div>
 </footer>
 
 <!-- Admin Dashboard (Hidden by default) -->
@@ -1819,7 +1846,9 @@ function showConfirmation(customerInfo, orderId) {
 
     // Close checkout and show confirmation
     document.getElementById('checkout-modal').classList.remove('open');
+    overlay.classList.add('active');
     confirmModal.classList.add('open');
+    document.body.classList.add('modal-open');
 }
 
 // Close Confirmation
