@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - StyleFlow</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">StyleFlow</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="products.html" class="active">Shop</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html" class="cart-link">Cart <span id="cart-count">0</span></a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-small">
+        <h1>Our Collection</h1>
+    </section>
+
+    <!-- Products Section -->
+    <div class="container">
+        <div class="products-page">
+            <!-- Filters -->
+            <aside class="filters">
+                <h3>Filter</h3>
+                <div class="filter-group">
+                    <label>
+                        <input type="checkbox" value="men" class="category-filter"> Men
+                    </label>
+                    <label>
+                        <input type="checkbox" value="women" class="category-filter"> Women
+                    </label>
+                    <label>
+                        <input type="checkbox" value="accessories" class="category-filter"> Accessories
+                    </label>
+                </div>
+
+                <h4>Price Range</h4>
+                <div class="price-filter">
+                    <input type="range" id="price-range" min="0" max="300" value="300">
+                    <p>Up to: $<span id="price-value">300</span></p>
+                </div>
+
+                <button class="btn btn-secondary" onclick="resetFilters()">Reset Filters</button>
+            </aside>
+
+            <!-- Product Grid -->
+            <main class="products-section">
+                <div class="products-grid" id="products-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>About StyleFlow</h4>
+                    <p>Premium clothing brand for modern living</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="products.html">Shop</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Customer Service</h4>
+                    <ul>
+                        <li><a href="#">Track Order</a></li>
+                        <li><a href="#">Returns</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#">Facebook</a>
+                        <a href="#">Instagram</a>
+                        <a href="#">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 StyleFlow. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>
