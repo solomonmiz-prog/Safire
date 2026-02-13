@@ -1460,15 +1460,13 @@ function renderProducts() {
 
     filteredProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
-        const stockBadge = (product.stock && product.stock.S === 1) ? `<div class="stock-badge">Only 1 Small left</div>` : '';
         const hasSecond = product.image2 && product.image2 !== product.image1;
         const img1OnError = `this.onerror=null; this.src='${product.image2 || product.image1}'; this.style.opacity=1;`;
         const img2OnError = `this.onerror=null; this.src='${product.image1}'; this.style.opacity=1;`;
         const productHTML = `
             <div class="product">
                 <div class="product-image-container">
-                    ${stockBadge}
-                   <div class="image-swap" onclick="swapImage(this, '${product.image1}', '${product.image2}')">
+                    <div class="image-swap" onclick="swapImage(this)">
 
     <img src="${product.image1}" alt="${product.name}">
 
@@ -1482,8 +1480,19 @@ function renderProducts() {
                     <h3>${product.name}</h3>
                     <p>${product.description}</p>
                     <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <div style="margin-bottom:12px; font-size:13px;">
+                        <label style="display:block; margin-bottom:5px; color:#666;">
+                            <strong>Size:</strong>
+                            <select id="size-${product.id}" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px; margin-top:4px;">
+                                <option value="">Choose size</option>
+                                <option value="S">Small (S)</option>
+                                <option value="M">Medium (M)</option>
+                                <option value="L">Large (L)</option>
+                            </select>
+                        </label>
+                    </div>
                     <div class="product-actions">
-                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image1}')">
+                        <button class="add-to-cart-btn" onclick="addToCartWithSize(${product.id}, '${product.name}', ${product.price}, '${product.image1}')">
                             Add to Cart
                         </button>
                     </div>
@@ -1512,6 +1521,28 @@ function addToCart(id, name, price, image) {
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartDisplay();
+}
+
+// Add to Cart with Size
+function addToCartWithSize(id, name, price, image) {
+    const sizeSelect = document.getElementById('size-' + id);
+    const size = sizeSelect.value;
+    if (!size) {
+        alert('Please select a size');
+        return;
+    }
+    const product = productsData.find(p => p.id === id) || {};
+    const cartKey = id + '-' + size;
+    const existing = cart.find(item => item.id === id && item.size === size);
+    if (existing) {
+        existing.quantity += 1;
+    } else {
+        cart.push({ id, name, price, quantity: 1, image, size, freeShipping: !!product.freeShipping });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    sizeSelect.value = '';
+    updateCartDisplay();
+    alert('✓ Added to cart');
 }
 
 // Toggle Wishlist for Product
@@ -1555,6 +1586,7 @@ function updateCartDisplay() {
                 <img src="${item.image}" class="cart-item-image" alt="${item.name}">
                 <div class="cart-item-details">
                     <div class="cart-item-name">${item.name}</div>
+                    ${item.size ? `<div class="cart-item-price">Size: ${item.size}</div>` : ''}
                     <div class="cart-item-price">$${item.price.toFixed(2)}</div>
                     <div class="quantity-controls">
                         <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
