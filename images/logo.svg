@@ -1,0 +1,12 @@
+<svg viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
+  <!-- Diamond Icon -->
+  <g transform="translate(75, 50)">
+    <polygon points="25,0 50,25 25,50 0,25" fill="none" stroke="#333" stroke-width="2"/>
+    <polygon points="25,15 40,25 25,35 10,25" fill="#333"/>
+  </g>
+  
+  <!-- SAFIRE Text -->
+  <text x="150" y="85" font-family="Arial, sans-serif" font-size="42" font-weight="300" letter-spacing="8" fill="#333" text-anchor="start">
+    SAFIRE
+  </text>
+</svg>

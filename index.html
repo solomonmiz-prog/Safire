@@ -28,7 +28,6 @@
                 cartItems: [...cart],
                 orderTotal: parseFloat(document.getElementById('checkout-total').innerText.replace('$', ''))
             };
-
             // Save order
             const orderId = generateOrderId();
             localStorage.setItem('order_' + orderId, JSON.stringify({
@@ -400,6 +399,80 @@
             background: var(--dark-gray);
         }
 
+        /* Color Circles */
+        .color-options {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .color-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .color-circle:hover {
+            transform: scale(1.2);
+            border-color: var(--primary);
+        }
+
+        .color-circle.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+        }
+
+        /* Size Selector */
+        .size-selector {
+            margin: 15px 0;
+        }
+
+        .size-selector label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark-gray);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .size-option {
+            padding: 8px 12px;
+            border: 2px solid #ddd;
+            background: var(--secondary);
+            color: var(--dark-gray);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .size-option:hover {
+            border-color: var(--primary);
+        }
+
+        .size-option.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        .size-option.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: #f5f5f5;
+        }
+
         /* Cart Modal */
         .cart-modal {
             position: fixed;
@@ -474,6 +547,16 @@
             font-size: 12px;
             color: #666;
             margin: 5px 0;
+        }
+
+        .cart-item-options {
+            font-size: 11px;
+            color: #888;
+            margin: 3px 0;
+        }
+
+        .cart-item-options span {
+            margin-right: 10px;
         }
 
         .quantity-controls {
@@ -1050,13 +1133,52 @@
         .track-order:hover {
             background: var(--dark-gray);
         }
+
+        /* Logo Styling */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .footer-logo-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo-section img {
+            height: 40px;
+            width: auto;
+        }
     </style>
 </head>
 <body>
 
 <!-- Header -->
 <header>
-    <h1>SAFIRES</h1>
+    <div class="logo-container">
+        <img src="images/logo.svg" alt="Safires Logo" class="logo-img">
+        <h1>SAFIRES</h1>
+    </div>
     <div class="header-right">
         <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
         <div class="wishlist-icon" onclick="toggleWishlist()" title="Wishlist">❤️ <span id="wishlist-count">0</span></div>
@@ -1272,6 +1394,10 @@
 
 <!-- Footer -->
 <footer>
+    <div class="footer-logo-section">
+        <img src="images/logo.svg" alt="Safires Logo">
+        <span style="font-weight: 600; color: var(--primary);">SAFIRES</span>
+    </div>
     <p>&copy; 2026 SAFIRES. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
 </footer>
 
@@ -1344,6 +1470,42 @@ const productsData = [
         image2: "images/backgraysweatpants.png",
         description: "Saphire Flower gray sweatpants with printed design",
         stock: { S: 1, M: 0, L: 0, XL: 0 }
+    },
+    {
+        id: 3,
+        name: "Classic Quarter Zip",
+        category: "classic",
+        price: 45.00,
+        description: "Classic quarter zip hoodie in premium fabric.",
+        freeShipping: true,
+        sku: "CQZ-001",
+        stock: { S: 2, M: 1, L: 1, XL: 0 },
+        colors: [
+            {
+                name: "Gray",
+                hex: "#808080",
+                images: {
+                    front: "images/grayqzipfront.png",
+                    back: "images/grayqzipback.png"
+                }
+            },
+            {
+                name: "Black",
+                hex: "#000000",
+                images: {
+                    front: "images/blackqzipfront.png",
+                    back: "images/blackqzipback.png"
+                }
+            },
+            {
+                name: "Cream",
+                hex: "#F5F5DC",
+                images: {
+                    front: "images/creamqzipfront.png",
+                    back: "images/creamqzipback.png"
+                }
+            }
+        ]
     }
 ];
 
@@ -1359,16 +1521,29 @@ function renderProducts() {
     filteredProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
         const stockBadge = (product.stock && product.stock.S === 1) ? `<div class="stock-badge">Only 1 Small left</div>` : '';
-        const hasSecond = product.image2 && product.image2 !== product.image1;
-        const img1OnError = `this.onerror=null; this.src='${product.image2 || product.image1}'; this.style.opacity=1;`;
-        const img2OnError = `this.onerror=null; this.src='${product.image1}'; this.style.opacity=1;`;
+        
+        // Determine which images to use based on selected color
+        let currentImage1, currentImage2;
+        if (product.colors && product.id === 3) {
+            const selectedColorIndex = product.selectedColor !== undefined ? product.selectedColor : 0;
+            const selectedColor = product.colors[selectedColorIndex];
+            currentImage1 = selectedColor.images.front;
+            currentImage2 = selectedColor.images.back;
+        } else {
+            currentImage1 = product.image1;
+            currentImage2 = product.image2;
+        }
+        
+        const hasSecond = currentImage2 && currentImage2 !== currentImage1;
+        const img1OnError = `this.onerror=null; this.src='${currentImage2 || currentImage1}'; this.style.opacity=1;`;
+        const img2OnError = `this.onerror=null; this.src='${currentImage1}'; this.style.opacity=1;`;
         const productHTML = `
             <div class="product">
                 <div class="product-image-container">
                     ${stockBadge}
-                   <div class="image-swap" onclick="swapImage(this, '${product.image1}', '${product.image2}')">
+                   <div class="image-swap" onclick="swapImage(this, '${currentImage1}', '${currentImage2}')">
 
-    <img src="${product.image1}" alt="${product.name}">
+    <img src="${currentImage1}" alt="${product.name}">
 
                         ${hasSecond ? `<div class="flip-arrow">⬆ Click to Flip</div>` : ''}
                         <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleProductWishlist(event, ${product.id})" title="Add to Wishlist">♥</button>
@@ -1380,6 +1555,25 @@ function renderProducts() {
                     <h3>${product.name}</h3>
                     <p>${product.description}</p>
                     <div class="product-price">$${product.price.toFixed(2)}</div>
+                    
+                    <!-- Color Options -->
+                    <div class="color-options">
+                        ${product.colors && product.id === 3 ? product.colors.map((color, index) => 
+                            `<div class="color-circle ${index === 0 ? 'active' : ''}" style="background-color: ${color.hex}" onclick="selectColor(this, ${product.id}, ${index})" title="${color.name}"></div>`
+                        ).join('') : ''}
+                    </div>
+                    
+                    <!-- Size Selector -->
+                    <div class="size-selector">
+                        <label>Size:</label>
+                        <div class="size-options">
+                            ${Object.keys(product.stock).map((size, index) => 
+                                `<div class="size-option ${product.stock[size] > 0 ? (index === 0 ? 'active' : '') : 'disabled'}" 
+                                     onclick="selectSize(this, ${product.id}, '${size}')">${size}</div>`
+                            ).join('')}
+                        </div>
+                    </div>
+                    
                     <div class="product-actions">
                         <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image1}')">
                             Add to Cart
@@ -1399,14 +1593,66 @@ function swapImage(element) {
     dots.forEach(dot => dot.classList.toggle("active"));
 }
 
+// Select Color Function
+function selectColor(element, productId, colorIndex) {
+    // Remove active class from all color circles in this product
+    const productElement = element.closest('.product');
+    const colorCircles = productElement.querySelectorAll('.color-circle');
+    colorCircles.forEach(circle => circle.classList.remove('active'));
+    
+    // Add active class to selected color
+    element.classList.add('active');
+    
+    // Store selected color for this product
+    const product = productsData.find(p => p.id === productId);
+    if (product) {
+        product.selectedColor = colorIndex;
+        // Re-render products to update images
+        renderProducts();
+    }
+}
+
+// Select Size Function
+function selectSize(element, productId, size) {
+    if (element.classList.contains('disabled')) return;
+    
+    // Remove active class from all size options in this product
+    const productElement = element.closest('.product');
+    const sizeOptions = productElement.querySelectorAll('.size-option');
+    sizeOptions.forEach(option => option.classList.remove('active'));
+    
+    // Add active class to selected size
+    element.classList.add('active');
+    
+    // Store selected size for this product
+    const product = productsData.find(p => p.id === productId);
+    if (product) {
+        product.selectedSize = size;
+    }
+}
+
 // Add to Cart
 function addToCart(id, name, price, image) {
-    const existing = cart.find(item => item.id === id);
     const product = productsData.find(p => p.id === id) || {};
+    const selectedSize = product.selectedSize || Object.keys(product.stock).find(size => product.stock[size] > 0) || 'M'; // Default to first available size
+    const selectedColor = product.selectedColor !== undefined ? product.selectedColor : 0; // Default to first color
+    
+    // Check if item with same id, size, and color already exists
+    const existing = cart.find(item => item.id === id && item.size === selectedSize && item.color === selectedColor);
+    
     if (existing) {
         existing.quantity += 1;
     } else {
-        cart.push({ id, name, price, quantity: 1, image, freeShipping: !!product.freeShipping });
+        cart.push({ 
+            id, 
+            name, 
+            price, 
+            quantity: 1, 
+            image, 
+            freeShipping: !!product.freeShipping,
+            size: selectedSize,
+            color: selectedColor
+        });
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartDisplay();
@@ -1427,6 +1673,18 @@ function toggleProductWishlist(event, id) {
     localStorage.setItem('wishlist', JSON.stringify(wishlist));
     renderProducts();
     updateWishlistDisplay();
+}
+
+// Get Color Name Function
+function getColorName(colorIndex) {
+    // For Classic Quarter Zip (product id 3), get color name from the colors array
+    const quarterZip = productsData.find(p => p.id === 3);
+    if (quarterZip && quarterZip.colors && quarterZip.colors[colorIndex]) {
+        return quarterZip.colors[colorIndex].name;
+    }
+    // Fallback for other products
+    const colorNames = ['Gray', 'Dark Gray', 'Light Gray'];
+    return colorNames[colorIndex] || 'Default';
 }
 
 // Update Cart Display
@@ -1453,6 +1711,10 @@ function updateCartDisplay() {
                 <img src="${item.image}" class="cart-item-image" alt="${item.name}">
                 <div class="cart-item-details">
                     <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-options">
+                        ${item.size ? `<span>Size: ${item.size}</span>` : ''}
+                        ${item.color !== undefined ? `<span>Color: ${getColorName(item.color)}</span>` : ''}
+                    </div>
                     <div class="cart-item-price">$${item.price.toFixed(2)}</div>
                     <div class="quantity-controls">
                         <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
