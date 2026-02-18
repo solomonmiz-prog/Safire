@@ -5,74 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safires - Premium Hoodie Store</title>
     <style>
-        // Place Order
-        function placeOrder() {
-            // Validate form
-            const form = document.getElementById('checkout-form');
-            if (!form.checkValidity()) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            // Collect customer info
-            const customerInfo = {
-                name: document.getElementById('customer-name').value,
-                email: document.getElementById('customer-email').value,
-                phone: document.getElementById('customer-phone').value,
-                address: document.getElementById('customer-address').value,
-                city: document.getElementById('customer-city').value,
-                state: document.getElementById('customer-state').value,
-                zip: document.getElementById('customer-zip').value,
-                country: document.getElementById('customer-country').value,
-                paymentMethod: document.querySelector('input[name="payment"]:checked').value,
-                cartItems: [...cart],
-                orderTotal: parseFloat(document.getElementById('checkout-total').innerText.replace('$', ''))
-            };
-            // Save order
-            const orderId = generateOrderId();
-            localStorage.setItem('order_' + orderId, JSON.stringify({
-                ...customerInfo,
-                orderId: orderId,
-                date: new Date().toISOString(),
-                status: 'Pending Payment'
-            }));
-
-            // If Venmo was selected, open Venmo link immediately (try deep link first, then fallback)
-            if (customerInfo.paymentMethod === 'venmo') {
-                const venmoUsername = localStorage.getItem('venmoUsername') || 'SafiresHoodies';
-                const amount = customerInfo.orderTotal.toFixed(2);
-
-                // Venmo deep link (works on mobile with Venmo installed)
-                const deepLink = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(venmoUsername)}&amount=${encodeURIComponent(amount)}&note=${encodeURIComponent('Order #' + orderId)}`;
-
-                // Web fallback
-                const fallback = `https://account.venmo.com/pay?recipients=${encodeURIComponent(venmoUsername)}&amount=${encodeURIComponent(amount)}&note=${encodeURIComponent('Order #' + orderId)}`;
-
-                // Open deep link first; some browsers block immediate redirects so open in a new tab then fallback
-                try {
-                    const win = window.open(deepLink, '_blank');
-                    // If the deep link failed to open a new window (popup blocked) or not supported, open fallback after short delay
-                    setTimeout(() => {
-                        window.open(fallback, '_blank');
-                    }, 800);
-                } catch (e) {
-                    window.open(fallback, '_blank');
-                }
-            }
-
-            // Show confirmation (still show order details and instructions)
-            showConfirmation(customerInfo, orderId);
-
-            // Clear cart
-            cart = [];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartDisplay();
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #ffffff;
+            --accent: #ff6b35;
+            --dark-gray: #2a2a2a;
+            --light-gray: #f5f5f5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --text-light: #999999;
         }
 
-        nav {
-            display: flex;
-            gap: 30px;
-            align-items: center;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--text-primary);
+            line-height: 1.6;
+            background-color: var(--secondary);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2.2rem; letter-spacing: -0.5px; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.2rem; }
+        h5 { font-size: 1rem; }
+        h6 { font-size: 0.9rem; }
+
+        p, span { color: var(--text-secondary); }
+        small { color: var(--text-light); }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Spacing */
+        section {
+            padding: 80px 0;
+        }
+
+        button {
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         nav a {
@@ -155,15 +140,253 @@
         }
 
         .hero h2 {
-            font-size: 48px;
+            font-size: 56px;
             font-weight: 700;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: -1px;
         }
 
         .hero p {
             font-size: 18px;
             color: rgba(255,255,255,0.8);
+        }
+
+        /* Trust Bar */
+        .trust-bar {
+            background: var(--secondary);
+            padding: 20px 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .trust-bar .container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .trust-icon {
+            font-size: 20px;
+        }
+
+        /* Why Choose Section */
+        .why-choose-section {
+            padding: 60px 0;
+            background: var(--secondary);
+        }
+
+        .why-choose-section h2 {
+            text-align: center;\n            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 60px;
+            letter-spacing: -1px;
+        }
+
+        .why-choose-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .why-choose-item {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .why-choose-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .why-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .why-choose-item h3 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .why-choose-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            padding: 60px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .testimonials-section h2 {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 60px;
+            letter-spacing: -1px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .testimonial-stars {
+            color: #ffd700;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Complete the Look Section */
+        .complete-look-section {
+            padding: 60px 0;
+            background: var(--secondary);
+        }
+
+        .complete-look-section h2 {
+            text-align: center;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        .complete-look-section > p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 18px;
+        }
+
+        .complete-look-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .look-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .look-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .look-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .look-item h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--primary);
+            margin: 15px 0 5px 0;
+        }
+
+        .look-item p {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        /* Email Signup Section */
+        .email-signup-section {
+            background: linear-gradient(135deg, var(--primary) 0%, #2a2a2a 100%);
+            padding: 60px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .signup-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .signup-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .signup-form {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .signup-form input {
+            flex: 1;
+            min-width: 250px;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .signup-form button {
+            padding: 15px 30px;
+            white-space: nowrap;
         }
 
         /* Filters Section */
@@ -220,15 +443,37 @@
 
         .product {
             background: var(--secondary);
-            border-radius: 8px;
+            border-radius: 16px;
             overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+        }
+
+        .product:nth-child(1) { animation-delay: 0.1s; }
+        .product:nth-child(2) { animation-delay: 0.2s; }
+        .product:nth-child(3) { animation-delay: 0.3s; }
+        .product:nth-child(4) { animation-delay: 0.4s; }
+        .product:nth-child(5) { animation-delay: 0.5s; }
+        .product:nth-child(6) { animation-delay: 0.6s; }
+        .product:nth-child(7) { animation-delay: 0.7s; }
+        .product:nth-child(8) { animation-delay: 0.8s; }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .product:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transform: translateY(-12px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
         .product-image-container {
@@ -252,8 +497,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             opacity: 0;
+        }
+
+        .product-image-container:hover .image-swap img {
+            transform: scale(1.05);
         }
 
         .image-swap img:first-child {
@@ -297,12 +546,42 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 10;
         }
 
         .wishlist-btn:hover {
             background: var(--accent);
+            transform: scale(1.15);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 11px;
+            z-index: 11;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .product-badge.premium {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .product-badge.limited {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .product-badge.bestseller {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
         }
 
         .stock-badge {
@@ -311,15 +590,29 @@
             right: 12px;
             background: rgba(255, 107, 53, 0.95);
             color: white;
-            padding: 6px 10px;
+            padding: 8px 12px;
             border-radius: 20px;
             font-weight: 700;
             font-size: 12px;
             z-index: 12;
+            animation: badgePulse 2s ease-in-out infinite;
         }
+
+        @keyframes badgePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
         .wishlist-btn.active {
             background: var(--accent);
             color: var(--secondary);
+            animation: heartPulse 0.4s ease-out;
+        }
+
+        @keyframes heartPulse {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
         .dots {
@@ -384,19 +677,27 @@
 
         .add-to-cart-btn {
             flex: 1;
-            padding: 12px;
+            padding: 12px 20px;
             background: var(--primary);
             color: var(--secondary);
-            border: none;
+            border: 2px solid var(--primary);
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 8px;
             font-weight: 600;
-            transition: background 0.3s;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             font-size: 14px;
+            letter-spacing: 0.5px;
         }
 
         .add-to-cart-btn:hover {
-            background: var(--dark-gray);
+            background: transparent;
+            color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .add-to-cart-btn:active {
+            transform: translateY(0);
         }
 
         /* Color Circles */
@@ -480,17 +781,19 @@
             top: 0;
             width: 350px;
             height: 100vh;
-            background: var(--secondary);
+            background: white;
             box-shadow: -2px 0 10px rgba(0,0,0,0.2);
             z-index: 1000;
             overflow-y: auto;
-            transition: right 0.3s ease;
+            transition: right 0.3s ease, opacity 0.3s ease;
             display: flex;
             flex-direction: column;
+            opacity: 0;
         }
 
         .cart-modal.open {
             right: 0;
+            opacity: 1;
         }
 
         .cart-header {
@@ -592,8 +895,14 @@
 
         .cart-empty {
             text-align: center;
-            padding: 40px 20px;
-            color: #999;
+            padding: 60px 20px;
+            color: #bbb;
+        }
+
+        .cart-empty p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
         }
 
         .cart-summary {
@@ -623,17 +932,20 @@
             padding: 14px;
             background: var(--accent);
             color: var(--secondary);
-            border: none;
+            border: 2px solid var(--accent);
             margin-top: 15px;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 14px;
-            transition: background 0.3s;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .checkout-btn:hover {
-            background: #e55a2b;
+            background: transparent;
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
         }
 
         /* Wishlist Modal */
@@ -715,8 +1027,14 @@
 
         .wishlist-empty {
             text-align: center;
-            padding: 40px 20px;
-            color: #999;
+            padding: 60px 20px;
+            color: #bbb;
+        }
+
+        .wishlist-empty p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
         }
 
         /* Overlay */
@@ -835,34 +1153,40 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: var(--secondary);
-            width: 90%;
-            max-width: 500px;
-            max-height: 90vh;
+            transform: translate(-50%, -50%) scale(0.95) rotateX(10deg);
+            background: white;
+            width: 95%;
+            max-width: 600px;
+            max-height: 95vh;
             overflow-y: auto;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             z-index: 1001;
             display: none;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            perspective: 1000px;
         }
 
         .checkout-modal.open {
             display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1) rotateX(0deg);
         }
 
         .checkout-header {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, #2a2a2a 100%);
             color: var(--secondary);
-            padding: 20px;
+            padding: 25px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-radius: 10px 10px 0 0;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .checkout-body {
-            padding: 30px;
+            padding: 40px;
         }
 
         .checkout-close {
@@ -991,21 +1315,31 @@
             padding: 16px;
             background: var(--accent);
             color: var(--secondary);
-            border: none;
-            border-radius: 6px;
+            border: 2px solid var(--accent);
+            border-radius: 8px;
             font-weight: 700;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             margin-top: 20px;
+            letter-spacing: 0.5px;
         }
 
-        .place-order-btn:hover {
-            background: #e55a2b;
+        .place-order-btn:hover:not(:disabled) {
+            background: transparent;
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .place-order-btn:active {
+            transform: translateY(0);
         }
 
         .place-order-btn:disabled {
-            background: #ccc;
+            background: #e0e0e0;
+            border-color: #e0e0e0;
+            color: #999;
             cursor: not-allowed;
         }
 
@@ -1014,25 +1348,44 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(0.5);
             background: var(--secondary);
             width: 90%;
             max-width: 500px;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             z-index: 1001;
             padding: 40px 30px;
             text-align: center;
             display: none;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .confirmation-modal.open {
             display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
         }
 
         .confirmation-icon {
-            font-size: 60px;
+            font-size: 70px;
             margin-bottom: 20px;
+            animation: confirmationBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes confirmationBounce {
+            0% {
+                transform: scale(0) rotateX(90deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1) rotateX(0deg);
+                opacity: 1;
+            }
         }
 
         .confirmation-modal h2 {
@@ -1170,6 +1523,275 @@
             height: 40px;
             width: auto;
         }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.8rem; }
+            h3 { font-size: 1.3rem; }
+
+            .hero {
+                height: 250px;
+            }
+
+            .hero h2 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+
+            .product {
+                max-width: 100%;
+            }
+
+            .trust-bar .container {
+                gap: 20px;
+                flex-direction: column;
+            }
+
+            .trust-item {
+                font-size: 14px;
+            }
+
+            .why-choose-grid, .testimonials-grid, .complete-look-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .why-choose-section h2,
+            .testimonials-section h2,
+            .complete-look-section h2 {
+                font-size: 36px;
+                margin-bottom: 40px;
+            }
+
+            .checkout-modal {
+                width: 95%;
+                max-width: none;
+                top: 50%;
+            }
+
+            .checkout-body {
+                padding: 20px;
+            }
+
+            .cart-modal {
+                width: 100%;
+                right: -100%;
+            }
+
+            .cart-modal.open {
+                right: 0;
+            }
+
+            .add-to-cart-btn {
+                padding: 12px 16px;
+                font-size: 13px;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                min-height: 44px;
+            }
+
+            .filters-section {
+                padding: 15px;
+                margin: 20px 10px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter-group {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+                width: 100%;
+            }
+
+            .signup-form {
+                flex-direction: column;
+            }
+
+            .signup-form input,
+            .signup-form button {
+                width: 100%;
+                min-width: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section {
+                padding: 40px 0;
+            }
+
+            h1 { font-size: 1.5rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.1rem; }
+
+            .hero {
+                height: 200px;
+                padding: 30px 15px;
+            }
+
+            .hero h2 {
+                font-size: 28px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .products {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .product-image-container {
+                height: 280px;
+            }
+
+            .nav {
+                gap: 20px;
+            }
+
+            .search-bar {
+                width: 140px;
+                font-size: 13px;
+            }
+
+            .cart-header,
+            .wishlist-header {
+                padding: 15px;
+            }
+
+            .checkout-modal {
+                width: 98%;
+            }
+
+            .checkout-body {
+                padding: 15px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .payment-methods h4 {
+                margin-top: 15px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 20px;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .logo-img {
+                height: 50px;
+            }
+
+            .confirm-actions {
+                flex-direction: column;
+            }
+
+            .confirm-actions button {
+                width: 100%;
+            }
+
+            .filters-section {
+                margin: 15px;
+                padding: 10px;
+            }
+        }
+
+        /* Loading States */
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        button:not(:disabled) {
+            cursor: pointer;
+        }
+
+        /* Cart Animations */
+        @keyframes cartBounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Toast Notifications */
+        .cart-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000;
+            font-weight: 500;
+            animation: toastSlideIn 0.3s ease;
+        }
+
+        .toast-icon {
+            margin-right: 8px;
+            font-size: 16px;
+        }
+
+        @keyframes toastSlideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1195,6 +1817,24 @@
     <div>
         <h2>Streetwear for Everyday Style</h2>
         <p>Premium hoodies crafted for comfort and style</p>
+    </div>
+</section>
+
+<!-- Trust Bar -->
+<section class="trust-bar">
+    <div class="container">
+        <div class="trust-item">
+            <span class="trust-icon">🚚</span>
+            <span>Free Shipping</span>
+        </div>
+        <div class="trust-item">
+            <span class="trust-icon">↩️</span>
+            <span>Easy Returns</span>
+        </div>
+        <div class="trust-item">
+            <span class="trust-icon">🔒</span>
+            <span>Secure Checkout</span>
+        </div>
     </div>
 </section>
 
@@ -1394,6 +2034,112 @@
     </div>
 </div>
 
+<!-- Why Choose Safires -->
+<section class="why-choose-section">
+    <div class="container">
+        <h2>Why Choose Safires</h2>
+        <div class="why-choose-grid">
+            <div class="why-choose-item">
+                <div class="why-icon">👕</div>
+                <h3>Premium Quality</h3>
+                <p>Every piece is crafted from high-quality, durable materials that stand the test of time.</p>
+            </div>
+            <div class="why-choose-item">
+                <div class="why-icon">🎨</div>
+                <h3>Unique Designs</h3>
+                <p>Streetwear inspired designs that express your individual style and personality.</p>
+            </div>
+            <div class="why-choose-item">
+                <div class="why-icon">🌟</div>
+                <h3>Brand Identity</h3>
+                <p>Join a community of style-conscious individuals who value quality over quantity.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials-section">
+    <div class="container">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial">
+                <div class="testimonial-stars">★★★★★</div>
+                <p>"The quality of these hoodies is incredible. The fabric feels premium and the fit is perfect. Definitely my go-to brand now."</p>
+                <div class="testimonial-author">- Alex M., Los Angeles</div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-stars">★★★★★</div>
+                <p>"Love the unique designs and the attention to detail. Shipping was fast and the hoodie arrived exactly as shown."</p>
+                <div class="testimonial-author">- Sarah K., New York</div>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-stars">★★★★★</div>
+                <p>"Great streetwear brand with authentic vibes. The sizing is accurate and the customer service is top-notch."</p>
+                <div class="testimonial-author">- Mike R., Chicago</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Complete the Look -->
+<section class="complete-look-section">
+    <div class="container">
+        <h2>Complete the Look</h2>
+        <p>Pair your favorite hoodie with these matching pieces</p>
+        <div class="complete-look-grid">
+            <div class="look-item">
+                <img src="images/grayqzipfront.png" alt="Quarter Zip" class="look-image">
+                <h3>Classic Quarter Zip</h3>
+                <p>$40.00</p>
+                <button class="btn btn-primary" onclick="addToCart(3, 'Classic Quarter Zip', 40.00, 'images/grayqzipfront.png')">Add to Cart</button>
+            </div>
+            <div class="look-item">
+                <img src="images/frontgraysweatpants.png" alt="Sweatpants" class="look-image">
+                <h3>Saphire Flower Sweatpants</h3>
+                <p>$35.00</p>
+                <button class="btn btn-primary" onclick="addToCart(2, 'Saphire Flower Gray Sweatpants', 35.00, 'images/frontgraysweatpants.png')">Add to Cart</button>
+            </div>
+            <div class="look-item">
+                <img src="images/brown-hoodie.png" alt="Brown Hoodie" class="look-image">
+                <h3>Brown Hoodie</h3>
+                <p>$40.00</p>
+                <button class="btn btn-primary" onclick="addToCart(1, 'Brown Hoodie (Scratched)', 40.00, 'images/brown-hoodie.png')">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Email Signup -->
+<section class="email-signup-section">
+    <div class="container">
+        <div class="signup-content">
+            <h2>Stay Updated</h2>
+            <p>Get exclusive access to new drops, special offers, and style inspiration</p>
+            <div class="signup-form">
+                <input type="email" placeholder="Enter your email" id="signup-email">
+                <button onclick="subscribeNewsletter()" class="btn btn-primary">Subscribe</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Us Section -->
+<section style="padding: 80px 0; background: var(--secondary);">
+    <div class="container">
+        <div style="max-width: 1000px; margin: 0 auto;">
+            <h2 style="text-align: center; margin-bottom: 40px;">About Safires</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+                <div>
+                    <h3 style="margin-bottom: 20px; color: var(--primary);">Built for the Culture</h3>
+                    <p style="margin-bottom: 15px; color: var(--text-secondary); font-size: 16px; line-height: 1.8;">Safires was founded on a simple belief: premium streetwear shouldn't require a premium price tag. We craft every hoodie with meticulous attention to detail, using only the finest fabrics sourced from sustainable suppliers.</p>
+                    <p style="margin-bottom: 15px; color: var(--text-secondary); font-size: 16px; line-height: 1.8;">Each design tells a story. From classic cuts to limited-edition graphics, Safires represents authenticity, quality, and the spirit of modern streetwear culture.</p>
+                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8;">We're more than just a brand—we're a community of style-conscious individuals who value craftsmanship and self-expression.</p>
+                </div>
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 600; text-align: center; padding: 30px;">
+                    🎨 Crafted with Passion
+                </div>\n            </div>\n        </div>\n    </div>\n</section>\n\n<!-- FAQ Section -->\n<section style=\"padding: 80px 0; background: var(--light-gray);\">\n    <div class=\"container\">\n        <h2 style=\"text-align: center; margin-bottom: 60px;\">Frequently Asked Questions</h2>\n        <div style=\"max-width: 800px; margin: 0 auto;\">\n            <div class=\"faq-item\" style=\"margin-bottom: 20px;\">\n                <div style=\"background: white; padding: 20px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;\" onclick=\"toggleFAQ(this)\">\n                    <h4 style=\"margin: 0; color: var(--primary);\">What is the quality of your hoodies?</h4>\n                    <span style=\"font-size: 20px; color: var(--accent);\">+</span>\n                </div>\n                <div style=\"background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;\">\n                    <p style=\"padding: 20px 0; margin: 0; color: var(--text-secondary);\">All Safires hoodies are made from premium 100% cotton or premium blend materials. Each piece is tested for durability and comfort to ensure it lasts.</p>\n                </div>\n            </div>\n            <div class=\"faq-item\" style=\"margin-bottom: 20px;\">\n                <div style=\"background: white; padding: 20px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;\" onclick=\"toggleFAQ(this)\">\n                    <h4 style=\"margin: 0; color: var(--primary);\">How long does shipping take?</h4>\n                    <span style=\"font-size: 20px; color: var(--accent);\">+</span>\n                </div>\n                <div style=\"background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;\">\n                    <p style=\"padding: 20px 0; margin: 0; color: var(--text-secondary);\">We offer free shipping on all orders. Delivery typically takes 5-7 business days. International orders may take 10-15 business days.</p>\n                </div>\n            </div>\n            <div class=\"faq-item\" style=\"margin-bottom: 20px;\">\n                <div style=\"background: white; padding: 20px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;\" onclick=\"toggleFAQ(this)\">\n                    <h4 style=\"margin: 0; color: var(--primary);\">What is your return policy?</h4>\n                    <span style=\"font-size: 20px; color: var(--accent);\">+</span>\n                </div>\n                <div style=\"background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;\">\n                    <p style=\"padding: 20px 0; margin: 0; color: var(--text-secondary);\">We offer a 30-day return policy. Items must be unused with original tags. Simply contact our support team to initiate a return.</p>\n                </div>\n            </div>\n            <div class=\"faq-item\">\n                <div style=\"background: white; padding: 20px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;\" onclick=\"toggleFAQ(this)\">\n                    <h4 style=\"margin: 0; color: var(--primary);\">Do you ship internationally?</h4>\n                    <span style=\"font-size: 20px; color: var(--accent);\">+</span>\n                </div>\n                <div style=\"background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;\">\n                    <p style=\"padding: 20px 0; margin: 0; color: var(--text-secondary);\">Yes! We ship to over 50 countries. Shipping costs and times vary by location. Contact us for international shipping quotes.</p>\n                </div>\n            </div>\n        </div>\n    </div>\n</section>\n\n<!-- Shipping & Returns Section -->\n<section style=\"padding: 80px 0; background: var(--secondary);\">\n    <div class=\"container\">\n        <h2 style=\"text-align: center; margin-bottom: 60px;\">Shipping & Returns</h2>\n        <div style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 40px;\">\n            <div style=\"background: var(--light-gray); padding: 40px; border-radius: 12px;\">\n                <h3 style=\"color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;\"><span style=\"font-size: 28px;\">📦</span> Shipping</h3>\n                <ul style=\"list-style: none; padding: 0;\">\n                    <li style=\"margin-bottom: 15px; color: var(--text-secondary);\"><strong>Free Shipping:</strong> All orders ship free within the US</li>\n                    <li style=\"margin-bottom: 15px; color: var(--text-secondary);\"><strong>5-7 Days:</strong> Standard processing and delivery time</li>\n                    <li style=\"margin-bottom: 15px; color: var(--text-secondary);\"><strong>Tracking:</strong> Real-time order tracking via email</li>\n                    <li style=\"margin-bottom: 15px; color: var(--text-secondary);\"><strong>International:</strong> Global shipping available (fees apply)</li>\n                </ul>\n            </div>\n            <div style=\"background: var(--light-gray); padding: 40px; border-radius: 12px;\">\n                <h3 style=\"color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;\"><span style=\"font-size: 28px;\">↩️</span> Returns</h3>\n                <ul style=\"list-style: none; padding: 0;\">\n                    <li style=\"margin-bottom: 15px; color: var(--text-secondary);\"><strong>30-Day Window:</strong> Return items within 30 days</li>\n                    <li style=\"margin-bottom: 15px; color: var(--text-secondary);\"><strong>Unused Items:</strong> Must have original tags attached</li>\n                    <li style=\"margin-bottom: 15px; color: var(--text-secondary);\"><strong>Free Returns:</strong> Prepaid return labels provided</li>\n                    <li style=\"margin-bottom: 15px; color: var(--text-secondary);\"><strong>Full Refund:</strong> Refunded within 5-7 business days</li>\n                </ul>\n            </div>\n        </div>\n    </div>\n</section>\n\n<!-- Payment Security Section -->\n<section style=\"padding: 60px 0; background: linear-gradient(135deg, var(--primary) 0%, #2a2a2a 100%); color: white; text-align: center;\">\n    <div class=\"container\">\n        <h3 style=\"margin-bottom: 40px; font-size: 20px; letter-spacing: 1px;\">SECURE PAYMENT METHODS</h3>\n        <div style=\"display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; align-items: center;\">\n            <div style=\"display: flex; flex-direction: column; align-items: center; gap: 10px;\">\n                <span style=\"font-size: 32px;\">💬</span>\n                <p style=\"margin: 0; font-size: 14px; font-weight: 600;\">Venmo</p>\n            </div>\n            <div style=\"display: flex; flex-direction: column; align-items: center; gap: 10px;\">\n                <span style=\"font-size: 32px;\">💳</span>\n                <p style=\"margin: 0; font-size: 14px; font-weight: 600;\">Bank Transfer</p>\n            </div>\n            <div style=\"display: flex; flex-direction: column; align-items: center; gap: 10px;\">\n                <span style=\"font-size: 32px;\">💵</span>\n                <p style=\"margin: 0; font-size: 14px; font-weight: 600;\">Cash on Delivery</p>\n            </div>\n            <div style=\"display: flex; flex-direction: column; align-items: center; gap: 10px;\">\n                <span style=\"font-size: 32px;\">🔒</span>\n                <p style=\"margin: 0; font-size: 14px; font-weight: 600;\">Secure & Encrypted</p>\n            </div>\n        </div>\n    </div>\n</section>
+
 <!-- Footer -->
 <footer>
     <div class="footer-logo-section">
@@ -1478,7 +2224,7 @@ const productsData = [
         name: "Classic Quarter Zip",
         category: "classic",
         price: 40.00,
-        description: "Classic quarter zip hoodie in premium fabric.",
+        description: "Classic Quarter-Zip in premium fabric.",
         freeShipping: true,
         sku: "CQZ-001",
         stock: { S: 10, M: 10, L: 10, XL: 10 },
@@ -1518,11 +2264,13 @@ let filteredProducts = [...productsData];
 // Render Products
 function renderProducts() {
     const productsDiv = document.getElementById('products');
-    productsDiv.innerHTML = '';
+    let productsHTML = '';
 
     filteredProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
-        const stockBadge = (product.stock && product.stock.S === 1) ? `<div class="stock-badge">Only 1 Small left</div>` : '';
+        // Check for low stock (less than 3 items in any size)
+        const lowStockSizes = Object.keys(product.stock).filter(size => product.stock[size] > 0 && product.stock[size] < 3);
+        const stockBadge = lowStockSizes.length > 0 ? `<div class="stock-badge">Only ${lowStockSizes.map(size => product.stock[size] + ' ' + size).join(', ')} left!</div>` : '';
         
         // Determine which images to use based on selected color
         let currentImage1, currentImage2;
@@ -1539,9 +2287,20 @@ function renderProducts() {
         const hasSecond = currentImage2 && currentImage2 !== currentImage1;
         const img1OnError = `this.onerror=null; this.src='${currentImage2 || currentImage1}'; this.style.opacity=1;`;
         const img2OnError = `this.onerror=null; this.src='${currentImage1}'; this.style.opacity=1;`;
+        // Add product badges based on product type
+        let productBadges = '';
+        if (product.id === 1) {
+            productBadges = '<div class="product-badge premium">Premium Fabric</div>';
+        } else if (product.id === 2) {
+            productBadges = '<div class="product-badge limited">Limited Drop</div>';
+        } else if (product.id === 3) {
+            productBadges = '<div class="product-badge bestseller">Best Seller</div>';
+        }
+
         const productHTML = `
             <div class="product">
                 <div class="product-image-container">
+                    ${productBadges}
                     ${stockBadge}
                    <div class="image-swap" onclick="swapImage(this, '${currentImage1}', '${currentImage2}')">
 
@@ -1584,15 +2343,10 @@ function renderProducts() {
                 </div>
             </div>
         `;
-        productsDiv.innerHTML += productHTML;
+        productsHTML += productHTML;
     });
-}
-
-// Swap Image Function
-function swapImage(element) {
-    element.classList.toggle("active");
-    const dots = element.querySelectorAll(".dot");
-    dots.forEach(dot => dot.classList.toggle("active"));
+    
+    productsDiv.innerHTML = productsHTML;
 }
 
 // Select Color Function
@@ -1636,7 +2390,14 @@ function selectSize(element, productId, size) {
 // Add to Cart
 function addToCart(id, name, price, image) {
     const product = productsData.find(p => p.id === id) || {};
-    const selectedSize = product.selectedSize || Object.keys(product.stock).find(size => product.stock[size] > 0) || 'M'; // Default to first available size
+    
+    // Require size selection
+    if (!product.selectedSize) {
+        alert('⚠️ Please select a size before adding to cart');
+        return;
+    }
+    
+    const selectedSize = product.selectedSize;
     const selectedColor = product.selectedColor !== undefined ? product.selectedColor : 0; // Default to first color
     
     // Check if item with same id, size, and color already exists
@@ -1658,6 +2419,30 @@ function addToCart(id, name, price, image) {
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartDisplay();
+    
+    // Show success animation
+    showAddToCartSuccess();
+}
+
+function showAddToCartSuccess() {
+    // Animate cart icon
+    const cartIcon = document.querySelector('.cart-icon');
+    if (cartIcon) {
+        cartIcon.style.animation = 'cartBounce 0.6s ease';
+        setTimeout(() => {
+            cartIcon.style.animation = '';
+        }, 600);
+    }
+    
+    // Show toast notification
+    const toast = document.createElement('div');
+    toast.className = 'cart-toast';
+    toast.innerHTML = '<span class="toast-icon">✓</span> Added to cart!';
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }
 
 // Toggle Wishlist for Product
@@ -1678,11 +2463,10 @@ function toggleProductWishlist(event, id) {
 }
 
 // Get Color Name Function
-function getColorName(colorIndex) {
-    // For Classic Quarter Zip (product id 3), get color name from the colors array
-    const quarterZip = productsData.find(p => p.id === 3);
-    if (quarterZip && quarterZip.colors && quarterZip.colors[colorIndex]) {
-        return quarterZip.colors[colorIndex].name;
+function getColorName(colorIndex, productId) {
+    const product = productsData.find(p => p.id === productId);
+    if (product && product.colors && product.colors[colorIndex]) {
+        return product.colors[colorIndex].name;
     }
     // Fallback for other products
     const colorNames = ['Gray', 'Dark Gray', 'Light Gray'];
@@ -1697,25 +2481,30 @@ function updateCartDisplay() {
     cartCount.innerText = totalCount;
 
     if (cart.length === 0) {
-        cartItemsList.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+        cartItemsList.innerHTML = '<div class="cart-empty"><div style="font-size: 48px; margin-bottom: 15px;">🛒</div><p>Your cart is empty</p><p style="font-size: 13px; color: #ccc; margin-top: 10px;">Add items to get started!</p></div>';
         document.getElementById('subtotal').innerText = '$0.00';
         document.getElementById('total').innerText = '$10.00';
         return;
     }
 
     let subtotal = 0;
-    cartItemsList.innerHTML = '';
+    let cartItemsHTML = '';
 
     cart.forEach((item, index) => {
         subtotal += item.price * item.quantity;
+        const product = productsData.find(p => p.id === item.id);
+        let itemImage = item.image;
+        if (product && product.colors && product.colors[item.color] && product.colors[item.color].images) {
+            itemImage = product.colors[item.color].images.front;
+        }
         const cartItemHTML = `
             <div class="cart-item">
-                <img src="${item.image}" class="cart-item-image" alt="${item.name}">
+                <img src="${itemImage}" class="cart-item-image" alt="${item.name}">
                 <div class="cart-item-details">
                     <div class="cart-item-name">${item.name}</div>
                     <div class="cart-item-options">
                         ${item.size ? `<span>Size: ${item.size}</span>` : ''}
-                        ${item.color !== undefined ? `<span>Color: ${getColorName(item.color)}</span>` : ''}
+                        ${item.color !== undefined ? `<span>Color: ${getColorName(item.color, item.id)}</span>` : ''}
                     </div>
                     <div class="cart-item-price">$${item.price.toFixed(2)}</div>
                     <div class="quantity-controls">
@@ -1727,8 +2516,10 @@ function updateCartDisplay() {
                 </div>
             </div>
         `;
-        cartItemsList.innerHTML += cartItemHTML;
+        cartItemsHTML += cartItemHTML;
     });
+    
+    cartItemsList.innerHTML = cartItemsHTML;
 
     const shipping = cart.some(item => item.freeShipping) ? 0.00 : 10.00;
     const total = subtotal + shipping;
@@ -1744,11 +2535,11 @@ function updateWishlistDisplay() {
     wishlistCount.innerText = wishlist.length;
 
     if (wishlist.length === 0) {
-        wishlistItems.innerHTML = '<div class="wishlist-empty">Your wishlist is empty</div>';
+        wishlistItems.innerHTML = '<div class="wishlist-empty"><div style="font-size: 48px; margin-bottom: 15px;">💖</div><p>Your wishlist is empty</p><p style="font-size: 13px; color: #ccc; margin-top: 10px;">Save items to your wishlist!</p></div>';
         return;
     }
 
-    wishlistItems.innerHTML = '';
+    let wishlistItemsHTML = '';
     wishlist.forEach((item, index) => {
         const wishlistItemHTML = `
             <div class="wishlist-item">
@@ -1763,8 +2554,10 @@ function updateWishlistDisplay() {
                 </div>
             </div>
         `;
-        wishlistItems.innerHTML += wishlistItemHTML;
+        wishlistItemsHTML += wishlistItemHTML;
     });
+    
+    wishlistItems.innerHTML = wishlistItemsHTML;
 }
 
 // Remove from Cart
@@ -1847,18 +2640,20 @@ function closeCheckout() {
 // Update Checkout Summary
 function updateCheckoutSummary() {
     const checkoutItems = document.getElementById('checkout-items');
-    checkoutItems.innerHTML = '';
     
     let total = 0;
+    let checkoutItemsHTML = '';
     cart.forEach(item => {
         total += item.price * item.quantity;
-        checkoutItems.innerHTML += `
+        checkoutItemsHTML += `
             <div class="order-item">
                 <span>${item.name} x${item.quantity}</span>
                 <span>$${(item.price * item.quantity).toFixed(2)}</span>
             </div>
         `;
     });
+    
+    checkoutItems.innerHTML = checkoutItemsHTML;
     
     const shipping = cart.some(item => item.freeShipping) ? 0.00 : 10.00;
     document.getElementById('checkout-total').innerText = '$' + (total + shipping).toFixed(2);
@@ -1937,7 +2732,7 @@ function showConfirmation(customerInfo, orderId) {
     const itemsList = document.getElementById('order-items-list');
     itemsList.innerHTML = '<strong>Items Ordered:</strong><br>';
     customerInfo.cartItems.forEach(item => {
-        const colorName = item.color !== undefined ? getColorName(item.color) : '';
+        const colorName = item.color !== undefined ? getColorName(item.color, item.id) : '';
         const sizeInfo = item.size ? ` (Size: ${item.size})` : '';
         const colorInfo = colorName ? ` (Color: ${colorName})` : '';
         itemsList.innerHTML += `• ${item.name}${sizeInfo}${colorInfo} - Qty: ${item.quantity}<br>`;
@@ -2168,7 +2963,10 @@ function loadOrders() {
                 <div style="margin-bottom: 15px;">
                     <strong>Items Ordered:</strong><br>
                     <ul style="margin: 10px 0; padding-left: 20px; color: #666;">
-                        ${order.cartItems.map(item => `<li>${item.name} x${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</li>`).join('')}
+                        ${order.cartItems.map(item => {
+                            const colorName = getColorName(item.color, item.id);
+                            return `<li>${item.name} (${colorName}, Size: ${item.size}) x${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</li>`;
+                        }).join('')}
                     </ul>
                 </div>
 
@@ -2266,6 +3064,58 @@ function copyToClipboard(text) {
     });
 }
 
+// Subscribe to newsletter
+function subscribeNewsletter() {
+    const email = document.getElementById('signup-email').value;
+    if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Store in localStorage (in real app, this would be sent to server)
+    const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
+    if (subscribers.includes(email)) {
+        alert('You\'re already subscribed!');
+        return;
+    }
+    
+    subscribers.push(email);
+    localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribers));
+    
+    document.getElementById('signup-email').value = '';
+    alert('✓ Thanks for subscribing! You\'ll receive updates soon.');
+}
+
+// Toggle FAQ Items
+function toggleFAQ(element) {
+    const content = element.nextElementSibling;
+    const icon = element.querySelector('span');
+    
+    // Close other FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+        if (item !== element.closest('.faq-item')) {
+            const otherContent = item.querySelector('div:nth-child(2)');
+            const otherIcon = item.querySelector('span');
+            if (otherContent) {
+                otherContent.style.maxHeight = '0';
+                otherIcon.style.transform = 'rotate(0deg)';
+            }
+        }
+    });
+    
+    // Toggle current FAQ item
+    if (content.style.maxHeight === '0px' || !content.style.maxHeight) {
+        content.style.maxHeight = content.scrollHeight + 'px';
+        icon.style.transform = 'rotate(45deg)';
+    } else {
+        content.style.maxHeight = '0';
+        icon.style.transform = 'rotate(0deg)';
+    }
+    
+    // Add smooth transition
+    content.style.transition = 'max-height 0.3s ease, padding 0.3s ease';
+}
+
 // Check if admin mode
 function checkAdminMode() {
     const params = new URLSearchParams(window.location.search);
@@ -2294,14 +3144,12 @@ function checkAdminMode() {
 
 // Run admin check on page load
 checkAdminMode();
+
+// Swap Image Function
 function swapImage(container, img1, img2) {
     if (!img2) return;
-
     const img = container.querySelector("img");
-
-    img.src = img.src.includes(img1)
-        ? img2
-        : img1;
+    img.src = img.src.includes(img1) ? img2 : img1;
 }
 
 </script>
