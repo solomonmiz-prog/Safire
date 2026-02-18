@@ -1435,22 +1435,28 @@
         }
 
         .venmo-button {
-            display: inline-block;
+            display: block;
             background: #3D95CE;
             color: white;
-            padding: 12px 24px;
-            border-radius: 6px;
+            padding: 14px 24px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             margin: 15px 0;
-            transition: background 0.3s;
-            border: none;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #3D95CE;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
         }
 
         .venmo-button:hover {
-            background: #2875a8;
+            background: transparent;
+            color: #3D95CE;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(61, 149, 206, 0.3);
         }
 
         .confirm-actions {
@@ -2010,9 +2016,9 @@
     <div class="payment-instructions" id="payment-instructions-box">
         <h4>Payment Instructions</h4>
         <ol id="payment-steps"></ol>
-        <button class="venmo-button" id="venmo-link" style="display: block; width: 100%;">
+        <a class="venmo-button" id="venmo-link" href="#" target="_blank" style="display: block; width: 100%; text-align: center; text-decoration: none;">
             Open Venmo
-        </button>
+        </a>
     </div>
 
     <div style="background: var(--light-gray); padding: 15px; border-radius: 6px; margin: 20px 0; text-align: left;">
@@ -2163,7 +2169,7 @@
             <div style="margin-top: 20px;">
                 <label style="display: block; margin-bottom: 15px;">
                     <strong>Venmo Username:</strong><br>
-                    <input type="text" id="venmo-username-input" placeholder="SafiresHoodies" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" id="venmo-username-input" placeholder="solomonmizrahi22" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
                     <small style="color: #666; display: block; margin-top: 5px;">Enter without the @ symbol</small>
                 </label>
                 <label style="display: block; margin-bottom: 15px;">
@@ -2744,7 +2750,9 @@ function showConfirmation(customerInfo, orderId) {
     const venmoLink = document.getElementById('venmo-link');
 
     if (customerInfo.paymentMethod === 'venmo') {
-        const venmoUsername = localStorage.getItem('venmoUsername') || 'SafiresHoodies';
+        const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi22';
+        const venmoUrl = buildVenmoLink(venmoUsername, customerInfo.orderTotal, orderId);
+        
         paymentSteps.innerHTML = `
             <li>Open the Venmo app or visit venmo.com</li>
             <li>Search for <strong>@${venmoUsername}</strong> (or click the button below)</li>
@@ -2753,8 +2761,12 @@ function showConfirmation(customerInfo, orderId) {
             <li>Expect delivery in 5-7 business days</li>
         `;
         venmoLink.style.display = 'block';
-        venmoLink.href = 'https://venmo.com/' + venmoUsername + '?amount=' + customerInfo.orderTotal.toFixed(2) + '&note=Order%20%23' + orderId;
+        venmoLink.href = venmoUrl;
         venmoLink.target = '_blank';
+        venmoLink.onclick = (e) => {
+            e.preventDefault();
+            window.open(venmoUrl, '_blank');
+        };
         venmoLink.innerText = '💬 Open Venmo to Pay';
         
         // Send email notification
@@ -2890,7 +2902,7 @@ updateWishlistDisplay();
 
 // Load settings
 function loadSettings() {
-    const venmoUsername = localStorage.getItem('venmoUsername') || 'SafiresHoodies';
+    const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi22';
     const businessEmail = localStorage.getItem('businessEmail') || 'your-email@example.com';
     
     document.getElementById('venmo-username-input').value = venmoUsername;
@@ -3062,6 +3074,14 @@ function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         alert('✓ Copied: ' + text);
     });
+}
+
+// Build Venmo Link
+function buildVenmoLink(username, amount, orderId) {
+    const params = new URLSearchParams();
+    params.set('amount', amount.toFixed(2));
+    params.set('note', `Order #${orderId}`);
+    return `https://venmo.com/${encodeURIComponent(username)}?${params.toString()}`;
 }
 
 // Subscribe to newsletter
