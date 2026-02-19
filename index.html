@@ -2266,6 +2266,66 @@ const productsData = [
                 }
             }
         ]
+    },
+    {
+        id: 4,
+        name: "Safires Varsity Jacket",
+        category: "premium",
+        price: 45.99,
+        description: "Premium varsity jacket with signature Safires embroidery.",
+        freeShipping: true,
+        sku: "SVJ-001",
+        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        colors: [
+            {
+                name: "Black/Cream",
+                hex: "#111111",
+                images: {
+                    front: "images/frontblackcreamjacket.png",
+                    back: "images/backblackcreamjacket.png"
+                }
+            },
+            {
+                name: "Cream/Navy",
+                hex: "#F5F5DC",
+                images: {
+                    front: "images/frontcreamnavyjacket.png",
+                    back: "images/backcreamnavyjacket.png"
+                }
+            },
+            {
+                name: "Navy/Cream",
+                hex: "#1F315D",
+                images: {
+                    front: "images/frontnavycreamjacket.png",
+                    back: "images/backnavycreamjacket.webp"
+                }
+            },
+            {
+                name: "Green/Cream",
+                hex: "#0E6B4D",
+                images: {
+                    front: "images/frontgreenwhitejacket.png",
+                    back: "images/backgreenwhitejacket.png"
+                }
+            },
+            {
+                name: "Purple/Navy",
+                hex: "#7E5A9B",
+                images: {
+                    front: "images/frontpurplejacket.png",
+                    back: "images/backpurplejacket.png"
+                }
+            },
+            {
+                name: "Red/Cream",
+                hex: "#B32134",
+                images: {
+                    front: "images/frontredwhitejacket.png",
+                    back: "images/backredwhitejacket.png"
+                }
+            }
+        ]
     }
 ];
 
@@ -2286,7 +2346,7 @@ function renderProducts() {
         
         // Determine which images to use based on selected color
         let currentImage1, currentImage2;
-        if (product.colors && product.id === 3) {
+        if (product.colors) {
             const selectedColorIndex = product.selectedColor !== undefined ? product.selectedColor : 0;
             const selectedColor = product.colors[selectedColorIndex];
             currentImage1 = selectedColor.images.front;
@@ -2307,6 +2367,8 @@ function renderProducts() {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
         } else if (product.id === 3) {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
+        } else if (product.id === 4) {
+            productBadges = '<div class="product-badge premium">New Drop</div>';
         }
 
         const productHTML = `
@@ -2331,8 +2393,8 @@ function renderProducts() {
                     
                     <!-- Color Options -->
                     <div class="color-options">
-                        ${product.colors && product.id === 3 ? product.colors.map((color, index) => 
-                            `<div class="color-circle ${index === 0 ? 'active' : ''}" style="background-color: ${color.hex}" onclick="selectColor(this, ${product.id}, ${index})" title="${color.name}"></div>`
+                        ${product.colors ? product.colors.map((color, index) => 
+                            `<div class="color-circle ${index === (product.selectedColor !== undefined ? product.selectedColor : 0) ? 'active' : ''}" style="background-color: ${color.hex}" onclick="selectColor(this, ${product.id}, ${index})" title="${color.name}"></div>`
                         ).join('') : ''}
                     </div>
                     
@@ -2348,7 +2410,7 @@ function renderProducts() {
                     </div>
                     
                     <div class="product-actions">
-                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image1}')">
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${currentImage1}')">
                             Add to Cart
                         </button>
                     </div>
