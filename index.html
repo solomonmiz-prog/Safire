@@ -2175,7 +2175,7 @@
             <div style="margin-top: 20px;">
                 <label style="display: block; margin-bottom: 15px;">
                     <strong>Venmo Username:</strong><br>
-                    <input type="text" id="venmo-username-input" placeholder="solomonmizrahi22" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" id="venmo-username-input" placeholder="solomonmizrahi2010" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
                     <small style="color: #666; display: block; margin-top: 5px;">Enter without the @ symbol</small>
                 </label>
                 <label style="display: block; margin-bottom: 15px;">
@@ -2791,7 +2791,7 @@ function showConfirmation(customerInfo, orderId) {
     const venmoLink = document.getElementById('venmo-link');
 
     if (customerInfo.paymentMethod === 'venmo') {
-        const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi22';
+        const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi2010';
         const venmoUrl = buildVenmoLink(venmoUsername, customerInfo.orderTotal, orderId);
         
         paymentSteps.innerHTML = `
@@ -2943,7 +2943,7 @@ updateWishlistDisplay();
 
 // Load settings
 function loadSettings() {
-    const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi22';
+    const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi2010';
     const businessEmail = localStorage.getItem('businessEmail') || 'your-email@example.com';
     
     document.getElementById('venmo-username-input').value = venmoUsername;
