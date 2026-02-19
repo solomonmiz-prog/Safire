@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safires - Premium Hoodie Store</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("9MLtdKW1ei520fxAx");
+        })();
+    </script>
     <style>
         :root {
             --primary: #1a1a1a;
@@ -2675,7 +2681,7 @@ function selectPayment(element, method) {
 }
 
 // Place Order
-function placeOrder() {
+async function placeOrder() {
     // Validate form
     const form = document.getElementById('checkout-form');
     if (!form.checkValidity()) {
@@ -2705,6 +2711,41 @@ function placeOrder() {
         orderId: orderId,
         date: new Date().toISOString()
     }));
+
+    // Send email notification
+    try {
+        // Build order details string
+        const orderDetails = customerInfo.cartItems.map(item => {
+            const product = productsData.find(p => p.id === item.id) || {};
+            const colorName = product.colors && product.colors[item.color] ? product.colors[item.color].name : 'Default';
+            return `• ${item.name}\n• Quantity: ${item.quantity}\n• Size: ${item.size}\n• Color: ${colorName}\n• Price: $${item.price.toFixed(2)}`;
+        }).join('\n\n');
+
+        const templateParams = {
+            order_id: orderId,
+            total: customerInfo.orderTotal,
+            customer_name: customerInfo.name,
+            customer_email: customerInfo.email,
+            customer_phone: customerInfo.phone,
+            address: customerInfo.address,
+            city: customerInfo.city,
+            state: customerInfo.state,
+            zip: customerInfo.zip,
+            country: customerInfo.country,
+            order_details: orderDetails
+        };
+
+        const result = await emailjs.send(
+            'service_xtqg8ut',
+            'template_npz5jp6',
+            templateParams
+        );
+
+        console.log('✅ Email sent successfully:', result);
+    } catch (error) {
+        console.error('❌ Email sending failed:', error);
+        alert('Order placed but email notification failed. Please contact support.');
+    }
 
     // Show confirmation
     showConfirmation(customerInfo, orderId);
