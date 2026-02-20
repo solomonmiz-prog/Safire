@@ -106,27 +106,6 @@
             color: rgba(255,255,255,0.6);
         }
 
-        /* Site branding */
-        .site-brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        #site-logo {
-            height: 48px;
-            width: auto;
-            display: inline-block;
-        }
-
-        #footer-logo {
-            height: 36px;
-            width: auto;
-            display: inline-block;
-            vertical-align: middle;
-            margin-right: 8px;
-        }
-
         .cart-icon {
             font-size: 20px;
             cursor: pointer;
@@ -140,25 +119,18 @@
 
         .cart-count {
             position: absolute;
-            top: -12px;
-            right: -12px;
+            top: -10px;
+            right: -10px;
             background: var(--accent);
             color: var(--secondary);
             border-radius: 50%;
-            width: 32px;
-            height: 32px;
+            width: 24px;
+            height: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: bold;
-            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
         }
 
         .wishlist-icon {
@@ -173,7 +145,7 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 60%, var(--accent) 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 100%);
             height: 300px;
             display: flex;
             justify-content: center;
@@ -181,25 +153,6 @@
             color: var(--secondary);
             text-align: center;
             padding: 40px 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        .hero > div {
-            position: relative;
-            z-index: 1;
         }
 
         .hero h2 {
@@ -275,14 +228,8 @@
         }
 
         .product:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
-            animation: shimmer 0.6s ease-in-out;
-        }
-
-        @keyframes shimmer {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.95; }
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
         }
 
         .product-image-container {
@@ -363,14 +310,13 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            background: rgba(255, 107, 53, 0.95);
             color: white;
-            padding: 8px 12px;
+            padding: 6px 10px;
             border-radius: 20px;
             font-weight: 700;
             font-size: 12px;
             z-index: 12;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
         .wishlist-btn.active {
             background: var(--accent);
@@ -697,24 +643,22 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.5);
             display: none;
             z-index: 999;
-            backdrop-filter: blur(3px);
         }
 
         .overlay.active {
-            display: block !important;
+            display: block;
         }
 
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 100%);
+            background: var(--primary);
             color: var(--secondary);
             padding: 30px 20px;
             text-align: center;
             margin-top: 50px;
-            border-top: 2px solid var(--accent);
         }
 
         /* Mobile Responsive */
@@ -809,7 +753,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
+            background: var(--secondary);
             width: 90%;
             max-width: 500px;
             max-height: 90vh;
@@ -988,7 +932,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: white;
+            background: var(--secondary);
             width: 90%;
             max-width: 500px;
             border-radius: 10px;
@@ -1001,15 +945,6 @@
 
         .confirmation-modal.open {
             display: block;
-        }
-
-        /* Hide storefront when modals are open */
-        body.modal-open header,
-        body.modal-open .hero,
-        body.modal-open .filters-section,
-        body.modal-open .products-container,
-        body.modal-open footer {
-            display: none !important;
         }
 
         .confirmation-icon {
@@ -1115,36 +1050,16 @@
         .track-order:hover {
             background: var(--dark-gray);
         }
-        /* Admin full-screen mode: hide storefront when admin is active */
-        body.admin-active header,
-        body.admin-active .hero,
-        body.admin-active .filters-section,
-        body.admin-active .products-container,
-        body.admin-active footer {
-            display: none !important;
-        }
-
-        body.admin-active #admin-dashboard {
-            display: block !important;
-            position: fixed !important;
-            inset: 0 !important;
-            z-index: 9999 !important;
-            overflow: auto !important;
-            background: #fff !important;
-        }
     </style>
 </head>
 <body>
 
 <!-- Header -->
 <header>
-    <div class="site-brand">
-        <img id="site-logo" src="images/logo.png" alt="Safire Logo" onerror="this.style.display='none'">
-        <h1>SAFIRES</h1>
-    </div>
+    <h1>SAFIRES</h1>
     <div class="header-right">
         <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
-        <div class="wishlist-icon" onclick="toggleWishlist()" title="Wishlist">💎 <span id="wishlist-count">0</span></div>
+        <div class="wishlist-icon" onclick="toggleWishlist()" title="Wishlist">❤️ <span id="wishlist-count">0</span></div>
         <div class="cart-icon" onclick="toggleCart()" title="Shopping Cart">
             🛒
             <span class="cart-count" id="cart-count">0</span>
@@ -1357,10 +1272,7 @@
 
 <!-- Footer -->
 <footer>
-    <div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
-        <img id="footer-logo" src="images/logo.png" alt="Safire Logo" onerror="this.style.display='none'">
-        <p style="margin:0;">&copy; 2026 SAFIRES. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
-    </div>
+    <p>&copy; 2026 SAFIRES. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
 </footer>
 
 <!-- Admin Dashboard (Hidden by default) -->
@@ -1370,17 +1282,6 @@
             <h1 style="color: var(--primary);">Safires Admin Dashboard</h1>
             <a href="?" style="padding: 10px 20px; background: var(--accent); color: white; text-decoration: none; border-radius: 6px;">Back to Store</a>
         </div>
-
-            <!-- Admin Instructions -->
-            <div id="admin-instructions" style="background: linear-gradient(90deg, #f7f7f7, #ffffff); border: 1px solid #eee; padding: 18px; border-radius: 8px; margin-bottom: 20px;">
-                <h2 style="margin-top:0;">Admin Quick Instructions</h2>
-                <ol style="color:#333; line-height:1.6; margin-left:18px;">
-                    <li>Set your <strong>Venmo Username</strong> (with or without leading @) and your notification email, then click <strong>Save Settings</strong>. The <em>Current Venmo</em> field will update immediately.</li>
-                    <li>Use the <strong>Orders</strong> list below to review orders saved locally. Use the status dropdown to mark orders <em>Paid</em> once you confirm Venmo payment.</li>
-                    <li>Click <strong>📥 Export CSV</strong> to download all orders for bookkeeping.</li>
-                    <li>If you want to hide the admin view and return to the storefront, click <strong>Back to Store</strong> at the top-left.</li>
-                </ol>
-            </div>
 
         <!-- Settings Section -->
         <div style="background: var(--light-gray); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
@@ -1433,7 +1334,7 @@ const productsData = [
         description: "Brown hoodie with a distressed scratched finish.",
         freeShipping: true,
         sku: "BH-SCR-001",
-        stock: { S: 1, M: 1, L: 1, XL: 0 }
+        stock: { S: 1, M: 0, L: 0, XL: 0 }
     },
     {
         id: 2,
@@ -1443,9 +1344,7 @@ const productsData = [
         image1: "images/frontgraysweatpants.png",
         image2: "images/backgraysweatpants.png",
         description: "Saphire Flower gray sweatpants with printed design",
-        freeShipping: true,
-        sku: "SGS-001",
-        stock: { S: 1, M: 1, L: 1, XL: 0 }
+        stock: { S: 1, M: 0, L: 0, XL: 0 }
     }
 ];
 
@@ -1460,13 +1359,15 @@ function renderProducts() {
 
     filteredProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
+        const stockBadge = (product.stock && product.stock.S === 1) ? `<div class="stock-badge">Only 1 Small left</div>` : '';
         const hasSecond = product.image2 && product.image2 !== product.image1;
         const img1OnError = `this.onerror=null; this.src='${product.image2 || product.image1}'; this.style.opacity=1;`;
         const img2OnError = `this.onerror=null; this.src='${product.image1}'; this.style.opacity=1;`;
         const productHTML = `
             <div class="product">
                 <div class="product-image-container">
-                    <div class="image-swap" onclick="swapImage(this)">
+                    ${stockBadge}
+                   <div class="image-swap" onclick="swapImage(this, '${product.image1}', '${product.image2}')">
 
     <img src="${product.image1}" alt="${product.name}">
 
@@ -1480,19 +1381,8 @@ function renderProducts() {
                     <h3>${product.name}</h3>
                     <p>${product.description}</p>
                     <div class="product-price">$${product.price.toFixed(2)}</div>
-                    <div style="margin-bottom:12px; font-size:13px;">
-                        <label style="display:block; margin-bottom:5px; color:#666;">
-                            <strong>Size:</strong>
-                            <select id="size-${product.id}" style="width:100%; padding:6px; border:1px solid #ddd; border-radius:4px; margin-top:4px;">
-                                <option value="">Choose size</option>
-                                <option value="S">Small (S)</option>
-                                <option value="M">Medium (M)</option>
-                                <option value="L">Large (L)</option>
-                            </select>
-                        </label>
-                    </div>
                     <div class="product-actions">
-                        <button class="add-to-cart-btn" onclick="addToCartWithSize(${product.id}, '${product.name}', ${product.price}, '${product.image1}')">
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image1}')">
                             Add to Cart
                         </button>
                     </div>
@@ -1521,28 +1411,6 @@ function addToCart(id, name, price, image) {
     }
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartDisplay();
-}
-
-// Add to Cart with Size
-function addToCartWithSize(id, name, price, image) {
-    const sizeSelect = document.getElementById('size-' + id);
-    const size = sizeSelect.value;
-    if (!size) {
-        alert('Please select a size');
-        return;
-    }
-    const product = productsData.find(p => p.id === id) || {};
-    const cartKey = id + '-' + size;
-    const existing = cart.find(item => item.id === id && item.size === size);
-    if (existing) {
-        existing.quantity += 1;
-    } else {
-        cart.push({ id, name, price, quantity: 1, image, size, freeShipping: !!product.freeShipping });
-    }
-    localStorage.setItem('cart', JSON.stringify(cart));
-    sizeSelect.value = '';
-    updateCartDisplay();
-    alert('✓ Added to cart');
 }
 
 // Toggle Wishlist for Product
@@ -1586,7 +1454,6 @@ function updateCartDisplay() {
                 <img src="${item.image}" class="cart-item-image" alt="${item.name}">
                 <div class="cart-item-details">
                     <div class="cart-item-name">${item.name}</div>
-                    ${item.size ? `<div class="cart-item-price">Size: ${item.size}</div>` : ''}
                     <div class="cart-item-price">$${item.price.toFixed(2)}</div>
                     <div class="quantity-controls">
                         <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
@@ -1704,7 +1571,6 @@ function openCheckout() {
     
     checkoutModal.classList.add('open');
     overlay.classList.add('active');
-    document.body.classList.add('modal-open');
     
     // Update checkout items
     updateCheckoutSummary();
@@ -1713,7 +1579,6 @@ function openCheckout() {
 // Close Checkout
 function closeCheckout() {
     document.getElementById('checkout-modal').classList.remove('open');
-    document.body.classList.remove('modal-open');
 }
 
 // Update Checkout Summary
@@ -1820,24 +1685,9 @@ function showConfirmation(customerInfo, orderId) {
             <li>Expect delivery in 5-7 business days</li>
         `;
         venmoLink.style.display = 'block';
-        const amount = customerInfo.orderTotal.toFixed(2);
-        const note = 'Order #' + orderId;
-        const deepLink = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(venmoUsername)}&amount=${encodeURIComponent(amount)}&note=${encodeURIComponent(note)}`;
-        const webFallback = `https://venmo.com/${encodeURIComponent(venmoUsername)}?txn=pay&amount=${encodeURIComponent(amount)}&note=${encodeURIComponent(note)}`;
-        venmoLink.href = '#';
+        venmoLink.href = 'https://venmo.com/' + venmoUsername + '?amount=' + customerInfo.orderTotal.toFixed(2) + '&note=Order%20%23' + orderId;
         venmoLink.target = '_blank';
         venmoLink.innerText = '💬 Open Venmo to Pay';
-        venmoLink.onclick = (e) => {
-            e.preventDefault();
-            try {
-                window.open(deepLink, '_blank');
-                setTimeout(() => {
-                    window.open(webFallback, '_blank');
-                }, 800);
-            } catch (e) {
-                window.open(webFallback, '_blank');
-            }
-        };
         
         // Send email notification
         sendOrderEmail(customerInfo, orderId);
@@ -1878,16 +1728,13 @@ function showConfirmation(customerInfo, orderId) {
 
     // Close checkout and show confirmation
     document.getElementById('checkout-modal').classList.remove('open');
-    overlay.classList.add('active');
     confirmModal.classList.add('open');
-    document.body.classList.add('modal-open');
 }
 
 // Close Confirmation
 function closeConfirmation() {
     document.getElementById('confirmation-modal').classList.remove('open');
     document.getElementById('overlay').classList.remove('active');
-    document.body.classList.remove('modal-open');
 }
 
 // Track Order
@@ -2167,9 +2014,12 @@ function checkAdminMode() {
             if (adminEmail === '') {
                 localStorage.setItem('adminEmail', requestedEmail);
             }
-            // Enter admin-active mode which hides the storefront and shows the dashboard full-screen
-            document.body.classList.add('admin-active');
             document.getElementById('admin-dashboard').style.display = 'block';
+            document.querySelector('header').style.display = 'none';
+            document.querySelector('.hero').style.display = 'none';
+            document.querySelector('.filters-section').style.display = 'none';
+            document.querySelector('.products-container').style.display = 'none';
+            document.querySelector('footer').style.display = 'none';
             loadSettings();
             loadOrders();
         } else {
