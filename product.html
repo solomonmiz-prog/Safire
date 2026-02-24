@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAFIRE Product</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <a href="index.html" class="brand">SAFIRE</a>
+    </header>
+
+    <main class="product-page">
+        <a href="index.html" class="back-link">← Back to products</a>
+
+        <section class="product-layout" id="product-layout" hidden>
+            <div class="media-stack">
+                <div class="main-image-wrap" id="main-image-wrap">
+                    <img id="main-image" src="" alt="Product image">
+                    <div class="color-options-side" id="color-options"></div>
+                </div>
+                <div class="thumbnail-row" id="thumbnail-row"></div>
+            </div>
+
+            <div class="info">
+                <h1 id="product-name"></h1>
+                <p class="price" id="product-price"></p>
+                <p class="desc" id="product-description"></p>
+
+                <div>
+                    <p style="margin:0 0 8px;font-weight:700;">Select Size</p>
+                    <div class="size-grid" id="size-grid"></div>
+                </div>
+
+                <button class="add-btn" id="add-to-cart-btn">Add to Cart</button>
+
+                <div class="accordion">
+                    <details open>
+                        <summary>Details</summary>
+                        <p id="details-text"></p>
+                    </details>
+                    <details>
+                        <summary>Shipping & Returns</summary>
+                        <p id="shipping-text"></p>
+                    </details>
+                    <details>
+                        <summary>Care Instructions</summary>
+                        <p id="care-text"></p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <p id="not-found" style="display:none;color:#666;">Product not found.</p>
+    </main>
+
+    <script src="js/products.js"></script>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id');
+        const product = products.find((item) => item.id === productId);
+
+        const layout = document.getElementById('product-layout');
+        const notFound = document.getElementById('not-found');
+
+        function formatPrice(value) {
+            return Number.isInteger(value) ? value.toString() : value.toFixed(2);
+        }
+
+        if (!product) {
+            notFound.style.display = 'block';
+        } else {
+            layout.hidden = false;
+
+            document.title = `${product.name} | SAFIRE`;
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-price').textContent = `$${formatPrice(product.price)}`;
+            document.getElementById('product-description').textContent = product.description;
+            document.getElementById('details-text').textContent = product.details;
+            document.getElementById('shipping-text').textContent = product.shippingReturns;
+            document.getElementById('care-text').textContent = product.careInstructions;
+
+            const mainImage = document.getElementById('main-image');
+            const thumbRow = document.getElementById('thumbnail-row');
+            const colorOptions = document.getElementById('color-options');
+
+            let activeImages = [...product.images];
+            let selectedColorName = null;
+
+            function setMainImage(src, thumbButton) {
+                mainImage.src = src;
+                mainImage.classList.remove('zoomed');
+                document.querySelectorAll('.thumb').forEach((thumb) => thumb.classList.remove('active'));
+                if (thumbButton) thumbButton.classList.add('active');
+            }
+
+            function renderThumbnails(images) {
+                thumbRow.innerHTML = '';
+                images.forEach((src, index) => {
+                    const button = document.createElement('button');
+                    button.className = `thumb${index === 0 ? ' active' : ''}`;
+                    button.type = 'button';
+                    button.setAttribute('aria-label', `View image ${index + 1}`);
+                    button.innerHTML = `<img src="${src}" alt="${product.name} thumbnail ${index + 1}">`;
+                    button.addEventListener('click', () => setMainImage(src, button));
+                    thumbRow.appendChild(button);
+                });
+                mainImage.src = images[0];
+                mainImage.alt = selectedColorName ? `${product.name} - ${selectedColorName}` : product.name;
+            }
+
+            if (Array.isArray(product.colorways) && product.colorways.length > 0) {
+                colorOptions.classList.add('visible');
+
+                product.colorways.forEach((colorway, index) => {
+                    const colorBtn = document.createElement('button');
+                    colorBtn.type = 'button';
+                    colorBtn.className = `color-dot${index === 0 ? ' active' : ''}`;
+                    colorBtn.style.backgroundColor = colorway.hex;
+                    colorBtn.setAttribute('aria-label', `Select ${colorway.name}`);
+                    colorBtn.title = colorway.name;
+
+                    colorBtn.addEventListener('click', () => {
+                        document.querySelectorAll('.color-dot').forEach((dot) => dot.classList.remove('active'));
+                        colorBtn.classList.add('active');
+                        selectedColorName = colorway.name;
+                        activeImages = [...colorway.images];
+                        renderThumbnails(activeImages);
+                    });
+
+                    colorOptions.appendChild(colorBtn);
+                });
+
+                selectedColorName = product.colorways[0].name;
+                activeImages = [...product.colorways[0].images];
+            }
+
+            renderThumbnails(activeImages);
+
+            mainImage.addEventListener('click', () => {
+                mainImage.classList.toggle('zoomed');
+            });
+
+            const sizeGrid = document.getElementById('size-grid');
+            let selectedSize = null;
+
+            product.sizes.forEach((size) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'size-btn';
+                button.textContent = size;
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.size-btn').forEach((item) => item.classList.remove('active'));
+                    button.classList.add('active');
+                    selectedSize = size;
+                });
+                sizeGrid.appendChild(button);
+            });
+
+            document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+                if (!selectedSize) {
+                    alert('Please select a size first.');
+                    return;
+                }
+
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                const existing = cart.find((item) => item.id === product.id && item.size === selectedSize);
+
+                if (existing) {
+                    existing.quantity += 1;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        size: selectedSize,
+                        color: selectedColorName,
+                        image: mainImage.src,
+                        quantity: 1
+                    });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert('Added to cart');
+            });
+        }
+    </script>
+</body>
+</html>
