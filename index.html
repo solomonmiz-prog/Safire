@@ -1560,9 +1560,14 @@
             }
 
             .products {
-                grid-template-columns: 1fr;
-                gap: 20px;
-                padding: 20px;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 16px;
+                padding: 16px;
+            }
+
+            .product-image-container {
+                height: auto;
+                aspect-ratio: 1 / 1;
             }
 
             .product {
@@ -1668,13 +1673,14 @@
             }
 
             .products {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                padding: 15px;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+                padding: 12px;
             }
 
             .product-image-container {
-                height: 280px;
+                height: auto;
+                aspect-ratio: 1 / 1;
             }
 
             .nav {
@@ -2313,32 +2319,46 @@
 const productsData = [
     {
         id: 1,
+        productId: "brown-hoodie",
         name: "Brown Hoodie (Scratched)",
         category: "classic",
-        price: 45.99,
+        price: 52,
         image1: "images/brown-hoodie.png",
         image2: "images/brown-hoodieback.png",
-        description: "Brown hoodie with a distressed scratched finish.",
+        description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
+        details: "This hoodie combines a vintage wash with frayed details for a look that’s both edgy and comfortable. Crafted from 360 GSM fleece, it offers warmth without sacrificing style, making it ideal for layering or wearing solo. The relaxed fit and soft texture create the perfect canvas for your custom designs, adding a personal touch to this streetwear essential.",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)",
         freeShipping: true,
         sku: "BH-SCR-001",
         stock: { S: 10, M: 10, L: 10, XL: 10 }
     },
     {
         id: 2,
-        name: "Saphire Flower Gray Sweatpants",
+        productId: "safire-sweatpants",
+        name: "SAFIRE Flower Gray Sweatpants",
         category: "graphic",
-        price: 35.99,
+        price: 48,
         image1: "images/frontgraysweatpants.png",
         image2: "images/backgraysweatpants.png",
-        description: "Saphire Flower gray sweatpants with printed design",
+        description: "Clean tapered sweatpants with premium feel, ideal for daily movement and layered fits.",
+        details: "These women's sweatpants offer a classic straight-leg fit with an elasticated drawstring waist for all-day comfort.",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)",
         stock: { S: 10, M: 10, L: 10, XL: 10 }
     },
     {
         id: 3,
+        productId: "classic-quarter-zip",
         name: "Classic Quarter Zip",
         category: "classic",
-        price: 45.99,
-        description: "Classic Quarter-Zip in premium fabric.",
+        price: 52,
+        image1: "images/grayqzipfront.png",
+        image2: "images/grayqzipback.png",
+        description: "Minimal quarter zip built with premium structure and an everyday luxury finish.",
+        details: "Quarter-Zip Drop Shoulder Sweatshirt with high stand collar, metal zipper, and utility pockets.",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)",
         freeShipping: true,
         sku: "CQZ-001",
         stock: { S: 10, M: 10, L: 10, XL: 10 },
@@ -2371,10 +2391,16 @@ const productsData = [
     },
     {
         id: 4,
-        name: "Safires Varsity Jacket",
+        productId: "varsity-jacket",
+        name: "SAFIRE Varsity Jacket",
         category: "premium",
-        price: 54.99,
-        description: "Premium varsity jacket with signature Safires embroidery.",
+        price: 60,
+        image1: "images/frontblackcreamjacket.png",
+        image2: "images/backblackcreamjacket.png",
+        description: "SAFIRE's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge and everyday comfort.",
+        details: "Contrast Piping Zip Bomber Jacket with striped rib trims, full-zip closure, and practical side pockets.",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)",
         freeShipping: true,
         sku: "SVJ-001",
         stock: { S: 10, M: 10, L: 10, XL: 10 },
@@ -2515,6 +2541,7 @@ function renderProducts() {
                         <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${currentImage1}')">
                             Add to Cart
                         </button>
+                        ${product.productId ? `<a class="add-to-cart-btn" style="background: transparent; color: var(--primary); text-decoration: none; display: flex; align-items: center; justify-content: center;" href="product.html?id=${encodeURIComponent(product.productId)}">View Details</a>` : ''}
                     </div>
                 </div>
             </div>
