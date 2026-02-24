@@ -635,13 +635,13 @@
         .dot {
             width: 10px;
             height: 10px;
-            background: rgba(255,255,255,0.6);
+            background: #b8b8b8;
             border-radius: 50%;
             transition: background 0.3s;
         }
 
         .dot.active {
-            background: var(--accent);
+            background: #111111;
         }
 
         .product-info {
@@ -1098,14 +1098,17 @@
             }
 
             .filters-section {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                flex-wrap: wrap;
                 gap: 10px;
             }
 
             .filter-group {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+                align-items: center;
+                flex-wrap: wrap;
                 gap: 5px;
             }
 
@@ -1507,6 +1510,7 @@
             align-items: center;
             gap: 15px;
             flex-shrink: 0;
+            margin-left: -6px;
         }
 
         .logo-img {
@@ -1519,6 +1523,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 12px 24px 12px 14px;
         }
 
         header h1 {
@@ -1685,13 +1690,16 @@
             .filters-section {
                 padding: 15px;
                 margin: 20px 10px;
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                flex-wrap: wrap;
             }
 
             .filter-group {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row;
+                align-items: center;
+                flex-wrap: wrap;
                 gap: 8px;
                 width: 100%;
             }
@@ -1838,7 +1846,7 @@
             header {
                 flex-direction: column;
                 gap: 10px;
-                padding: 10px 20px;
+                padding: 10px 16px 10px 8px;
             }
 
             .header-right {
@@ -1848,6 +1856,10 @@
 
             .logo-img {
                 height: 50px;
+            }
+
+            .logo-container {
+                margin-left: -4px;
             }
 
             .confirm-actions {
@@ -1981,10 +1993,9 @@
 <!-- Filters Section -->
 <div class="filters-section">
     <div class="filter-group">
-        <strong>Category:</strong>
-        <label><input type="checkbox" value="classic" class="category-filter"> Classic Hoodies</label>
-        <label><input type="checkbox" value="graphic" class="category-filter"> Graphic Hoodies</label>
-        <label><input type="checkbox" value="premium" class="category-filter"> Premium Line</label>
+        <strong>Shop For:</strong>
+        <label><input type="checkbox" value="men" class="gender-filter"> Men</label>
+        <label><input type="checkbox" value="women" class="gender-filter"> Women</label>
     </div>
     <div class="filter-group">
         <strong>Size:</strong>
@@ -2231,20 +2242,20 @@
             <div class="look-item">
                 <img src="images/grayqzipfront.png" alt="Quarter Zip" class="look-image">
                 <h3>Classic Quarter Zip</h3>
-                <p>$45.99</p>
-                <button class="btn btn-primary" onclick="addToCart(3, 'Classic Quarter Zip', 45.99, 'images/grayqzipfront.png')">Add to Cart</button>
+                <p>$44.99</p>
+                <button class="btn btn-primary" onclick="addToCart(3, 'Classic Quarter Zip', 44.99, 'images/grayqzipfront.png')">Add to Cart</button>
             </div>
             <div class="look-item">
                 <img src="images/frontgraysweatpants.png" alt="Sweatpants" class="look-image">
                 <h3>Saphire Flower Sweatpants</h3>
-                <p>$35.99</p>
-                <button class="btn btn-primary" onclick="addToCart(2, 'Saphire Flower Gray Sweatpants', 35.99, 'images/frontgraysweatpants.png')">Add to Cart</button>
+                <p>$34.99</p>
+                <button class="btn btn-primary" onclick="addToCart(2, 'Saphire Flower Gray Sweatpants', 34.99, 'images/frontgraysweatpants.png')">Add to Cart</button>
             </div>
             <div class="look-item">
                 <img src="images/brown-hoodie.png" alt="Brown Hoodie" class="look-image">
                 <h3>Brown Hoodie</h3>
-                <p>$45.99</p>
-                <button class="btn btn-primary" onclick="addToCart(1, 'Brown Hoodie (Scratched)', 45.99, 'images/brown-hoodie.png')">Add to Cart</button>
+                <p>$44.99</p>
+                <button class="btn btn-primary" onclick="addToCart(1, 'Brown Hoodie (Scratched)', 44.99, 'images/brown-hoodie.png')">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -2443,7 +2454,8 @@ const productsData = [
         productId: "brown-hoodie",
         name: "Brown Hoodie (Scratched)",
         category: "classic",
-        price: 52,
+        gender: "men",
+        price: 44.99,
         image1: "images/brown-hoodie.png",
         image2: "images/brown-hoodieback.png",
         description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
@@ -2459,13 +2471,15 @@ const productsData = [
         productId: "safire-sweatpants",
         name: "SAFIRE Flower Gray Sweatpants",
         category: "graphic",
-        price: 48,
+        gender: "women",
+        price: 34.99,
         image1: "images/frontgraysweatpants.png",
         image2: "images/backgraysweatpants.png",
         description: "Clean tapered sweatpants with premium feel, ideal for daily movement and layered fits.",
         details: "These women's sweatpants offer a classic straight-leg fit with an elasticated drawstring waist for all-day comfort.",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)",
+        freeShipping: true,
         stock: { S: 10, M: 10, L: 10, XL: 10 }
     },
     {
@@ -2473,7 +2487,8 @@ const productsData = [
         productId: "classic-quarter-zip",
         name: "Classic Quarter Zip",
         category: "classic",
-        price: 52,
+        gender: "men",
+        price: 44.99,
         image1: "images/grayqzipfront.png",
         image2: "images/grayqzipback.png",
         description: "Minimal quarter zip built with premium structure and an everyday luxury finish.",
@@ -2515,7 +2530,8 @@ const productsData = [
         productId: "varsity-jacket",
         name: "SAFIRE Varsity Jacket",
         category: "premium",
-        price: 60,
+        gender: "men",
+        price: 49.99,
         image1: "images/frontblackcreamjacket.png",
         image2: "images/backblackcreamjacket.png",
         description: "SAFIRE's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge and everyday comfort.",
@@ -2629,7 +2645,6 @@ function renderProducts() {
 
     <img src="${currentImage1}" alt="${product.name}">
 
-                        ${hasSecond ? `<div class="flip-arrow">⬆ Click to Flip</div>` : ''}
                         <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleProductWishlist(event, ${product.id})" title="Add to Wishlist">♥</button>
                         ${hasSecond ? `<div class="dots"><span class="dot active"></span><span class="dot"></span></div>` : ''}
                     </div>
@@ -2662,7 +2677,7 @@ function renderProducts() {
                         <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${currentImage1}')">
                             Add to Cart
                         </button>
-                        ${product.productId ? `<a class="add-to-cart-btn" style="background: transparent; color: var(--primary); text-decoration: none; display: flex; align-items: center; justify-content: center;" href="product.html?id=${encodeURIComponent(product.productId)}">View Details</a>` : ''}
+                        ${product.productId ? `<a class="add-to-cart-btn" style="background: transparent; color: var(--primary); text-decoration: none; display: flex; align-items: center; justify-content: center;" href="product.html?id=${encodeURIComponent(product.productId)}">View Product</a>` : ''}
                     </div>
                 </div>
             </div>
@@ -3228,7 +3243,7 @@ document.getElementById('search-input').addEventListener('input', (e) => {
 });
 
 // Filter Functionality
-document.querySelectorAll('.category-filter').forEach(checkbox => {
+document.querySelectorAll('.gender-filter').forEach(checkbox => {
     checkbox.addEventListener('change', applyFilters);
 });
 
@@ -3237,12 +3252,13 @@ document.querySelectorAll('.size-filter').forEach(checkbox => {
 });
 
 function applyFilters() {
-    const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
+    const selectedGenders = Array.from(document.querySelectorAll('.gender-filter:checked')).map(cb => cb.value);
     const selectedSizes = Array.from(document.querySelectorAll('.size-filter:checked')).map(cb => cb.value);
 
     filteredProducts = productsData.filter(product => {
-        const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(product.category);
-        return categoryMatch;
+        const genderMatch = selectedGenders.length === 0 || selectedGenders.includes(product.gender || 'men');
+        const sizeMatch = selectedSizes.length === 0 || selectedSizes.some(size => product.stock && product.stock[size] > 0);
+        return genderMatch && sizeMatch;
     });
 
     renderProducts();
@@ -3522,7 +3538,14 @@ checkAdminMode();
 function swapImage(container, img1, img2) {
     if (!img2) return;
     const img = container.querySelector("img");
-    img.src = img.src.includes(img1) ? img2 : img1;
+    const showingFront = img.src.includes(img1);
+    img.src = showingFront ? img2 : img1;
+
+    const dots = container.querySelectorAll('.dot');
+    if (dots.length >= 2) {
+        dots[0].classList.toggle('active', !showingFront);
+        dots[1].classList.toggle('active', showingFront);
+    }
 }
 
 </script>
