@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Safires - Premium Hoodie Store</title>
+    <title>SAFIRE - Premium Hoodie Store</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
@@ -2113,30 +2113,12 @@
             <div class="payment-methods">
                 <h4>Select Payment Method</h4>
                 
-                <label class="payment-option selected" onclick="selectPayment(this, 'venmo')">
+                <label class="payment-option selected">
                     <input type="radio" name="payment" value="venmo" checked>
                     <div class="payment-icon">💬</div>
                     <div class="payment-details">
                         <h5>Venmo</h5>
                         <p>Pay instantly via Venmo app</p>
-                    </div>
-                </label>
-
-                <label class="payment-option" onclick="selectPayment(this, 'bank')">
-                    <input type="radio" name="payment" value="bank">
-                    <div class="payment-icon">🏦</div>
-                    <div class="payment-details">
-                        <h5>Bank Transfer</h5>
-                        <p>Direct bank transfer</p>
-                    </div>
-                </label>
-
-                <label class="payment-option" onclick="selectPayment(this, 'cash')">
-                    <input type="radio" name="payment" value="cash">
-                    <div class="payment-icon">💵</div>
-                    <div class="payment-details">
-                        <h5>Cash on Delivery</h5>
-                        <p>Pay when you receive your order</p>
                     </div>
                 </label>
             </div>
@@ -2185,7 +2167,7 @@
     </div>
 </div>
 
-<!-- Why Choose Safires -->
+<!-- Why Choose Safire -->
 <section class="why-choose-section">
     <div class="container">
         <h2>Why Choose Safires</h2>
@@ -2375,14 +2357,6 @@
             <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
                 <span style="font-size: 32px;">💬</span>
                 <p style="margin: 0; font-size: 14px; font-weight: 600;">Venmo</p>
-            </div>
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                <span style="font-size: 32px;">💳</span>
-                <p style="margin: 0; font-size: 14px; font-weight: 600;">Bank Transfer</p>
-            </div>
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                <span style="font-size: 32px;">💵</span>
-                <p style="margin: 0; font-size: 14px; font-weight: 600;">Cash on Delivery</p>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
                 <span style="font-size: 32px;">🔒</span>
@@ -2822,7 +2796,8 @@ function updateCartDisplay() {
     if (cart.length === 0) {
         cartItemsList.innerHTML = '<div class="cart-empty"><div style="font-size: 48px; margin-bottom: 15px;">🛒</div><p>Your cart is empty</p><p style="font-size: 13px; color: #ccc; margin-top: 10px;">Add items to get started!</p></div>';
         document.getElementById('subtotal').innerText = '$0.00';
-        document.getElementById('total').innerText = '$10.00';
+        document.getElementById('shipping').innerText = 'Free';
+        document.getElementById('total').innerText = '$0.00';
         return;
     }
 
@@ -2860,10 +2835,10 @@ function updateCartDisplay() {
     
     cartItemsList.innerHTML = cartItemsHTML;
 
-    const shipping = cart.some(item => item.freeShipping) ? 0.00 : 10.00;
+    const shipping = 0.00;
     const total = subtotal + shipping;
     document.getElementById('subtotal').innerText = '$' + subtotal.toFixed(2);
-    document.getElementById('shipping').innerText = shipping === 0 ? 'Free' : '$' + shipping.toFixed(2);
+    document.getElementById('shipping').innerText = 'Free';
     document.getElementById('total').innerText = '$' + total.toFixed(2);
 }
 
@@ -2994,7 +2969,7 @@ function updateCheckoutSummary() {
     
     checkoutItems.innerHTML = checkoutItemsHTML;
     
-    const shipping = cart.some(item => item.freeShipping) ? 0.00 : 10.00;
+    const shipping = 0.00;
     document.getElementById('checkout-total').innerText = '$' + (total + shipping).toFixed(2);
 }
 
@@ -3026,7 +3001,7 @@ async function placeOrder() {
         state: document.getElementById('customer-state').value,
         zip: document.getElementById('customer-zip').value,
         country: document.getElementById('customer-country').value,
-        paymentMethod: document.querySelector('input[name="payment"]:checked').value,
+        paymentMethod: 'venmo',
         cartItems: [...cart],
         orderTotal: parseFloat(document.getElementById('checkout-total').innerText.replace('$', ''))
     };
@@ -3117,62 +3092,35 @@ function showConfirmation(customerInfo, orderId) {
     const paymentBox = document.getElementById('payment-instructions-box');
     const venmoLink = document.getElementById('venmo-link');
 
-    if (customerInfo.paymentMethod === 'venmo') {
-        const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi2010';
-        const venmoUrl = buildVenmoLink(venmoUsername, customerInfo.orderTotal, orderId);
-        
-        paymentSteps.innerHTML = `
-            <li>Open the Venmo app or visit venmo.com</li>
-            <li>Search for <strong>@${venmoUsername}</strong> (or click the button below)</li>
-            <li>Send $${customerInfo.orderTotal.toFixed(2)} with payment note: <strong>"Order #${orderId}"</strong></li>
-            <li>We'll confirm receipt and process your order</li>
-            <li>Expect delivery in 5-7 business days</li>
-        `;
-        venmoLink.style.display = 'block';
-        venmoLink.href = venmoUrl;
-        venmoLink.target = '_blank';
-        venmoLink.onclick = (e) => {
-            e.preventDefault();
-            window.open(venmoUrl, '_blank');
-        };
-        venmoLink.innerText = '💬 Open Venmo to Pay';
-        
-        // Send email notification
-        sendOrderEmail(customerInfo, orderId);
-    } else if (customerInfo.paymentMethod === 'bank') {
-        paymentSteps.innerHTML = `
-            <li>Bank Transfer Details:</li>
-            <li><strong>Account Name:</strong> Safires LLC</li>
-            <li><strong>Amount:</strong> $${customerInfo.orderTotal.toFixed(2)}</li>
-            <li><strong>Reference:</strong> Order #${orderId}</li>
-            <li>Contact us at hello@safires.shop for banking details</li>
-            <li>Expect delivery in 5-7 business days after payment</li>
-        `;
-        venmoLink.style.display = 'none';
-        paymentBox.innerHTML = `
-            <h4>Bank Transfer Instructions</h4>
-            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Please email <strong>hello@safires.shop</strong> to request bank transfer details and complete your payment.</p>
-            <ol style="margin-left: 20px; color: #666; font-size: 13px; line-height: 1.8;">
-                <li>Email us at hello@safires.shop with your order number</li>
-                <li>We'll send you bank transfer details</li>
-                <li>Complete the transfer with reference <strong>"Order #${orderId}"</strong></li>
-                <li>Once received, we'll ship your order</li>
-            </ol>
-        `;
-    } else if (customerInfo.paymentMethod === 'cash') {
-        paymentSteps.innerHTML = `
-            <li>Your order is ready for cash payment</li>
-            <li><strong>Amount Due:</strong> $${customerInfo.orderTotal.toFixed(2)}</li>
-            <li>We'll contact you at <strong>${customerInfo.phone}</strong> to arrange delivery</li>
-            <li>Pay upon delivery</li>
-            <li>Expect delivery in 5-7 business days</li>
-        `;
-        venmoLink.style.display = 'none';
-        paymentBox.innerHTML = `
-            <h4>Cash on Delivery</h4>
-            <p style="font-size: 13px; color: #666; margin: 10px 0;">We'll contact you to arrange a convenient delivery time. Payment will be collected when your order arrives.</p>
-        `;
-    }
+    const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi2010';
+    const venmoUrl = buildVenmoLink(venmoUsername, customerInfo.orderTotal, orderId);
+
+    paymentBox.innerHTML = `
+        <h4>Payment Instructions</h4>
+        <ol id="payment-steps"></ol>
+        <a class="venmo-button" id="venmo-link" href="#" target="_blank" style="display: block; width: 100%; text-align: center; text-decoration: none;">Open Venmo</a>
+    `;
+
+    const updatedPaymentSteps = document.getElementById('payment-steps');
+    const updatedVenmoLink = document.getElementById('venmo-link');
+
+    updatedPaymentSteps.innerHTML = `
+        <li>Open the Venmo app or visit venmo.com</li>
+        <li>Search for <strong>@${venmoUsername}</strong> (or click the button below)</li>
+        <li>Send $${customerInfo.orderTotal.toFixed(2)} with payment note: <strong>"Order #${orderId}"</strong></li>
+        <li>We'll confirm receipt and process your order</li>
+        <li>Expect delivery in 5-7 business days</li>
+    `;
+
+    updatedVenmoLink.href = venmoUrl;
+    updatedVenmoLink.target = '_blank';
+    updatedVenmoLink.onclick = (e) => {
+        e.preventDefault();
+        window.open(venmoUrl, '_blank');
+    };
+    updatedVenmoLink.innerText = '💬 Open Venmo to Pay';
+
+    sendOrderEmail(customerInfo, orderId);
 
     // Close checkout and show confirmation
     document.getElementById('checkout-modal').classList.remove('open');
