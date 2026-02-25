@@ -344,6 +344,27 @@ a {
     font-weight: 600;
 }
 
+.image-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background: #b8b8b8;
+    border-radius: 50%;
+    transition: background 0.3s;
+    cursor: pointer;
+}
+
+.dot.active {
+    background: #111111;
+}
+
 @media (min-width: 900px) {
     .products-section,
     .hero,

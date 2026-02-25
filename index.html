@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAFIRE - Premium Hoodie Store</title>
+    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function(){
@@ -401,41 +402,150 @@
         }
 
         /* Filters Section */
-        .filters-section {
-            background: var(--secondary);
-            padding: 20px;
-            margin: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        .filters-bar-container {
+            padding: 24px 20px;
+            background: #fafafa;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 30px;
+        }
+
+        .filters-bar {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
-            gap: 15px;
+            align-items: center;
+            gap: 16px;
             flex-wrap: wrap;
-            align-items: center;
         }
 
-        .filter-group {
-            display: flex;
-            gap: 10px;
-            align-items: center;
+        .filter-label {
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+            color: #666;
+            white-space: nowrap;
         }
 
-        .filter-group label {
-            display: flex;
-            align-items: center;
-            gap: 5px;
+        .clear-filters-btn {
+            background: transparent;
+            border: 1px solid #d0d0d0;
+            color: #555;
+            font-size: 12px;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .clear-filters-btn:hover {
+            background: #f0f0f0;
+            border-color: #b8b8b8;
+            color: #222;
+        }
+
+        .filter-dropdown {
+            position: relative;
+        }
+
+        .filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
             font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .filter-group input[type="checkbox"] {
+            color: #333;
             cursor: pointer;
-            width: 18px;
-            height: 18px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
         }
 
-        .filter-group label:hover {
-            color: var(--accent);
+        .filter-btn:hover {
+            background: #e5e5e5;
+            border-color: #bbb;
+        }
+
+        .filter-btn:active,
+        .filter-dropdown.active .filter-btn {
+            background: #ddd;
+            border-color: #999;
+        }
+
+        .filter-dropdown.has-selection .filter-btn {
+            background: #e3e3e3;
+            border-color: #8f8f8f;
+            color: #111;
+            font-weight: 600;
+        }
+
+        .filter-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .filter-dropdown.active .filter-arrow {
+            transform: rotate(180deg);
+        }
+
+        .filter-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            margin-top: 4px;
+            min-width: 160px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 50;
+            opacity: 0;
+            transform: translateY(6px);
+            pointer-events: none;
+            visibility: hidden;
+            transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
+        }
+
+        .filter-dropdown.active .filter-menu {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        .filter-menu label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+            transition: background 0.2s;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .filter-menu label:last-child {
+            border-bottom: none;
+        }
+
+        .filter-menu label:hover {
+            background: #f9f9f9;
+        }
+
+        .filter-menu label.selected {
+            background: #efefef;
+            color: #111;
+            font-weight: 600;
+        }
+
+        .filter-menu input[type="checkbox"] {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--primary);
         }
 
         /* Products Grid */
@@ -1101,19 +1211,32 @@
                 font-size: 14px;
             }
 
-            .filters-section {
-                flex-direction: row;
-                align-items: center;
-                justify-content: flex-start;
-                flex-wrap: wrap;
+            .filters-bar-container {
+                padding: 16px;
+                margin-bottom: 20px;
+            }
+
+            .filters-bar {
                 gap: 10px;
             }
 
-            .filter-group {
-                flex-direction: row;
-                align-items: center;
-                flex-wrap: wrap;
-                gap: 5px;
+            .clear-filters-btn {
+                order: 2;
+                font-size: 11px;
+                padding: 7px 10px;
+            }
+
+            .filter-btn {
+                padding: 9px 12px;
+                font-size: 13px;
+            }
+
+            .filter-menu {
+                min-width: 140px;
+            }
+
+            .filter-menu label {
+                padding: 10px 12px;
             }
 
             .products {
@@ -1649,12 +1772,14 @@
             }
 
             .trust-bar .container {
-                gap: 20px;
-                flex-direction: column;
+                gap: 15px;
+                flex-direction: row;
             }
 
             .trust-item {
-                font-size: 14px;
+                font-size: 12px;
+                flex: 1;
+                justify-content: center;
             }
 
             .why-choose-grid, .testimonials-grid, .complete-look-grid {
@@ -1894,9 +2019,18 @@
                 width: 100%;
             }
 
-            .filters-section {
-                margin: 15px;
-                padding: 10px;
+            .filters-bar-container {
+                padding: 14px 12px;
+            }
+
+            .filter-label {
+                font-size: 11px;
+            }
+
+            .filter-btn {
+                padding: 8px 11px;
+                font-size: 12px;
+                gap: 6px;
             }
         }
 
@@ -2015,18 +2149,70 @@
 </section>
 
 <!-- Filters Section -->
-<div class="filters-section">
-    <div class="filter-group">
-        <strong>Shop For:</strong>
-        <label><input type="checkbox" value="men" class="gender-filter"> Men</label>
-        <label><input type="checkbox" value="women" class="gender-filter"> Women</label>
-    </div>
-    <div class="filter-group">
-        <strong>Size:</strong>
-        <label><input type="checkbox" value="S" class="size-filter"> S</label>
-        <label><input type="checkbox" value="M" class="size-filter"> M</label>
-        <label><input type="checkbox" value="L" class="size-filter"> L</label>
-        <label><input type="checkbox" value="XL" class="size-filter"> XL</label>
+<div class="filters-bar-container">
+    <div class="filters-bar">
+        <span class="filter-label">FILTER BY</span>
+        <button class="clear-filters-btn" id="clear-filters-btn" type="button">Clear All</button>
+        
+        <!-- Gender Filter -->
+        <div class="filter-dropdown" data-filter="gender">
+            <button class="filter-btn">
+                Gender
+                <svg class="filter-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="filter-menu">
+                <label><input type="checkbox" value="men" class="gender-filter"> Men</label>
+                <label><input type="checkbox" value="women" class="gender-filter"> Women</label>
+            </div>
+        </div>
+
+        <!-- Size Filter -->
+        <div class="filter-dropdown" data-filter="size">
+            <button class="filter-btn">
+                Size
+                <svg class="filter-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="filter-menu">
+                <label><input type="checkbox" value="S" class="size-filter"> S</label>
+                <label><input type="checkbox" value="M" class="size-filter"> M</label>
+                <label><input type="checkbox" value="L" class="size-filter"> L</label>
+                <label><input type="checkbox" value="XL" class="size-filter"> XL</label>
+            </div>
+        </div>
+
+        <!-- Product Filter -->
+        <div class="filter-dropdown" data-filter="product">
+            <button class="filter-btn">
+                Product
+                <svg class="filter-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="filter-menu">
+                <label><input type="checkbox" value="hoodie" class="product-filter"> Hoodie</label>
+                <label><input type="checkbox" value="sweatpants" class="product-filter"> Sweatpants</label>
+                <label><input type="checkbox" value="quarter zip" class="product-filter"> Quarter Zip</label>
+                <label><input type="checkbox" value="jacket" class="product-filter"> Jacket</label>
+            </div>
+        </div>
+
+        <!-- Style Filter -->
+        <div class="filter-dropdown" data-filter="style">
+            <button class="filter-btn">
+                Style
+                <svg class="filter-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="filter-menu">
+                <label><input type="checkbox" value="top" class="style-filter"> Top</label>
+                <label><input type="checkbox" value="bottom" class="style-filter"> Bottom</label>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -2635,7 +2821,7 @@ function renderProducts() {
         }
 
         const productHTML = `
-            <div class="product">
+            <div class="product" onclick="window.location.href='product.html?id=${encodeURIComponent(product.productId)}'">
                 <div class="product-image-container">
                     ${productBadges}
                     ${stockBadge}
@@ -2644,13 +2830,11 @@ function renderProducts() {
     <img src="${currentImage1}" alt="${product.name}">
 
                         <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleProductWishlist(event, ${product.id})" title="Add to Wishlist">♥</button>
-                        ${hasSecond ? `<div class="dots"><span class="dot active"></span><span class="dot"></span></div>` : ''}
                     </div>
                 </div>
                 <div class="product-info">
                     <div class="product-category">${product.category}</div>
                     <h3>${product.name}</h3>
-                    <p>${product.description}</p>
                     <div class="product-price">$${product.price.toFixed(2)}</div>
                     
                     <!-- Color Options -->
@@ -2672,10 +2856,9 @@ function renderProducts() {
                     </div>
                     
                     <div class="product-actions">
-                        <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${currentImage1}')">
+                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${product.price}, '${currentImage1}')">
                             Add to Cart
                         </button>
-                        ${product.productId ? `<a class="add-to-cart-btn" style="background: transparent; color: var(--primary); text-decoration: none; display: flex; align-items: center; justify-content: center;" href="product.html?id=${encodeURIComponent(product.productId)}">View Product</a>` : ''}
                     </div>
                 </div>
             </div>
@@ -3223,23 +3406,60 @@ document.querySelectorAll('.size-filter').forEach(checkbox => {
     checkbox.addEventListener('change', applyFilters);
 });
 
+document.querySelectorAll('.product-filter').forEach(checkbox => {
+    checkbox.addEventListener('change', applyFilters);
+});
+
+document.querySelectorAll('.style-filter').forEach(checkbox => {
+    checkbox.addEventListener('change', applyFilters);
+});
+
 function applyFilters() {
     const selectedGenders = Array.from(document.querySelectorAll('.gender-filter:checked')).map(cb => cb.value);
     const selectedSizes = Array.from(document.querySelectorAll('.size-filter:checked')).map(cb => cb.value);
+    const selectedProducts = Array.from(document.querySelectorAll('.product-filter:checked')).map(cb => cb.value.toLowerCase());
+    const selectedStyles = Array.from(document.querySelectorAll('.style-filter:checked')).map(cb => cb.value.toLowerCase());
 
     filteredProducts = productsData.filter(product => {
         const genderMatch = selectedGenders.length === 0 || selectedGenders.includes(product.gender || 'men');
         const sizeMatch = selectedSizes.length === 0 || selectedSizes.some(size => product.stock && product.stock[size] > 0);
-        return genderMatch && sizeMatch;
+
+        const productName = String(product.name || '').toLowerCase();
+        const productType =
+            productName.includes('hoodie') ? 'hoodie' :
+            productName.includes('sweatpant') ? 'sweatpants' :
+            productName.includes('quarter zip') ? 'quarter zip' :
+            productName.includes('jacket') ? 'jacket' :
+            '';
+        const productMatch = selectedProducts.length === 0 || selectedProducts.includes(productType);
+
+        const styleType = productType === 'sweatpants' ? 'bottom' : 'top';
+        const styleMatch = selectedStyles.length === 0 || selectedStyles.includes(styleType);
+
+        return genderMatch && sizeMatch && productMatch && styleMatch;
     });
 
     renderProducts();
+    updateFilterStates();
+}
+
+function updateFilterStates() {
+    document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
+        const hasChecked = dropdown.querySelectorAll('input[type="checkbox"]:checked').length > 0;
+        dropdown.classList.toggle('has-selection', hasChecked);
+
+        dropdown.querySelectorAll('.filter-menu label').forEach(label => {
+            const input = label.querySelector('input[type="checkbox"]');
+            label.classList.toggle('selected', !!input && input.checked);
+        });
+    });
 }
 
 // Initialize
 renderProducts();
 updateCartDisplay();
 updateWishlistDisplay();
+updateFilterStates();
 
 // Load settings
 function loadSettings() {
@@ -3491,7 +3711,7 @@ function checkAdminMode() {
             document.getElementById('admin-dashboard').style.display = 'block';
             document.querySelector('header').style.display = 'none';
             document.querySelector('.hero').style.display = 'none';
-            document.querySelector('.filters-section').style.display = 'none';
+            document.querySelector('.filters-bar-container').style.display = 'none';
             document.querySelector('.products-container').style.display = 'none';
             document.querySelector('footer').style.display = 'none';
             loadSettings();
@@ -3519,6 +3739,57 @@ function swapImage(container, img1, img2) {
         dots[1].classList.toggle('active', showingFront);
     }
 }
+
+// Filter Dropdown + Clear All
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const clearFiltersButton = document.getElementById('clear-filters-btn');
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const dropdown = btn.closest('.filter-dropdown');
+
+            document.querySelectorAll('.filter-dropdown.active').forEach(other => {
+                if (other !== dropdown) {
+                    other.classList.remove('active');
+                }
+            });
+
+            dropdown.classList.toggle('active');
+        });
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.filter-dropdown')) {
+            document.querySelectorAll('.filter-dropdown.active').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+
+    document.querySelectorAll('.filter-menu input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            updateFilterStates();
+            setTimeout(() => {
+                const dropdown = this.closest('.filter-dropdown');
+                if (dropdown) dropdown.classList.remove('active');
+            }, 100);
+        });
+    });
+
+    if (clearFiltersButton) {
+        clearFiltersButton.addEventListener('click', function() {
+            document.querySelectorAll('.filters-bar input[type="checkbox"]').forEach(input => {
+                input.checked = false;
+            });
+            applyFilters();
+            document.querySelectorAll('.filter-dropdown.active').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        });
+    }
+});
 
 </script>
 
