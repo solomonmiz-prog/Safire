@@ -81,6 +81,10 @@
             display: flex;
             gap: 20px;
             align-items: center;
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
         }
 
         .search-bar {
@@ -1510,20 +1514,30 @@
             align-items: center;
             gap: 15px;
             flex-shrink: 0;
-            margin-left: -6px;
+            margin-left: 0;
+            transform: translateX(-48px);
         }
 
         .logo-img {
-            height: 60px;
+            height: 80px;
             width: auto;
             margin: 5px 0;
+        }
+
+        .logo-wordmark {
+            height: 64px;
+            width: auto;
+            margin: 5px 0;
+            transform: scale(3);
+            transform-origin: center center;
         }
 
         header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            padding: 12px 24px 12px 14px;
+            justify-content: center;
+            position: relative;
+            padding: 12px 24px;
         }
 
         header h1 {
@@ -1850,16 +1864,26 @@
             }
 
             .header-right {
+                position: static;
+                right: auto;
+                top: auto;
+                transform: none;
                 width: 100%;
                 justify-content: space-between;
             }
 
             .logo-img {
-                height: 50px;
+                height: 66px;
+            }
+
+            .logo-wordmark {
+                height: 54px;
+                transform: scale(3);
             }
 
             .logo-container {
                 margin-left: -4px;
+                transform: none;
             }
 
             .confirm-actions {
@@ -1951,8 +1975,8 @@
 <!-- Header -->
 <header>
     <div class="logo-container">
-        <img src="images/logo.svg" alt="Safires Logo" class="logo-img">
-        <h1>SAFIRES</h1>
+        <img src="images/19E8DB1A-A689-4A67-A0BC-1EA5FC7F9091.PNG" alt="Safires Icon" class="logo-img">
+        <img src="images/BFE09C59-E492-4B6A-B36E-F82B9EC6EE12_1_102_o.transparent.png" alt="Safires" class="logo-wordmark">
     </div>
     <div class="header-right">
         <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
@@ -1968,7 +1992,7 @@
 <section class="hero">
     <div>
         <h2>Streetwear for Everyday Style</h2>
-        <p>Premium hoodies crafted for comfort and style</p>
+        <p>Premium Clothing crafted for comfort and style</p>
     </div>
 </section>
 
@@ -2170,7 +2194,7 @@
 <!-- Why Choose Safire -->
 <section class="why-choose-section">
     <div class="container">
-        <h2>Why Choose Safires</h2>
+        <h2>Why Choose Safire</h2>
         <div class="why-choose-grid">
             <div class="why-choose-item">
                 <div class="why-icon">👕</div>
@@ -2261,12 +2285,12 @@
 <section style="padding: 80px 0; background: var(--secondary);">
     <div class="container">
         <div style="max-width: 1000px; margin: 0 auto;">
-            <h2 style="text-align: center; margin-bottom: 40px;">About Safires</h2>
+            <h2 style="text-align: center; margin-bottom: 40px;">About Safire</h2>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
                 <div>
                     <h3 style="margin-bottom: 20px; color: var(--primary);">Built for the Culture</h3>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary); font-size: 16px; line-height: 1.8;">Safires was founded on a simple belief: premium streetwear shouldn't require a premium price tag. We craft every hoodie with meticulous attention to detail, using only the finest fabrics sourced from sustainable suppliers.</p>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary); font-size: 16px; line-height: 1.8;">Each design tells a story. From classic cuts to limited-edition graphics, Safires represents authenticity, quality, and the spirit of modern streetwear culture.</p>
+                    <p style="margin-bottom: 15px; color: var(--text-secondary); font-size: 16px; line-height: 1.8;">Safire was founded on a simple belief: premium streetwear shouldn't require a premium price tag. We craft every hoodie with meticulous attention to detail, using only the finest fabrics sourced from sustainable suppliers.</p>
+                    <p style="margin-bottom: 15px; color: var(--text-secondary); font-size: 16px; line-height: 1.8;">Each design tells a story. From classic cuts to limited-edition graphics, Safire represents authenticity, quality, and the spirit of modern streetwear culture.</p>
                     <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8;">We're more than just a brand—we're a community of style-conscious individuals who value craftsmanship and self-expression.</p>
                 </div>
                 <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 600; text-align: center; padding: 30px;">
@@ -2288,7 +2312,7 @@
                     <span style="font-size: 20px; color: var(--accent);">+</span>
                 </div>
                 <div style="background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;">
-                    <p style="padding: 20px 0; margin: 0; color: var(--text-secondary);">All Safires hoodies are made from premium 100% cotton or premium blend materials. Each piece is tested for durability and comfort to ensure it lasts.</p>
+                    <p style="padding: 20px 0; margin: 0; color: var(--text-secondary);">All Safire hoodies are made from premium 100% cotton or premium blend materials. Each piece is tested for durability and comfort to ensure it lasts.</p>
                 </div>
             </div>
             <div class="faq-item" style="margin-bottom: 20px;">
@@ -2369,10 +2393,10 @@
 <!-- Footer -->
 <footer>
     <div class="footer-logo-section">
-        <img src="images/logo.svg" alt="Safires Logo">
-        <span style="font-weight: 600; color: var(--primary);">SAFIRES</span>
+        <img src="images/BFE09C59-E492-4B6A-B36E-F82B9EC6EE12_1_102_o.transparent.png" alt="Safire Logo">
+        <span style="font-weight: 600; color: var(--primary);">SAFIRE</span>
     </div>
-    <p>&copy; 2026 SAFIRES. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
+    <p>&copy; 2026 SAFIRE. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
 </footer>
 
 <!-- Admin Dashboard (Hidden by default) -->
