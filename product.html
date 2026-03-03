@@ -14,7 +14,7 @@
     <main class="product-page">
         <a href="index.html" class="back-link">← Back to products</a>
 
-        <section class="product-layout" id="product-layout" hidden>
+        <section class="product-layout product" id="product-layout" hidden>
             <div class="media-stack">
                 <div class="main-image-wrap" id="main-image-wrap">
                     <img id="main-image" src="" alt="Product image">
@@ -76,8 +76,8 @@
         function getStripeCheckoutUrl(product, size, color) {
             if (!product || !size) return null;
 
-            const normalizedSize = normalizeValue(size);
-            const normalizedColor = normalizeValue(color || 'default');
+            const normalizedSize = String(size || '').trim().toLowerCase();
+            const normalizedColor = String(color || 'default').trim().toLowerCase();
             const variantKey = `${normalizedColor}-${normalizedSize}`;
             const fullVariantKey = `${normalizeValue(product.id)}-${variantKey}`;
 
@@ -94,7 +94,24 @@
             }
 
             if (!product.stripeLinks) return null;
-            return product.stripeLinks[variantKey] || null;
+
+            console.log('[Stripe Debug] stripeLinks object:', product.stripeLinks);
+            const availableRawKeys = Object.keys(product.stripeLinks);
+            const normalizedStripeLinks = {};
+
+            availableRawKeys.forEach((key) => {
+                normalizedStripeLinks[String(key || '').trim().toLowerCase()] = product.stripeLinks[key];
+            });
+
+            const availableNormalizedKeys = Object.keys(normalizedStripeLinks);
+            const hasExactKeyMatch = Object.prototype.hasOwnProperty.call(normalizedStripeLinks, variantKey);
+
+            console.log('[Stripe Debug] available stripeLinks keys (raw):', availableRawKeys);
+            console.log('[Stripe Debug] available stripeLinks keys (normalized):', availableNormalizedKeys);
+            console.log('[Stripe Debug] generated key (normalized):', variantKey);
+            console.log('[Stripe Debug] exact key match:', hasExactKeyMatch);
+
+            return normalizedStripeLinks[variantKey] || null;
         }
 
         if (!product) {
@@ -168,7 +185,7 @@
                     colorBtn.value = normalizeValue(colorway.name);
 
                     colorBtn.addEventListener('click', () => {
-                        document.querySelectorAll('.color-dot').forEach((dot) => dot.classList.remove('active'));
+                        colorOptions.querySelectorAll('.color-dot').forEach((dot) => dot.classList.remove('active'));
                         colorBtn.classList.add('active');
                         selectedColorName = colorBtn.value;
                         activeImages = [...colorway.images];
@@ -198,26 +215,38 @@
                 button.textContent = size;
                 button.value = normalizeValue(size);
                 button.addEventListener('click', () => {
-                    document.querySelectorAll('.size-btn').forEach((item) => item.classList.remove('active'));
+                    sizeGrid.querySelectorAll('.size-btn').forEach((item) => item.classList.remove('active'));
                     button.classList.add('active');
                     selectedSize = button.value;
                 });
                 sizeGrid.appendChild(button);
             });
 
-            document.getElementById('add-to-cart-btn').addEventListener('click', () => {
-                if (!selectedSize) {
-                    alert('Please select a size first.');
-                    return;
-                }
+            document.querySelectorAll('.add-btn').forEach((button) => {
+                const cleanButton = button.cloneNode(true);
+                button.replaceWith(cleanButton);
 
-                const stripeCheckoutUrl = getStripeCheckoutUrl(product, selectedSize, selectedColorName);
-                if (stripeCheckoutUrl) {
-                    window.location.href = stripeCheckoutUrl;
-                    return;
-                }
+                cleanButton.addEventListener('click', () => {
+                    const productContainer = cleanButton.closest('.product') || layout;
+                    const activeSizeButton = productContainer.querySelector('.size-btn.active');
+                    const activeColorButton = productContainer.querySelector('.color-dot.active');
 
-                alert('Stripe link not found for this color/size combination.');
+                    const scopedSize = activeSizeButton ? normalizeValue(activeSizeButton.value || activeSizeButton.textContent) : null;
+                    const scopedColor = activeColorButton ? normalizeValue(activeColorButton.value || activeColorButton.title) : normalizeValue(selectedColorName || 'default');
+
+                    if (!scopedSize) {
+                        alert('Please select a size first.');
+                        return;
+                    }
+
+                    const stripeCheckoutUrl = getStripeCheckoutUrl(product, scopedSize, scopedColor);
+                    if (stripeCheckoutUrl) {
+                        window.location.href = stripeCheckoutUrl;
+                        return;
+                    }
+
+                    alert('Stripe link not found for this color/size combination.');
+                });
             });
         }
     </script>
