@@ -211,6 +211,11 @@ const stripeVariantCheckoutLinks = {};
 function buildVariantList(items) {
     const variants = [];
     const normalize = (value) => String(value || "").trim().toLowerCase();
+    const normalizeColorKey = (value) => {
+        const normalized = normalize(value);
+        const primaryColor = normalized.split('/')[0].trim();
+        return primaryColor.replace(/\s+/g, '-');
+    };
 
     items.forEach((product) => {
         const colors = Array.isArray(product.colorways) && product.colorways.length > 0
@@ -220,7 +225,7 @@ function buildVariantList(items) {
         colors.forEach((colorName) => {
             product.sizes.forEach((size) => {
                 const normalizedProductId = normalize(product.id);
-                const normalizedColor = normalize(colorName);
+                const normalizedColor = normalizeColorKey(colorName);
                 const normalizedSize = normalize(size);
                 variants.push({
                     product,

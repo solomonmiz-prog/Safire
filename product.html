@@ -73,11 +73,15 @@
             return String(value || '').trim().toLowerCase();
         }
 
+        function normalizeColorKey(value) {
+            return normalizeValue(value).split('/')[0].trim().replace(/\s+/g, '-');
+        }
+
         function getStripeCheckoutUrl(product, size, color) {
             if (!product || !size) return null;
 
             const normalizedSize = String(size || '').trim().toLowerCase();
-            const normalizedColor = String(color || 'default').trim().toLowerCase();
+            const normalizedColor = normalizeColorKey(color || 'default');
             const variantKey = `${normalizedColor}-${normalizedSize}`;
             const fullVariantKey = `${normalizeValue(product.id)}-${variantKey}`;
 
@@ -232,7 +236,7 @@
                     const activeColorButton = productContainer.querySelector('.color-dot.active');
 
                     const scopedSize = activeSizeButton ? normalizeValue(activeSizeButton.value || activeSizeButton.textContent) : null;
-                    const scopedColor = activeColorButton ? normalizeValue(activeColorButton.value || activeColorButton.title) : normalizeValue(selectedColorName || 'default');
+                    const scopedColor = activeColorButton ? normalizeColorKey(activeColorButton.value || activeColorButton.title) : normalizeColorKey(selectedColorName || 'default');
 
                     if (!scopedSize) {
                         alert('Please select a size first.');
@@ -241,6 +245,8 @@
 
                     const stripeCheckoutUrl = getStripeCheckoutUrl(product, scopedSize, scopedColor);
                     if (stripeCheckoutUrl) {
+                        console.log('[Stripe Debug] redirect key:', `${normalizeColorKey(scopedColor || 'default')}-${String(scopedSize || '').trim().toLowerCase()}`);
+                        console.log('[Stripe Debug] redirect url:', stripeCheckoutUrl);
                         window.location.href = stripeCheckoutUrl;
                         return;
                     }
