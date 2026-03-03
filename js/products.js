@@ -151,3 +151,114 @@ const products = [
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     }
 ];
+
+const stripeCheckoutUrls = [
+    "https://buy.stripe.com/bJe4gtgwag6kbjFegIeAg03",
+    "https://buy.stripe.com/00wcMZ7ZE1bq5Zl6OgeAg0L",
+    "https://buy.stripe.com/fZu9ANa7M9HW2N91tWeAg0K",
+    "https://buy.stripe.com/9B65kxbbQ9HWevR7SkeAg0J",
+    "https://buy.stripe.com/eVq6oB2FkaM02N9a0seAg0I",
+    "https://buy.stripe.com/cNi3cpa7M07m3Rdc8AeAg0H",
+    "https://buy.stripe.com/9B6eV7a7M8DScnJgoQeAg0G",
+    "https://buy.stripe.com/bJe28l3Jo1bq2N97SkeAg0F",
+    "https://buy.stripe.com/5kQ8wJ7ZE8DS73pfkMeAg0E",
+    "https://buy.stripe.com/7sYaER0xc6vK2N9dcEeAg0D",
+    "https://buy.stripe.com/4gM14hcfU9HW1J5egIeAg0C",
+    "https://buy.stripe.com/bJe3cp6VA1bq2N96OgeAg0B",
+    "https://buy.stripe.com/aFafZb3JocU887tgoQeAg0A",
+    "https://buy.stripe.com/14AeV7fs6g6k4VhfkMeAg0z",
+    "https://buy.stripe.com/eVqcMZcfU8DSafB5KceAg0y",
+    "https://buy.stripe.com/cNi6oB4NscU81J58WoeAg0x",
+    "https://buy.stripe.com/14A00dgwa2fufzVegIeAg0w",
+    "https://buy.stripe.com/aFa28l93I1bq4Vh5KceAg0v",
+    "https://buy.stripe.com/cNi5kx2FkaM01J5goQeAg0u",
+    "https://buy.stripe.com/5kQ14hbbQg6k5Zlc8AeAg0t",
+    "https://buy.stripe.com/9B600da7Mf2gafB0pSeAg0s",
+    "https://buy.stripe.com/6oU8wJ3Jo5rGdrN0pSeAg0r",
+    "https://buy.stripe.com/00wfZbeo2dYcfzVc8AeAg0q",
+    "https://buy.stripe.com/00w6oB2Fk3jy87tc8AeAg0p",
+    "https://buy.stripe.com/14AaEReo2g6k9bxegIeAg0o",
+    "https://buy.stripe.com/fZucMZ0xc07m73p6OgeAg0n",
+    "https://buy.stripe.com/eVq3cp7ZE07m9bxgoQeAg0m",
+    "https://buy.stripe.com/6oU28leo29HWdrN3C4eAg0l",
+    "https://buy.stripe.com/28E7sF6VA4nCevRgoQeAg0k",
+    "https://buy.stripe.com/aFa5kx4Ns2fu0F13C4eAg0j",
+    "https://buy.stripe.com/00w28l1Bgf2g5Zl8WoeAg0i",
+    "https://buy.stripe.com/8x2cMZfs66vK73pa0seAg0h",
+    "https://buy.stripe.com/7sY6oB4Ns1bqevR2y0eAg0g",
+    "https://buy.stripe.com/9B66oB5RwdYccnJ7SkeAg0f",
+    "https://buy.stripe.com/5kQ00d3JodYc73p2y0eAg0e",
+    "https://buy.stripe.com/6oU3cp2Fkg6kafBgoQeAg0d",
+    "https://buy.stripe.com/28E5kxa7M9HWdrN1tWeAg0c",
+    "https://buy.stripe.com/eVq14h7ZE6vK1J50pSeAg0b",
+    "https://buy.stripe.com/bJe00d1Bg8DS3RdgoQeAg0a",
+    "https://buy.stripe.com/8x2fZb0xc8DS1J5dcEeAg09",
+    "https://buy.stripe.com/3cIeV70xc7zO4Vh4G8eAg08",
+    "https://buy.stripe.com/cNi9ANfs607mafBa0seAg07",
+    "https://buy.stripe.com/eVq4gt5Rw2fu0F1a0seAg06",
+    "https://buy.stripe.com/3cI6oB5RwdYc1J5goQeAg05",
+    "https://buy.stripe.com/4gM5kx5Rw1bqafBdcEeAg04",
+    "https://buy.stripe.com/3cIdR393IdYcdrNegIeAg02",
+    "https://buy.stripe.com/5kQfZb93I2fu3Rd3C4eAg01"
+];
+
+const fixedStripeVariantLinks = {
+    "brown-hoodie|XL": "https://buy.stripe.com/14A5kx2Fk9HW9bx1tWeAg00"
+};
+
+const stripeVariantCheckoutLinks = {};
+
+function buildVariantList(items) {
+    const variants = [];
+
+    items.forEach((product) => {
+        const colors = Array.isArray(product.colorways) && product.colorways.length > 0
+            ? product.colorways.map((colorway) => colorway.name)
+            : [null];
+
+        colors.forEach((colorName) => {
+            product.sizes.forEach((size) => {
+                variants.push({
+                    product,
+                    size,
+                    colorName,
+                    fullKey: colorName
+                        ? `${product.id}|${colorName}|${size}`
+                        : `${product.id}|${size}`,
+                    productKey: colorName ? `${colorName}|${size}` : size
+                });
+            });
+        });
+    });
+
+    return variants;
+}
+
+function assignStripeLinksToVariants() {
+    const uniqueUrls = [...new Set(stripeCheckoutUrls)];
+    const fixedUrls = new Set(Object.values(fixedStripeVariantLinks));
+    const availableUrls = uniqueUrls.filter((url) => !fixedUrls.has(url));
+    const variants = buildVariantList(products);
+
+    variants.forEach((variant) => {
+        const fixedUrl = fixedStripeVariantLinks[variant.fullKey];
+        if (fixedUrl) {
+            stripeVariantCheckoutLinks[variant.fullKey] = fixedUrl;
+            variant.product.stripeLinks = variant.product.stripeLinks || {};
+            variant.product.stripeLinks[variant.productKey] = fixedUrl;
+        }
+    });
+
+    const variantsToAssign = variants.filter((variant) => !fixedStripeVariantLinks[variant.fullKey]);
+
+    variantsToAssign.forEach((variant, index) => {
+        const checkoutUrl = availableUrls[index];
+        if (!checkoutUrl) return;
+
+        stripeVariantCheckoutLinks[variant.fullKey] = checkoutUrl;
+        variant.product.stripeLinks = variant.product.stripeLinks || {};
+        variant.product.stripeLinks[variant.productKey] = checkoutUrl;
+    });
+}
+
+assignStripeLinksToVariants();

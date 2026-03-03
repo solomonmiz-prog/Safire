@@ -69,6 +69,21 @@
             return Number.isInteger(value) ? value.toString() : value.toFixed(2);
         }
 
+        function getStripeCheckoutUrl(product, size, color) {
+            if (!product || !size) return null;
+
+            const fullVariantKey = color ? `${product.id}|${color}|${size}` : `${product.id}|${size}`;
+            if (typeof stripeVariantCheckoutLinks === 'object' && stripeVariantCheckoutLinks !== null) {
+                if (stripeVariantCheckoutLinks[fullVariantKey]) {
+                    return stripeVariantCheckoutLinks[fullVariantKey];
+                }
+            }
+
+            if (!product.stripeLinks) return null;
+            const variantKey = color ? `${color}|${size}` : size;
+            return product.stripeLinks[variantKey] || product.stripeLinks[size] || null;
+        }
+
         if (!product) {
             notFound.style.display = 'block';
         } else {
@@ -178,6 +193,12 @@
             document.getElementById('add-to-cart-btn').addEventListener('click', () => {
                 if (!selectedSize) {
                     alert('Please select a size first.');
+                    return;
+                }
+
+                const stripeCheckoutUrl = getStripeCheckoutUrl(product, selectedSize, selectedColorName);
+                if (stripeCheckoutUrl) {
+                    window.location.href = stripeCheckoutUrl;
                     return;
                 }
 
