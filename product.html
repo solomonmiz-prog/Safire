@@ -69,10 +69,24 @@
             return Number.isInteger(value) ? value.toString() : value.toFixed(2);
         }
 
+        function normalizeValue(value) {
+            return String(value || '').trim().toLowerCase();
+        }
+
         function getStripeCheckoutUrl(product, size, color) {
             if (!product || !size) return null;
 
-            const fullVariantKey = color ? `${product.id}|${color}|${size}` : `${product.id}|${size}`;
+            const normalizedSize = normalizeValue(size);
+            const normalizedColor = normalizeValue(color || 'default');
+            const variantKey = `${normalizedColor}-${normalizedSize}`;
+            const fullVariantKey = `${normalizeValue(product.id)}-${variantKey}`;
+
+            console.log('[Stripe Debug] product:', product.id);
+            console.log('[Stripe Debug] color:', normalizedColor);
+            console.log('[Stripe Debug] size:', normalizedSize);
+            console.log('[Stripe Debug] variantKey:', variantKey);
+            console.log('[Stripe Debug] fullVariantKey:', fullVariantKey);
+
             if (typeof stripeVariantCheckoutLinks === 'object' && stripeVariantCheckoutLinks !== null) {
                 if (stripeVariantCheckoutLinks[fullVariantKey]) {
                     return stripeVariantCheckoutLinks[fullVariantKey];
@@ -80,8 +94,7 @@
             }
 
             if (!product.stripeLinks) return null;
-            const variantKey = color ? `${color}|${size}` : size;
-            return product.stripeLinks[variantKey] || product.stripeLinks[size] || null;
+            return product.stripeLinks[variantKey] || null;
         }
 
         if (!product) {
@@ -152,11 +165,12 @@
                     colorBtn.style.backgroundColor = colorway.hex;
                     colorBtn.setAttribute('aria-label', `Select ${colorway.name}`);
                     colorBtn.title = colorway.name;
+                    colorBtn.value = normalizeValue(colorway.name);
 
                     colorBtn.addEventListener('click', () => {
                         document.querySelectorAll('.color-dot').forEach((dot) => dot.classList.remove('active'));
                         colorBtn.classList.add('active');
-                        selectedColorName = colorway.name;
+                        selectedColorName = colorBtn.value;
                         activeImages = [...colorway.images];
                         renderThumbnails(activeImages);
                     });
@@ -164,7 +178,7 @@
                     colorOptions.appendChild(colorBtn);
                 });
 
-                selectedColorName = product.colorways[0].name;
+                selectedColorName = normalizeValue(product.colorways[0].name);
                 activeImages = [...product.colorways[0].images];
             }
 
@@ -182,10 +196,11 @@
                 button.type = 'button';
                 button.className = 'size-btn';
                 button.textContent = size;
+                button.value = normalizeValue(size);
                 button.addEventListener('click', () => {
                     document.querySelectorAll('.size-btn').forEach((item) => item.classList.remove('active'));
                     button.classList.add('active');
-                    selectedSize = size;
+                    selectedSize = button.value;
                 });
                 sizeGrid.appendChild(button);
             });
@@ -202,26 +217,7 @@
                     return;
                 }
 
-                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                const existing = cart.find((item) => item.id === product.id && item.size === selectedSize);
-
-                if (existing) {
-                    existing.quantity += 1;
-                } else {
-                    cart.push({
-                        id: product.id,
-                        name: product.name,
-                        price: product.price,
-                        size: selectedSize,
-                        color: selectedColorName,
-                        image: mainImage.src,
-                        freeShipping: product.freeShipping !== false,
-                        quantity: 1
-                    });
-                }
-
-                localStorage.setItem('cart', JSON.stringify(cart));
-                alert('Added to cart');
+                alert('Stripe link not found for this color/size combination.');
             });
         }
     </script>

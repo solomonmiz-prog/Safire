@@ -203,29 +203,31 @@ const stripeCheckoutUrls = [
 ];
 
 const fixedStripeVariantLinks = {
-    "brown-hoodie|XL": "https://buy.stripe.com/14A5kx2Fk9HW9bx1tWeAg00"
+    "brown-hoodie-default-xl": "https://buy.stripe.com/14A5kx2Fk9HW9bx1tWeAg00"
 };
 
 const stripeVariantCheckoutLinks = {};
 
 function buildVariantList(items) {
     const variants = [];
+    const normalize = (value) => String(value || "").trim().toLowerCase();
 
     items.forEach((product) => {
         const colors = Array.isArray(product.colorways) && product.colorways.length > 0
             ? product.colorways.map((colorway) => colorway.name)
-            : [null];
+            : ["default"];
 
         colors.forEach((colorName) => {
             product.sizes.forEach((size) => {
+                const normalizedProductId = normalize(product.id);
+                const normalizedColor = normalize(colorName);
+                const normalizedSize = normalize(size);
                 variants.push({
                     product,
                     size,
                     colorName,
-                    fullKey: colorName
-                        ? `${product.id}|${colorName}|${size}`
-                        : `${product.id}|${size}`,
-                    productKey: colorName ? `${colorName}|${size}` : size
+                    fullKey: `${normalizedProductId}-${normalizedColor}-${normalizedSize}`,
+                    productKey: `${normalizedColor}-${normalizedSize}`
                 });
             });
         });
