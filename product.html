@@ -9,6 +9,9 @@
 <body>
     <header class="site-header">
         <a href="index.html" class="brand">SAFIRE</a>
+        <div class="header-right">
+            <a href="cart.html" class="cart-link">Cart <span id="cart-count" class="cart-count-badge">0</span></a>
+        </div>
     </header>
 
     <main class="product-page">
@@ -57,6 +60,7 @@
     </main>
 
     <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
     <script>
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
@@ -243,17 +247,20 @@
                         return;
                     }
 
-                    const stripeCheckoutUrl = getStripeCheckoutUrl(product, scopedSize, scopedColor);
-                    if (stripeCheckoutUrl) {
-                        console.log('[Stripe Debug] redirect key:', `${normalizeColorKey(scopedColor || 'default')}-${String(scopedSize || '').trim().toLowerCase()}`);
-                        console.log('[Stripe Debug] redirect url:', stripeCheckoutUrl);
-                        window.location.href = stripeCheckoutUrl;
-                        return;
-                    }
+                    addToCart({
+                        productId: product.id,
+                        name: product.name,
+                        color: scopedColor,
+                        size: scopedSize,
+                        price: product.price
+                    });
 
-                    alert('Stripe link not found for this color/size combination.');
+                    console.log('[Cart Debug] added key:', `${normalizeColorKey(scopedColor || 'default')}-${String(scopedSize || '').trim().toLowerCase()}`);
+                    alert('Added to cart');
                 });
             });
+
+            updateCartCount();
         }
     </script>
 </body>
