@@ -149,6 +149,31 @@ const products = [
         details: "Material\nMain Fabric: 48.9% polyester, 43.4% cotton, 7.7% spandex; Contrast Fabric: 95.6% polyester, 4.4% spandex\n\nFabric Weight\n400 gsm (11.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate\n\nEffects\nZipper / Pocket\n\nFit\nLoose\n\nNeckline\nStand Collar\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nWinter\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nGender\nUnisex\n\nSafire's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge. Featuring distinct contrast piping along the shoulders and sporty striped ribbed trims at the collar, cuffs, and hem, this outerwear piece offers a retro-inspired look. The design includes a full-zip closure, practical side pockets, and a relaxed drop-shoulder fit for everyday comfort. Ideal for creating high-quality Custom Jackets, it is specifically optimized for Custom DTF printing to ensure vibrant results. Expand your offering with this stylish essential, ready for seamless Print-on-Demand and Dropshipping fulfillment.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
+        id: "cropped-fleece-hoodie",
+        name: "SAFIRE Cropped Fleece Hoodie",
+        price: 64.99,
+        description: "A fashion-forward cropped hoodie with heavyweight warmth, fleece comfort, and a relaxed street-ready silhouette.",
+        images: [
+            "images/plainhoodieblackfront.png",
+            "images/plainhoodieblackback.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/plainhoodieblackfront.png",
+                    "images/plainhoodieblackback.png"
+                ]
+            }
+        ],
+        sizes: ["S", "M", "L", "XL"],
+        freeShipping: true,
+        details: "This fashion-forward hoodie combines a cropped length with a warm fleece lining and heavyweight construction. The cotton-polyester blend offers substantial comfort. A trendy piece for essential collections, particularly appealing to brands targeting the cropped silhouette market in womenswear or youth segments.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nEffects\nPocket\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nWinter\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n50% cotton, 50% polyester\n\nFabric Weight\n500 gsm (14.7 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     }
 ];
 
@@ -250,7 +275,11 @@ const fixedStripeVariantLinks = {
     "brown-hoodie-default-s": "https://buy.stripe.com/bJe4gtgwag6kbjFegIeAg03",
     "brown-hoodie-default-m": "https://buy.stripe.com/3cIdR393IdYcdrNegIeAg02",
     "brown-hoodie-default-l": "https://buy.stripe.com/5kQfZb93I2fu3Rd3C4eAg01",
-    "brown-hoodie-default-xl": "https://buy.stripe.com/14A5kx2Fk9HW9bx1tWeAg00"
+    "brown-hoodie-default-xl": "https://buy.stripe.com/14A5kx2Fk9HW9bx1tWeAg00",
+    "cropped-fleece-hoodie-black-s": "https://buy.stripe.com/dRmbIV6VA3jy1J52y0eAg0M",
+    "cropped-fleece-hoodie-black-m": "https://buy.stripe.com/aFa6oB93I07m87tgoQeAg0N",
+    "cropped-fleece-hoodie-black-l": "https://buy.stripe.com/eVq14h2Fk07m5ZlgoQeAg0O",
+    "cropped-fleece-hoodie-black-xl": "https://buy.stripe.com/7sYaER3Jo3jy0F10pSeAg0P"
 };
 
 const stripeVariantCheckoutLinks = {};
