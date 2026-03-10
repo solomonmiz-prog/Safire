@@ -28,6 +28,33 @@ function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+function getProductById(productId) {
+    if (typeof products === 'undefined' || !Array.isArray(products)) return null;
+    const normalizedProductId = normalizeCartValue(productId);
+    return products.find((entry) => normalizeCartValue(entry.id) === normalizedProductId) || null;
+}
+
+function buildCheckoutPayload(cart) {
+    return cart.map((item) => {
+        const product = getProductById(item.productId);
+        const fallbackName = product && product.name ? String(product.name).trim() : '';
+        const fallbackDescription = product && product.description ? String(product.description).trim() : '';
+        const payloadName = String(item.name || fallbackName).trim();
+        const payloadDescription = String(fallbackDescription || '').trim();
+        const payloadPrice = Number(item.price || (product ? product.price : 0)) || 0;
+
+        return {
+            productId: normalizeCartValue(item.productId),
+            name: payloadName,
+            description: payloadDescription,
+            color: String(item.color || '').trim(),
+            size: String(item.size || '').trim(),
+            quantity: Math.max(1, Number(item.quantity) || 1),
+            price: payloadPrice
+        };
+    });
+}
+
 function updateCartCount() {
     const cart = getCart();
     const totalCount = cart.reduce((sum, item) => sum + (Number(item.quantity) || 1), 0);
@@ -175,13 +202,21 @@ async function checkout() {
         return;
     }
 
+    const checkoutCart = buildCheckoutPayload(cart);
+    const hasInvalidItem = checkoutCart.some((item) => !item.name || !Number.isFinite(item.price) || item.price <= 0 || !Number.isFinite(item.quantity) || item.quantity <= 0);
+
+    if (hasInvalidItem) {
+        alert('One or more cart items are missing product name, price, or quantity. Please re-add the item and try again.');
+        return;
+    }
+
     try {
         const response = await fetch('/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ cart })
+            body: JSON.stringify({ cart: checkoutCart })
         });
 
         const payload = await response.json();
