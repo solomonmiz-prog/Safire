@@ -2811,16 +2811,16 @@ const productsData = [
         stock: { S: 10, M: 10, L: 10, XL: 10 },
         colors: [
             {
-                name: "Black",
-                hex: "#111111",
+                name: "Pitch Black",
+                hex: "#0A0A0A",
                 images: {
-                    front: "images/plainhoodieblackfront.png",
-                    back: "images/plainhoodieblackback.png"
+                    front: "images/pitchblackfrontplainhoodie.png",
+                    back: "images/pitchblackbackplainhoodie.png"
                 }
             },
             {
-                name: "Pitch Black",
-                hex: "#0A0A0A",
+                name: "Black",
+                hex: "#111111",
                 images: {
                     front: "images/plainhoodieblackfront.png",
                     back: "images/plainhoodieblackback.png"
@@ -2839,7 +2839,20 @@ function renderProducts() {
     const productsDiv = document.getElementById('products');
     let productsHTML = '';
 
-    filteredProducts.forEach(product => {
+    const featuredOrder = {
+        'classic-quarter-zip': 1,
+        'cropped-fleece-hoodie': 2,
+        'safire-sweatpants': 3
+    };
+
+    const sortedProducts = [...filteredProducts].sort((a, b) => {
+        const orderA = featuredOrder[a.productId] || 999;
+        const orderB = featuredOrder[b.productId] || 999;
+        if (orderA !== orderB) return orderA - orderB;
+        return a.id - b.id;
+    });
+
+    sortedProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
         // Check for low stock (less than 3 items in any size)
         const lowStockSizes = Object.keys(product.stock).filter(size => product.stock[size] > 0 && product.stock[size] < 3);

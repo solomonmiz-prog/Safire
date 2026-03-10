@@ -161,16 +161,16 @@ const products = [
         ],
         colorways: [
             {
-                name: "Black",
-                hex: "#111111",
+                name: "Pitch Black",
+                hex: "#0A0A0A",
                 images: [
-                    "images/plainhoodieblackfront.png",
-                    "images/plainhoodieblackback.png"
+                    "images/pitchblackfrontplainhoodie.png",
+                    "images/pitchblackbackplainhoodie.png"
                 ]
             },
             {
-                name: "Pitch Black",
-                hex: "#0A0A0A",
+                name: "Black",
+                hex: "#111111",
                 images: [
                     "images/plainhoodieblackfront.png",
                     "images/plainhoodieblackback.png"
