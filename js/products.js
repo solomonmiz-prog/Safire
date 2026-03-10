@@ -170,7 +170,7 @@ const products = [
             },
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2B2B2B",
                 images: [
                     "images/plainhoodieblackfront.png",
                     "images/plainhoodieblackback.png"

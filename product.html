@@ -31,6 +31,7 @@
                 <h1 id="product-name"></h1>
                 <p class="price" id="product-price"></p>
                 <p class="desc" id="product-description"></p>
+                <p class="desc" id="selected-color-label" style="margin-top:-4px;font-weight:600;"></p>
 
                 <div>
                     <p style="margin:0 0 8px;font-weight:700;">Select Size</p>
@@ -138,9 +139,11 @@
             const mainImage = document.getElementById('main-image');
             const thumbRow = document.getElementById('thumbnail-row');
             const colorOptions = document.getElementById('color-options');
+            const selectedColorLabel = document.getElementById('selected-color-label');
 
             let activeImages = [...product.images];
             let selectedColorName = null;
+            let selectedColorDisplayName = null;
 
             function setMainImage(src, thumbButton) {
                 mainImage.src = src;
@@ -196,6 +199,10 @@
                         colorOptions.querySelectorAll('.color-dot').forEach((dot) => dot.classList.remove('active'));
                         colorBtn.classList.add('active');
                         selectedColorName = colorBtn.value;
+                        selectedColorDisplayName = colorway.name;
+                        if (selectedColorLabel) {
+                            selectedColorLabel.textContent = `Color: ${selectedColorDisplayName}`;
+                        }
                         activeImages = [...colorway.images];
                         renderThumbnails(activeImages);
                     });
@@ -204,7 +211,13 @@
                 });
 
                 selectedColorName = normalizeValue(product.colorways[0].name);
+                selectedColorDisplayName = product.colorways[0].name;
+                if (selectedColorLabel) {
+                    selectedColorLabel.textContent = `Color: ${selectedColorDisplayName}`;
+                }
                 activeImages = [...product.colorways[0].images];
+            } else if (selectedColorLabel) {
+                selectedColorLabel.textContent = '';
             }
 
             renderThumbnails(activeImages);

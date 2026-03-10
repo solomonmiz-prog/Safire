@@ -424,7 +424,9 @@ a {
 }
 
 .color-dot.active {
-    box-shadow: 0 0 0 2px #111;
+    box-shadow: 0 0 0 1px #fff;
+    outline: 2px solid #111;
+    outline-offset: 1px;
 }
 
 .back-link {
