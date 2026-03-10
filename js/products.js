@@ -167,6 +167,14 @@ const products = [
                     "images/plainhoodieblackfront.png",
                     "images/plainhoodieblackback.png"
                 ]
+            },
+            {
+                name: "Pitch Black",
+                hex: "#0A0A0A",
+                images: [
+                    "images/plainhoodieblackfront.png",
+                    "images/plainhoodieblackback.png"
+                ]
             }
         ],
         sizes: ["S", "M", "L", "XL"],
@@ -279,7 +287,11 @@ const fixedStripeVariantLinks = {
     "cropped-fleece-hoodie-black-s": "https://buy.stripe.com/dRmbIV6VA3jy1J52y0eAg0M",
     "cropped-fleece-hoodie-black-m": "https://buy.stripe.com/aFa6oB93I07m87tgoQeAg0N",
     "cropped-fleece-hoodie-black-l": "https://buy.stripe.com/eVq14h2Fk07m5ZlgoQeAg0O",
-    "cropped-fleece-hoodie-black-xl": "https://buy.stripe.com/7sYaER3Jo3jy0F10pSeAg0P"
+    "cropped-fleece-hoodie-black-xl": "https://buy.stripe.com/7sYaER3Jo3jy0F10pSeAg0P",
+    "cropped-fleece-hoodie-pitch-black-s": "https://buy.stripe.com/4gM4gtbbQ1bq5ZlfkMeAg0Q",
+    "cropped-fleece-hoodie-pitch-black-m": "https://buy.stripe.com/7sY28leo2dYcfzV1tWeAg0R",
+    "cropped-fleece-hoodie-pitch-black-l": "https://buy.stripe.com/6oU7sFbbQbQ4fzV4G8eAg0S",
+    "cropped-fleece-hoodie-pitch-black-xl": "https://buy.stripe.com/cNi5kxeo2dYc5Zl3C4eAg0T"
 };
 
 const stripeVariantCheckoutLinks = {};

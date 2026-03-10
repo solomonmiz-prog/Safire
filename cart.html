@@ -17,6 +17,7 @@
     <main class="cart-page">
         <a href="index.html" class="back-link">← Continue Shopping</a>
         <h1>Shopping Cart</h1>
+        <div id="cart-status" style="display:none;margin:12px 0;padding:12px 14px;border-radius:8px;font-weight:600;"></div>
 
         <section id="cart-items" class="cart-items-list"></section>
 
@@ -32,6 +33,7 @@
     <script src="js/products.js"></script>
     <script src="js/cart.js"></script>
     <script>
+        handleCheckoutStatus();
         renderCart();
     </script>
 </body>

@@ -168,47 +168,59 @@ function appendQuantityParam(url, quantity) {
     return `${url}${url.includes('?') ? '&' : '?'}quantity=${qty}`;
 }
 
-function checkout() {
+async function checkout() {
     const cart = getCart();
     if (cart.length === 0) {
         alert('Your cart is empty.');
         return;
     }
 
-    const checkoutPlan = cart.map((item) => ({
-        item,
-        quantity: Math.max(1, Number(item.quantity) || 1),
-        stripeUrl: getStripeUrlForCartItem(item)
-    }));
+    try {
+        const response = await fetch('/create-checkout-session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cart })
+        });
 
-    const missingLinks = checkoutPlan.filter((entry) => !entry.stripeUrl);
-    if (missingLinks.length > 0) {
-        const missingNames = missingLinks
-            .map((entry) => `${entry.item.name} (${String(entry.item.size || '').toUpperCase()}, ${entry.item.color})`)
-            .join('\n');
-        alert(`No Stripe link found for:\n${missingNames}`);
-        return;
+        const payload = await response.json();
+
+        if (!response.ok || !payload.url) {
+            throw new Error(payload.error || 'Unable to start checkout.');
+        }
+
+        window.location.href = payload.url;
+    } catch (error) {
+        alert(error.message || 'Checkout failed. Please try again.');
+    }
+}
+
+function handleCheckoutStatus() {
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get('checkout');
+    const statusElement = document.getElementById('cart-status');
+
+    if (!statusElement) return;
+
+    statusElement.style.display = 'none';
+    statusElement.textContent = '';
+
+    if (status === 'success') {
+        saveCart([]);
+        renderCart();
+        statusElement.style.display = 'block';
+        statusElement.style.background = '#eaf7ef';
+        statusElement.style.color = '#1e6b3a';
+        statusElement.style.border = '1px solid #b7e4c7';
+        statusElement.textContent = 'Payment successful. Thank you for your order!';
     }
 
-    const cartTotal = cart.reduce((sum, item) => {
-        const quantity = Math.max(1, Number(item.quantity) || 1);
-        return sum + ((Number(item.price) || 0) * quantity);
-    }, 0);
-
-    if (checkoutPlan.length === 1) {
-        const single = checkoutPlan[0];
-        window.location.href = appendQuantityParam(single.stripeUrl, single.quantity);
-        return;
+    if (status === 'cancel') {
+        statusElement.style.display = 'block';
+        statusElement.style.background = '#fff6e5';
+        statusElement.style.color = '#8a5a00';
+        statusElement.style.border = '1px solid #ffe0a3';
+        statusElement.textContent = 'Checkout was canceled. Your cart is still saved.';
     }
-
-    const shouldOpenAll = window.confirm(
-        `Your total is $${cartTotal.toFixed(2)}. This cart has ${checkoutPlan.length} different items, so Stripe checkout will open one tab per item variant. Continue?`
-    );
-
-    if (!shouldOpenAll) return;
-
-    checkoutPlan.forEach((entry) => {
-        const urlWithQuantity = appendQuantityParam(entry.stripeUrl, entry.quantity);
-        window.open(urlWithQuantity, '_blank');
-    });
 }
