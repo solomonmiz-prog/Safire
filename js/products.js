@@ -295,6 +295,20 @@ const fixedStripeVariantLinks = {
 };
 
 const stripeVariantCheckoutLinks = {};
+const stripeVariantPriceIds = {
+    "cropped-fleece-hoodie-pitch-black-s": "price_1T9H3G9S93tBM5OXbLdoCf4s",
+    "cropped-fleece-hoodie-pitch-black-m": "price_1T9H4z9S93tBM5OXVRMY0wX7",
+    "cropped-fleece-hoodie-pitch-black-l": "price_1T9H6E9S93tBM5OXQaxKMfjh",
+    "cropped-fleece-hoodie-pitch-black-xl": "price_1T9H7Z9S93tBM5OX8MDk3e5b",
+    "cropped-fleece-hoodie-black-s": "price_1T9C2M9S93tBM5OXc97jnM4a",
+    "cropped-fleece-hoodie-black-m": "price_1T9C8K9S93tBM5OXBc9vee0A",
+    "cropped-fleece-hoodie-black-l": "price_1T9CAT9S93tBM5OXjE8PBvVC",
+    "cropped-fleece-hoodie-black-xl": "price_1T9CEX9S93tBM5OX3c5d4Xs5",
+    "brown-hoodie-default-s": "price_1T70ru9S93tBM5OXjCxhguQh",
+    "brown-hoodie-default-m": "price_1T70sk9S93tBM5OXsNOJrrJx",
+    "brown-hoodie-default-l": "price_1T70tM9S93tBM5OXiEKffOaT",
+    "brown-hoodie-default-xl": "price_1T70tv9S93tBM5OXJILFsvKH"
+};
 
 function buildVariantList(items) {
     const variants = [];

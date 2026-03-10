@@ -24,6 +24,34 @@ function toNonEmptyString(value) {
   return String(value).trim();
 }
 
+function sanitizeStripeString(value, maxLength) {
+  const normalized = toNonEmptyString(value)
+    .replace(/[\u0000-\u001F\u007F]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  if (!normalized) return '';
+  if (!maxLength || normalized.length <= maxLength) return normalized;
+  return normalized.slice(0, maxLength).trim();
+}
+
+function normalizeBaseUrl(value, fallbackPort) {
+  const raw = toNonEmptyString(value);
+  if (!raw || raw === 'null' || raw === 'undefined') {
+    return `http://localhost:${fallbackPort}`;
+  }
+
+  try {
+    const parsed = new URL(raw);
+    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+      return `http://localhost:${fallbackPort}`;
+    }
+    return parsed.origin;
+  } catch (_error) {
+    return `http://localhost:${fallbackPort}`;
+  }
+}
+
 function isValidAbsoluteUrl(urlString) {
   try {
     const parsed = new URL(urlString);
@@ -34,12 +62,11 @@ function isValidAbsoluteUrl(urlString) {
 }
 
 function sanitizeCartItem(item, index) {
-  const name = toNonEmptyString(item?.name || item?.productName || item?.title);
-  const descriptionInput = toNonEmptyString(item?.description);
-  const color = toNonEmptyString(item?.color);
-  const size = toNonEmptyString(item?.size).toUpperCase();
+  const name = sanitizeStripeString(item?.name || item?.productName || item?.title, 120);
+  const descriptionInput = sanitizeStripeString(item?.description, 300);
+  const color = sanitizeStripeString(item?.color, 80);
+  const size = sanitizeStripeString(item?.size, 30).toUpperCase();
   const quantity = Number(item?.quantity);
-  const unitPrice = Number(item?.price);
   const priceId = toNonEmptyString(item?.priceId);
 
   if (!name) {
@@ -56,10 +83,9 @@ function sanitizeCartItem(item, index) {
   }
 
   const hasValidPriceId = /^price_[A-Za-z0-9]+$/.test(priceId);
-  const hasValidUnitPrice = Number.isFinite(unitPrice) && unitPrice > 0;
 
-  if (!hasValidPriceId && !hasValidUnitPrice) {
-    throw new Error(`Cart item #${index + 1} must include a valid price or priceId.`);
+  if (!hasValidPriceId) {
+    throw new Error(`Cart item #${index + 1} is missing a valid Stripe price ID (price_...).`);
   }
 
   const generatedDescription = [
@@ -75,44 +101,19 @@ function sanitizeCartItem(item, index) {
     name,
     description,
     quantity: safeQuantity,
-    unitPrice,
-    priceId: hasValidPriceId ? priceId : ''
+    priceId
   };
 }
 
 function buildLineItem(item, index, stripeMode) {
-  if (item.priceId) {
-    const priceIdMode = item.priceId.includes('_live_') ? 'live' : item.priceId.includes('_test_') ? 'test' : null;
-    if (stripeMode && priceIdMode && stripeMode !== priceIdMode) {
-      throw new Error(`Cart item #${index + 1} uses a ${priceIdMode} price ID with a ${stripeMode} secret key.`);
-    }
-
-    return {
-      price: item.priceId,
-      quantity: item.quantity
-    };
-  }
-
-  const unitAmountCents = Math.round(item.unitPrice * 100);
-  if (!Number.isFinite(unitAmountCents) || unitAmountCents <= 0) {
-    throw new Error(`Cart item #${index + 1} has an invalid price.`);
-  }
-
-  const productData = {
-    name: item.name
-  };
-
-  if (item.description) {
-    productData.description = item.description;
+  const priceIdMode = item.priceId.includes('_live_') ? 'live' : item.priceId.includes('_test_') ? 'test' : null;
+  if (stripeMode && priceIdMode && stripeMode !== priceIdMode) {
+    throw new Error(`Cart item #${index + 1} uses a ${priceIdMode} price ID with a ${stripeMode} secret key.`);
   }
 
   return {
     quantity: item.quantity,
-    price_data: {
-      currency: 'usd',
-      unit_amount: unitAmountCents,
-      product_data: productData
-    }
+    price: item.priceId
   };
 }
 
@@ -134,7 +135,7 @@ app.post('/create-checkout-session', async (req, res) => {
     const lineItems = sanitizedCart.map((item, index) => buildLineItem(item, index, stripeMode));
 
     const requestOrigin = toNonEmptyString(req.headers.origin);
-    const baseUrl = toNonEmptyString(process.env.PUBLIC_BASE_URL) || requestOrigin || `http://localhost:${port}`;
+    const baseUrl = normalizeBaseUrl(toNonEmptyString(process.env.PUBLIC_BASE_URL) || requestOrigin, port);
     const successUrl = `${baseUrl}/cart.html?checkout=success`;
     const cancelUrl = `${baseUrl}/cart.html?checkout=cancel`;
 
@@ -151,7 +152,24 @@ app.post('/create-checkout-session', async (req, res) => {
 
     return res.json({ url: session.url });
   } catch (error) {
-    return res.status(500).json({ error: error.message || 'Unable to create checkout session.' });
+    console.error('[Stripe Checkout Error]', {
+      message: error?.message,
+      type: error?.type,
+      code: error?.code,
+      param: error?.param,
+      requestId: error?.requestId
+    });
+
+    const details = [error?.message, error?.param ? `param: ${error.param}` : null]
+      .filter(Boolean)
+      .join(' | ');
+
+    return res.status(500).json({
+      error: details || 'Unable to create checkout session.',
+      type: error?.type || 'unknown_error',
+      code: error?.code || null,
+      param: error?.param || null
+    });
   }
 });
 

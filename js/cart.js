@@ -6,6 +6,17 @@ function normalizeCartColor(value) {
     return normalizeCartValue(value).split('/')[0].trim().replace(/\s+/g, '-');
 }
 
+function sanitizeCheckoutString(value, maxLength) {
+    const normalized = String(value || '')
+        .replace(/[\u0000-\u001F\u007F]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    if (!normalized) return '';
+    if (!maxLength || normalized.length <= maxLength) return normalized;
+    return normalized.slice(0, maxLength).trim();
+}
+
 function getCart() {
     try {
         const parsed = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -34,23 +45,47 @@ function getProductById(productId) {
     return products.find((entry) => normalizeCartValue(entry.id) === normalizedProductId) || null;
 }
 
+function getStripePriceIdForCartItem(item) {
+    if (!item || !item.productId) return '';
+
+    const productId = normalizeCartValue(item.productId);
+    const color = normalizeCartColor(item.color || 'default');
+    const size = normalizeCartValue(item.size);
+    const fullKey = `${productId}-${color}-${size}`;
+
+    if (typeof stripeVariantPriceIds === 'object' && stripeVariantPriceIds !== null) {
+        const resolved = String(stripeVariantPriceIds[fullKey] || '').trim();
+        if (resolved) return resolved;
+    }
+
+    const product = getProductById(productId);
+    if (product && typeof product.priceIds === 'object' && product.priceIds !== null) {
+        const productKey = `${color}-${size}`;
+        const resolved = String(product.priceIds[productKey] || '').trim();
+        if (resolved) return resolved;
+    }
+
+    return '';
+}
+
 function buildCheckoutPayload(cart) {
     return cart.map((item) => {
         const product = getProductById(item.productId);
         const fallbackName = product && product.name ? String(product.name).trim() : '';
         const fallbackDescription = product && product.description ? String(product.description).trim() : '';
-        const payloadName = String(item.name || fallbackName).trim();
-        const payloadDescription = String(fallbackDescription || '').trim();
+        const payloadName = sanitizeCheckoutString(item.name || fallbackName, 120);
+        const payloadDescription = sanitizeCheckoutString(fallbackDescription || '', 300);
         const payloadPrice = Number(item.price || (product ? product.price : 0)) || 0;
 
         return {
             productId: normalizeCartValue(item.productId),
             name: payloadName,
             description: payloadDescription,
-            color: String(item.color || '').trim(),
-            size: String(item.size || '').trim(),
+            color: sanitizeCheckoutString(item.color || '', 80),
+            size: sanitizeCheckoutString(item.size || '', 30),
             quantity: Math.max(1, Number(item.quantity) || 1),
-            price: payloadPrice
+            price: payloadPrice,
+            priceId: getStripePriceIdForCartItem(item)
         };
     });
 }
@@ -203,10 +238,19 @@ async function checkout() {
     }
 
     const checkoutCart = buildCheckoutPayload(cart);
-    const hasInvalidItem = checkoutCart.some((item) => !item.name || !Number.isFinite(item.price) || item.price <= 0 || !Number.isFinite(item.quantity) || item.quantity <= 0);
+    const hasInvalidItem = checkoutCart.some((item) => !item.name || !Number.isFinite(item.quantity) || item.quantity <= 0);
+    const invalidPriceIdItems = checkoutCart.filter((item) => !/^price_[A-Za-z0-9]+$/.test(String(item.priceId || '').trim()));
 
     if (hasInvalidItem) {
-        alert('One or more cart items are missing product name, price, or quantity. Please re-add the item and try again.');
+        alert('One or more cart items are missing product name or quantity. Please re-add the item and try again.');
+        return;
+    }
+
+    if (invalidPriceIdItems.length > 0) {
+        const list = invalidPriceIdItems
+            .map((item) => `${item.name} (${String(item.size || '').toUpperCase()}, ${item.color || 'default'})`)
+            .join('\n');
+        alert(`Missing valid Stripe price IDs for:\n${list}\n\nAdd matching price_... IDs in stripeVariantPriceIds.`);
         return;
     }
 
