@@ -51,24 +51,17 @@ function getStripeUrlForCartItem(item) {
     const productId = normalizeCartValue(item.productId);
     const color = normalizeCartColor(item.color || 'default');
     const size = normalizeCartValue(item.size);
-    const key = `${color}-${size}`;
-    const fullKey = `${productId}-${key}`;
+    const candidateKeys = [`${productId}-${size}`, `${productId}-${color}-${size}`, `${productId}-default-${size}`];
 
-    if (typeof stripeVariantCheckoutLinks === 'object' && stripeVariantCheckoutLinks !== null) {
-        if (stripeVariantCheckoutLinks[fullKey]) {
-            return stripeVariantCheckoutLinks[fullKey];
-        }
+    if (typeof stripeLinks !== 'object' || stripeLinks === null) return null;
+
+    for (const candidateKey of candidateKeys) {
+        const checkoutUrl = stripeLinks[candidateKey];
+        if (checkoutUrl) return checkoutUrl;
     }
 
-    const product = getProductById(productId);
-    if (!product || !product.stripeLinks) return null;
-
-    const normalizedStripeLinks = {};
-    Object.keys(product.stripeLinks).forEach((stripeKey) => {
-        normalizedStripeLinks[normalizeCartValue(stripeKey)] = product.stripeLinks[stripeKey];
-    });
-
-    return normalizedStripeLinks[key] || null;
+    console.warn('[Stripe Warning] No Payment Link found for cart item variant:', `${productId}-${color}-${size}`);
+    return null;
 }
 
 function updateCartCount() {

@@ -88,23 +88,24 @@
 
             const normalizedSize = String(size || '').trim().toLowerCase();
             const normalizedColor = normalizeColorKey(color || 'default');
-            const variantKey = `${normalizedColor}-${normalizedSize}`;
-            const fullVariantKey = `${normalizeValue(product.id)}-${variantKey}`;
+            const normalizedProductId = normalizeValue(product.id);
 
-            if (typeof stripeVariantCheckoutLinks === 'object' && stripeVariantCheckoutLinks !== null) {
-                if (stripeVariantCheckoutLinks[fullVariantKey]) {
-                    return stripeVariantCheckoutLinks[fullVariantKey];
+            if (typeof stripeLinks !== 'object' || stripeLinks === null) return null;
+
+            const candidateKeys = [
+                `${normalizedProductId}-${normalizedSize}`,
+                `${normalizedProductId}-${normalizedColor}-${normalizedSize}`,
+                `${normalizedProductId}-default-${normalizedSize}`
+            ];
+
+            for (const candidateKey of candidateKeys) {
+                if (stripeLinks[candidateKey]) {
+                    return stripeLinks[candidateKey];
                 }
             }
 
-            if (!product.stripeLinks) return null;
-
-            const normalizedStripeLinks = {};
-            Object.keys(product.stripeLinks).forEach((key) => {
-                normalizedStripeLinks[String(key || '').trim().toLowerCase()] = product.stripeLinks[key];
-            });
-
-            return normalizedStripeLinks[variantKey] || null;
+            console.warn('[Stripe Warning] No Payment Link found for product variant:', `${normalizedProductId}-${normalizedColor}-${normalizedSize}`);
+            return null;
         }
 
         if (!product) {
