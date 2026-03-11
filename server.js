@@ -10,6 +10,7 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY;
 const stripe = stripeSecretKey ? new Stripe(stripeSecretKey) : null;
 
 function getStripeMode(secretKey) {
@@ -150,7 +151,7 @@ app.post('/create-checkout-session', async (req, res) => {
       cancel_url: cancelUrl
     });
 
-    return res.json({ url: session.url });
+    return res.json({ sessionId: session.id, url: session.url });
   } catch (error) {
     console.error('[Stripe Checkout Error]', {
       message: error?.message,
@@ -171,6 +172,15 @@ app.post('/create-checkout-session', async (req, res) => {
       param: error?.param || null
     });
   }
+});
+
+app.get('/stripe-config', (_req, res) => {
+  const publishableKey = toNonEmptyString(stripePublishableKey);
+  if (!publishableKey) {
+    return res.status(500).json({ error: 'Missing STRIPE_PUBLISHABLE_KEY in environment.' });
+  }
+
+  return res.json({ publishableKey });
 });
 
 app.get('*', (_req, res) => {

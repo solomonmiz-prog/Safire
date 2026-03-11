@@ -151,35 +151,6 @@ function updateCartItemQuantity(index, delta) {
     renderCart();
 }
 
-function getStripeUrlForCartItem(item) {
-    if (!item || !item.productId) return null;
-
-    const productId = normalizeCartValue(item.productId);
-    const color = normalizeCartColor(item.color || 'default');
-    const size = normalizeCartValue(item.size);
-    const key = `${color}-${size}`;
-    const fullKey = `${productId}-${key}`;
-
-    if (typeof stripeVariantCheckoutLinks === 'object' && stripeVariantCheckoutLinks !== null) {
-        if (stripeVariantCheckoutLinks[fullKey]) {
-            return stripeVariantCheckoutLinks[fullKey];
-        }
-    }
-
-    if (typeof products !== 'undefined' && Array.isArray(products)) {
-        const product = products.find((entry) => normalizeCartValue(entry.id) === productId);
-        if (!product || !product.stripeLinks) return null;
-
-        const normalizedStripeLinks = {};
-        Object.keys(product.stripeLinks).forEach((stripeKey) => {
-            normalizedStripeLinks[normalizeCartValue(stripeKey)] = product.stripeLinks[stripeKey];
-        });
-
-        return normalizedStripeLinks[key] || null;
-    }
-
-    return null;
-}
 
 function renderCart() {
     const cartItemsContainer = document.getElementById('cart-items');
@@ -224,12 +195,6 @@ function renderCart() {
     updateCartCount();
 }
 
-function appendQuantityParam(url, quantity) {
-    const qty = Math.max(1, Number(quantity) || 1);
-    if (qty <= 1) return url;
-    return `${url}${url.includes('?') ? '&' : '?'}quantity=${qty}`;
-}
-
 async function checkout() {
     const cart = getCart();
     if (cart.length === 0) {
@@ -265,11 +230,15 @@ async function checkout() {
 
         const payload = await response.json();
 
-        if (!response.ok || !payload.url) {
+        if (!response.ok || !payload.sessionId) {
             throw new Error(payload.error || 'Unable to start checkout.');
         }
 
-        window.location.href = payload.url;
+        if (typeof startStripeRedirectToCheckout !== 'function') {
+            throw new Error('Stripe checkout helper is not loaded.');
+        }
+
+        await startStripeRedirectToCheckout(payload.sessionId);
     } catch (error) {
         alert(error.message || 'Checkout failed. Please try again.');
     }

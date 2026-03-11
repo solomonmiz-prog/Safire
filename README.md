@@ -11,9 +11,10 @@ streetwear clothing brand
 
 	cp .env.example .env
 
-3. Add your Stripe secret key in `.env`:
+3. Add your Stripe keys in `.env`:
 
 	STRIPE_SECRET_KEY=sk_live_or_sk_test_key_here
+	STRIPE_PUBLISHABLE_KEY=pk_live_or_pk_test_key_here
 
 4. Start the app:
 
@@ -23,4 +24,4 @@ streetwear clothing brand
 
 	http://localhost:4242
 
-Checkout now creates one Stripe Checkout Session for the full cart total (all items together) instead of opening multiple payment links.
+Checkout now creates one Stripe Checkout Session for the full cart total and the frontend redirects with Stripe.js `redirectToCheckout({ sessionId })`.
