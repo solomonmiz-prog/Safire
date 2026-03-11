@@ -185,57 +185,7 @@ const products = [
     }
 ];
 
-const stripeCheckoutUrls = [
-    "https://buy.stripe.com/bJe4gtgwag6kbjFegIeAg03",
-    "https://buy.stripe.com/00wcMZ7ZE1bq5Zl6OgeAg0L",
-    "https://buy.stripe.com/fZu9ANa7M9HW2N91tWeAg0K",
-    "https://buy.stripe.com/9B65kxbbQ9HWevR7SkeAg0J",
-    "https://buy.stripe.com/eVq6oB2FkaM02N9a0seAg0I",
-    "https://buy.stripe.com/cNi3cpa7M07m3Rdc8AeAg0H",
-    "https://buy.stripe.com/9B6eV7a7M8DScnJgoQeAg0G",
-    "https://buy.stripe.com/bJe28l3Jo1bq2N97SkeAg0F",
-    "https://buy.stripe.com/5kQ8wJ7ZE8DS73pfkMeAg0E",
-    "https://buy.stripe.com/7sYaER0xc6vK2N9dcEeAg0D",
-    "https://buy.stripe.com/4gM14hcfU9HW1J5egIeAg0C",
-    "https://buy.stripe.com/bJe3cp6VA1bq2N96OgeAg0B",
-    "https://buy.stripe.com/aFafZb3JocU887tgoQeAg0A",
-    "https://buy.stripe.com/14AeV7fs6g6k4VhfkMeAg0z",
-    "https://buy.stripe.com/eVqcMZcfU8DSafB5KceAg0y",
-    "https://buy.stripe.com/cNi6oB4NscU81J58WoeAg0x",
-    "https://buy.stripe.com/14A00dgwa2fufzVegIeAg0w",
-    "https://buy.stripe.com/aFa28l93I1bq4Vh5KceAg0v",
-    "https://buy.stripe.com/cNi5kx2FkaM01J5goQeAg0u",
-    "https://buy.stripe.com/5kQ14hbbQg6k5Zlc8AeAg0t",
-    "https://buy.stripe.com/9B600da7Mf2gafB0pSeAg0s",
-    "https://buy.stripe.com/6oU8wJ3Jo5rGdrN0pSeAg0r",
-    "https://buy.stripe.com/00wfZbeo2dYcfzVc8AeAg0q",
-    "https://buy.stripe.com/00w6oB2Fk3jy87tc8AeAg0p",
-    "https://buy.stripe.com/14AaEReo2g6k9bxegIeAg0o",
-    "https://buy.stripe.com/fZucMZ0xc07m73p6OgeAg0n",
-    "https://buy.stripe.com/eVq3cp7ZE07m9bxgoQeAg0m",
-    "https://buy.stripe.com/6oU28leo29HWdrN3C4eAg0l",
-    "https://buy.stripe.com/28E7sF6VA4nCevRgoQeAg0k",
-    "https://buy.stripe.com/aFa5kx4Ns2fu0F13C4eAg0j",
-    "https://buy.stripe.com/00w28l1Bgf2g5Zl8WoeAg0i",
-    "https://buy.stripe.com/8x2cMZfs66vK73pa0seAg0h",
-    "https://buy.stripe.com/7sY6oB4Ns1bqevR2y0eAg0g",
-    "https://buy.stripe.com/9B66oB5RwdYccnJ7SkeAg0f",
-    "https://buy.stripe.com/5kQ00d3JodYc73p2y0eAg0e",
-    "https://buy.stripe.com/6oU3cp2Fkg6kafBgoQeAg0d",
-    "https://buy.stripe.com/28E5kxa7M9HWdrN1tWeAg0c",
-    "https://buy.stripe.com/eVq14h7ZE6vK1J50pSeAg0b",
-    "https://buy.stripe.com/bJe00d1Bg8DS3RdgoQeAg0a",
-    "https://buy.stripe.com/8x2fZb0xc8DS1J5dcEeAg09",
-    "https://buy.stripe.com/3cIeV70xc7zO4Vh4G8eAg08",
-    "https://buy.stripe.com/cNi9ANfs607mafBa0seAg07",
-    "https://buy.stripe.com/eVq4gt5Rw2fu0F1a0seAg06",
-    "https://buy.stripe.com/3cI6oB5RwdYc1J5goQeAg05",
-    "https://buy.stripe.com/4gM5kx5Rw1bqafBdcEeAg04",
-    "https://buy.stripe.com/3cIdR393IdYcdrNegIeAg02",
-    "https://buy.stripe.com/5kQfZb93I2fu3Rd3C4eAg01"
-];
-
-const fixedStripeVariantLinks = {
+const stripeLinks = {
     "varsity-jacket-black-s": "https://buy.stripe.com/00wcMZ7ZE1bq5Zl6OgeAg0L",
     "varsity-jacket-black-m": "https://buy.stripe.com/fZu9ANa7M9HW2N91tWeAg0K",
     "varsity-jacket-black-l": "https://buy.stripe.com/9B65kxbbQ9HWevR7SkeAg0J",
@@ -280,10 +230,18 @@ const fixedStripeVariantLinks = {
     "black-socrates-hoodie-default-m": "https://buy.stripe.com/eVq4gt5Rw2fu0F1a0seAg06",
     "black-socrates-hoodie-default-l": "https://buy.stripe.com/3cI6oB5RwdYc1J5goQeAg05",
     "black-socrates-hoodie-default-xl": "https://buy.stripe.com/4gM5kx5Rw1bqafBdcEeAg04",
+    "black-socrates-hoodie-s": "https://buy.stripe.com/cNi9ANfs607mafBa0seAg07",
+    "black-socrates-hoodie-m": "https://buy.stripe.com/eVq4gt5Rw2fu0F1a0seAg06",
+    "black-socrates-hoodie-l": "https://buy.stripe.com/3cI6oB5RwdYc1J5goQeAg05",
+    "black-socrates-hoodie-xl": "https://buy.stripe.com/4gM5kx5Rw1bqafBdcEeAg04",
     "brown-hoodie-default-s": "https://buy.stripe.com/bJe4gtgwag6kbjFegIeAg03",
     "brown-hoodie-default-m": "https://buy.stripe.com/3cIdR393IdYcdrNegIeAg02",
     "brown-hoodie-default-l": "https://buy.stripe.com/5kQfZb93I2fu3Rd3C4eAg01",
     "brown-hoodie-default-xl": "https://buy.stripe.com/14A5kx2Fk9HW9bx1tWeAg00",
+    "brown-hoodie-s": "https://buy.stripe.com/bJe4gtgwag6kbjFegIeAg03",
+    "brown-hoodie-m": "https://buy.stripe.com/3cIdR393IdYcdrNegIeAg02",
+    "brown-hoodie-l": "https://buy.stripe.com/5kQfZb93I2fu3Rd3C4eAg01",
+    "brown-hoodie-xl": "https://buy.stripe.com/14A5kx2Fk9HW9bx1tWeAg00",
     "cropped-fleece-hoodie-black-s": "https://buy.stripe.com/dRmbIV6VA3jy1J52y0eAg0M",
     "cropped-fleece-hoodie-black-m": "https://buy.stripe.com/aFa6oB93I07m87tgoQeAg0N",
     "cropped-fleece-hoodie-black-l": "https://buy.stripe.com/eVq14h2Fk07m5ZlgoQeAg0O",
@@ -293,81 +251,3 @@ const fixedStripeVariantLinks = {
     "cropped-fleece-hoodie-pitch-black-l": "https://buy.stripe.com/6oU7sFbbQbQ4fzV4G8eAg0S",
     "cropped-fleece-hoodie-pitch-black-xl": "https://buy.stripe.com/cNi5kxeo2dYc5Zl3C4eAg0T"
 };
-
-const stripeVariantCheckoutLinks = {};
-const stripeVariantPriceIds = {
-    "cropped-fleece-hoodie-pitch-black-s": "price_1T9H3G9S93tBM5OXbLdoCf4s",
-    "cropped-fleece-hoodie-pitch-black-m": "price_1T9H4z9S93tBM5OXVRMY0wX7",
-    "cropped-fleece-hoodie-pitch-black-l": "price_1T9H6E9S93tBM5OXQaxKMfjh",
-    "cropped-fleece-hoodie-pitch-black-xl": "price_1T9H7Z9S93tBM5OX8MDk3e5b",
-    "cropped-fleece-hoodie-black-s": "price_1T9C2M9S93tBM5OXc97jnM4a",
-    "cropped-fleece-hoodie-black-m": "price_1T9C8K9S93tBM5OXBc9vee0A",
-    "cropped-fleece-hoodie-black-l": "price_1T9CAT9S93tBM5OXjE8PBvVC",
-    "cropped-fleece-hoodie-black-xl": "price_1T9CEX9S93tBM5OX3c5d4Xs5",
-    "brown-hoodie-default-s": "price_1T70ru9S93tBM5OXjCxhguQh",
-    "brown-hoodie-default-m": "price_1T70sk9S93tBM5OXsNOJrrJx",
-    "brown-hoodie-default-l": "price_1T70tM9S93tBM5OXiEKffOaT",
-    "brown-hoodie-default-xl": "price_1T70tv9S93tBM5OXJILFsvKH"
-};
-
-function buildVariantList(items) {
-    const variants = [];
-    const normalize = (value) => String(value || "").trim().toLowerCase();
-    const normalizeColorKey = (value) => {
-        const normalized = normalize(value);
-        const primaryColor = normalized.split('/')[0].trim();
-        return primaryColor.replace(/\s+/g, '-');
-    };
-
-    items.forEach((product) => {
-        const colors = Array.isArray(product.colorways) && product.colorways.length > 0
-            ? product.colorways.map((colorway) => colorway.name)
-            : ["default"];
-
-        colors.forEach((colorName) => {
-            product.sizes.forEach((size) => {
-                const normalizedProductId = normalize(product.id);
-                const normalizedColor = normalizeColorKey(colorName);
-                const normalizedSize = normalize(size);
-                variants.push({
-                    product,
-                    size,
-                    colorName,
-                    fullKey: `${normalizedProductId}-${normalizedColor}-${normalizedSize}`,
-                    productKey: `${normalizedColor}-${normalizedSize}`
-                });
-            });
-        });
-    });
-
-    return variants;
-}
-
-function assignStripeLinksToVariants() {
-    const uniqueUrls = [...new Set(stripeCheckoutUrls)];
-    const fixedUrls = new Set(Object.values(fixedStripeVariantLinks));
-    const availableUrls = uniqueUrls.filter((url) => !fixedUrls.has(url));
-    const variants = buildVariantList(products);
-
-    variants.forEach((variant) => {
-        const fixedUrl = fixedStripeVariantLinks[variant.fullKey];
-        if (fixedUrl) {
-            stripeVariantCheckoutLinks[variant.fullKey] = fixedUrl;
-            variant.product.stripeLinks = variant.product.stripeLinks || {};
-            variant.product.stripeLinks[variant.productKey] = fixedUrl;
-        }
-    });
-
-    const variantsToAssign = variants.filter((variant) => !fixedStripeVariantLinks[variant.fullKey]);
-
-    variantsToAssign.forEach((variant, index) => {
-        const checkoutUrl = availableUrls[index];
-        if (!checkoutUrl) return;
-
-        stripeVariantCheckoutLinks[variant.fullKey] = checkoutUrl;
-        variant.product.stripeLinks = variant.product.stripeLinks || {};
-        variant.product.stripeLinks[variant.productKey] = checkoutUrl;
-    });
-}
-
-assignStripeLinksToVariants();

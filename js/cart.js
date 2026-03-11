@@ -45,49 +45,30 @@ function getProductById(productId) {
     return products.find((entry) => normalizeCartValue(entry.id) === normalizedProductId) || null;
 }
 
-function getStripePriceIdForCartItem(item) {
-    if (!item || !item.productId) return '';
+function getStripeUrlForCartItem(item) {
+    if (!item || !item.productId) return null;
 
     const productId = normalizeCartValue(item.productId);
     const color = normalizeCartColor(item.color || 'default');
     const size = normalizeCartValue(item.size);
-    const fullKey = `${productId}-${color}-${size}`;
+    const key = `${color}-${size}`;
+    const fullKey = `${productId}-${key}`;
 
-    if (typeof stripeVariantPriceIds === 'object' && stripeVariantPriceIds !== null) {
-        const resolved = String(stripeVariantPriceIds[fullKey] || '').trim();
-        if (resolved) return resolved;
+    if (typeof stripeVariantCheckoutLinks === 'object' && stripeVariantCheckoutLinks !== null) {
+        if (stripeVariantCheckoutLinks[fullKey]) {
+            return stripeVariantCheckoutLinks[fullKey];
+        }
     }
 
     const product = getProductById(productId);
-    if (product && typeof product.priceIds === 'object' && product.priceIds !== null) {
-        const productKey = `${color}-${size}`;
-        const resolved = String(product.priceIds[productKey] || '').trim();
-        if (resolved) return resolved;
-    }
+    if (!product || !product.stripeLinks) return null;
 
-    return '';
-}
-
-function buildCheckoutPayload(cart) {
-    return cart.map((item) => {
-        const product = getProductById(item.productId);
-        const fallbackName = product && product.name ? String(product.name).trim() : '';
-        const fallbackDescription = product && product.description ? String(product.description).trim() : '';
-        const payloadName = sanitizeCheckoutString(item.name || fallbackName, 120);
-        const payloadDescription = sanitizeCheckoutString(fallbackDescription || '', 300);
-        const payloadPrice = Number(item.price || (product ? product.price : 0)) || 0;
-
-        return {
-            productId: normalizeCartValue(item.productId),
-            name: payloadName,
-            description: payloadDescription,
-            color: sanitizeCheckoutString(item.color || '', 80),
-            size: sanitizeCheckoutString(item.size || '', 30),
-            quantity: Math.max(1, Number(item.quantity) || 1),
-            price: payloadPrice,
-            priceId: getStripePriceIdForCartItem(item)
-        };
+    const normalizedStripeLinks = {};
+    Object.keys(product.stripeLinks).forEach((stripeKey) => {
+        normalizedStripeLinks[normalizeCartValue(stripeKey)] = product.stripeLinks[stripeKey];
     });
+
+    return normalizedStripeLinks[key] || null;
 }
 
 function updateCartCount() {
@@ -202,46 +183,43 @@ async function checkout() {
         return;
     }
 
-    const checkoutCart = buildCheckoutPayload(cart);
-    const hasInvalidItem = checkoutCart.some((item) => !item.name || !Number.isFinite(item.quantity) || item.quantity <= 0);
-    const invalidPriceIdItems = checkoutCart.filter((item) => !/^price_[A-Za-z0-9]+$/.test(String(item.priceId || '').trim()));
+    const checkoutPlan = cart.map((item) => ({
+        item,
+        quantity: Math.max(1, Number(item.quantity) || 1),
+        stripeUrl: getStripeUrlForCartItem(item)
+    }));
 
-    if (hasInvalidItem) {
-        alert('One or more cart items are missing product name or quantity. Please re-add the item and try again.');
-        return;
-    }
-
-    if (invalidPriceIdItems.length > 0) {
-        const list = invalidPriceIdItems
-            .map((item) => `${item.name} (${String(item.size || '').toUpperCase()}, ${item.color || 'default'})`)
+    const missingLinks = checkoutPlan.filter((entry) => !entry.stripeUrl);
+    if (missingLinks.length > 0) {
+        const missingNames = missingLinks
+            .map((entry) => `${entry.item.name} (${String(entry.item.size || '').toUpperCase()}, ${entry.item.color})`)
             .join('\n');
-        alert(`Missing valid Stripe price IDs for:\n${list}\n\nAdd matching price_... IDs in stripeVariantPriceIds.`);
+        alert(`No Stripe Payment Link found for:\n${missingNames}`);
         return;
     }
 
-    try {
-        const response = await fetch('/create-checkout-session', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ cart: checkoutCart })
-        });
+    const appendQuantityParam = (url, quantity) => {
+        const qty = Math.max(1, Number(quantity) || 1);
+        if (qty <= 1) return url;
+        return `${url}${url.includes('?') ? '&' : '?'}quantity=${qty}`;
+    };
 
-        const payload = await response.json();
-
-        if (!response.ok || !payload.sessionId) {
-            throw new Error(payload.error || 'Unable to start checkout.');
-        }
-
-        if (typeof startStripeRedirectToCheckout !== 'function') {
-            throw new Error('Stripe checkout helper is not loaded.');
-        }
-
-        await startStripeRedirectToCheckout(payload.sessionId);
-    } catch (error) {
-        alert(error.message || 'Checkout failed. Please try again.');
+    if (checkoutPlan.length === 1) {
+        const single = checkoutPlan[0];
+        window.location.href = appendQuantityParam(single.stripeUrl, single.quantity);
+        return;
     }
+
+    const shouldOpenAll = window.confirm(
+        `This cart has ${checkoutPlan.length} different items, so checkout will open one Stripe tab per item variant. Continue?`
+    );
+
+    if (!shouldOpenAll) return;
+
+    checkoutPlan.forEach((entry) => {
+        const urlWithQuantity = appendQuantityParam(entry.stripeUrl, entry.quantity);
+        window.open(urlWithQuantity, '_blank');
+    });
 }
 
 function handleCheckoutStatus() {

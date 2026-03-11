@@ -60,6 +60,7 @@
         <p id="not-found" style="display:none;color:#666;">Product not found.</p>
     </main>
 
+    <script src="https://js.stripe.com/v3/"></script>
     <script src="js/products.js"></script>
     <script src="js/cart.js"></script>
     <script>
@@ -90,12 +91,6 @@
             const variantKey = `${normalizedColor}-${normalizedSize}`;
             const fullVariantKey = `${normalizeValue(product.id)}-${variantKey}`;
 
-            console.log('[Stripe Debug] product:', product.id);
-            console.log('[Stripe Debug] color:', normalizedColor);
-            console.log('[Stripe Debug] size:', normalizedSize);
-            console.log('[Stripe Debug] variantKey:', variantKey);
-            console.log('[Stripe Debug] fullVariantKey:', fullVariantKey);
-
             if (typeof stripeVariantCheckoutLinks === 'object' && stripeVariantCheckoutLinks !== null) {
                 if (stripeVariantCheckoutLinks[fullVariantKey]) {
                     return stripeVariantCheckoutLinks[fullVariantKey];
@@ -104,21 +99,10 @@
 
             if (!product.stripeLinks) return null;
 
-            console.log('[Stripe Debug] stripeLinks object:', product.stripeLinks);
-            const availableRawKeys = Object.keys(product.stripeLinks);
             const normalizedStripeLinks = {};
-
-            availableRawKeys.forEach((key) => {
+            Object.keys(product.stripeLinks).forEach((key) => {
                 normalizedStripeLinks[String(key || '').trim().toLowerCase()] = product.stripeLinks[key];
             });
-
-            const availableNormalizedKeys = Object.keys(normalizedStripeLinks);
-            const hasExactKeyMatch = Object.prototype.hasOwnProperty.call(normalizedStripeLinks, variantKey);
-
-            console.log('[Stripe Debug] available stripeLinks keys (raw):', availableRawKeys);
-            console.log('[Stripe Debug] available stripeLinks keys (normalized):', availableNormalizedKeys);
-            console.log('[Stripe Debug] generated key (normalized):', variantKey);
-            console.log('[Stripe Debug] exact key match:', hasExactKeyMatch);
 
             return normalizedStripeLinks[variantKey] || null;
         }
