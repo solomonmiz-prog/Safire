@@ -2194,7 +2194,6 @@
             </button>
             <div class="filter-menu">
                 <label><input type="checkbox" value="hoodie" class="product-filter"> Hoodie</label>
-                <label><input type="checkbox" value="sweatpants" class="product-filter"> Sweatpants</label>
                 <label><input type="checkbox" value="quarter zip" class="product-filter"> Quarter Zip</label>
                 <label><input type="checkbox" value="jacket" class="product-filter"> Jacket</label>
             </div>
@@ -2210,7 +2209,6 @@
             </button>
             <div class="filter-menu">
                 <label><input type="checkbox" value="top" class="style-filter"> Top</label>
-                <label><input type="checkbox" value="bottom" class="style-filter"> Bottom</label>
             </div>
         </div>
     </div>
@@ -2438,10 +2436,10 @@
                 <button class="btn btn-primary" onclick="addToCart(3, 'Classic Quarter Zip', 44.99, 'images/grayqzipfront.png')">Add to Cart</button>
             </div>
             <div class="look-item">
-                <img src="images/frontgraysweatpants.png" alt="Sweatpants" class="look-image">
-                <h3>Saphire Flower Sweatpants</h3>
-                <p>$34.99</p>
-                <button class="btn btn-primary" onclick="addToCart(2, 'Saphire Flower Gray Sweatpants', 34.99, 'images/frontgraysweatpants.png')">Add to Cart</button>
+                <img src="images/frontblackcreamjacket.png" alt="Varsity Jacket" class="look-image">
+                <h3>SAFIRE Varsity Jacket</h3>
+                <p>$49.99</p>
+                <button class="btn btn-primary" onclick="addToCart(4, 'SAFIRE Varsity Jacket', 49.99, 'images/frontblackcreamjacket.png')">Add to Cart</button>
             </div>
             <div class="look-item">
                 <img src="images/brown-hoodie.png" alt="Brown Hoodie" class="look-image">
@@ -2668,22 +2666,6 @@ const productsData = [
         stock: { S: 10, M: 10, L: 10, XL: 10 }
     },
     {
-        id: 2,
-        productId: "safire-sweatpants",
-        name: "SAFIRE Flower Gray Sweatpants",
-        category: "graphic",
-        gender: "women",
-        price: 34.99,
-        image1: "images/frontgraysweatpants.png",
-        image2: "images/backgraysweatpants.png",
-        description: "Clean tapered sweatpants with premium feel, ideal for daily movement and layered fits.",
-        details: "These women's sweatpants offer a classic straight-leg fit with an elasticated drawstring waist for all-day comfort.",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)",
-        freeShipping: true,
-        stock: { S: 10, M: 10, L: 10, XL: 10 }
-    },
-    {
         id: 3,
         productId: "classic-quarter-zip",
         name: "Classic Quarter Zip",
@@ -2797,6 +2779,14 @@ const productsData = [
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+const validProductIds = new Set(productsData.map((product) => product.id));
+
+cart = cart.filter((item) => validProductIds.has(item.id));
+wishlist = wishlist.filter((item) => validProductIds.has(item.id));
+
+localStorage.setItem('cart', JSON.stringify(cart));
+localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
 let filteredProducts = [...productsData];
 
 // Render Products
@@ -3444,13 +3434,12 @@ function applyFilters() {
         const productName = String(product.name || '').toLowerCase();
         const productType =
             productName.includes('hoodie') ? 'hoodie' :
-            productName.includes('sweatpant') ? 'sweatpants' :
             productName.includes('quarter zip') ? 'quarter zip' :
             productName.includes('jacket') ? 'jacket' :
             '';
         const productMatch = selectedProducts.length === 0 || selectedProducts.includes(productType);
 
-        const styleType = productType === 'sweatpants' ? 'bottom' : 'top';
+        const styleType = 'top';
         const styleMatch = selectedStyles.length === 0 || selectedStyles.includes(styleType);
 
         return genderMatch && sizeMatch && productMatch && styleMatch;

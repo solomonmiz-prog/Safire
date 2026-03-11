@@ -22,14 +22,22 @@ function getCart() {
         const parsed = JSON.parse(localStorage.getItem('cart') || '[]');
         if (!Array.isArray(parsed)) return [];
 
-        return parsed.map((item) => ({
-            productId: normalizeCartValue(item.productId),
-            name: item.name,
-            color: normalizeCartColor(item.color),
-            size: normalizeCartValue(item.size),
-            price: Number(item.price) || 0,
-            quantity: Math.max(1, Number(item.quantity) || 1)
-        }));
+        const sanitizedCart = parsed
+            .map((item) => ({
+                productId: normalizeCartValue(item.productId),
+                name: item.name,
+                color: normalizeCartColor(item.color),
+                size: normalizeCartValue(item.size),
+                price: Number(item.price) || 0,
+                quantity: Math.max(1, Number(item.quantity) || 1)
+            }))
+            .filter((item) => getProductById(item.productId));
+
+        if (sanitizedCart.length !== parsed.length) {
+            saveCart(sanitizedCart);
+        }
+
+        return sanitizedCart;
     } catch (_error) {
         return [];
     }
