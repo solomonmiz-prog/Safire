@@ -173,7 +173,6 @@ const products = [
 const stripePrices = {
     "brown-hoodie": "price_1T9ymc9S93tBM5OXJQyDUhbC",
     "black-socrates-hoodie": "price_1T9yom9S93tBM5OXxuh5loMF",
-    "safire-sweatpants": "price_xxxxx",
     "classic-quarter-zip": "price_1T9yqp9S93tBM5OX9uorrP1S",
     "varsity-jacket": "price_1T9ytB9S93tBM5OXJmSgGvri",
     "cropped-fleece-hoodie": "price_1T9yuQ9S93tBM5OX1OfqNOOo"
