@@ -196,7 +196,7 @@ async function checkout() {
         : { items: checkoutItems };
 
     try {
-        const response = await fetch('/.netlify/functions/create-checkout', {
+        const response = await fetch('https://safire1.netlify.app/.netlify/functions/create-checkout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
