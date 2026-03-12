@@ -83,31 +83,6 @@
             return normalizeValue(value).split('/')[0].trim().replace(/\s+/g, '-');
         }
 
-        function getStripeCheckoutUrl(product, size, color) {
-            if (!product || !size) return null;
-
-            const normalizedSize = String(size || '').trim().toLowerCase();
-            const normalizedColor = normalizeColorKey(color || 'default');
-            const normalizedProductId = normalizeValue(product.id);
-
-            if (typeof stripeLinks !== 'object' || stripeLinks === null) return null;
-
-            const candidateKeys = [
-                `${normalizedProductId}-${normalizedSize}`,
-                `${normalizedProductId}-${normalizedColor}-${normalizedSize}`,
-                `${normalizedProductId}-default-${normalizedSize}`
-            ];
-
-            for (const candidateKey of candidateKeys) {
-                if (stripeLinks[candidateKey]) {
-                    return stripeLinks[candidateKey];
-                }
-            }
-
-            console.warn('[Stripe Warning] No Payment Link found for product variant:', `${normalizedProductId}-${normalizedColor}-${normalizedSize}`);
-            return null;
-        }
-
         if (!product) {
             notFound.style.display = 'block';
         } else {

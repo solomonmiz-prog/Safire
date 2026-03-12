@@ -1,7 +1,7 @@
 const products = [
     {
         id: "brown-hoodie",
-        name: "Brown Hoodie (Scratched)",
+        name: "Art Hoodie",
         price: 44.99,
         description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
         images: [
@@ -16,7 +16,7 @@ const products = [
     },
     {
         id: "black-socrates-hoodie",
-        name: "Black Hoodie (Socrates)",
+        name: "Socrates Hoodie",
         price: 49.99,
         description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
         images: [
@@ -72,7 +72,7 @@ const products = [
     },
     {
         id: "varsity-jacket",
-        name: "SAFIRE Varsity Jacket",
+        name: "Varsity Jacket",
         price: 49.99,
         description: "SAFIRE's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge and everyday comfort.",
         images: [
@@ -137,7 +137,7 @@ const products = [
     },
     {
         id: "cropped-fleece-hoodie",
-        name: "SAFIRE Cropped Fleece Hoodie",
+        name: "Plain Hoodie",
         price: 64.99,
         description: "A fashion-forward cropped hoodie with heavyweight warmth, fleece comfort, and a relaxed street-ready silhouette.",
         images: [
@@ -170,86 +170,11 @@ const products = [
     }
 ];
 
-const stripeLinks = {
-    "varsity-jacket-black-s": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-black-m": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-black-l": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-black-xl": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-navy-s": "https://buy.stripe.com/cNi3cpa7M07m3Rdc8AeAg0H",
-    "varsity-jacket-navy-m": "https://buy.stripe.com/9B6eV7a7M8DScnJgoQeAg0G",
-    "varsity-jacket-navy-l": "https://buy.stripe.com/bJe28l3Jo1bq2N97SkeAg0F",
-    "varsity-jacket-navy-xl": "https://buy.stripe.com/5kQ8wJ7ZE8DS73pfkMeAg0E",
-    "varsity-jacket-cream-s": "https://buy.stripe.com/7sYaER0xc6vK2N9dcEeAg0D",
-    "varsity-jacket-cream-m": "https://buy.stripe.com/4gM14hcfU9HW1J5egIeAg0C",
-    "varsity-jacket-cream-l": "https://buy.stripe.com/bJe3cp6VA1bq2N96OgeAg0B",
-    "varsity-jacket-cream-xl": "https://buy.stripe.com/aFafZb3JocU887tgoQeAg0A",
-    "varsity-jacket-purple-s": "https://buy.stripe.com/aFa28l93I1bq4Vh5KceAg0v",
-    "varsity-jacket-purple-m": "https://buy.stripe.com/cNi5kx2FkaM01J5goQeAg0u",
-    "varsity-jacket-purple-l": "https://buy.stripe.com/5kQ14hbbQg6k5Zlc8AeAg0t",
-    "varsity-jacket-purple-xl": "https://buy.stripe.com/9B600da7Mf2gafB0pSeAg0s",
-    "varsity-jacket-green-s": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-green-m": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-green-l": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-green-xl": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-red-s": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-red-m": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-red-l": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "varsity-jacket-red-xl": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "classic-quarter-zip-black-s": "https://buy.stripe.com/aFa5kx4Ns2fu0F13C4eAg0j",
-    "classic-quarter-zip-black-m": "https://buy.stripe.com/00w28l1Bgf2g5Zl8WoeAg0i",
-    "classic-quarter-zip-black-l": "https://buy.stripe.com/8x2cMZfs66vK73pa0seAg0h",
-    "classic-quarter-zip-black-xl": "https://buy.stripe.com/7sY6oB4Ns1bqevR2y0eAg0g",
-    "classic-quarter-zip-cream-s": "https://buy.stripe.com/14AeV7fs6g6k4VhfkMeAg0z",
-    "classic-quarter-zip-cream-m": "https://buy.stripe.com/eVqcMZcfU8DSafB5KceAg0y",
-    "classic-quarter-zip-cream-l": "https://buy.stripe.com/cNi6oB4NscU81J58WoeAg0x",
-    "classic-quarter-zip-cream-xl": "https://buy.stripe.com/14A00dgwa2fufzVegIeAg0w",
-    "classic-quarter-zip-gray-s": "https://buy.stripe.com/9B66oB5RwdYccnJ7SkeAg0f",
-    "classic-quarter-zip-gray-m": "https://buy.stripe.com/5kQ00d3JodYc73p2y0eAg0e",
-    "classic-quarter-zip-gray-l": "https://buy.stripe.com/6oU3cp2Fkg6kafBgoQeAg0d",
-    "classic-quarter-zip-gray-xl": "https://buy.stripe.com/28E5kxa7M9HWdrN1tWeAg0c",
-    "black-socrates-hoodie-default-s": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "black-socrates-hoodie-default-m": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "black-socrates-hoodie-default-l": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "black-socrates-hoodie-default-xl": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "brown-hoodie-default-s": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "brown-hoodie-default-m": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "brown-hoodie-default-l": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "brown-hoodie-default-xl": "https://buy.stripe.com/5kQbIV7ZE3jy5ZlfkMeAg0U",
-    "cropped-fleece-hoodie-black-s": "https://buy.stripe.com/dRmbIV6VA3jy1J52y0eAg0M",
-    "cropped-fleece-hoodie-black-m": "https://buy.stripe.com/aFa6oB93I07m87tgoQeAg0N",
-    "cropped-fleece-hoodie-black-l": "https://buy.stripe.com/eVq14h2Fk07m5ZlgoQeAg0O",
-    "cropped-fleece-hoodie-black-xl": "https://buy.stripe.com/7sYaER3Jo3jy0F10pSeAg0P",
-    "cropped-fleece-hoodie-pitch-black-s": "https://buy.stripe.com/4gM4gtbbQ1bq5ZlfkMeAg0Q",
-    "cropped-fleece-hoodie-pitch-black-m": "https://buy.stripe.com/7sY28leo2dYcfzV1tWeAg0R",
-    "cropped-fleece-hoodie-pitch-black-l": "https://buy.stripe.com/6oU7sFbbQbQ4fzV4G8eAg0S",
-    "cropped-fleece-hoodie-pitch-black-xl": "https://buy.stripe.com/cNi5kxeo2dYc5Zl3C4eAg0T"
+const stripePrices = {
+    "brown-hoodie": "price_1T9ymc9S93tBM5OXJQyDUhbC",
+    "black-socrates-hoodie": "price_1T9yom9S93tBM5OXxuh5loMF",
+    "safire-sweatpants": "price_xxxxx",
+    "classic-quarter-zip": "price_1T9yqp9S93tBM5OX9uorrP1S",
+    "varsity-jacket": "price_1T9ytB9S93tBM5OXJmSgGvri",
+    "cropped-fleece-hoodie": "price_1T9yuQ9S93tBM5OX1OfqNOOo"
 };
-
-function validateStripeLinks(items) {
-    const normalize = (value) => String(value || '').trim().toLowerCase();
-    const normalizeColorKey = (value) => normalize(value).split('/')[0].trim().replace(/\s+/g, '-');
-
-    items.forEach((product) => {
-        const colors = Array.isArray(product.colorways) && product.colorways.length > 0
-            ? product.colorways.map((colorway) => colorway.name)
-            : ['default'];
-
-        colors.forEach((colorName) => {
-            product.sizes.forEach((size) => {
-                const normalizedProductId = normalize(product.id);
-                const normalizedSize = normalize(size);
-                const normalizedColor = normalizeColorKey(colorName);
-                const keysToCheck = normalizedColor === 'default'
-                    ? [`${normalizedProductId}-${normalizedSize}`]
-                    : [`${normalizedProductId}-${normalizedColor}-${normalizedSize}`];
-
-                const hasLink = keysToCheck.some((key) => stripeLinks[key]);
-                if (!hasLink) {
-                    console.warn('[Stripe Warning] Missing Payment Link for variant:', keysToCheck[0]);
-                }
-            });
-        });
-    });
-}
-
-validateStripeLinks(products);

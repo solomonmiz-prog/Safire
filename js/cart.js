@@ -53,23 +53,9 @@ function getProductById(productId) {
     return products.find((entry) => normalizeCartValue(entry.id) === normalizedProductId) || null;
 }
 
-function getStripeUrlForCartItem(item) {
-    if (!item || !item.productId) return null;
-
-    const productId = normalizeCartValue(item.productId);
-    const color = normalizeCartColor(item.color || 'default');
-    const size = normalizeCartValue(item.size);
-    const candidateKeys = [`${productId}-${size}`, `${productId}-${color}-${size}`, `${productId}-default-${size}`];
-
-    if (typeof stripeLinks !== 'object' || stripeLinks === null) return null;
-
-    for (const candidateKey of candidateKeys) {
-        const checkoutUrl = stripeLinks[candidateKey];
-        if (checkoutUrl) return checkoutUrl;
-    }
-
-    console.warn('[Stripe Warning] No Payment Link found for cart item variant:', `${productId}-${color}-${size}`);
-    return null;
+function getStripePriceId(productId) {
+    if (typeof stripePrices !== 'object' || stripePrices === null) return null;
+    return stripePrices[normalizeCartValue(productId)] || null;
 }
 
 function updateCartCount() {
@@ -184,43 +170,49 @@ async function checkout() {
         return;
     }
 
-    const checkoutPlan = cart.map((item) => ({
-        item,
-        quantity: Math.max(1, Number(item.quantity) || 1),
-        stripeUrl: getStripeUrlForCartItem(item)
-    }));
+    const checkoutItems = cart.map((item) => {
+        const productId = normalizeCartValue(item.productId);
+        const selectedSize = normalizeCartValue(item.size || 'default');
+        const selectedColor = normalizeCartColor(item.color || 'default');
 
-    const missingLinks = checkoutPlan.filter((entry) => !entry.stripeUrl);
-    if (missingLinks.length > 0) {
-        const missingNames = missingLinks
-            .map((entry) => `${entry.item.name} (${String(entry.item.size || '').toUpperCase()}, ${entry.item.color})`)
-            .join('\n');
-        alert(`No Stripe Payment Link found for:\n${missingNames}`);
-        return;
-    }
-
-    const appendQuantityParam = (url, quantity) => {
-        const qty = Math.max(1, Number(quantity) || 1);
-        if (qty <= 1) return url;
-        return `${url}${url.includes('?') ? '&' : '?'}quantity=${qty}`;
-    };
-
-    if (checkoutPlan.length === 1) {
-        const single = checkoutPlan[0];
-        window.location.href = appendQuantityParam(single.stripeUrl, single.quantity);
-        return;
-    }
-
-    const shouldOpenAll = window.confirm(
-        `This cart has ${checkoutPlan.length} different items, so checkout will open one Stripe tab per item variant. Continue?`
-    );
-
-    if (!shouldOpenAll) return;
-
-    checkoutPlan.forEach((entry) => {
-        const urlWithQuantity = appendQuantityParam(entry.stripeUrl, entry.quantity);
-        window.open(urlWithQuantity, '_blank');
+        return {
+            productId,
+            priceId: getStripePriceId(productId),
+            quantity: Math.max(1, Number(item.quantity) || 1),
+            size: selectedSize,
+            color: selectedColor
+        };
     });
+
+    const missingPriceIds = checkoutItems.filter((item) => !item.priceId || item.priceId === 'price_xxxxx');
+    if (missingPriceIds.length > 0) {
+        const missingNames = missingPriceIds.map((item) => item.productId).join(', ');
+        alert(`Missing Stripe price ID for: ${missingNames}`);
+        return;
+    }
+
+    const payload = checkoutItems.length === 1
+        ? checkoutItems[0]
+        : { items: checkoutItems };
+
+    try {
+        const response = await fetch('/.netlify/functions/create-checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+        if (!response.ok || !data.url) {
+            throw new Error(data.error || 'Failed to create checkout session.');
+        }
+
+        window.location = data.url;
+    } catch (error) {
+        alert(error.message || 'Checkout failed. Please try again.');
+    }
 }
 
 function handleCheckoutStatus() {
