@@ -5,71 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Safires - Premium Hoodie Store</title>
     <style>
-        // Place Order
-        function placeOrder() {
-            // Validate form
-            const form = document.getElementById('checkout-form');
-            if (!form.checkValidity()) {
-                alert('Please fill in all required fields');
-                return;
-            }
-
-            // Collect customer info
-            const customerInfo = {
-                name: document.getElementById('customer-name').value,
-                email: document.getElementById('customer-email').value,
-                phone: document.getElementById('customer-phone').value,
-                address: document.getElementById('customer-address').value,
-                city: document.getElementById('customer-city').value,
-                state: document.getElementById('customer-state').value,
-                zip: document.getElementById('customer-zip').value,
-                country: document.getElementById('customer-country').value,
-                paymentMethod: document.querySelector('input[name="payment"]:checked').value,
-                cartItems: [...cart],
-                orderTotal: parseFloat(document.getElementById('checkout-total').innerText.replace('$', ''))
-            };
-
-            // Save order
-            const orderId = generateOrderId();
-            localStorage.setItem('order_' + orderId, JSON.stringify({
-                ...customerInfo,
-                orderId: orderId,
-                date: new Date().toISOString(),
-                status: 'Pending Payment'
-            }));
-
-            // If Venmo was selected, open Venmo link immediately (try deep link first, then fallback)
-            if (customerInfo.paymentMethod === 'venmo') {
-                const venmoUsername = localStorage.getItem('venmoUsername') || 'SafiresHoodies';
-                const amount = customerInfo.orderTotal.toFixed(2);
-
-                // Venmo deep link (works on mobile with Venmo installed)
-                const deepLink = `venmo://paycharge?txn=pay&recipients=${encodeURIComponent(venmoUsername)}&amount=${encodeURIComponent(amount)}&note=${encodeURIComponent('Order #' + orderId)}`;
-
-                // Web fallback
-                const fallback = `https://venmo.com/${encodeURIComponent(venmoUsername)}?txn=pay&amount=${encodeURIComponent(amount)}&note=${encodeURIComponent('Order #' + orderId)}`;
-
-                // Open deep link first; some browsers block immediate redirects so open in a new tab then fallback
-                try {
-                    const win = window.open(deepLink, '_blank');
-                    // If the deep link failed to open a new window (popup blocked) or not supported, open fallback after short delay
-                    setTimeout(() => {
-                        window.open(fallback, '_blank');
-                    }, 800);
-                } catch (e) {
-                    window.open(fallback, '_blank');
-                }
-            }
-
-            // Show confirmation (still show order details and instructions)
-            showConfirmation(customerInfo, orderId);
-
-            // Clear cart
-            cart = [];
-            localStorage.setItem('cart', JSON.stringify(cart));
-            updateCartDisplay();
-        }
-
         nav {
             display: flex;
             gap: 30px;
@@ -145,7 +80,10 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 100%);
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('images/concretebackround.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             height: 300px;
             display: flex;
             justify-content: center;
@@ -998,9 +936,9 @@
             margin-bottom: 8px;
         }
 
-        .venmo-button {
+        .stripe-button {
             display: inline-block;
-            background: #3D95CE;
+            background: #111111;
             color: white;
             padding: 12px 24px;
             border-radius: 6px;
@@ -1013,8 +951,8 @@
             font-size: 14px;
         }
 
-        .venmo-button:hover {
-            background: #2875a8;
+        .stripe-button:hover {
+            background: #333333;
         }
 
         .confirm-actions {
@@ -1070,8 +1008,8 @@
 <!-- Hero Section -->
 <section class="hero">
     <div>
-        <h2>Streetwear for Everyday Style</h2>
-        <p>Premium hoodies crafted for comfort and style</p>
+        <h2>SAFIRE</h2>
+        <p>Premium Streetwear Built For The Culture</p>
     </div>
 </section>
 
@@ -1199,30 +1137,12 @@
             <div class="payment-methods">
                 <h4>Select Payment Method</h4>
                 
-                <label class="payment-option selected" onclick="selectPayment(this, 'venmo')">
-                    <input type="radio" name="payment" value="venmo" checked>
-                    <div class="payment-icon">💬</div>
+                <label class="payment-option selected" onclick="selectPayment(this, 'stripe')">
+                    <input type="radio" name="payment" value="stripe" checked>
+                    <div class="payment-icon">💳</div>
                     <div class="payment-details">
-                        <h5>Venmo</h5>
-                        <p>Pay instantly via Venmo app</p>
-                    </div>
-                </label>
-
-                <label class="payment-option" onclick="selectPayment(this, 'bank')">
-                    <input type="radio" name="payment" value="bank">
-                    <div class="payment-icon">🏦</div>
-                    <div class="payment-details">
-                        <h5>Bank Transfer</h5>
-                        <p>Direct bank transfer</p>
-                    </div>
-                </label>
-
-                <label class="payment-option" onclick="selectPayment(this, 'cash')">
-                    <input type="radio" name="payment" value="cash">
-                    <div class="payment-icon">💵</div>
-                    <div class="payment-details">
-                        <h5>Cash on Delivery</h5>
-                        <p>Pay when you receive your order</p>
+                        <h5>Stripe</h5>
+                        <p>Secure card checkout powered by Stripe</p>
                     </div>
                 </label>
             </div>
@@ -1245,11 +1165,9 @@
     <p style="color: #666; font-size: 13px;">We've sent a confirmation email to <strong id="confirm-email"></strong></p>
 
     <div class="payment-instructions" id="payment-instructions-box">
-        <h4>Payment Instructions</h4>
+        <h4>Stripe Checkout</h4>
         <ol id="payment-steps"></ol>
-        <button class="venmo-button" id="venmo-link" style="display: block; width: 100%;">
-            Open Venmo
-        </button>
+        <a class="stripe-button" href="../cart.html" style="display: block; width: 100%; text-align: center;">Continue to Stripe Checkout</a>
     </div>
 
     <div style="background: var(--light-gray); padding: 15px; border-radius: 6px; margin: 20px 0; text-align: left;">
@@ -1287,11 +1205,6 @@
         <div style="background: var(--light-gray); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
             <h3>Settings</h3>
             <div style="margin-top: 20px;">
-                <label style="display: block; margin-bottom: 15px;">
-                    <strong>Venmo Username:</strong><br>
-                    <input type="text" id="venmo-username-input" placeholder="SafiresHoodies" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
-                    <small style="color: #666; display: block; margin-top: 5px;">Enter without the @ symbol</small>
-                </label>
                 <label style="display: block; margin-bottom: 15px;">
                     <strong>Your Email (for notifications):</strong><br>
                     <input type="email" id="business-email-input" placeholder="your-email@example.com" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
@@ -1658,61 +1571,24 @@ function showConfirmation(customerInfo, orderId) {
     document.getElementById('confirm-address').innerText = customerInfo.address + ', ' + customerInfo.city + ', ' + customerInfo.state + ' ' + customerInfo.zip + ', ' + customerInfo.country;
     document.getElementById('confirm-total').innerText = '$' + customerInfo.orderTotal.toFixed(2);
 
-    // Update payment instructions based on method
+    // Update Stripe checkout instructions
     const paymentSteps = document.getElementById('payment-steps');
     const paymentBox = document.getElementById('payment-instructions-box');
-    const venmoLink = document.getElementById('venmo-link');
+    paymentBox.innerHTML = `
+        <h4>Stripe Checkout</h4>
+        <ol id="payment-steps"></ol>
+        <a class="stripe-button" href="../cart.html" style="display: block; width: 100%; text-align: center;">Continue to Stripe Checkout</a>
+    `;
 
-    if (customerInfo.paymentMethod === 'venmo') {
-        const venmoUsername = localStorage.getItem('venmoUsername') || 'SafiresHoodies';
-        paymentSteps.innerHTML = `
-            <li>Open the Venmo app or visit venmo.com</li>
-            <li>Search for <strong>@${venmoUsername}</strong> (or click the button below)</li>
-            <li>Send $${customerInfo.orderTotal.toFixed(2)} with payment note: <strong>"Order #${orderId}"</strong></li>
-            <li>We'll confirm receipt and process your order</li>
-            <li>Expect delivery in 5-7 business days</li>
-        `;
-        venmoLink.style.display = 'block';
-        venmoLink.href = 'https://venmo.com/' + venmoUsername + '?amount=' + customerInfo.orderTotal.toFixed(2) + '&note=Order%20%23' + orderId;
-        venmoLink.target = '_blank';
-        venmoLink.innerText = '💬 Open Venmo to Pay';
-        
-        // Send email notification
-        sendOrderEmail(customerInfo, orderId);
-    } else if (customerInfo.paymentMethod === 'bank') {
-        paymentSteps.innerHTML = `
-            <li>Bank Transfer Details:</li>
-            <li><strong>Account Name:</strong> Safires LLC</li>
-            <li><strong>Amount:</strong> $${customerInfo.orderTotal.toFixed(2)}</li>
-            <li><strong>Reference:</strong> Order #${orderId}</li>
-            <li>Contact us at hello@safires.shop for banking details</li>
-            <li>Expect delivery in 5-7 business days after payment</li>
-        `;
-        venmoLink.style.display = 'none';
-        paymentBox.innerHTML = `
-            <h4>Bank Transfer Instructions</h4>
-            <p style="font-size: 13px; color: #666; margin-bottom: 10px;">Please email <strong>hello@safires.shop</strong> to request bank transfer details and complete your payment.</p>
-            <ol style="margin-left: 20px; color: #666; font-size: 13px; line-height: 1.8;">
-                <li>Email us at hello@safires.shop with your order number</li>
-                <li>We'll send you bank transfer details</li>
-                <li>Complete the transfer with reference <strong>"Order #${orderId}"</strong></li>
-                <li>Once received, we'll ship your order</li>
-            </ol>
-        `;
-    } else if (customerInfo.paymentMethod === 'cash') {
-        paymentSteps.innerHTML = `
-            <li>Your order is ready for cash payment</li>
-            <li><strong>Amount Due:</strong> $${customerInfo.orderTotal.toFixed(2)}</li>
-            <li>We'll contact you at <strong>${customerInfo.phone}</strong> to arrange delivery</li>
-            <li>Pay upon delivery</li>
-            <li>Expect delivery in 5-7 business days</li>
-        `;
-        venmoLink.style.display = 'none';
-        paymentBox.innerHTML = `
-            <h4>Cash on Delivery</h4>
-            <p style="font-size: 13px; color: #666; margin: 10px 0;">We'll contact you to arrange a convenient delivery time. Payment will be collected when your order arrives.</p>
-        `;
-    }
+    const updatedPaymentSteps = document.getElementById('payment-steps');
+    updatedPaymentSteps.innerHTML = `
+        <li>Click the button below to open secure Stripe checkout.</li>
+        <li>Complete your card payment on Stripe.</li>
+        <li>After payment, you will be redirected back with confirmation.</li>
+        <li>Expect delivery in 5-7 business days.</li>
+    `;
+
+    sendOrderEmail(customerInfo, orderId);
 
     // Close checkout and show confirmation
     document.getElementById('checkout-modal').classList.remove('open');
@@ -1810,24 +1686,19 @@ updateWishlistDisplay();
 
 // Load settings
 function loadSettings() {
-    const venmoUsername = localStorage.getItem('venmoUsername') || 'SafiresHoodies';
     const businessEmail = localStorage.getItem('businessEmail') || 'your-email@example.com';
-    
-    document.getElementById('venmo-username-input').value = venmoUsername;
     document.getElementById('business-email-input').value = businessEmail;
 }
 
 // Save settings
 function saveSettings() {
-    const venmoUsername = document.getElementById('venmo-username-input').value.trim();
     const businessEmail = document.getElementById('business-email-input').value.trim();
     
-    if (!venmoUsername || !businessEmail) {
-        alert('Please fill in all settings');
+    if (!businessEmail) {
+        alert('Please enter an email address');
         return;
     }
     
-    localStorage.setItem('venmoUsername', venmoUsername);
     localStorage.setItem('businessEmail', businessEmail);
     alert('✓ Settings saved successfully!');
 }

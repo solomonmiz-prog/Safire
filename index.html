@@ -140,7 +140,10 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 100%);
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('images/concretebackround.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             height: 300px;
             display: flex;
             justify-content: center;
@@ -151,16 +154,17 @@
         }
 
         .hero h2 {
-            font-size: 56px;
+            font-size: 62px;
             font-weight: 700;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: #ffffff;
+            text-shadow: 0 3px 10px rgba(0,0,0,0.55);
             letter-spacing: -1px;
         }
 
         .hero p {
-            font-size: 18px;
-            color: rgba(255,255,255,0.8);
+            font-size: 20px;
+            color: rgba(255,255,255,0.95);
         }
 
         /* Trust Bar */
@@ -1572,9 +1576,9 @@
             margin-bottom: 8px;
         }
 
-        .venmo-button {
+        .stripe-button {
             display: block;
-            background: #3D95CE;
+            background: #111111;
             color: white;
             padding: 14px 24px;
             border-radius: 8px;
@@ -1582,7 +1586,7 @@
             font-weight: 600;
             margin: 15px 0;
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 2px solid #3D95CE;
+            border: 2px solid #111111;
             cursor: pointer;
             font-size: 15px;
             width: 100%;
@@ -1590,11 +1594,11 @@
             box-sizing: border-box;
         }
 
-        .venmo-button:hover {
+        .stripe-button:hover {
             background: transparent;
-            color: #3D95CE;
+            color: #111111;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(61, 149, 206, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
         }
 
         .confirm-actions {
@@ -2125,8 +2129,8 @@
 <!-- Hero Section -->
 <section class="hero">
     <div>
-        <h2>Streetwear for Everyday Style</h2>
-        <p>Premium Clothing crafted for comfort and style</p>
+        <h2>SAFIRE</h2>
+        <p>Premium Streetwear Built For The Culture</p>
     </div>
 </section>
 
@@ -2322,11 +2326,11 @@
                 <h4>Select Payment Method</h4>
                 
                 <label class="payment-option selected">
-                    <input type="radio" name="payment" value="venmo" checked>
-                    <div class="payment-icon">💬</div>
+                    <input type="radio" name="payment" value="stripe" checked>
+                    <div class="payment-icon">💳</div>
                     <div class="payment-details">
-                        <h5>Venmo</h5>
-                        <p>Pay instantly via Venmo app</p>
+                        <h5>Stripe</h5>
+                        <p>Secure card checkout powered by Stripe</p>
                     </div>
                 </label>
             </div>
@@ -2349,10 +2353,10 @@
     <p style="color: #666; font-size: 13px;">We've sent a confirmation email to <strong id="confirm-email"></strong></p>
 
     <div class="payment-instructions" id="payment-instructions-box">
-        <h4>Payment Instructions</h4>
+        <h4>Stripe Checkout</h4>
         <ol id="payment-steps"></ol>
-        <a class="venmo-button" id="venmo-link" href="#" target="_blank" style="display: block; width: 100%; text-align: center; text-decoration: none;">
-            Open Venmo
+        <a class="stripe-button" id="stripe-checkout-link" href="cart.html" style="display: block; width: 100%; text-align: center; text-decoration: none;">
+            Continue to Stripe Checkout
         </a>
     </div>
 
@@ -2563,8 +2567,8 @@
         <h3 style="margin-bottom: 40px; font-size: 20px; letter-spacing: 1px;">SECURE PAYMENT METHODS</h3>
         <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; align-items: center;">
             <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                <span style="font-size: 32px;">💬</span>
-                <p style="margin: 0; font-size: 14px; font-weight: 600;">Venmo</p>
+                <span style="font-size: 32px;">💳</span>
+                <p style="margin: 0; font-size: 14px; font-weight: 600;">Stripe</p>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
                 <span style="font-size: 32px;">🔒</span>
@@ -2595,11 +2599,6 @@
         <div style="background: var(--light-gray); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
             <h3>Settings</h3>
             <div style="margin-top: 20px;">
-                <label style="display: block; margin-bottom: 15px;">
-                    <strong>Venmo Username:</strong><br>
-                    <input type="text" id="venmo-username-input" placeholder="solomonmizrahi2010" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
-                    <small style="color: #666; display: block; margin-top: 5px;">Enter without the @ symbol</small>
-                </label>
                 <label style="display: block; margin-bottom: 15px;">
                     <strong>Your Email (for notifications):</strong><br>
                     <input type="email" id="business-email-input" placeholder="your-email@example.com" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
@@ -3263,7 +3262,7 @@ async function placeOrder() {
         state: document.getElementById('customer-state').value,
         zip: document.getElementById('customer-zip').value,
         country: document.getElementById('customer-country').value,
-        paymentMethod: 'venmo',
+        paymentMethod: 'stripe',
         cartItems: [...cart],
         orderTotal: parseFloat(document.getElementById('checkout-total').innerText.replace('$', ''))
     };
@@ -3349,38 +3348,18 @@ function showConfirmation(customerInfo, orderId) {
         itemsList.innerHTML += `• ${item.name}${sizeInfo}${colorInfo} - Qty: ${item.quantity}<br>`;
     });
 
-    // Update payment instructions based on method
-    const paymentSteps = document.getElementById('payment-steps');
     const paymentBox = document.getElementById('payment-instructions-box');
-    const venmoLink = document.getElementById('venmo-link');
-
-    const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi2010';
-    const venmoUrl = buildVenmoLink(venmoUsername, customerInfo.orderTotal, orderId);
 
     paymentBox.innerHTML = `
-        <h4>Payment Instructions</h4>
-        <ol id="payment-steps"></ol>
-        <a class="venmo-button" id="venmo-link" href="#" target="_blank" style="display: block; width: 100%; text-align: center; text-decoration: none;">Open Venmo</a>
+        <h4>Stripe Checkout</h4>
+        <ol id="payment-steps">
+            <li>Click the button below to go to the secure Stripe checkout page.</li>
+            <li>Complete card payment on Stripe.</li>
+            <li>After payment, you will return to your cart with confirmation.</li>
+            <li>Expect delivery in 5-7 business days.</li>
+        </ol>
+        <a class="stripe-button" href="cart.html" style="display: block; width: 100%; text-align: center; text-decoration: none;">Continue to Stripe Checkout</a>
     `;
-
-    const updatedPaymentSteps = document.getElementById('payment-steps');
-    const updatedVenmoLink = document.getElementById('venmo-link');
-
-    updatedPaymentSteps.innerHTML = `
-        <li>Open the Venmo app or visit venmo.com</li>
-        <li>Search for <strong>@${venmoUsername}</strong> (or click the button below)</li>
-        <li>Send $${customerInfo.orderTotal.toFixed(2)} with payment note: <strong>"Order #${orderId}"</strong></li>
-        <li>We'll confirm receipt and process your order</li>
-        <li>Expect delivery in 5-7 business days</li>
-    `;
-
-    updatedVenmoLink.href = venmoUrl;
-    updatedVenmoLink.target = '_blank';
-    updatedVenmoLink.onclick = (e) => {
-        e.preventDefault();
-        window.open(venmoUrl, '_blank');
-    };
-    updatedVenmoLink.innerText = '💬 Open Venmo to Pay';
 
     sendOrderEmail(customerInfo, orderId);
 
@@ -3517,24 +3496,19 @@ updateFilterStates();
 
 // Load settings
 function loadSettings() {
-    const venmoUsername = localStorage.getItem('venmoUsername') || 'solomonmizrahi2010';
     const businessEmail = localStorage.getItem('businessEmail') || 'your-email@example.com';
-    
-    document.getElementById('venmo-username-input').value = venmoUsername;
     document.getElementById('business-email-input').value = businessEmail;
 }
 
 // Save settings
 function saveSettings() {
-    const venmoUsername = document.getElementById('venmo-username-input').value.trim();
     const businessEmail = document.getElementById('business-email-input').value.trim();
     
-    if (!venmoUsername || !businessEmail) {
-        alert('Please fill in all settings');
+    if (!businessEmail) {
+        alert('Please enter an email address');
         return;
     }
     
-    localStorage.setItem('venmoUsername', venmoUsername);
     localStorage.setItem('businessEmail', businessEmail);
     alert('✓ Settings saved successfully!');
 }
@@ -3689,14 +3663,6 @@ function copyToClipboard(text) {
     navigator.clipboard.writeText(text).then(() => {
         alert('✓ Copied: ' + text);
     });
-}
-
-// Build Venmo Link
-function buildVenmoLink(username, amount, orderId) {
-    const params = new URLSearchParams();
-    params.set('amount', amount.toFixed(2));
-    params.set('note', `Order #${orderId}`);
-    return `https://venmo.com/${encodeURIComponent(username)}?${params.toString()}`;
 }
 
 // Subscribe to newsletter
