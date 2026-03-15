@@ -44,10 +44,22 @@ exports.handler = async function handler(event) {
 
     if (stripeEvent.type === "checkout.session.completed") {
       const session = stripeEvent.data.object;
-      const metadata = session.metadata || {};
+      let metadata = session.metadata || {};
 
-      const orderLog = {
-        eventType: stripeEvent.type,
+      if ((!metadata.size || !metadata.color) && session.payment_intent) {
+        try {
+          const paymentIntent = await stripe.paymentIntents.retrieve(session.payment_intent);
+          if (paymentIntent && paymentIntent.metadata) {
+            metadata = {
+              ...paymentIntent.metadata,
+              ...metadata
+            };
+          }
+        } catch (_paymentIntentError) {
+        }
+      }
+
+      const order = {
         sessionId: session.id,
         paymentStatus: session.payment_status,
         customerEmail: session.customer_details?.email || null,
@@ -60,7 +72,7 @@ exports.handler = async function handler(event) {
         completedAt: stripeEvent.created
       };
 
-      console.log("Stripe order completed:", JSON.stringify(orderLog));
+      console.log("Stripe order completed:", JSON.stringify(order));
     }
 
     return {

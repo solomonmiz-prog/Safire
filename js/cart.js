@@ -191,9 +191,14 @@ async function checkout() {
         return;
     }
 
-    const payload = {
-        items: checkoutItems
-    };
+    const payload = checkoutItems.length === 1
+        ? {
+            priceId: checkoutItems[0].priceId,
+            quantity: checkoutItems[0].quantity,
+            size: checkoutItems[0].size,
+            color: checkoutItems[0].color
+        }
+        : { items: checkoutItems };
 
     try {
         const response = await fetch('/.netlify/functions/create-checkout-session', {
