@@ -62,13 +62,41 @@ exports.handler = async function handler(event) {
       }))
     ).slice(0, 500);
 
+    const stripeLineItems = await Promise.all(
+      normalizedItems.map(async (item) => {
+        const stripePrice = await stripe.prices.retrieve(item.price, {
+          expand: ["product"]
+        });
+
+        const productName = typeof stripePrice.product === "object"
+          ? stripePrice.product.name
+          : "Safire Vintage Item";
+
+        const currency = stripePrice.currency;
+        const unitAmount = stripePrice.unit_amount;
+
+        if (!currency || !Number.isInteger(unitAmount)) {
+          throw new Error(`Price ${item.price} is missing currency or unit amount.`);
+        }
+
+        return {
+          quantity: item.quantity,
+          price_data: {
+            currency,
+            unit_amount: unitAmount,
+            product_data: {
+              name: productName,
+              description: `Size: ${item.selectedSize.toUpperCase()} | Color: ${item.selectedColor}`
+            }
+          }
+        };
+      })
+    );
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
-      line_items: normalizedItems.map((item) => ({
-        price: item.price,
-        quantity: item.quantity
-      })),
+      line_items: stripeLineItems,
       metadata: {
         size: firstItem.selectedSize,
         color: firstItem.selectedColor,
