@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SAFIRE - Premium Hoodie Store</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon-diamond.svg">
     <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
@@ -86,6 +87,36 @@
             right: 24px;
             top: 50%;
             transform: translateY(-50%);
+        }
+
+        .instagram-header-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 12px;
+            min-height: 40px;
+            border-radius: 20px;
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .instagram-header-link:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--secondary);
+        }
+
+        .instagram-icon {
+            width: 16px;
+            height: 16px;
+            display: inline-block;
+            flex-shrink: 0;
         }
 
         .search-bar {
@@ -1187,6 +1218,21 @@
             margin-top: 50px;
         }
 
+        .footer-instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .footer-instagram-link:hover {
+            text-decoration: underline;
+        }
+
         /* Mobile Responsive */
         @media(max-width: 768px) {
             header {
@@ -1205,6 +1251,11 @@
 
             .search-bar {
                 width: 100%;
+            }
+
+            .instagram-header-link {
+                width: 100%;
+                justify-content: center;
             }
 
             .hero h2 {
@@ -1273,6 +1324,17 @@
 
             .hero h2 {
                 font-size: 24px;
+            }
+
+            .instagram-header-link {
+                font-size: 12px;
+                padding: 9px 12px;
+                min-height: 44px;
+            }
+
+            .instagram-icon {
+                width: 18px;
+                height: 18px;
             }
 
             .products {
@@ -2118,6 +2180,12 @@
     </div>
     <div class="header-right">
         <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
+        <a class="instagram-header-link" href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+            <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5Zm8.93 1.75a1.07 1.07 0 1 1 0 2.14 1.07 1.07 0 0 1 0-2.14ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
+            </svg>
+            <span>Instagram</span>
+        </a>
         <div class="wishlist-icon" onclick="toggleWishlist()" title="Wishlist">❤️ <span id="wishlist-count">0</span></div>
         <div class="cart-icon" onclick="toggleCart()" title="Shopping Cart">
             🛒
@@ -2585,6 +2653,12 @@
         <span style="font-weight: 600; color: var(--primary);">SAFIRE</span>
     </div>
     <p>&copy; 2026 SAFIRE. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
+    <a class="footer-instagram-link" href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer">
+        <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5Zm8.93 1.75a1.07 1.07 0 1 1 0 2.14 1.07 1.07 0 0 1 0-2.14ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
+        </svg>
+        Follow us on Instagram @safire_vintage
+    </a>
 </footer>
 
 <!-- Admin Dashboard (Hidden by default) -->
