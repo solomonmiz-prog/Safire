@@ -86,7 +86,7 @@ exports.handler = async function handler(event) {
             unit_amount: unitAmount,
             product_data: {
               name: productName,
-              description: `Size: ${item.selectedSize.toUpperCase()} | Color: ${item.selectedColor}`
+              description: `Size: ${item.selectedSize.toUpperCase()}\nColor: ${item.selectedColor}`
             }
           }
         };
@@ -108,6 +108,12 @@ exports.handler = async function handler(event) {
           color: firstItem.selectedColor,
           variant_map: variantMap
         }
+      },
+      shipping_address_collection: {
+        allowed_countries: ["US"]
+      },
+      phone_number_collection: {
+        enabled: true
       },
       success_url: "https://safirevintage.com/success",
       cancel_url: "https://safirevintage.com/cart"

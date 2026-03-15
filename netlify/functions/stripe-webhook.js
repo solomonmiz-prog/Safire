@@ -59,12 +59,26 @@ exports.handler = async function handler(event) {
         }
       }
 
+      const shipping = session.shipping_details?.address
+        || session.customer_details?.address
+        || {};
+
       const order = {
         sessionId: session.id,
         paymentStatus: session.payment_status,
         customerEmail: session.customer_details?.email || null,
+        phone: session.customer_details?.phone || null,
         amountTotal: session.amount_total,
         currency: session.currency,
+        shipping: {
+          name: session.shipping_details?.name || session.customer_details?.name || null,
+          line1: shipping.line1 || null,
+          line2: shipping.line2 || null,
+          city: shipping.city || null,
+          state: shipping.state || null,
+          postal_code: shipping.postal_code || null,
+          country: shipping.country || null
+        },
         metadata: {
           size: metadata.size || null,
           color: metadata.color || null
