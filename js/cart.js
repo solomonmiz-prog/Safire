@@ -191,12 +191,12 @@ async function checkout() {
         return;
     }
 
-    const payload = checkoutItems.length === 1
-        ? checkoutItems[0]
-        : { items: checkoutItems };
+    const payload = {
+        items: checkoutItems
+    };
 
     try {
-        const response = await fetch('https://safire1.netlify.app/.netlify/functions/create-checkout', {
+        const response = await fetch('/.netlify/functions/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -205,11 +205,16 @@ async function checkout() {
         });
 
         const data = await response.json();
-        if (!response.ok || !data.url) {
+        if (!response.ok || (!data.url && !data.sessionId)) {
             throw new Error(data.error || 'Failed to create checkout session.');
         }
 
-        window.location = data.url;
+        if (data.url) {
+            window.location = data.url;
+            return;
+        }
+
+        throw new Error('Checkout session created but redirect URL was missing.');
     } catch (error) {
         alert(error.message || 'Checkout failed. Please try again.');
     }
