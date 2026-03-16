@@ -55,7 +55,17 @@ function getProductById(productId) {
 
 function getStripePriceId(productId) {
     if (typeof stripePrices !== 'object' || stripePrices === null) return null;
-    return stripePrices[normalizeCartValue(productId)] || null;
+
+    const normalizedProductId = normalizeCartValue(productId);
+    const explicitPriceId = stripePrices[normalizedProductId];
+    if (explicitPriceId) return explicitPriceId;
+
+    // All Socrates hoodie colors should share the black Socrates Stripe price.
+    if (normalizedProductId.endsWith('socrates-hoodie')) {
+        return stripePrices['black-socrates-hoodie'] || null;
+    }
+
+    return null;
 }
 
 function updateCartCount() {
@@ -172,11 +182,14 @@ async function checkout() {
 
     const checkoutItems = cart.map((item) => {
         const productId = normalizeCartValue(item.productId);
+        const matchedProduct = getProductById(productId);
+        const selectedName = sanitizeCheckoutString(item.name || matchedProduct?.name || productId, 120);
         const selectedSize = normalizeCartValue(item.size || 'default');
         const selectedColor = normalizeCartColor(item.color || 'default');
 
         return {
             productId,
+            name: selectedName,
             priceId: getStripePriceId(productId),
             quantity: Math.max(1, Number(item.quantity) || 1),
             size: selectedSize,
@@ -193,6 +206,8 @@ async function checkout() {
 
     const payload = checkoutItems.length === 1
         ? {
+            productId: checkoutItems[0].productId,
+            name: checkoutItems[0].name,
             priceId: checkoutItems[0].priceId,
             quantity: checkoutItems[0].quantity,
             size: checkoutItems[0].size,

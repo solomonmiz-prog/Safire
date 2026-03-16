@@ -80,8 +80,10 @@ exports.handler = async function handler(event) {
           country: shipping.country || null
         },
         metadata: {
+          productName: metadata.product_name || null,
           size: metadata.size || null,
-          color: metadata.color || null
+          color: metadata.color || null,
+          variantMap: metadata.variant_map || null
         },
         completedAt: stripeEvent.created
       };

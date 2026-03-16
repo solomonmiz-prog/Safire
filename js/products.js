@@ -23,6 +23,48 @@ const products = [
             "images/blacksocratesfront.png",
             "images/blackbacksocrates.png"
         ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/blacksocratesfront.png",
+                    "images/blackbacksocrates.png"
+                ]
+            },
+            {
+                name: "Sage",
+                hex: "#4F6E66",
+                images: [
+                    "images/greensocratesfront.png",
+                    "images/greensocratesback.png"
+                ]
+            },
+            {
+                name: "Ash",
+                hex: "#8B8C82",
+                images: [
+                    "images/greysocratesfront.png",
+                    "images/greysocratesback.png"
+                ]
+            },
+            {
+                name: "Indigo",
+                hex: "#5E6480",
+                images: [
+                    "images/navysocratesfront.png",
+                    "images/navysocratesback.png"
+                ]
+            },
+            {
+                name: "Sand",
+                hex: "#B68E68",
+                images: [
+                    "images/brownsocratesfront.png",
+                    "images/brownsocratesback.png"
+                ]
+            }
+        ],
         sizes: ["S", "M", "L", "XL"],
         details: "This hoodie combines a vintage wash with frayed details for a look that’s both edgy and comfortable. Crafted from 360 GSM fleece, it offers warmth without sacrificing style, making it ideal for layering or wearing solo. The relaxed fit and soft texture create the perfect canvas for your custom designs, adding a personal touch to this streetwear essential.\n\nEach piece is handcrafted, ensuring its uniqueness. Minor variations from website images are natural and highlight its artisanal quality.\n\nGender\nUnisex\n\nEffects\nWashed / Frayed\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nCasual / Street\n\nMaterial\n42% cotton, 53% polyester, 5% other fibers\n\nFabric Weight\n360 gsm (10.6 oz)\n\nThickness\nThicken\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
         freeShipping: true,

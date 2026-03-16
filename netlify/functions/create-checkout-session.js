@@ -12,6 +12,16 @@ function sanitizeVariant(value, fallback) {
   return normalized.slice(0, 120);
 }
 
+function sanitizeMetadataValue(value, fallback) {
+  const normalized = String(value || "")
+    .replace(/[\u0000-\u001F\u007F]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!normalized) return fallback;
+  return normalized.slice(0, 500);
+}
+
 exports.handler = async function handler(event) {
   if (event.httpMethod !== "POST") {
     return {
@@ -40,6 +50,8 @@ exports.handler = async function handler(event) {
       .map((item) => ({
         price: String(item.priceId).trim(),
         quantity: Math.max(1, Number(item.quantity) || 1),
+        productId: sanitizeVariant(item.productId, "unknown-product"),
+        productName: sanitizeVariant(item.name, "Safire Vintage Item"),
         selectedSize: sanitizeVariant(item.size, "default"),
         selectedColor: sanitizeVariant(item.color, "default")
       }));
@@ -53,14 +65,18 @@ exports.handler = async function handler(event) {
     }
 
     const firstItem = normalizedItems[0];
-    const variantMap = JSON.stringify(
-      normalizedItems.map((item) => ({
-        price: item.price,
-        quantity: item.quantity,
-        size: item.selectedSize,
-        color: item.selectedColor
-      }))
-    ).slice(0, 500);
+    const variantMap = sanitizeMetadataValue(
+      JSON.stringify(
+        normalizedItems.map((item) => ({
+          id: item.productId,
+          n: item.productName,
+          q: item.quantity,
+          s: item.selectedSize,
+          c: item.selectedColor
+        }))
+      ),
+      "[]"
+    );
 
     const stripeLineItems = await Promise.all(
       normalizedItems.map(async (item) => {
@@ -85,7 +101,7 @@ exports.handler = async function handler(event) {
             currency,
             unit_amount: unitAmount,
             product_data: {
-              name: productName,
+              name: item.productName || productName,
               description: `Size: ${item.selectedSize.toUpperCase()}\nColor: ${item.selectedColor}`
             }
           }
@@ -98,12 +114,14 @@ exports.handler = async function handler(event) {
       payment_method_types: ["card"],
       line_items: stripeLineItems,
       metadata: {
+        product_name: firstItem.productName,
         size: firstItem.selectedSize,
         color: firstItem.selectedColor,
         variant_map: variantMap
       },
       payment_intent_data: {
         metadata: {
+          product_name: firstItem.productName,
           size: firstItem.selectedSize,
           color: firstItem.selectedColor,
           variant_map: variantMap
