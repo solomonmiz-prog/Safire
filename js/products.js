@@ -180,7 +180,7 @@ const products = [
     {
         id: "cropped-fleece-hoodie",
         name: "Plain Hoodie",
-        price: 64.99,
+        price: 50,
         description: "A fashion-forward cropped hoodie with heavyweight warmth, fleece comfort, and a relaxed street-ready silhouette.",
         images: [
             "images/plainhoodieblackfront.png",
@@ -202,6 +202,14 @@ const products = [
                     "images/plainhoodieblackfront.png",
                     "images/plainhoodieblackback.png"
                 ]
+            },
+            {
+                name: "Light Apricot",
+                hex: "#F3E7D1",
+                images: [
+                    "images/plainhoodielightapricotfront.png",
+                    "images/plainhoodielightapricotback.jpg"
+                ]
             }
         ],
         sizes: ["S", "M", "L", "XL"],
@@ -217,5 +225,5 @@ const stripePrices = {
     "black-socrates-hoodie": "price_1T9yom9S93tBM5OXxuh5loMF",
     "classic-quarter-zip": "price_1T9yqp9S93tBM5OX9uorrP1S",
     "varsity-jacket": "price_1T9ytB9S93tBM5OXJmSgGvri",
-    "cropped-fleece-hoodie": "price_1T9yuQ9S93tBM5OX1OfqNOOo"
+    "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT"
 };
