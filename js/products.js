@@ -202,14 +202,6 @@ const products = [
                     "images/plainhoodieblackfront.png",
                     "images/plainhoodieblackback.png"
                 ]
-            },
-            {
-                name: "Light Apricot",
-                hex: "#F3E7D1",
-                images: [
-                    "images/plainhoodielightapricotfront.png",
-                    "images/plainhoodielightapricotback.jpg"
-                ]
             }
         ],
         sizes: ["S", "M", "L", "XL"],
