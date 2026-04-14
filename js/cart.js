@@ -6,6 +6,17 @@ function normalizeCartColor(value) {
     return normalizeCartValue(value).split('/')[0].trim().replace(/\s+/g, '-');
 }
 
+function formatCartColorLabel(value) {
+    const normalized = normalizeCartColor(value);
+    if (!normalized || normalized === 'default') return 'Default';
+
+    return normalized
+        .split('-')
+        .filter(Boolean)
+        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .join(' ');
+}
+
 function sanitizeCheckoutString(value, maxLength) {
     const normalized = String(value || '')
         .replace(/[\u0000-\u001F\u007F]/g, ' ')
@@ -186,6 +197,8 @@ async function checkout() {
         const selectedName = sanitizeCheckoutString(item.name || matchedProduct?.name || productId, 120);
         const selectedSize = normalizeCartValue(item.size || 'default');
         const selectedColor = normalizeCartColor(item.color || 'default');
+        const selectedSizeLabel = sanitizeCheckoutString(selectedSize.toUpperCase(), 40);
+        const selectedColorLabel = sanitizeCheckoutString(formatCartColorLabel(selectedColor), 80);
 
         return {
             productId,
@@ -193,7 +206,9 @@ async function checkout() {
             priceId: getStripePriceId(productId),
             quantity: Math.max(1, Number(item.quantity) || 1),
             size: selectedSize,
-            color: selectedColor
+            color: selectedColor,
+            sizeLabel: selectedSizeLabel,
+            colorLabel: selectedColorLabel
         };
     });
 
@@ -211,7 +226,9 @@ async function checkout() {
             priceId: checkoutItems[0].priceId,
             quantity: checkoutItems[0].quantity,
             size: checkoutItems[0].size,
-            color: checkoutItems[0].color
+            color: checkoutItems[0].color,
+            sizeLabel: checkoutItems[0].sizeLabel,
+            colorLabel: checkoutItems[0].colorLabel
         }
         : { items: checkoutItems };
 

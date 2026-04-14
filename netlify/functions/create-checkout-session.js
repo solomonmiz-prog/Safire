@@ -22,6 +22,28 @@ function sanitizeMetadataValue(value, fallback) {
   return normalized.slice(0, 500);
 }
 
+function buildMetadataChunkMap(prefix, rawValue, maxChunks = 8, chunkSize = 500) {
+  const source = String(rawValue || "");
+  if (!source) return {};
+
+  const metadata = {};
+  let index = 0;
+  let chunkNumber = 1;
+
+  while (index < source.length && chunkNumber <= maxChunks) {
+    const chunk = source.slice(index, index + chunkSize);
+    metadata[`${prefix}_${chunkNumber}`] = chunk;
+    index += chunkSize;
+    chunkNumber += 1;
+  }
+
+  if (index < source.length) {
+    metadata[`${prefix}_truncated`] = "true";
+  }
+
+  return metadata;
+}
+
 exports.handler = async function handler(event) {
   if (event.httpMethod !== "POST") {
     return {
@@ -53,7 +75,9 @@ exports.handler = async function handler(event) {
         productId: sanitizeVariant(item.productId, "unknown-product"),
         productName: sanitizeVariant(item.name, "Safire Vintage Item"),
         selectedSize: sanitizeVariant(item.size, "default"),
-        selectedColor: sanitizeVariant(item.color, "default")
+        selectedColor: sanitizeVariant(item.color, "default"),
+        selectedSizeLabel: sanitizeVariant(item.sizeLabel, sanitizeVariant(item.size, "default").toUpperCase()),
+        selectedColorLabel: sanitizeVariant(item.colorLabel, sanitizeVariant(item.color, "default"))
       }));
 
     if (normalizedItems.length === 0) {
@@ -65,18 +89,21 @@ exports.handler = async function handler(event) {
     }
 
     const firstItem = normalizedItems[0];
-    const variantMap = sanitizeMetadataValue(
-      JSON.stringify(
-        normalizedItems.map((item) => ({
-          id: item.productId,
-          n: item.productName,
-          q: item.quantity,
-          s: item.selectedSize,
-          c: item.selectedColor
-        }))
-      ),
-      "[]"
-    );
+    const compactItems = normalizedItems.map((item) => ({
+      id: item.productId,
+      n: item.productName,
+      q: item.quantity,
+      s: item.selectedSizeLabel,
+      c: item.selectedColorLabel
+    }));
+
+    const variantMap = sanitizeMetadataValue(JSON.stringify(compactItems), "[]");
+    const allItemsJson = JSON.stringify(compactItems);
+    const itemNames = sanitizeMetadataValue(normalizedItems.map((item) => item.productName).join(" | "), "");
+    const itemSizes = sanitizeMetadataValue(normalizedItems.map((item) => item.selectedSizeLabel).join(" | "), "");
+    const itemColors = sanitizeMetadataValue(normalizedItems.map((item) => item.selectedColorLabel).join(" | "), "");
+
+    const itemsJsonMetadataChunks = buildMetadataChunkMap("items_json", allItemsJson);
 
     const stripeLineItems = await Promise.all(
       normalizedItems.map(async (item) => {
@@ -102,30 +129,39 @@ exports.handler = async function handler(event) {
             unit_amount: unitAmount,
             product_data: {
               name: item.productName || productName,
-              description: `Size: ${item.selectedSize.toUpperCase()}\nColor: ${item.selectedColor}`
+              description: `Size: ${item.selectedSizeLabel}\nColor: ${item.selectedColorLabel}`,
+              metadata: {
+                product_id: item.productId,
+                item_name: item.productName,
+                size: item.selectedSizeLabel,
+                color: item.selectedColorLabel,
+                color_key: item.selectedColor
+              }
             }
           }
         };
       })
     );
 
+    const sharedMetadata = {
+      product_name: firstItem.productName,
+      size: firstItem.selectedSizeLabel,
+      color: firstItem.selectedColorLabel,
+      variant_map: variantMap,
+      item_names: itemNames,
+      item_sizes: itemSizes,
+      item_colors: itemColors,
+      items_count: String(normalizedItems.length),
+      ...itemsJsonMetadataChunks
+    };
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
       line_items: stripeLineItems,
-      metadata: {
-        product_name: firstItem.productName,
-        size: firstItem.selectedSize,
-        color: firstItem.selectedColor,
-        variant_map: variantMap
-      },
+      metadata: sharedMetadata,
       payment_intent_data: {
-        metadata: {
-          product_name: firstItem.productName,
-          size: firstItem.selectedSize,
-          color: firstItem.selectedColor,
-          variant_map: variantMap
-        }
+        metadata: sharedMetadata
       },
       shipping_address_collection: {
         allowed_countries: ["US"]

@@ -188,7 +188,7 @@ const products = [
         ],
         colorways: [
             {
-                name: "Pitch Black",
+                name: "Black",
                 hex: "#0A0A0A",
                 images: [
                     "images/pitchblackfrontplainhoodie.png",
@@ -196,11 +196,43 @@ const products = [
                 ]
             },
             {
-                name: "Black",
-                hex: "#2B2B2B",
+                name: "Grey",
+                hex: "#7C7C7C",
                 images: [
                     "images/plainhoodieblackfront.png",
                     "images/plainhoodieblackback.png"
+                ]
+            },
+            {
+                name: "White",
+                hex: "#F2F2F2",
+                images: [
+                    "images/plainhoodiewhitefront.png",
+                    "images/plainhoodiewhiteback.png"
+                ]
+            },
+            {
+                name: "Oat White",
+                hex: "#D9D4C7",
+                images: [
+                    "images/plainhoodieoatwhitefront.png",
+                    "images/plainhoodieoatwhiteback.png"
+                ]
+            },
+            {
+                name: "Flower Gray",
+                hex: "#B7B7B7",
+                images: [
+                    "images/plainhoodieflowergreyfront.png",
+                    "images/plainhoodieflowergreyback.png"
+                ]
+            },
+            {
+                name: "Light Apricot",
+                hex: "#F4E7CF",
+                images: [
+                    "images/plainhoodielightapricotfront.png",
+                    "images/plainhoodielightapricotback.png"
                 ]
             }
         ],

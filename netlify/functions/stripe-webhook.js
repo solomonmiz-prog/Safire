@@ -83,7 +83,20 @@ exports.handler = async function handler(event) {
           productName: metadata.product_name || null,
           size: metadata.size || null,
           color: metadata.color || null,
-          variantMap: metadata.variant_map || null
+          variantMap: metadata.variant_map || null,
+          itemNames: metadata.item_names || null,
+          itemSizes: metadata.item_sizes || null,
+          itemColors: metadata.item_colors || null,
+          itemsCount: metadata.items_count || null,
+          itemsJson1: metadata.items_json_1 || null,
+          itemsJson2: metadata.items_json_2 || null,
+          itemsJson3: metadata.items_json_3 || null,
+          itemsJson4: metadata.items_json_4 || null,
+          itemsJson5: metadata.items_json_5 || null,
+          itemsJson6: metadata.items_json_6 || null,
+          itemsJson7: metadata.items_json_7 || null,
+          itemsJson8: metadata.items_json_8 || null,
+          itemsJsonTruncated: metadata.items_json_truncated || null
         },
         completedAt: stripeEvent.created
       };

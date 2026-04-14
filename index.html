@@ -2939,7 +2939,7 @@ const productsData = [
         stock: { S: 10, M: 10, L: 10, XL: 10 },
         colors: [
             {
-                name: "Pitch Black",
+                name: "Black",
                 hex: "#0A0A0A",
                 images: {
                     front: "images/pitchblackfrontplainhoodie.png",
@@ -2947,11 +2947,43 @@ const productsData = [
                 }
             },
             {
-                name: "Black",
-                hex: "#2B2B2B",
+                name: "Grey",
+                hex: "#7C7C7C",
                 images: {
                     front: "images/plainhoodieblackfront.png",
                     back: "images/plainhoodieblackback.png"
+                }
+            },
+            {
+                name: "White",
+                hex: "#F2F2F2",
+                images: {
+                    front: "images/plainhoodiewhitefront.png",
+                    back: "images/plainhoodiewhiteback.png"
+                }
+            },
+            {
+                name: "Oat White",
+                hex: "#D9D4C7",
+                images: {
+                    front: "images/plainhoodieoatwhitefront.png",
+                    back: "images/plainhoodieoatwhiteback.png"
+                }
+            },
+            {
+                name: "Flower Gray",
+                hex: "#B7B7B7",
+                images: {
+                    front: "images/plainhoodieflowergreyfront.png",
+                    back: "images/plainhoodieflowergreyback.png"
+                }
+            },
+            {
+                name: "Light Apricot",
+                hex: "#F4E7CF",
+                images: {
+                    front: "images/plainhoodielightapricotfront.png",
+                    back: "images/plainhoodielightapricotback.png"
                 }
             }
         ]
@@ -3041,18 +3073,9 @@ function renderProducts() {
                     <!-- Color Options -->
                     <div class="color-options">
                         ${product.colors ? (() => {
-                            const totalColors = product.colors.length;
-                            const displayedColors = product.colors.slice(0, 3);
-                            const hasMore = totalColors > 3;
-                            const moreCount = totalColors - 3;
-                            
-                            let html = displayedColors.map((color, index) => 
+                            let html = product.colors.map((color, index) => 
                                 `<div class="color-circle ${index === (product.selectedColor !== undefined ? product.selectedColor : 0) ? 'active' : ''}" style="background-color: ${color.hex}" onclick="selectColor(this, ${product.id}, ${index})" title="${color.name}"></div>`
                             ).join('');
-                            
-                            if (hasMore) {
-                                html += `<div class="color-count-badge" title="${moreCount} more colors available" onclick="event.stopPropagation();">+${moreCount}</div>`;
-                            }
                             
                             return html;
                         })() : ''}
