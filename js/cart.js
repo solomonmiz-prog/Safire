@@ -257,7 +257,7 @@ async function checkout() {
         : { items: checkoutItems };
 
     try {
-        const response = await fetch('/.netlify/functions/create-checkout-session', {
+        const response = await fetch('https://safire1.netlify.app/.netlify/functions/create-checkout-session', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -265,7 +265,16 @@ async function checkout() {
             body: JSON.stringify(payload)
         });
 
-        const data = await response.json();
+        const rawResponseText = await response.text();
+        console.log(rawResponseText);
+
+        let data;
+        try {
+            data = JSON.parse(rawResponseText);
+        } catch (_parseError) {
+            throw new Error('Checkout backend returned non-JSON response.');
+        }
+
         if (!response.ok || (!data.url && !data.sessionId)) {
             throw new Error(data.error || 'Failed to create checkout session.');
         }

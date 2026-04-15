@@ -2,6 +2,13 @@ const Stripe = require("stripe");
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "Content-Type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Content-Type": "application/json"
+};
+
 function sanitizeVariant(value, fallback) {
   const normalized = String(value || "")
     .replace(/[\u0000-\u001F\u007F]/g, " ")
@@ -49,10 +56,18 @@ function isValidStripePriceId(value) {
 }
 
 exports.handler = async function handler(event) {
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: JSON.stringify({ ok: true })
+    };
+  }
+
   if (event.httpMethod !== "POST") {
     return {
       statusCode: 405,
-      headers: { "Content-Type": "application/json" },
+      headers: corsHeaders,
       body: JSON.stringify({ error: "Method Not Allowed" })
     };
   }
@@ -60,7 +75,7 @@ exports.handler = async function handler(event) {
   if (!process.env.STRIPE_SECRET_KEY) {
     return {
       statusCode: 500,
-      headers: { "Content-Type": "application/json" },
+      headers: corsHeaders,
       body: JSON.stringify({ error: "Missing STRIPE_SECRET_KEY environment variable." })
     };
   }
@@ -88,7 +103,7 @@ exports.handler = async function handler(event) {
     if (invalidPriceItems.length > 0) {
       return {
         statusCode: 400,
-        headers: { "Content-Type": "application/json" },
+        headers: corsHeaders,
         body: JSON.stringify({
           error: `Invalid Stripe price ID format: ${invalidPriceItems.map((item) => item.price).join(", ")}`
         })
@@ -98,7 +113,7 @@ exports.handler = async function handler(event) {
     if (normalizedItems.length === 0) {
       return {
         statusCode: 400,
-        headers: { "Content-Type": "application/json" },
+        headers: corsHeaders,
         body: JSON.stringify({ error: "No valid Stripe line items provided." })
       };
     }
@@ -190,7 +205,7 @@ exports.handler = async function handler(event) {
 
     return {
       statusCode: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: corsHeaders,
       body: JSON.stringify({
         sessionId: session.id,
         url: session.url
@@ -199,7 +214,7 @@ exports.handler = async function handler(event) {
   } catch (error) {
     return {
       statusCode: 500,
-      headers: { "Content-Type": "application/json" },
+      headers: corsHeaders,
       body: JSON.stringify({ error: error.message || "Failed to create checkout session." })
     };
   }
