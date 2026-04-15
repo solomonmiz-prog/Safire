@@ -71,12 +71,19 @@ function getProductById(productId) {
 function getStripePriceId(productId) {
     if (typeof stripePrices !== 'object' || stripePrices === null) return null;
 
-    const normalizedProductId = normalizeCartValue(productId);
-    const explicitPriceId = stripePrices[normalizedProductId];
+    const normalizedProductId = String(productId || '').toLowerCase().trim();
+    const hyphenKey = normalizedProductId.replace(/\s+/g, '-').replace(/_/g, '-');
+    const tshirtHyphenKey = hyphenKey.replace(/tshirt/g, 't-shirt');
+    const tshirtCompactKey = hyphenKey.replace(/t-shirt/g, 'tshirt');
+
+    const explicitPriceId = stripePrices[normalizedProductId]
+        || stripePrices[hyphenKey]
+        || stripePrices[tshirtHyphenKey]
+        || stripePrices[tshirtCompactKey];
     if (explicitPriceId) return explicitPriceId;
 
     // All Socrates hoodie colors should share the black Socrates Stripe price.
-    if (normalizedProductId.endsWith('socrates-hoodie')) {
+    if (hyphenKey.endsWith('socrates-hoodie')) {
         return stripePrices['black-socrates-hoodie'] || null;
     }
 

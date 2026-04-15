@@ -267,5 +267,6 @@ const stripePrices = {
     "classic-quarter-zip": "price_1T9yqp9S93tBM5OX9uorrP1S",
     "varsity-jacket": "price_1T9ytB9S93tBM5OXJmSgGvri",
     "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
-    "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl"
+    "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
+    "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl"
 };
