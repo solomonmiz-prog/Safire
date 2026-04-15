@@ -73,7 +73,7 @@
         const notFound = document.getElementById('not-found');
 
         function formatPrice(value) {
-            return Number.isInteger(value) ? value.toString() : value.toFixed(2);
+            return Math.round(Number(value) || 0).toString();
         }
 
         function normalizeValue(value) {

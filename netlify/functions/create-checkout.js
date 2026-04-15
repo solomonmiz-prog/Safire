@@ -1,5 +1,9 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+function isValidStripePriceId(value) {
+  return /^price_[A-Za-z0-9]+$/.test(String(value || "").trim());
+}
+
 exports.handler = async function(event) {
 
   const data = JSON.parse(event.body || "{}");
@@ -29,6 +33,16 @@ exports.handler = async function(event) {
       return {
         statusCode: 400,
         body: JSON.stringify({ error: "No valid Stripe line items provided." })
+      };
+    }
+
+    const invalidLineItems = lineItems.filter((item) => !isValidStripePriceId(item.price));
+    if (invalidLineItems.length > 0) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: `Invalid Stripe price ID format: ${invalidLineItems.map((item) => item.price).join(", ")}`
+        })
       };
     }
 

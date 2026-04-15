@@ -44,6 +44,10 @@ function buildMetadataChunkMap(prefix, rawValue, maxChunks = 8, chunkSize = 500)
   return metadata;
 }
 
+function isValidStripePriceId(value) {
+  return /^price_[A-Za-z0-9]+$/.test(String(value || "").trim());
+}
+
 exports.handler = async function handler(event) {
   if (event.httpMethod !== "POST") {
     return {
@@ -79,6 +83,17 @@ exports.handler = async function handler(event) {
         selectedSizeLabel: sanitizeVariant(item.sizeLabel, sanitizeVariant(item.size, "default").toUpperCase()),
         selectedColorLabel: sanitizeVariant(item.colorLabel, sanitizeVariant(item.color, "default"))
       }));
+
+    const invalidPriceItems = normalizedItems.filter((item) => !isValidStripePriceId(item.price));
+    if (invalidPriceItems.length > 0) {
+      return {
+        statusCode: 400,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          error: `Invalid Stripe price ID format: ${invalidPriceItems.map((item) => item.price).join(", ")}`
+        })
+      };
+    }
 
     if (normalizedItems.length === 0) {
       return {

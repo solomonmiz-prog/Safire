@@ -28,6 +28,10 @@ function sanitizeCheckoutString(value, maxLength) {
     return normalized.slice(0, maxLength).trim();
 }
 
+function isValidStripePriceId(value) {
+    return /^price_[A-Za-z0-9]+$/.test(String(value || '').trim());
+}
+
 function getCart() {
     try {
         const parsed = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -149,7 +153,7 @@ function renderCart() {
     const cart = getCart();
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
-        cartTotalElement.textContent = '$0.00';
+        cartTotalElement.textContent = '$0';
         updateCartCount();
         return;
     }
@@ -175,12 +179,12 @@ function renderCart() {
                 <button type="button" onclick="updateCartItemQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
                 <button type="button" onclick="removeCartItem(${index})" style="margin-left:auto;">Remove</button>
             </div>
-            <p class="cart-item-price">$${lineTotal.toFixed(2)} <span style="color:#666;font-weight:400;">($${price.toFixed(2)} each)</span></p>
+            <p class="cart-item-price">$${lineTotal.toFixed(0)} <span style="color:#666;font-weight:400;">($${price.toFixed(0)} each)</span></p>
         `;
         cartItemsContainer.appendChild(row);
     });
 
-    cartTotalElement.textContent = `$${total.toFixed(2)}`;
+    cartTotalElement.textContent = `$${total.toFixed(0)}`;
     updateCartCount();
 }
 
@@ -199,11 +203,12 @@ async function checkout() {
         const selectedColor = normalizeCartColor(item.color || 'default');
         const selectedSizeLabel = sanitizeCheckoutString(selectedSize.toUpperCase(), 40);
         const selectedColorLabel = sanitizeCheckoutString(formatCartColorLabel(selectedColor), 80);
+        const selectedPriceId = getStripePriceId(productId);
 
         return {
             productId,
             name: selectedName,
-            priceId: getStripePriceId(productId),
+            priceId: selectedPriceId,
             quantity: Math.max(1, Number(item.quantity) || 1),
             size: selectedSize,
             color: selectedColor,
@@ -218,6 +223,18 @@ async function checkout() {
         alert(`Missing Stripe price ID for: ${missingNames}`);
         return;
     }
+
+    const invalidPriceIds = checkoutItems.filter((item) => !isValidStripePriceId(item.priceId));
+    if (invalidPriceIds.length > 0) {
+        const invalidNames = invalidPriceIds.map((item) => `${item.productId} (${item.priceId})`).join(', ');
+        alert(`Invalid Stripe price ID format for: ${invalidNames}`);
+        return;
+    }
+
+    checkoutItems.forEach((item) => {
+        const selectedPriceId = item.priceId;
+        console.log("Stripe price:", selectedPriceId);
+    });
 
     const payload = checkoutItems.length === 1
         ? {

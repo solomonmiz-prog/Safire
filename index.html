@@ -744,8 +744,15 @@
         }
 
         .product-badge.bestseller {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            color: white;
+            left: 0;
+            top: 0;
+            border-radius: 0;
+            padding: 5px 12px;
+            background: #d62828;
+            color: #ffffff;
+            font-size: 10px;
+            letter-spacing: 0.4px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.22);
         }
 
         .stock-badge {
@@ -898,20 +905,56 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background-color: #f5f5f5;
+            background: #f3f3f3;
             border: 2px solid #ddd;
             font-size: 12px;
-            font-weight: 500;
-            color: #666;
-            cursor: pointer;
+            font-weight: 700;
+            color: #555;
+            cursor: default;
             transition: all 0.3s;
+            opacity: 1;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18), 0 1px 0 rgba(255, 255, 255, 0.65) inset;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+        }
+
+        .color-count-badge::before,
+        .color-count-badge::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: #f3f3f3;
+            border: 2px solid rgba(221, 221, 221, 0.9);
+            pointer-events: none;
+            z-index: -1;
+            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .color-count-badge::before {
+            transform: translateX(4px);
+            opacity: 1;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+        }
+
+        .color-count-badge::after {
+            transform: translateX(8px);
+            opacity: 1;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
         }
 
         .color-count-badge:hover {
-            background-color: #efefef;
-            border-color: var(--primary);
-            color: var(--primary);
-            transform: scale(1.15);
+            transform: scale(1.08);
+            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.22), 0 1px 0 rgba(255, 255, 255, 0.7) inset;
+        }
+
+        .color-count-badge:hover::before {
+            transform: translateX(5px);
+        }
+
+        .color-count-badge:hover::after {
+            transform: translateX(10px);
         }
 
         /* Size Selector */
@@ -2332,15 +2375,15 @@
     <div class="cart-summary">
         <div class="summary-item">
             <span>Subtotal:</span>
-            <span id="subtotal">$0.00</span>
+            <span id="subtotal">$0</span>
         </div>
         <div class="summary-item">
             <span>Shipping:</span>
-            <span id="shipping">$10.00</span>
+            <span id="shipping">$10</span>
         </div>
         <div class="summary-total">
             <span>Total:</span>
-            <span id="total">$0.00</span>
+            <span id="total">$0</span>
         </div>
         <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>
     </div>
@@ -2371,7 +2414,7 @@
             <div id="checkout-items"></div>
             <div class="order-total">
                 <span>Total:</span>
-                <span id="checkout-total">$0.00</span>
+                <span id="checkout-total">$0</span>
             </div>
         </div>
 
@@ -2535,20 +2578,14 @@
             <div class="look-item">
                 <img src="images/grayqzipfront.png" alt="Quarter Zip" class="look-image">
                 <h3>Classic Quarter Zip</h3>
-                <p>$44.99</p>
-                <button class="btn btn-primary" onclick="addToCart(3, 'Classic Quarter Zip', 44.99, 'images/grayqzipfront.png')">Add to Cart</button>
+                <p>$50</p>
+                <button class="btn btn-primary" onclick="addToCart(3, 'Classic Quarter Zip', 50, 'images/grayqzipfront.png')">Add to Cart</button>
             </div>
             <div class="look-item">
                 <img src="images/frontblackcreamjacket.png" alt="Varsity Jacket" class="look-image">
                 <h3>Varsity Jacket</h3>
-                <p>$49.99</p>
-                <button class="btn btn-primary" onclick="addToCart(4, 'Varsity Jacket', 49.99, 'images/frontblackcreamjacket.png')">Add to Cart</button>
-            </div>
-            <div class="look-item">
-                <img src="images/brown-hoodie.png" alt="Brown Hoodie" class="look-image">
-                <h3>Brown Hoodie</h3>
-                <p>$44.99</p>
-                <button class="btn btn-primary" onclick="addToCart(1, 'Art Hoodie', 44.99, 'images/brown-hoodie.png')">Add to Cart</button>
+                <p>$50</p>
+                <button class="btn btn-primary" onclick="addToCart(4, 'Varsity Jacket', 50, 'images/frontblackcreamjacket.png')">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -2736,29 +2773,12 @@
 // Product Data (only two items shown)
 const productsData = [
     {
-        id: 1,
-        productId: "brown-hoodie",
-        name: "Art Hoodie",
-        category: "classic",
-        gender: "men",
-        price: 44.99,
-        image1: "images/brown-hoodie.png",
-        image2: "images/brown-hoodieback.png",
-        description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
-        details: "This hoodie combines a vintage wash with frayed details for a look that’s both edgy and comfortable. Crafted from 360 GSM fleece, it offers warmth without sacrificing style, making it ideal for layering or wearing solo. The relaxed fit and soft texture create the perfect canvas for your custom designs, adding a personal touch to this streetwear essential.",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)",
-        freeShipping: true,
-        sku: "BH-SCR-001",
-        stock: { S: 10, M: 10, L: 10, XL: 10 }
-    },
-    {
         id: 5,
         productId: "black-socrates-hoodie",
         name: "Socrates Hoodie",
         category: "classic",
         gender: "men",
-        price: 49.99,
+        price: 50,
         image1: "images/blacksocratesfront.png",
         image2: "images/blackbacksocrates.png",
         description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
@@ -2817,7 +2837,7 @@ const productsData = [
         name: "Classic Quarter Zip",
         category: "classic",
         gender: "men",
-        price: 44.99,
+        price: 50,
         image1: "images/grayqzipfront.png",
         image2: "images/grayqzipback.png",
         description: "Minimal quarter zip built with premium structure and an everyday luxury finish.",
@@ -2860,7 +2880,7 @@ const productsData = [
         name: "Varsity Jacket",
         category: "premium",
         gender: "men",
-        price: 49.99,
+        price: 50,
         image1: "images/frontblackcreamjacket.png",
         image2: "images/backblackcreamjacket.png",
         description: "SAFIRE's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge and everyday comfort.",
@@ -2987,6 +3007,41 @@ const productsData = [
                 }
             }
         ]
+    },
+    {
+        id: 7,
+        productId: "borough-oversized-tshirt",
+        name: "Borough Oversized T-Shirt",
+        category: "graphic",
+        gender: "unisex",
+        price: 30,
+        image1: "images/frontblackborough.png",
+        image2: "images/backblackborough.png",
+        description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
+        details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)",
+        freeShipping: true,
+        sku: "MT0012-C003-V3",
+        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        colors: [
+            {
+                name: "Black",
+                hex: "#0A0A0A",
+                images: {
+                    front: "images/frontblackborough.png",
+                    back: "images/backblackborough.png"
+                }
+            },
+            {
+                name: "White",
+                hex: "#F4F4F4",
+                images: {
+                    front: "images/frontwhiteborough.png",
+                    back: "images/backwhiteborough.png"
+                }
+            }
+        ]
     }
 ];
 
@@ -3002,15 +3057,23 @@ localStorage.setItem('wishlist', JSON.stringify(wishlist));
 
 let filteredProducts = [...productsData];
 
+function getColorPreviewLimit() {
+    if (window.innerWidth <= 480) return 2;
+    if (window.innerWidth <= 768) return 3;
+    return 4;
+}
+
 // Render Products
 function renderProducts() {
     const productsDiv = document.getElementById('products');
     let productsHTML = '';
 
     const featuredOrder = {
-        'classic-quarter-zip': 1,
+        'borough-oversized-tshirt': 1,
         'cropped-fleece-hoodie': 2,
-        'varsity-jacket': 3
+        'black-socrates-hoodie': 3,
+        'classic-quarter-zip': 4,
+        'varsity-jacket': 5
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -3047,10 +3110,8 @@ function renderProducts() {
             productBadges = '<div class="product-badge premium">Premium Fabric</div>';
         } else if (product.id === 2) {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
-        } else if (product.id === 3) {
+        } else if (product.productId === 'borough-oversized-tshirt') {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
-        } else if (product.id === 4) {
-            productBadges = '<div class="product-badge premium">New Drop</div>';
         }
 
         const productHTML = `
@@ -3068,14 +3129,22 @@ function renderProducts() {
                 <div class="product-info">
                     <div class="product-category">${product.category}</div>
                     <h3>${product.name}</h3>
-                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <div class="product-price">$${product.price.toFixed(0)}</div>
                     
                     <!-- Color Options -->
                     <div class="color-options">
                         ${product.colors ? (() => {
-                            let html = product.colors.map((color, index) => 
+                            const previewLimit = getColorPreviewLimit();
+                            const visibleColors = product.colors.slice(0, previewLimit);
+                            const remainingColors = product.colors.length - visibleColors.length;
+
+                            let html = visibleColors.map((color, index) => 
                                 `<div class="color-circle ${index === (product.selectedColor !== undefined ? product.selectedColor : 0) ? 'active' : ''}" style="background-color: ${color.hex}" onclick="selectColor(this, ${product.id}, ${index})" title="${color.name}"></div>`
                             ).join('');
+
+                            if (remainingColors > 0) {
+                                html += `<div class="color-count-badge" title="${remainingColors} more color options">+${remainingColors}</div>`;
+                            }
                             
                             return html;
                         })() : ''}
@@ -3239,9 +3308,9 @@ function updateCartDisplay() {
 
     if (cart.length === 0) {
         cartItemsList.innerHTML = '<div class="cart-empty"><div style="font-size: 48px; margin-bottom: 15px;">🛒</div><p>Your cart is empty</p><p style="font-size: 13px; color: #ccc; margin-top: 10px;">Add items to get started!</p></div>';
-        document.getElementById('subtotal').innerText = '$0.00';
+        document.getElementById('subtotal').innerText = '$0';
         document.getElementById('shipping').innerText = 'Free';
-        document.getElementById('total').innerText = '$0.00';
+        document.getElementById('total').innerText = '$0';
         return;
     }
 
@@ -3264,7 +3333,7 @@ function updateCartDisplay() {
                         ${item.size ? `<span>Size: ${item.size}</span>` : ''}
                         ${item.color !== undefined ? `<span>Color: ${getColorName(item.color, item.id)}</span>` : ''}
                     </div>
-                    <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                    <div class="cart-item-price">$${item.price.toFixed(0)}</div>
                     <div class="quantity-controls">
                         <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
                         <span>${item.quantity}</span>
@@ -3281,9 +3350,9 @@ function updateCartDisplay() {
 
     const shipping = 0.00;
     const total = subtotal + shipping;
-    document.getElementById('subtotal').innerText = '$' + subtotal.toFixed(2);
+    document.getElementById('subtotal').innerText = '$' + subtotal.toFixed(0);
     document.getElementById('shipping').innerText = 'Free';
-    document.getElementById('total').innerText = '$' + total.toFixed(2);
+    document.getElementById('total').innerText = '$' + total.toFixed(0);
 }
 
 // Update Wishlist Display
@@ -3304,7 +3373,7 @@ function updateWishlistDisplay() {
                 <img src="${item.image1}" class="wishlist-item-image" alt="${item.name}">
                 <div class="wishlist-item-details">
                     <div class="wishlist-item-name">${item.name}</div>
-                    <div class="wishlist-item-price">$${item.price.toFixed(2)}</div>
+                    <div class="wishlist-item-price">$${item.price.toFixed(0)}</div>
                     <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.image1}'); toggleWishlist();">
                         Add to Cart
                     </button>
@@ -3406,7 +3475,7 @@ function updateCheckoutSummary() {
         checkoutItemsHTML += `
             <div class="order-item">
                 <span>${item.name} x${item.quantity}</span>
-                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                <span>$${(item.price * item.quantity).toFixed(0)}</span>
             </div>
         `;
     });
@@ -3414,7 +3483,7 @@ function updateCheckoutSummary() {
     checkoutItems.innerHTML = checkoutItemsHTML;
     
     const shipping = 0.00;
-    document.getElementById('checkout-total').innerText = '$' + (total + shipping).toFixed(2);
+    document.getElementById('checkout-total').innerText = '$' + (total + shipping).toFixed(0);
 }
 
 // Select Payment Method
@@ -3464,7 +3533,7 @@ async function placeOrder() {
         const orderDetails = customerInfo.cartItems.map(item => {
             const product = productsData.find(p => p.id === item.id) || {};
             const colorName = product.colors && product.colors[item.color] ? product.colors[item.color].name : 'Default';
-            return `• ${item.name}\n• Quantity: ${item.quantity}\n• Size: ${item.size}\n• Color: ${colorName}\n• Price: $${item.price.toFixed(2)}`;
+            return `• ${item.name}\n• Quantity: ${item.quantity}\n• Size: ${item.size}\n• Color: ${colorName}\n• Price: $${item.price.toFixed(0)}`;
         }).join('\n\n');
 
         const templateParams = {
@@ -3519,7 +3588,7 @@ function showConfirmation(customerInfo, orderId) {
     document.getElementById('confirm-order-email').innerText = customerInfo.email;
     document.getElementById('confirm-phone').innerText = customerInfo.phone;
     document.getElementById('confirm-address').innerText = customerInfo.address + ', ' + customerInfo.city + ', ' + customerInfo.state + ' ' + customerInfo.zip + ', ' + customerInfo.country;
-    document.getElementById('confirm-total').innerText = '$' + customerInfo.orderTotal.toFixed(2);
+    document.getElementById('confirm-total').innerText = '$' + customerInfo.orderTotal.toFixed(0);
 
     // Show order items with sizes and colors
     const itemsList = document.getElementById('order-items-list');
@@ -3591,9 +3660,9 @@ ${customerInfo.city}, ${customerInfo.state} ${customerInfo.zip}
 ${customerInfo.country}
 
 ORDER ITEMS:
-${customerInfo.cartItems.map(item => `- ${item.name} x${item.quantity} = $${(item.price * item.quantity).toFixed(2)}`).join('\n')}
+${customerInfo.cartItems.map(item => `- ${item.name} x${item.quantity} = $${(item.price * item.quantity).toFixed(0)}`).join('\n')}
 
-ORDER TOTAL: $${customerInfo.orderTotal.toFixed(2)}
+ORDER TOTAL: $${customerInfo.orderTotal.toFixed(0)}
 
 STATUS: Pending Payment
 
@@ -3749,7 +3818,7 @@ function loadOrders() {
                     <ul style="margin: 10px 0; padding-left: 20px; color: #666;">
                         ${order.cartItems.map(item => {
                             const colorName = getColorName(item.color, item.id);
-                            return `<li>${item.name} (${colorName}, Size: ${item.size}) x${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</li>`;
+                            return `<li>${item.name} (${colorName}, Size: ${item.size}) x${item.quantity} = $${(item.price * item.quantity).toFixed(0)}</li>`;
                         }).join('')}
                     </ul>
                 </div>
@@ -3757,7 +3826,7 @@ function loadOrders() {
                 <div style="background: var(--light-gray); padding: 15px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <strong>Total Amount:</strong><br>
-                        <span style="font-size: 24px; color: var(--accent); font-weight: 700;">$${order.orderTotal.toFixed(2)}</span>
+                        <span style="font-size: 24px; color: var(--accent); font-weight: 700;">$${order.orderTotal.toFixed(0)}</span>
                     </div>
                     <button onclick="copyToClipboard('${order.email}')" style="padding: 10px 15px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">📋 Copy Email</button>
                 </div>
@@ -3828,7 +3897,7 @@ function exportOrdersCSV() {
     let csv = 'Order ID,Date,Customer Name,Email,Phone,Address,Payment Method,Status,Total\n';
     
     orders.forEach(order => {
-        csv += `"${order.orderId}","${new Date(order.date).toLocaleString()}","${order.name}","${order.email}","${order.phone}","${order.address}, ${order.city}, ${order.state} ${order.zip}","${order.paymentMethod}","${order.status}","$${order.orderTotal.toFixed(2)}"\n`;
+        csv += `"${order.orderId}","${new Date(order.date).toLocaleString()}","${order.name}","${order.email}","${order.phone}","${order.address}, ${order.city}, ${order.state} ${order.zip}","${order.paymentMethod}","${order.status}","$${order.orderTotal.toFixed(0)}"\n`;
     });
     
     const element = document.createElement('a');

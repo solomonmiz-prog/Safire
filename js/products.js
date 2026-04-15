@@ -1,23 +1,8 @@
 const products = [
     {
-        id: "brown-hoodie",
-        name: "Art Hoodie",
-        price: 44.99,
-        description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
-        images: [
-            "images/brown-hoodie.png",
-            "images/brown-hoodieback.png"
-        ],
-        sizes: ["S", "M", "L", "XL"],
-        details: "This hoodie combines a vintage wash with frayed details for a look that’s both edgy and comfortable. Crafted from 360 GSM fleece, it offers warmth without sacrificing style, making it ideal for layering or wearing solo. The relaxed fit and soft texture create the perfect canvas for your custom designs, adding a personal touch to this streetwear essential.\n\nEach piece is handcrafted, ensuring its uniqueness. Minor variations from website images are natural and highlight its artisanal quality.\n\nGender\nUnisex\n\nEffects\nWashed / Frayed\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nCasual / Street\n\nMaterial\n42% cotton, 53% polyester, 5% other fibers\n\nFabric Weight\n360 gsm (10.6 oz)\n\nThickness\nThicken\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
-        freeShipping: true,
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
-    },
-    {
         id: "black-socrates-hoodie",
         name: "Socrates Hoodie",
-        price: 49.99,
+        price: 50,
         description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
         images: [
             "images/blacksocratesfront.png",
@@ -74,7 +59,7 @@ const products = [
     {
         id: "classic-quarter-zip",
         name: "Classic Quarter Zip",
-        price: 44.99,
+        price: 50,
         description: "Minimal quarter zip built with premium structure and an everyday luxury finish.",
         images: [
             "images/grayqzipfront.png",
@@ -115,7 +100,7 @@ const products = [
     {
         id: "varsity-jacket",
         name: "Varsity Jacket",
-        price: 49.99,
+        price: 50,
         description: "SAFIRE's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge and everyday comfort.",
         images: [
             "images/frontblackcreamjacket.png",
@@ -241,13 +226,46 @@ const products = [
         details: "This fashion-forward hoodie combines a cropped length with a warm fleece lining and heavyweight construction. The cotton-polyester blend offers substantial comfort. A trendy piece for essential collections, particularly appealing to brands targeting the cropped silhouette market in womenswear or youth segments.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nEffects\nPocket\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nWinter\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n50% cotton, 50% polyester\n\nFabric Weight\n500 gsm (14.7 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
+        id: "borough-oversized-tshirt",
+        name: "Borough Oversized T-Shirt",
+        price: 30,
+        description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
+        images: [
+            "images/frontblackborough.png",
+            "images/backblackborough.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#0A0A0A",
+                images: [
+                    "images/frontblackborough.png",
+                    "images/backblackborough.png"
+                ]
+            },
+            {
+                name: "White",
+                hex: "#F4F4F4",
+                images: [
+                    "images/frontwhiteborough.png",
+                    "images/backwhiteborough.png"
+                ]
+            }
+        ],
+        sizes: ["S", "M", "L", "XL"],
+        freeShipping: true,
+        details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     }
 ];
 
 const stripePrices = {
-    "brown-hoodie": "price_1T9ymc9S93tBM5OXJQyDUhbC",
     "black-socrates-hoodie": "price_1T9yom9S93tBM5OXxuh5loMF",
     "classic-quarter-zip": "price_1T9yqp9S93tBM5OX9uorrP1S",
     "varsity-jacket": "price_1T9ytB9S93tBM5OXJmSgGvri",
-    "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT"
+    "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
+    "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl"
 };

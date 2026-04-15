@@ -1113,15 +1113,15 @@
     <div class="cart-summary">
         <div class="summary-item">
             <span>Subtotal:</span>
-            <span id="subtotal">$0.00</span>
+            <span id="subtotal">$0</span>
         </div>
         <div class="summary-item">
             <span>Shipping:</span>
-            <span id="shipping">$10.00</span>
+            <span id="shipping">$10</span>
         </div>
         <div class="summary-total">
             <span>Total:</span>
-            <span id="total">$0.00</span>
+            <span id="total">$0</span>
         </div>
         <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>
     </div>
@@ -1152,7 +1152,7 @@
             <div id="checkout-items"></div>
             <div class="order-total">
                 <span>Total:</span>
-                <span id="checkout-total">$0.00</span>
+                <span id="checkout-total">$0</span>
             </div>
         </div>
 
@@ -1311,22 +1311,10 @@
 // Product Data (only two items shown)
 const productsData = [
     {
-        id: 1,
-        name: "Art Hoodie",
-        category: "classic",
-        price: 40.00,
-        image1: "images/brown_hoodie_front.jpg",
-        image2: "images/brown_hoodie_back.jpg",
-        description: "Brown hoodie with a distressed scratched finish.",
-        freeShipping: true,
-        sku: "BH-SCR-001",
-        stock: { S: 1, M: 0, L: 0, XL: 0 }
-    },
-    {
         id: 2,
         name: "Plain Hoodie - Black",
         category: "classic",
-        price: 40.00,
+        price: 50,
         image1: "../images/pitchblackfrontplainhoodie.png",
         image2: "../images/pitchblackbackplainhoodie.png",
         description: "Clean black plain hoodie for everyday wear.",
@@ -1338,7 +1326,7 @@ const productsData = [
         id: 3,
         name: "Plain Hoodie - White",
         category: "classic",
-        price: 40.00,
+        price: 50,
         image1: "../images/plainhoodiewhitefront.png",
         image2: "../images/plainhoodiewhiteback.png",
         description: "White plain hoodie with a clean minimalist look.",
@@ -1350,7 +1338,7 @@ const productsData = [
         id: 4,
         name: "Plain Hoodie - Oat White",
         category: "classic",
-        price: 40.00,
+        price: 50,
         image1: "../images/plainhoodieoatwhitefront.png",
         image2: "../images/plainhoodieoatwhiteback.png",
         description: "Oat white plain hoodie with a clean minimalist look.",
@@ -1362,7 +1350,7 @@ const productsData = [
         id: 5,
         name: "Plain Hoodie - Flower Gray",
         category: "classic",
-        price: 40.00,
+        price: 50,
         image1: "../images/plainhoodieflowergreyfront.png",
         image2: "../images/plainhoodieflowergreyback.png",
         description: "Flower gray plain hoodie with a clean minimalist look.",
@@ -1374,13 +1362,37 @@ const productsData = [
         id: 6,
         name: "Plain Hoodie - Light Apricot",
         category: "classic",
-        price: 40.00,
+        price: 50,
         image1: "../images/plainhoodielightapricotfront.png",
         image2: "../images/plainhoodielightapricotback.png",
         description: "Light apricot plain hoodie with a clean minimalist look.",
         freeShipping: true,
         sku: "PH-LAP-006",
         stock: { S: 1, M: 1, L: 1, XL: 1 }
+    },
+    {
+        id: 7,
+        name: "Borough Oversized T-Shirt - Black",
+        category: "graphic",
+        price: 30,
+        image1: "../images/frontblackborough.png",
+        image2: "../images/backblackborough.png",
+        description: "Streetwear oversized cotton t-shirt in black.",
+        freeShipping: true,
+        sku: "MT0012-C003-V3-BLK",
+        stock: { S: 10, M: 10, L: 10, XL: 10 }
+    },
+    {
+        id: 8,
+        name: "Borough Oversized T-Shirt - White",
+        category: "graphic",
+        price: 30,
+        image1: "../images/frontwhiteborough.png",
+        image2: "../images/backwhiteborough.png",
+        description: "Streetwear oversized cotton t-shirt in white.",
+        freeShipping: true,
+        sku: "MT0012-C003-V3-WHT",
+        stock: { S: 10, M: 10, L: 10, XL: 10 }
     }
 ];
 
@@ -1415,7 +1427,7 @@ function renderProducts() {
                     <div class="product-category">${product.category}</div>
                     <h3>${product.name}</h3>
                     <p>${product.description}</p>
-                    <div class="product-price">$${product.price.toFixed(2)}</div>
+                    <div class="product-price">$${product.price.toFixed(0)}</div>
                     <div class="product-actions">
                         <button class="add-to-cart-btn" onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image1}')">
                             Add to Cart
@@ -1474,8 +1486,8 @@ function updateCartDisplay() {
 
     if (cart.length === 0) {
         cartItemsList.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
-        document.getElementById('subtotal').innerText = '$0.00';
-        document.getElementById('total').innerText = '$10.00';
+        document.getElementById('subtotal').innerText = '$0';
+        document.getElementById('total').innerText = '$10';
         return;
     }
 
@@ -1489,7 +1501,7 @@ function updateCartDisplay() {
                 <img src="${item.image}" class="cart-item-image" alt="${item.name}">
                 <div class="cart-item-details">
                     <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                    <div class="cart-item-price">$${item.price.toFixed(0)}</div>
                     <div class="quantity-controls">
                         <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
                         <span>${item.quantity}</span>
@@ -1504,9 +1516,9 @@ function updateCartDisplay() {
 
     const shipping = cart.some(item => item.freeShipping) ? 0.00 : 10.00;
     const total = subtotal + shipping;
-    document.getElementById('subtotal').innerText = '$' + subtotal.toFixed(2);
-    document.getElementById('shipping').innerText = shipping === 0 ? 'Free' : '$' + shipping.toFixed(2);
-    document.getElementById('total').innerText = '$' + total.toFixed(2);
+    document.getElementById('subtotal').innerText = '$' + subtotal.toFixed(0);
+    document.getElementById('shipping').innerText = shipping === 0 ? 'Free' : '$' + shipping.toFixed(0);
+    document.getElementById('total').innerText = '$' + total.toFixed(0);
 }
 
 // Update Wishlist Display
@@ -1527,7 +1539,7 @@ function updateWishlistDisplay() {
                 <img src="${item.image1}" class="wishlist-item-image" alt="${item.name}">
                 <div class="wishlist-item-details">
                     <div class="wishlist-item-name">${item.name}</div>
-                    <div class="wishlist-item-price">$${item.price.toFixed(2)}</div>
+                    <div class="wishlist-item-price">$${item.price.toFixed(0)}</div>
                     <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.image1}'); toggleWishlist();">
                         Add to Cart
                     </button>
@@ -1627,13 +1639,13 @@ function updateCheckoutSummary() {
         checkoutItems.innerHTML += `
             <div class="order-item">
                 <span>${item.name} x${item.quantity}</span>
-                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                <span>$${(item.price * item.quantity).toFixed(0)}</span>
             </div>
         `;
     });
     
     const shipping = cart.some(item => item.freeShipping) ? 0.00 : 10.00;
-    document.getElementById('checkout-total').innerText = '$' + (total + shipping).toFixed(2);
+    document.getElementById('checkout-total').innerText = '$' + (total + shipping).toFixed(0);
 }
 
 // Select Payment Method
@@ -1703,7 +1715,7 @@ function showConfirmation(customerInfo, orderId) {
     document.getElementById('confirm-order-email').innerText = customerInfo.email;
     document.getElementById('confirm-phone').innerText = customerInfo.phone;
     document.getElementById('confirm-address').innerText = customerInfo.address + ', ' + customerInfo.city + ', ' + customerInfo.state + ' ' + customerInfo.zip + ', ' + customerInfo.country;
-    document.getElementById('confirm-total').innerText = '$' + customerInfo.orderTotal.toFixed(2);
+    document.getElementById('confirm-total').innerText = '$' + customerInfo.orderTotal.toFixed(0);
 
     // Update Stripe checkout instructions
     const paymentSteps = document.getElementById('payment-steps');
@@ -1769,9 +1781,9 @@ ${customerInfo.city}, ${customerInfo.state} ${customerInfo.zip}
 ${customerInfo.country}
 
 ORDER ITEMS:
-${customerInfo.cartItems.map(item => `- ${item.name} x${item.quantity} = $${(item.price * item.quantity).toFixed(2)}`).join('\n')}
+${customerInfo.cartItems.map(item => `- ${item.name} x${item.quantity} = $${(item.price * item.quantity).toFixed(0)}`).join('\n')}
 
-ORDER TOTAL: $${customerInfo.orderTotal.toFixed(2)}
+ORDER TOTAL: $${customerInfo.orderTotal.toFixed(0)}
 
 STATUS: Pending Payment
 
@@ -1888,14 +1900,14 @@ function loadOrders() {
                 <div style="margin-bottom: 15px;">
                     <strong>Items Ordered:</strong><br>
                     <ul style="margin: 10px 0; padding-left: 20px; color: #666;">
-                        ${order.cartItems.map(item => `<li>${item.name} x${item.quantity} = $${(item.price * item.quantity).toFixed(2)}</li>`).join('')}
+                        ${order.cartItems.map(item => `<li>${item.name} x${item.quantity} = $${(item.price * item.quantity).toFixed(0)}</li>`).join('')}
                     </ul>
                 </div>
 
                 <div style="background: var(--light-gray); padding: 15px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <strong>Total Amount:</strong><br>
-                        <span style="font-size: 24px; color: var(--accent); font-weight: 700;">$${order.orderTotal.toFixed(2)}</span>
+                        <span style="font-size: 24px; color: var(--accent); font-weight: 700;">$${order.orderTotal.toFixed(0)}</span>
                     </div>
                     <button onclick="copyToClipboard('${order.email}')" style="padding: 10px 15px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">📋 Copy Email</button>
                 </div>
@@ -1966,7 +1978,7 @@ function exportOrdersCSV() {
     let csv = 'Order ID,Date,Customer Name,Email,Phone,Address,Payment Method,Status,Total\n';
     
     orders.forEach(order => {
-        csv += `"${order.orderId}","${new Date(order.date).toLocaleString()}","${order.name}","${order.email}","${order.phone}","${order.address}, ${order.city}, ${order.state} ${order.zip}","${order.paymentMethod}","${order.status}","$${order.orderTotal.toFixed(2)}"\n`;
+        csv += `"${order.orderId}","${new Date(order.date).toLocaleString()}","${order.name}","${order.email}","${order.phone}","${order.address}, ${order.city}, ${order.state} ${order.zip}","${order.paymentMethod}","${order.status}","$${order.orderTotal.toFixed(0)}"\n`;
     });
     
     const element = document.createElement('a');
