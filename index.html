@@ -500,11 +500,54 @@
         }
 
         /* Filters Section */
+        .filters-toggle-wrap {
+            max-width: 1400px;
+            margin: 12px auto 0;
+            padding: 0 20px;
+        }
+
+        .filters-toggle-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid #d4d4d4;
+            background: #f7f7f7;
+            color: #222;
+            padding: 7px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .filters-toggle-btn:hover {
+            background: #efefef;
+            border-color: #bcbcbc;
+        }
+
+        .filters-toggle-arrow {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.22s ease;
+        }
+
+        .filters-toggle-btn.open .filters-toggle-arrow {
+            transform: rotate(180deg);
+        }
+
         .filters-bar-container {
             padding: 24px 20px;
             background: #fafafa;
             border-bottom: 1px solid var(--border);
             margin-bottom: 30px;
+            display: none;
+        }
+
+        .filters-bar-container.open {
+            display: block;
         }
 
         .filters-bar {
@@ -1976,6 +2019,7 @@
 
             .quick-category-container {
                 gap: 5px;
+                flex-wrap: wrap;
             }
 
             .quick-category-btn {
@@ -2369,8 +2413,17 @@
     </div>
 </section>
 
+<div class="filters-toggle-wrap">
+    <button class="filters-toggle-btn" id="filters-toggle-btn" type="button" aria-expanded="false" aria-controls="filters-bar-container">
+        <span>Filters</span>
+        <svg class="filters-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+    </button>
+</div>
+
 <!-- Filters Section -->
-<div class="filters-bar-container">
+<div class="filters-bar-container" id="filters-bar-container">
     <div class="filters-bar">
         <span class="filter-label">FILTER BY</span>
         <button class="clear-filters-btn" id="clear-filters-btn" type="button">Clear All</button>
@@ -4168,6 +4221,8 @@ function checkAdminMode() {
             document.querySelector('.hero').style.display = 'none';
             const quickCategoryBar = document.querySelector('.quick-category-bar');
             if (quickCategoryBar) quickCategoryBar.style.display = 'none';
+            const filtersToggleWrap = document.querySelector('.filters-toggle-wrap');
+            if (filtersToggleWrap) filtersToggleWrap.style.display = 'none';
             document.querySelector('.filters-bar-container').style.display = 'none';
             document.querySelector('.products-container').style.display = 'none';
             document.querySelector('footer').style.display = 'none';
@@ -4203,6 +4258,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const clearFiltersButton = document.getElementById('clear-filters-btn');
     const quickCategoryButtons = document.querySelectorAll('.quick-category-btn');
     const searchInput = document.getElementById('search-input');
+    const filtersToggleButton = document.getElementById('filters-toggle-btn');
+    const filtersBarContainer = document.getElementById('filters-bar-container');
+
+    if (filtersToggleButton && filtersBarContainer) {
+        filtersToggleButton.addEventListener('click', function() {
+            const willOpen = !filtersBarContainer.classList.contains('open');
+            filtersBarContainer.classList.toggle('open', willOpen);
+            filtersToggleButton.classList.toggle('open', willOpen);
+            filtersToggleButton.setAttribute('aria-expanded', String(willOpen));
+        });
+    }
 
     quickCategoryButtons.forEach((button) => {
         button.addEventListener('click', function() {
