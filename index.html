@@ -89,40 +89,57 @@
 
         .header-right {
             display: flex;
-            gap: 20px;
+            gap: 14px;
             align-items: center;
-            position: absolute;
-            right: 24px;
-            top: 50%;
-            transform: translateY(-50%);
+            justify-content: space-between;
+            position: static;
+            transform: none;
+            width: 100%;
+            flex-wrap: nowrap;
+        }
+
+        .header-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            margin-left: auto;
+        }
+
+        .search-left {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-diamond {
+            width: 38px;
+            height: 30px;
+            color: var(--secondary);
+            flex-shrink: 0;
         }
 
         .instagram-header-link {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 8px 12px;
-            min-height: 40px;
-            border-radius: 20px;
+            justify-content: center;
+            background: transparent;
+            border: none;
+            padding: 0;
+            min-height: 0;
+            border-radius: 0;
             color: var(--secondary);
             text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s;
-            white-space: nowrap;
+            font-size: 0;
+            transition: transform 0.3s;
         }
 
         .instagram-header-link:hover {
-            background: var(--accent);
-            border-color: var(--accent);
-            color: var(--secondary);
+            transform: scale(1.1);
         }
 
         .instagram-icon {
-            width: 16px;
-            height: 16px;
+            width: 20px;
+            height: 20px;
             display: inline-block;
             flex-shrink: 0;
         }
@@ -133,7 +150,7 @@
             padding: 8px 12px;
             border-radius: 20px;
             color: var(--secondary);
-            width: 200px;
+            width: min(220px, 42vw);
         }
 
         .search-bar::placeholder {
@@ -141,10 +158,14 @@
         }
 
         .cart-icon {
-            font-size: 20px;
+            font-size: 0;
             cursor: pointer;
             position: relative;
             transition: transform 0.3s;
+            color: var(--secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .cart-icon:hover {
@@ -155,11 +176,11 @@
             position: absolute;
             top: -10px;
             right: -10px;
-            background: var(--accent);
+            background: transparent;
             color: var(--secondary);
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
+            border-radius: 0;
+            width: auto;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -168,13 +189,31 @@
         }
 
         .wishlist-icon {
-            font-size: 20px;
+            font-size: 0;
             cursor: pointer;
             transition: transform 0.3s;
+            color: var(--secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .wishlist-icon:hover {
             transform: scale(1.1);
+        }
+
+        .action-icon {
+            width: 20px;
+            height: 20px;
+            display: inline-block;
+            color: var(--secondary);
+        }
+
+        #wishlist-count {
+            font-size: 12px;
+            color: var(--secondary);
+            font-weight: 700;
+            line-height: 1;
         }
 
         /* Hero Section */
@@ -206,31 +245,47 @@
             color: rgba(255,255,255,0.95);
         }
 
-        /* Trust Bar */
-        .trust-bar {
+        /* Quick Category Bar */
+        .quick-category-bar {
             background: var(--secondary);
-            padding: 20px 0;
+            padding: 14px 12px;
             border-top: 1px solid rgba(0,0,0,0.1);
             border-bottom: 1px solid rgba(0,0,0,0.1);
         }
 
-        .trust-bar .container {
+        .quick-category-container {
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
+            gap: 6px;
+            flex-wrap: nowrap;
         }
 
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            color: var(--primary);
+        .quick-category-btn {
+            border: 1px solid #d8d8d8;
+            background: #f3f3f3;
+            color: #222;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            white-space: nowrap;
         }
 
-        .trust-icon {
-            font-size: 20px;
+        .quick-category-btn:hover {
+            background: #e7e7e7;
+            border-color: #bbbbbb;
+        }
+
+        .quick-category-btn.active {
+            background: #111;
+            border-color: #111;
+            color: #fff;
         }
 
         /* Why Choose Section */
@@ -1321,15 +1376,20 @@
 
             .header-right {
                 width: 100%;
+                justify-content: space-between;
+                flex-wrap: nowrap;
             }
 
             .search-bar {
-                width: 100%;
+                width: min(200px, 65vw);
             }
 
             .instagram-header-link {
-                width: 100%;
-                justify-content: center;
+                width: auto;
+            }
+
+            .header-actions {
+                margin-left: 0;
             }
 
             .hero h2 {
@@ -1401,14 +1461,13 @@
             }
 
             .instagram-header-link {
-                font-size: 12px;
-                padding: 9px 12px;
-                min-height: 44px;
+                padding: 0;
+                min-height: 0;
             }
 
             .instagram-icon {
-                width: 18px;
-                height: 18px;
+                width: 20px;
+                height: 20px;
             }
 
             .products {
@@ -1773,7 +1832,7 @@
 
         /* Logo Styling */
         .logo-container {
-            display: flex;
+            display: none;
             align-items: center;
             gap: 15px;
             flex-shrink: 0;
@@ -1801,6 +1860,10 @@
             justify-content: center;
             position: relative;
             padding: 12px 24px;
+            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('images/concretebackround.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
         header h1 {
@@ -1911,15 +1974,13 @@
                 gap: 6px;
             }
 
-            .trust-bar .container {
-                gap: 15px;
-                flex-direction: row;
+            .quick-category-container {
+                gap: 5px;
             }
 
-            .trust-item {
-                font-size: 12px;
-                flex: 1;
-                justify-content: center;
+            .quick-category-btn {
+                font-size: 10px;
+                padding: 5px 8px;
             }
 
             .why-choose-grid, .testimonials-grid, .complete-look-grid {
@@ -2134,7 +2195,8 @@
                 top: auto;
                 transform: none;
                 width: 100%;
-                justify-content: space-between;
+                justify-content: center;
+                gap: 12px;
             }
 
             .logo-img {
@@ -2249,21 +2311,38 @@
 <!-- Header -->
 <header>
     <div class="logo-container">
-        <img src="images/19E8DB1A-A689-4A67-A0BC-1EA5FC7F9091.PNG" alt="Safires Icon" class="logo-img">
-        <img src="images/BFE09C59-E492-4B6A-B36E-F82B9EC6EE12_1_102_o.transparent.png" alt="Safires" class="logo-wordmark">
     </div>
     <div class="header-right">
-        <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
-        <a class="instagram-header-link" href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
-            <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
-                <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5Zm8.93 1.75a1.07 1.07 0 1 1 0 2.14 1.07 1.07 0 0 1 0-2.14ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
+        <div class="search-left">
+            <svg class="search-diamond" viewBox="0 0 64 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 22h48"></path>
+                <path d="M8 22l10-10h28l10 10"></path>
+                <path d="M8 22l24 24 24-24"></path>
+                <path d="M24 12l-6 10 14 24"></path>
+                <path d="M40 12l6 10-14 24"></path>
             </svg>
-            <span>safire_vintage</span>
-        </a>
-        <div class="wishlist-icon" onclick="toggleWishlist()" title="Wishlist">❤️ <span id="wishlist-count">0</span></div>
-        <div class="cart-icon" onclick="toggleCart()" title="Shopping Cart">
-            🛒
-            <span class="cart-count" id="cart-count">0</span>
+            <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
+        </div>
+        <div class="header-actions">
+            <a class="instagram-header-link" href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+                    <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5Zm8.93 1.75a1.07 1.07 0 1 1 0 2.14 1.07 1.07 0 0 1 0-2.14ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
+                </svg>
+            </a>
+            <div class="wishlist-icon" onclick="toggleWishlist()" title="Wishlist">
+                <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L4.22 13.45 12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"></path>
+                </svg>
+                <span id="wishlist-count">0</span>
+            </div>
+            <div class="cart-icon" onclick="toggleCart()" title="Shopping Cart">
+                <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="20" r="1.5"></circle>
+                    <circle cx="18" cy="20" r="1.5"></circle>
+                    <path d="M2.5 3.5h2.7l2.5 11.2a1.1 1.1 0 0 0 1.1.85h8.4a1.1 1.1 0 0 0 1.07-.8L21 7.5H6.2"></path>
+                </svg>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
         </div>
     </div>
 </header>
@@ -2276,21 +2355,17 @@
     </div>
 </section>
 
-<!-- Trust Bar -->
-<section class="trust-bar">
-    <div class="container">
-        <div class="trust-item">
-            <span class="trust-icon">🚚</span>
-            <span>Free Shipping</span>
-        </div>
-        <div class="trust-item">
-            <span class="trust-icon">↩️</span>
-            <span>Easy Returns</span>
-        </div>
-        <div class="trust-item">
-            <span class="trust-icon">🔒</span>
-            <span>Secure Checkout</span>
-        </div>
+<!-- Quick Categories -->
+<section class="quick-category-bar">
+    <div class="quick-category-container">
+        <button type="button" class="quick-category-btn active" data-category="all">All</button>
+        <button type="button" class="quick-category-btn" data-category="men">Men</button>
+        <button type="button" class="quick-category-btn" data-category="women">Women</button>
+        <button type="button" class="quick-category-btn" data-category="hoodie">Hoodies</button>
+        <button type="button" class="quick-category-btn" data-category="shirt">Shirts</button>
+        <button type="button" class="quick-category-btn" data-category="pants">Pants</button>
+        <button type="button" class="quick-category-btn" data-category="shorts">Shorts</button>
+        <button type="button" class="quick-category-btn" data-category="jacket">Jackets</button>
     </div>
 </section>
 
@@ -2552,8 +2627,8 @@
         <div class="testimonials-grid">
             <div class="testimonial">
                 <div class="testimonial-stars">★★★★★</div>
-                <p>"The quality of these hoodies is incredible. The fabric feels premium and the fit is perfect. Definitely my go-to brand now."</p>
-                <div class="testimonial-author">- Alex M., Los Angeles</div>
+                <p>"I got so many compliments wearing the Socrates Hoodie."</p>
+                <div class="testimonial-author">- Raymond M, New York</div>
             </div>
             <div class="testimonial">
                 <div class="testimonial-stars">★★★★★</div>
@@ -3674,13 +3749,115 @@ Dashboard: Check your orders at safires.html?admin=true
 }
 
 // Search Functionality
+function normalizeSearchText(value) {
+    return String(value || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+const searchSynonyms = {
+    shirt: ['tshirt', 't shirt', 'tee', 'tee shirt', 'top'],
+    tshirt: ['shirt', 't shirt', 'tee', 'tee shirt', 'top'],
+    't shirt': ['shirt', 'tshirt', 'tee', 'tee shirt', 'top'],
+    tee: ['shirt', 'tshirt', 't shirt', 'tee shirt', 'top'],
+    hoodie: ['hooded', 'pullover', 'sweatshirt'],
+    quarter: ['zip', 'quarter zip', 'half zip'],
+    jacket: ['outerwear', 'coat']
+};
+
+function expandSearchTerms(query) {
+    const normalizedQuery = normalizeSearchText(query);
+    if (!normalizedQuery) return [];
+
+    const terms = new Set([normalizedQuery]);
+    const parts = normalizedQuery.split(' ').filter(Boolean);
+
+    parts.forEach((part) => {
+        terms.add(part);
+        const synonyms = searchSynonyms[part];
+        if (synonyms) {
+            synonyms.forEach((synonym) => terms.add(normalizeSearchText(synonym)));
+        }
+    });
+
+    const phraseSynonyms = searchSynonyms[normalizedQuery];
+    if (phraseSynonyms) {
+        phraseSynonyms.forEach((synonym) => terms.add(normalizeSearchText(synonym)));
+    }
+
+    if (parts.includes('t') && parts.includes('shirt')) {
+        terms.add('tshirt');
+        terms.add('tee');
+    }
+
+    return Array.from(terms).filter(Boolean);
+}
+
+function productMatchesSearch(product, query) {
+    const terms = expandSearchTerms(query);
+    if (terms.length === 0) return true;
+
+    const searchPool = normalizeSearchText([
+        product.name,
+        product.description,
+        product.details,
+        product.id,
+        product.productId,
+        'shirt tshirt t shirt tee top'
+    ].join(' '));
+
+    const searchWords = new Set(searchPool.split(' ').filter(Boolean));
+
+    return terms.some((term) => {
+        if (searchPool.includes(term)) return true;
+        return Array.from(searchWords).some((word) => word.startsWith(term));
+    });
+}
+
+let activeQuickCategory = 'all';
+
+function getProductCategoryTags(product) {
+    const productGender = normalizeSearchText(product.gender || 'men');
+    const productText = normalizeSearchText([
+        product.name,
+        product.description,
+        product.details,
+        product.id,
+        product.productId
+    ].join(' '));
+
+    const tags = new Set();
+
+    if (productGender.includes('men') || productGender.includes('male') || productGender.includes('unisex')) {
+        tags.add('men');
+    }
+    if (productGender.includes('women') || productGender.includes('female') || productGender.includes('unisex')) {
+        tags.add('women');
+    }
+    if (productText.includes('hoodie')) tags.add('hoodie');
+    if (productText.includes('jacket')) tags.add('jacket');
+    if (productText.includes('pant') || productText.includes('jogger') || productText.includes('trouser')) tags.add('pants');
+    if (productText.includes('short')) tags.add('shorts');
+    if (productText.includes('shirt') || productText.includes('tshirt') || productText.includes('t shirt') || productText.includes('tee')) tags.add('shirt');
+
+    return tags;
+}
+
+function matchesQuickCategory(product, category) {
+    if (!category || category === 'all') return true;
+    return getProductCategoryTags(product).has(category);
+}
+
+function updateQuickCategoryState() {
+    document.querySelectorAll('.quick-category-btn').forEach((button) => {
+        button.classList.toggle('active', button.dataset.category === activeQuickCategory);
+    });
+}
+
 document.getElementById('search-input').addEventListener('input', (e) => {
-    const searchTerm = e.target.value.toLowerCase();
-    filteredProducts = productsData.filter(product =>
-        product.name.toLowerCase().includes(searchTerm) ||
-        product.description.toLowerCase().includes(searchTerm)
-    );
-    renderProducts();
+    applyFilters();
 });
 
 // Filter Functionality
@@ -3705,9 +3882,13 @@ function applyFilters() {
     const selectedSizes = Array.from(document.querySelectorAll('.size-filter:checked')).map(cb => cb.value);
     const selectedProducts = Array.from(document.querySelectorAll('.product-filter:checked')).map(cb => cb.value.toLowerCase());
     const selectedStyles = Array.from(document.querySelectorAll('.style-filter:checked')).map(cb => cb.value.toLowerCase());
+    const searchTerm = document.getElementById('search-input').value;
 
     filteredProducts = productsData.filter(product => {
-        const genderMatch = selectedGenders.length === 0 || selectedGenders.includes(product.gender || 'men');
+        const productGender = String(product.gender || 'men').toLowerCase();
+        const genderMatch = selectedGenders.length === 0 || selectedGenders.some((selectedGender) =>
+            productGender.includes(selectedGender) || productGender.includes('unisex')
+        );
         const sizeMatch = selectedSizes.length === 0 || selectedSizes.some(size => product.stock && product.stock[size] > 0);
 
         const productName = String(product.name || '').toLowerCase();
@@ -3720,12 +3901,15 @@ function applyFilters() {
 
         const styleType = 'top';
         const styleMatch = selectedStyles.length === 0 || selectedStyles.includes(styleType);
+        const searchMatch = productMatchesSearch(product, searchTerm);
+        const quickCategoryMatch = matchesQuickCategory(product, activeQuickCategory);
 
-        return genderMatch && sizeMatch && productMatch && styleMatch;
+        return genderMatch && sizeMatch && productMatch && styleMatch && searchMatch && quickCategoryMatch;
     });
 
     renderProducts();
     updateFilterStates();
+    updateQuickCategoryState();
 }
 
 function updateFilterStates() {
@@ -3741,10 +3925,9 @@ function updateFilterStates() {
 }
 
 // Initialize
-renderProducts();
+applyFilters();
 updateCartDisplay();
 updateWishlistDisplay();
-updateFilterStates();
 
 // Load settings
 function loadSettings() {
@@ -3983,6 +4166,8 @@ function checkAdminMode() {
             document.getElementById('admin-dashboard').style.display = 'block';
             document.querySelector('header').style.display = 'none';
             document.querySelector('.hero').style.display = 'none';
+            const quickCategoryBar = document.querySelector('.quick-category-bar');
+            if (quickCategoryBar) quickCategoryBar.style.display = 'none';
             document.querySelector('.filters-bar-container').style.display = 'none';
             document.querySelector('.products-container').style.display = 'none';
             document.querySelector('footer').style.display = 'none';
@@ -4016,6 +4201,15 @@ function swapImage(container, img1, img2) {
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const clearFiltersButton = document.getElementById('clear-filters-btn');
+    const quickCategoryButtons = document.querySelectorAll('.quick-category-btn');
+    const searchInput = document.getElementById('search-input');
+
+    quickCategoryButtons.forEach((button) => {
+        button.addEventListener('click', function() {
+            activeQuickCategory = button.dataset.category || 'all';
+            applyFilters();
+        });
+    });
 
     filterButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
@@ -4055,6 +4249,8 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.filters-bar input[type="checkbox"]').forEach(input => {
                 input.checked = false;
             });
+            if (searchInput) searchInput.value = '';
+            activeQuickCategory = 'all';
             applyFilters();
             document.querySelectorAll('.filter-dropdown.active').forEach(dropdown => {
                 dropdown.classList.remove('active');
