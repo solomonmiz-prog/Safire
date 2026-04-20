@@ -263,7 +263,7 @@ const products = [
     {
         id: "loose-fit-cotton-shorts",
         name: "Loose Fit Cotton Shorts",
-        price: 50,
+        price: 30,
         description: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look.",
         images: [
             "images/milkteacottonfrontshorts.png",
