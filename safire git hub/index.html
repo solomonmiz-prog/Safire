@@ -188,6 +188,34 @@
             margin-bottom: 50px;
         }
 
+        .products-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            margin-bottom: 40px;
+        }
+
+        .pagination-btn {
+            min-width: 42px;
+            height: 42px;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            border-radius: 999px;
+            background: var(--secondary);
+            color: var(--primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .pagination-btn:hover,
+        .pagination-btn.active {
+            background: var(--primary);
+            color: var(--secondary);
+            border-color: var(--primary);
+        }
+
         .product {
             background: var(--secondary);
             border-radius: 8px;
@@ -1058,7 +1086,7 @@
 <header>
     <h1>SAFIRES</h1>
     <div class="header-right">
-        <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
+        <input type="text" class="search-bar" id="search-input" placeholder="Search products...">
         <a class="instagram-header-link" href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
             <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
                 <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5Zm8.93 1.75a1.07 1.07 0 1 1 0 2.14 1.07 1.07 0 0 1 0-2.14ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
@@ -1088,6 +1116,7 @@
         <label><input type="checkbox" value="classic" class="category-filter"> Classic Hoodies</label>
         <label><input type="checkbox" value="graphic" class="category-filter"> Graphic Hoodies</label>
         <label><input type="checkbox" value="premium" class="category-filter"> Premium Line</label>
+        <label><input type="checkbox" value="bottoms" class="category-filter"> Bottoms</label>
     </div>
     <div class="filter-group">
         <strong>Size:</strong>
@@ -1101,6 +1130,7 @@
 <!-- Products Container -->
 <div class="products-container">
     <div class="products" id="products"></div>
+    <div class="products-pagination" id="products-pagination"></div>
 </div>
 
 <!-- Cart Modal -->
@@ -1371,6 +1401,18 @@ const productsData = [
         stock: { S: 1, M: 1, L: 1, XL: 1 }
     },
     {
+        id: 9,
+        name: "Loose Fit Cotton Shorts",
+        category: "bottoms",
+        price: 50,
+        image1: "../images/milkteacottonfrontshorts.png",
+        image2: "../images/milkteacottonbackshorts.png",
+        description: "Heavyweight cotton shorts with a relaxed fit and clean streetwear finish.",
+        freeShipping: true,
+        sku: "R00226-P001-V7",
+        stock: { S: 10, M: 10, L: 10, XL: 10 }
+    },
+    {
         id: 7,
         name: "Borough Oversized T-Shirt - Black",
         category: "graphic",
@@ -1399,13 +1441,24 @@ const productsData = [
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 let filteredProducts = [...productsData];
+const productsPerPage = 6;
+let currentPage = 1;
 
 // Render Products
 function renderProducts() {
     const productsDiv = document.getElementById('products');
+    const paginationDiv = document.getElementById('products-pagination');
     productsDiv.innerHTML = '';
 
-    filteredProducts.forEach(product => {
+    const totalPages = Math.max(1, Math.ceil(filteredProducts.length / productsPerPage));
+    if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
+
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const paginatedProducts = filteredProducts.slice(startIndex, startIndex + productsPerPage);
+
+    paginatedProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
         const stockBadge = (product.stock && product.stock.S === 1) ? `<div class="stock-badge">Only 1 Small left</div>` : '';
         const hasSecond = product.image2 && product.image2 !== product.image1;
@@ -1438,6 +1491,31 @@ function renderProducts() {
         `;
         productsDiv.innerHTML += productHTML;
     });
+
+    renderPagination(totalPages, paginationDiv);
+}
+
+function renderPagination(totalPages, paginationDiv) {
+    if (!paginationDiv || filteredProducts.length <= productsPerPage) {
+        if (paginationDiv) {
+            paginationDiv.innerHTML = '';
+        }
+        return;
+    }
+
+    paginationDiv.innerHTML = Array.from({ length: totalPages }, (_, index) => {
+        const page = index + 1;
+        return `<button class="pagination-btn ${page === currentPage ? 'active' : ''}" onclick="setPage(${page})">${page}</button>`;
+    }).join('');
+}
+
+function setPage(page) {
+    currentPage = page;
+    renderProducts();
+    const productsSection = document.getElementById('products');
+    if (productsSection) {
+        productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
 }
 
 // Swap Image Function
@@ -1797,6 +1875,7 @@ Dashboard: Check your orders at safires.html?admin=true
 // Search Functionality
 document.getElementById('search-input').addEventListener('input', (e) => {
     const searchTerm = e.target.value.toLowerCase();
+    currentPage = 1;
     filteredProducts = productsData.filter(product =>
         product.name.toLowerCase().includes(searchTerm) ||
         product.description.toLowerCase().includes(searchTerm)
@@ -1816,6 +1895,8 @@ document.querySelectorAll('.size-filter').forEach(checkbox => {
 function applyFilters() {
     const selectedCategories = Array.from(document.querySelectorAll('.category-filter:checked')).map(cb => cb.value);
     const selectedSizes = Array.from(document.querySelectorAll('.size-filter:checked')).map(cb => cb.value);
+
+    currentPage = 1;
 
     filteredProducts = productsData.filter(product => {
         const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(product.category);

@@ -853,6 +853,44 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.22);
         }
 
+        .products-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 14px 0 40px;
+            flex-wrap: wrap;
+        }
+
+        .page-btn {
+            border: 1px solid #d7d7d7;
+            background: #ffffff;
+            color: #222;
+            padding: 7px 11px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 36px;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            border-color: #bfbfbf;
+            background: #f3f3f3;
+        }
+
+        .page-btn.active {
+            background: #111;
+            border-color: #111;
+            color: #fff;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
         .stock-badge {
             position: absolute;
             top: 12px;
@@ -2470,6 +2508,7 @@
                 <label><input type="checkbox" value="hoodie" class="product-filter"> Hoodie</label>
                 <label><input type="checkbox" value="quarter zip" class="product-filter"> Quarter Zip</label>
                 <label><input type="checkbox" value="jacket" class="product-filter"> Jacket</label>
+                <label><input type="checkbox" value="shorts" class="product-filter"> Shorts</label>
             </div>
         </div>
 
@@ -2483,6 +2522,7 @@
             </button>
             <div class="filter-menu">
                 <label><input type="checkbox" value="top" class="style-filter"> Top</label>
+                <label><input type="checkbox" value="bottom" class="style-filter"> Bottom</label>
             </div>
         </div>
     </div>
@@ -2491,6 +2531,7 @@
 <!-- Products Container -->
 <div class="products-container">
     <div class="products" id="products"></div>
+    <div class="products-pagination" id="products-pagination"></div>
 </div>
 
 <!-- Cart Modal -->
@@ -3170,6 +3211,57 @@ const productsData = [
                 }
             }
         ]
+    },
+    {
+        id: 8,
+        productId: "loose-fit-cotton-shorts",
+        name: "Loose Fit Cotton Shorts",
+        category: "bottoms",
+        gender: "men",
+        price: 50,
+        image1: "images/milkteacottonfrontshorts.png",
+        image2: "images/milkteacottonbackshorts.png",
+        description: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look.",
+        details: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look. Crafted from 80% cotton, 20% polyester in a muted earth tone, these shorts offer a substantial, cozy fit with a loose silhouette that is perfect for laid-back days. The modern design combines effortless style with durability, making it an ideal choice for showcasing personalized prints while maintaining an urban edge.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nR00226-P001-V7\n\nGender\nMen\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nL\n\nEffects\nDrawstring\n\nFit\nRegular\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Basics\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n425 gsm (12.5 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "R00226-P001-V7",
+        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        colors: [
+            {
+                name: "Cream",
+                hex: "#DED3BD",
+                images: {
+                    front: "images/milkteacottonfrontshorts.png",
+                    back: "images/milkteacottonbackshorts.png"
+                }
+            },
+            {
+                name: "Oat Grey",
+                hex: "#AAA79F",
+                images: {
+                    front: "images/oatgreycottonfrontshorts.png",
+                    back: "images/oatgreycottonbackshorts.png"
+                }
+            },
+            {
+                name: "White",
+                hex: "#F2F2F2",
+                images: {
+                    front: "images/whitecottonfrontshorts.png",
+                    back: "images/whitecottonbackshorts.png"
+                }
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/blackcottonfrontshorts.png",
+                    back: "images/blackcottonbackshorts.png"
+                }
+            }
+        ]
     }
 ];
 
@@ -3184,6 +3276,8 @@ localStorage.setItem('cart', JSON.stringify(cart));
 localStorage.setItem('wishlist', JSON.stringify(wishlist));
 
 let filteredProducts = [...productsData];
+const productsPerPage = 6;
+let currentPage = 1;
 
 function getColorPreviewLimit() {
     if (window.innerWidth <= 480) return 2;
@@ -3194,14 +3288,16 @@ function getColorPreviewLimit() {
 // Render Products
 function renderProducts() {
     const productsDiv = document.getElementById('products');
+    const paginationDiv = document.getElementById('products-pagination');
     let productsHTML = '';
 
     const featuredOrder = {
         'borough-oversized-tshirt': 1,
-        'cropped-fleece-hoodie': 2,
-        'black-socrates-hoodie': 3,
-        'classic-quarter-zip': 4,
-        'varsity-jacket': 5
+        'loose-fit-cotton-shorts': 2,
+        'cropped-fleece-hoodie': 3,
+        'black-socrates-hoodie': 4,
+        'classic-quarter-zip': 5,
+        'varsity-jacket': 6
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -3211,7 +3307,12 @@ function renderProducts() {
         return a.id - b.id;
     });
 
-    sortedProducts.forEach(product => {
+    const totalPages = Math.max(1, Math.ceil(sortedProducts.length / productsPerPage));
+    if (currentPage > totalPages) currentPage = totalPages;
+    const startIndex = (currentPage - 1) * productsPerPage;
+    const paginatedProducts = sortedProducts.slice(startIndex, startIndex + productsPerPage);
+
+    paginatedProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
         // Check for low stock (less than 3 items in any size)
         const lowStockSizes = Object.keys(product.stock).filter(size => product.stock[size] > 0 && product.stock[size] < 3);
@@ -3238,6 +3339,8 @@ function renderProducts() {
             productBadges = '<div class="product-badge premium">Premium Fabric</div>';
         } else if (product.id === 2) {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
+        } else if (product.productId === 'loose-fit-cotton-shorts') {
+            productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'borough-oversized-tshirt') {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
         }
@@ -3301,6 +3404,30 @@ function renderProducts() {
     });
     
     productsDiv.innerHTML = productsHTML;
+    renderPagination(totalPages, paginationDiv);
+}
+
+function renderPagination(totalPages, paginationDiv) {
+    if (!paginationDiv) return;
+    if (totalPages <= 1) {
+        paginationDiv.innerHTML = '';
+        return;
+    }
+
+    let paginationHTML = `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="setPage(${currentPage - 1})">Prev</button>`;
+
+    for (let page = 1; page <= totalPages; page += 1) {
+        paginationHTML += `<button class="page-btn ${page === currentPage ? 'active' : ''}" onclick="setPage(${page})">${page}</button>`;
+    }
+
+    paginationHTML += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="setPage(${currentPage + 1})">Next</button>`;
+    paginationDiv.innerHTML = paginationHTML;
+}
+
+function setPage(page) {
+    if (page < 1) return;
+    currentPage = page;
+    renderProducts();
 }
 
 // Select Color Function
@@ -3892,8 +4019,8 @@ function getProductCategoryTags(product) {
     if (productText.includes('hoodie')) tags.add('hoodie');
     if (productText.includes('jacket')) tags.add('jacket');
     if (productText.includes('pant') || productText.includes('jogger') || productText.includes('trouser')) tags.add('pants');
-    if (productText.includes('short')) tags.add('shorts');
-    if (productText.includes('shirt') || productText.includes('tshirt') || productText.includes('t shirt') || productText.includes('tee')) tags.add('shirt');
+    if (/\bshorts\b/.test(productText)) tags.add('shorts');
+    if (/\bshirts?\b/.test(productText) || /\btshirt\b/.test(productText) || /\bt\s+shirt\b/.test(productText) || /\btee\b/.test(productText)) tags.add('shirt');
 
     return tags;
 }
@@ -3907,6 +4034,15 @@ function updateQuickCategoryState() {
     document.querySelectorAll('.quick-category-btn').forEach((button) => {
         button.classList.toggle('active', button.dataset.category === activeQuickCategory);
     });
+}
+
+function resetNonCategoryFilters() {
+    document.querySelectorAll('.filters-bar input[type="checkbox"]').forEach((input) => {
+        input.checked = false;
+    });
+
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.value = '';
 }
 
 document.getElementById('search-input').addEventListener('input', (e) => {
@@ -3945,14 +4081,22 @@ function applyFilters() {
         const sizeMatch = selectedSizes.length === 0 || selectedSizes.some(size => product.stock && product.stock[size] > 0);
 
         const productName = String(product.name || '').toLowerCase();
+        const productText = normalizeSearchText([
+            product.name,
+            product.description,
+            product.details,
+            product.category,
+            product.productId
+        ].join(' '));
         const productType =
-            productName.includes('hoodie') ? 'hoodie' :
-            productName.includes('quarter zip') ? 'quarter zip' :
-            productName.includes('jacket') ? 'jacket' :
+            productText.includes('hoodie') ? 'hoodie' :
+            productText.includes('quarter zip') ? 'quarter zip' :
+            productText.includes('jacket') ? 'jacket' :
+            /\bshorts\b/.test(productText) ? 'shorts' :
             '';
         const productMatch = selectedProducts.length === 0 || selectedProducts.includes(productType);
 
-        const styleType = 'top';
+        const styleType = /\bshorts\b|\bpants?\b|\bjoggers?\b|\btrousers?\b/.test(productText) ? 'bottom' : 'top';
         const styleMatch = selectedStyles.length === 0 || selectedStyles.includes(styleType);
         const searchMatch = productMatchesSearch(product, searchTerm);
         const quickCategoryMatch = matchesQuickCategory(product, activeQuickCategory);
@@ -3960,6 +4104,7 @@ function applyFilters() {
         return genderMatch && sizeMatch && productMatch && styleMatch && searchMatch && quickCategoryMatch;
     });
 
+    currentPage = 1;
     renderProducts();
     updateFilterStates();
     updateQuickCategoryState();
@@ -4273,6 +4418,7 @@ document.addEventListener('DOMContentLoaded', function() {
     quickCategoryButtons.forEach((button) => {
         button.addEventListener('click', function() {
             activeQuickCategory = button.dataset.category || 'all';
+            resetNonCategoryFilters();
             applyFilters();
         });
     });
