@@ -175,6 +175,7 @@ exports.handler = async function handler(event) {
 
     const sharedMetadata = {
       product_name: firstItem.productName,
+      name: firstItem.productName,
       size: firstItem.selectedSizeLabel,
       color: firstItem.selectedColorLabel,
       variant_map: variantMap,

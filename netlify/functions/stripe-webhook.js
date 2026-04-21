@@ -46,7 +46,7 @@ exports.handler = async function handler(event) {
       const session = stripeEvent.data.object;
       let metadata = session.metadata || {};
 
-      if ((!metadata.size || !metadata.color) && session.payment_intent) {
+      if ((!metadata.size || !metadata.color || !metadata.product_name || !metadata.name) && session.payment_intent) {
         try {
           const paymentIntent = await stripe.paymentIntents.retrieve(session.payment_intent);
           if (paymentIntent && paymentIntent.metadata) {
@@ -80,7 +80,7 @@ exports.handler = async function handler(event) {
           country: shipping.country || null
         },
         metadata: {
-          productName: metadata.product_name || null,
+          productName: metadata.product_name || metadata.name || null,
           size: metadata.size || null,
           color: metadata.color || null,
           variantMap: metadata.variant_map || null,
