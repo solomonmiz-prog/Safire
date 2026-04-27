@@ -750,6 +750,7 @@
             position: relative;
             width: 100%;
             height: 100%;
+            touch-action: pan-y;
         }
 
         .image-swap img {
@@ -3050,8 +3051,8 @@ const productsData = [
         category: "premium",
         gender: "men",
         price: 50,
-        image1: "images/frontblackcreamjacket.png",
-        image2: "images/backblackcreamjacket.png",
+        image1: "images/frontgreenwhitejacket.png",
+        image2: "images/backgreenwhitejacket.png",
         description: "SAFIRE's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge and everyday comfort.",
         details: "Contrast Piping Zip Bomber Jacket with striped rib trims, full-zip closure, and practical side pockets.",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
@@ -3060,6 +3061,14 @@ const productsData = [
         sku: "SVJ-001",
         stock: { S: 10, M: 10, L: 10, XL: 10 },
         colors: [
+            {
+                name: "Green/Cream",
+                hex: "#0E6B4D",
+                images: {
+                    front: "images/frontgreenwhitejacket.png",
+                    back: "images/backgreenwhitejacket.png"
+                }
+            },
             {
                 name: "Black/Cream",
                 hex: "#111111",
@@ -3082,14 +3091,6 @@ const productsData = [
                 images: {
                     front: "images/frontnavycreamjacket.png",
                     back: "images/backnavycreamjacket.webp"
-                }
-            },
-            {
-                name: "Green/Cream",
-                hex: "#0E6B4D",
-                images: {
-                    front: "images/frontgreenwhitejacket.png",
-                    back: "images/backgreenwhitejacket.png"
                 }
             },
             {
@@ -3262,6 +3263,65 @@ const productsData = [
                 }
             }
         ]
+    },
+    {
+        id: 9,
+        productId: "oversized-wavy-grid-tshirt",
+        name: "Oversized Wavy-grid Safire T-Shirt",
+        category: "tshirts",
+        gender: "unisex",
+        price: 30,
+        image1: "images/blackoverwavyfront.png",
+        image2: "images/blackoverwavyback.png",
+        description: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank.",
+        details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRT0086-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n100% cotton\n\nFabric Weight\n300 gsm (8.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "RT0086-C001-V2",
+        stock: { S: 15, M: 15, L: 15, XL: 15, XXL: 10 },
+        colors: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/blackoverwavyfront.png",
+                    back: "images/blackoverwavyback.png"
+                }
+            },
+            {
+                name: "White",
+                hex: "#F5F5F5",
+                images: {
+                    front: "images/whiteoverwavyfront.png",
+                    back: "images/whiteoverwavyback.png"
+                }
+            },
+            {
+                name: "Coffee",
+                hex: "#6F4E37",
+                images: {
+                    front: "images/coffeeoverwavyfront.png",
+                    back: "images/coffeeoverwavyback.png"
+                }
+            },
+            {
+                name: "Navy Blue",
+                hex: "#1F3864",
+                images: {
+                    front: "images/navyblueoverwavyfront.png",
+                    back: "images/navyblueoverwavyback.png"
+                }
+            },
+            {
+                name: "Sky Blue",
+                hex: "#87CEEB",
+                images: {
+                    front: "images/skyblueoverwavyfront.png",
+                    back: "images/skyblueoverwavyback.png"
+                }
+            }
+        ]
     }
 ];
 
@@ -3280,9 +3340,7 @@ const productsPerPage = 6;
 let currentPage = 1;
 
 function getColorPreviewLimit() {
-    if (window.innerWidth <= 480) return 2;
-    if (window.innerWidth <= 768) return 3;
-    return 4;
+    return 3;
 }
 
 // Render Products
@@ -3292,12 +3350,13 @@ function renderProducts() {
     let productsHTML = '';
 
     const featuredOrder = {
-        'borough-oversized-tshirt': 1,
-        'loose-fit-cotton-shorts': 2,
-        'cropped-fleece-hoodie': 3,
-        'black-socrates-hoodie': 4,
-        'classic-quarter-zip': 5,
-        'varsity-jacket': 6
+        'oversized-wavy-grid-tshirt': 1,
+        'borough-oversized-tshirt': 2,
+        'loose-fit-cotton-shorts': 3,
+        'cropped-fleece-hoodie': 4,
+        'black-socrates-hoodie': 5,
+        'classic-quarter-zip': 6,
+        'varsity-jacket': 7
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -3339,7 +3398,7 @@ function renderProducts() {
             productBadges = '<div class="product-badge premium">Premium Fabric</div>';
         } else if (product.id === 2) {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
-        } else if (product.productId === 'loose-fit-cotton-shorts') {
+        } else if (product.productId === 'oversized-wavy-grid-tshirt') {
             productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'borough-oversized-tshirt') {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
@@ -3350,7 +3409,7 @@ function renderProducts() {
                 <div class="product-image-container">
                     ${productBadges}
                     ${stockBadge}
-                   <div class="image-swap" onclick="swapImage(this, '${currentImage1}', '${currentImage2}')">
+                   <div class="image-swap" onclick="event.stopPropagation(); swapImage(this, '${currentImage1}', '${currentImage2}')" ontouchstart="handleCardTouchStart(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2}')">
 
     <img src="${currentImage1}" alt="${product.name}">
 
@@ -4395,6 +4454,32 @@ function swapImage(container, img1, img2) {
         dots[0].classList.toggle('active', !showingFront);
         dots[1].classList.toggle('active', showingFront);
     }
+}
+
+function handleCardTouchStart(event, container) {
+    const touch = event.changedTouches && event.changedTouches[0];
+    if (!touch || !container) return;
+    container.dataset.touchStartX = String(touch.clientX);
+    container.dataset.touchStartY = String(touch.clientY);
+}
+
+function handleCardTouchEnd(event, container, img1, img2) {
+    if (!img2 || !container) return;
+
+    const touch = event.changedTouches && event.changedTouches[0];
+    if (!touch) return;
+
+    const startX = Number(container.dataset.touchStartX || 0);
+    const startY = Number(container.dataset.touchStartY || 0);
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+
+    const isHorizontalSwipe = Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY);
+    if (!isHorizontalSwipe) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    swapImage(container, img1, img2);
 }
 
 // Filter Dropdown + Clear All

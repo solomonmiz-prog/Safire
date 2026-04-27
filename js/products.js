@@ -103,10 +103,18 @@ const products = [
         price: 50,
         description: "SAFIRE's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge and everyday comfort.",
         images: [
-            "images/frontblackcreamjacket.png",
-            "images/backblackcreamjacket.png"
+            "images/frontgreenwhitejacket.png",
+            "images/backgreenwhitejacket.png"
         ],
         colorways: [
+            {
+                name: "Green / Cream",
+                hex: "#0E6B4D",
+                images: [
+                    "images/frontgreenwhitejacket.png",
+                    "images/backgreenwhitejacket.png"
+                ]
+            },
             {
                 name: "Black / Cream",
                 hex: "#111111",
@@ -129,14 +137,6 @@ const products = [
                 images: [
                     "images/frontnavycreamjacket.png",
                     "images/backnavycreamjacket.webp"
-                ]
-            },
-            {
-                name: "Green / Cream",
-                hex: "#0E6B4D",
-                images: [
-                    "images/frontgreenwhitejacket.png",
-                    "images/backgreenwhitejacket.png"
                 ]
             },
             {
@@ -308,6 +308,63 @@ const products = [
         details: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look. Crafted from 80% cotton, 20% polyester in a muted earth tone, these shorts offer a substantial, cozy fit with a loose silhouette that is perfect for laid-back days. The modern design combines effortless style with durability, making it an ideal choice for showcasing personalized prints while maintaining an urban edge.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nR00226-P001-V7\n\nGender\nMen\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nL\n\nEffects\nDrawstring\n\nFit\nRegular\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Basics\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n425 gsm (12.5 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
+        id: "oversized-wavy-grid-tshirt",
+        name: "Oversized Wavy-grid Safire T-Shirt",
+        price: 30,
+        description: "100% cotton oversized t shirt",
+        images: [
+            "images/blackoverwavyfront.png",
+            "images/blackoverwavyback.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/blackoverwavyfront.png",
+                    "images/blackoverwavyback.png"
+                ]
+            },
+            {
+                name: "White",
+                hex: "#F5F5F5",
+                images: [
+                    "images/whiteoverwavyfront.png",
+                    "images/whiteoverwavyback.png"
+                ]
+            },
+            {
+                name: "Coffee",
+                hex: "#6F4E37",
+                images: [
+                    "images/coffeeoverwavyfront.png",
+                    "images/coffeeoverwavyback.png"
+                ]
+            },
+            {
+                name: "Navy Blue",
+                hex: "#1F3864",
+                images: [
+                    "images/navyblueoverwavyfront.png",
+                    "images/navyblueoverwavyback.png"
+                ]
+            },
+            {
+                name: "Sky Blue",
+                hex: "#87CEEB",
+                images: [
+                    "images/skyblueoverwavyfront.png",
+                    "images/skyblueoverwavyback.png"
+                ]
+            }
+        ],
+        sizes: ["S", "M", "L", "XL", "XXL"],
+        freeShipping: true,
+        details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRT0086-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n100% cotton\n\nFabric Weight\n300 gsm (8.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     }
 ];
 
@@ -318,5 +375,6 @@ const stripePrices = {
     "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
     "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
     "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
-    "loose-fit-cotton-shorts": "price_1TO2z49S93tBM5OXO6Cu8sJg"
+    "loose-fit-cotton-shorts": "price_1TO2z49S93tBM5OXO6Cu8sJg",
+    "oversized-wavy-grid-tshirt": "price_1TQy3K9S93tBM5OXoDIMBmZM"
 };

@@ -1,26 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 260" fill="none">
-  <g stroke="#000" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
-    <!-- Top left to top right -->
-    <line x1="40" y1="90" x2="100" y2="20"/>
-    <line x1="100" y1="20" x2="160" y2="90"/>
-    
-    <!-- Top section facet lines -->
-    <line x1="100" y1="20" x2="70" y2="90"/>
-    <line x1="100" y1="20" x2="130" y2="90"/>
-    
-    <!-- Top right to middle right -->
-    <line x1="160" y1="90" x2="130" y2="130"/>
-    
-    <!-- Top left to middle left -->
-    <line x1="40" y1="90" x2="70" y2="130"/>
-    
-    <!-- Middle horizontal -->
-    <line x1="70" y1="130" x2="130" y2="130"/>
-    
-    <!-- Bottom half lines -->
-    <line x1="70" y1="130" x2="100" y2="220"/>
-    <line x1="130" y1="130" x2="100" y2="220"/>
-    <line x1="40" y1="90" x2="100" y2="220"/>
-    <line x1="160" y1="90" x2="100" y2="220"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+  <g stroke="#000" stroke-width="3.6" stroke-linejoin="round" stroke-linecap="round">
+    <line x1="6" y1="28" x2="58" y2="28"/>
+    <line x1="6" y1="28" x2="18" y2="16"/>
+    <line x1="18" y1="16" x2="46" y2="16"/>
+    <line x1="46" y1="16" x2="58" y2="28"/>
+    <line x1="18" y1="16" x2="14" y2="28"/>
+    <line x1="46" y1="16" x2="50" y2="28"/>
+    <line x1="14" y1="28" x2="32" y2="54"/>
+    <line x1="50" y1="28" x2="32" y2="54"/>
+    <line x1="6" y1="28" x2="32" y2="54"/>
+    <line x1="58" y1="28" x2="32" y2="54"/>
   </g>
 </svg>
