@@ -253,13 +253,6 @@
 
         /* Hero Section */
         .hero {
-            background:
-                linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 12%, transparent 28%),
-                linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 30%, rgba(0,0,0,0.4) 52%, rgba(0,0,0,0) 72%),
-                url('images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG');
-            background-size: cover;
-            background-position: center 10%;
-            background-repeat: no-repeat;
             height: 590px;
             display: flex;
             justify-content: flex-start;
@@ -268,10 +261,66 @@
             text-align: left;
             padding: 80px 64px 40px;
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-carousel {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .hero-bg-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transform: translateX(0);
+            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-bg-slide {
+            flex: 0 0 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 12%, transparent 28%),
+                linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 30%, rgba(0,0,0,0.4) 52%, rgba(0,0,0,0) 72%),
+                var(--hero-image);
+            background-size: cover;
+            background-position: var(--hero-position, center 10%);
+            background-repeat: no-repeat;
+        }
+
+        .hero-carousel-lines {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 24px;
+            z-index: 2;
+            display: flex;
+            gap: 10px;
+        }
+
+        .hero-line {
+            width: 26px;
+            height: 3px;
+            border: none;
+            border-radius: 999px;
+            background: rgba(255,255,255,0.36);
+            cursor: pointer;
+            padding: 0;
+            transition: width 0.25s ease, background-color 0.25s ease;
+        }
+
+        .hero-line.active {
+            width: 40px;
+            background: rgba(255,255,255,0.95);
         }
 
         .hero-content {
             max-width: 480px;
+            position: relative;
+            z-index: 1;
         }
 
         .hero-eyebrow {
@@ -308,8 +357,6 @@
         .quick-category-bar {
             background: var(--secondary);
             padding: 14px 12px;
-            border-top: 1px solid rgba(0,0,0,0.1);
-            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
 
         .quick-category-container {
@@ -387,6 +434,77 @@
         .why-icon {
             font-size: 48px;
             margin-bottom: 20px;
+        }
+
+        .why-choose-item.brand-identity-card {
+            position: relative;
+            overflow: hidden;
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.32)),
+                url('images/concretebackround.png');
+            background-position: center, center;
+            background-repeat: no-repeat, no-repeat;
+            background-size: cover, cover;
+        }
+
+        .why-choose-item.brand-identity-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('images/favicon-diamond.svg') center center / 92px no-repeat;
+            opacity: 0.28;
+            pointer-events: none;
+        }
+
+        .why-choose-item.brand-identity-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .why-choose-item.brand-identity-card h3,
+        .why-choose-item.brand-identity-card p {
+            color: #ffffff;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .brand-identity-heading {
+            display: inline-block;
+        }
+
+        .why-choose-item.premium-quality-card {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.58)),
+                linear-gradient(90deg, transparent calc(50% - 0.75px), rgba(255, 255, 255, 0.92) calc(50% - 0.75px), rgba(255, 255, 255, 0.92) calc(50% + 0.75px), transparent calc(50% + 0.75px)),
+                url('images/fabric1.png'),
+                url('images/fabric2.png');
+            background-position: center, center, left center, right center;
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+            background-size: cover, 100% 100%, 50% 100%, 50% 100%;
+        }
+
+        .why-choose-item.premium-quality-card h3,
+        .why-choose-item.premium-quality-card p,
+        .why-choose-item.premium-quality-card .why-icon {
+            color: #ffffff;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .why-choose-item.unique-designs-card {
+            background-image:
+                linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+                url('images/modelai#1.png');
+            background-color: #0f0f0f;
+            background-position: center, center;
+            background-repeat: no-repeat, no-repeat;
+            background-size: cover, cover;
+            filter: brightness(1.6) contrast(1.2);
+        }
+
+        .why-choose-item.unique-designs-card h3,
+        .why-choose-item.unique-designs-card p {
+            color: #ffffff;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
+        }
         }
 
         .why-choose-item h3 {
@@ -598,25 +716,68 @@
             transform: none;
         }
 
+        .filters-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.52);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            z-index: 1089;
+        }
+
+        .filters-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         .filters-bar-container {
-            padding: 24px 20px;
-            background: #fafafa;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 30px;
-            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: min(360px, 88vw);
+            height: 100vh;
+            padding: 18px 16px 26px;
+            background: #0e0e0e;
+            border-right: 1px solid #1f1f1f;
+            margin-bottom: 0;
+            display: block;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1090;
         }
 
         .filters-bar-container.open {
-            display: block;
+            transform: translateX(0);
         }
 
         .filters-bar {
-            max-width: 1400px;
-            margin: 0 auto;
+            max-width: none;
+            margin: 0;
+            display: flex;
+            align-items: stretch;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        .filters-panel-header {
             display: flex;
             align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 2px;
+        }
+
+        .filters-panel-close {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            border: 1px solid #2a2a2a;
+            background: #111111;
+            color: #ffffff;
+            font-size: 22px;
+            line-height: 1;
+            cursor: pointer;
         }
 
         .filter-label {
@@ -637,6 +798,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            margin-bottom: 4px;
         }
 
         .clear-filters-btn:hover {
@@ -647,13 +809,16 @@
 
         .filter-dropdown {
             position: relative;
+            width: 100%;
         }
 
         .filter-btn {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+            padding: 12px 14px;
             background: #f0f0f0;
             border: 1px solid #ddd;
             border-radius: 6px;
@@ -692,20 +857,20 @@
         }
 
         .filter-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: white;
+            position: static;
+            background: #111111;
             border: 1px solid #ddd;
             border-radius: 6px;
-            margin-top: 4px;
-            min-width: 160px;
+            margin-top: 0;
+            min-width: 100%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             z-index: 50;
             opacity: 0;
             transform: translateY(6px);
             pointer-events: none;
             visibility: hidden;
+            max-height: 0;
+            overflow: hidden;
             transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s ease;
         }
 
@@ -714,6 +879,9 @@
             transform: translateY(0);
             pointer-events: auto;
             visibility: visible;
+            max-height: 280px;
+            margin-top: 6px;
+            overflow-y: auto;
         }
 
         .filter-menu label {
@@ -723,7 +891,7 @@
             padding: 12px 16px;
             cursor: pointer;
             font-size: 14px;
-            color: #333;
+            color: #ffffff;
             transition: background 0.2s;
             border-bottom: 1px solid #f0f0f0;
         }
@@ -733,12 +901,12 @@
         }
 
         .filter-menu label:hover {
-            background: #f9f9f9;
+            background: #1a1a1a;
         }
 
         .filter-menu label.selected {
-            background: #efefef;
-            color: #111;
+            background: #1a1a1a;
+            color: #ffffff;
             font-weight: 600;
         }
 
@@ -747,6 +915,62 @@
             width: 16px;
             height: 16px;
             accent-color: var(--primary);
+        }
+
+        .price-filter-content {
+            padding: 16px;
+        }
+
+        .price-range-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+            color: #ffffff;
+            font-size: 13px;
+            letter-spacing: 0.2px;
+        }
+
+        .price-range-value {
+            font-weight: 700;
+        }
+
+        .price-range-slider {
+            width: 100%;
+            height: 4px;
+            appearance: none;
+            background: linear-gradient(90deg, #ffffff 0%, #ffffff var(--price-progress, 100%), #2a2a2a var(--price-progress, 100%), #2a2a2a 100%);
+            border-radius: 999px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .price-range-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid #111111;
+            box-shadow: 0 0 0 1px #ffffff;
+        }
+
+        .price-range-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid #111111;
+            box-shadow: 0 0 0 1px #ffffff;
+        }
+
+        .price-range-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: #8f8f8f;
+            font-size: 12px;
         }
 
         /* Products Grid */
@@ -1208,8 +1432,8 @@
         }
 
         .quick-category-bar {
-            border-top: 1px solid #1f1f1f;
-            border-bottom: 1px solid #1f1f1f;
+            border-top: none;
+            border-bottom: none;
         }
 
         .quick-category-btn {
@@ -1784,6 +2008,10 @@
                 padding: 70px 28px 40px;
             }
 
+            .hero-carousel-lines {
+                bottom: 18px;
+            }
+
             .hero h2 {
                 font-size: 42px;
                 letter-spacing: -1px;
@@ -2312,6 +2540,10 @@
                 padding-top: 70px;
             }
 
+            .hero-carousel-lines {
+                bottom: 16px;
+            }
+
             .hero h2 {
                 font-size: 36px;
             }
@@ -2483,6 +2715,10 @@
             .hero {
                 height: 420px;
                 padding: 70px 20px 30px;
+            }
+
+            .hero-carousel-lines {
+                bottom: 14px;
             }
 
             .hero h2 {
@@ -2770,6 +3006,18 @@
 
 <!-- Hero Section -->
 <section class="hero">
+    <div class="hero-bg-carousel" aria-hidden="true">
+        <div class="hero-bg-track" id="hero-bg-track">
+            <div class="hero-bg-slide" style="--hero-image: url('images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG');"></div>
+            <div class="hero-bg-slide" style="--hero-image: url('images/herosection2movement.png');"></div>
+            <div class="hero-bg-slide" style="--hero-image: url('images/64FAFB0E-E633-4291-AE74-0C261AA7AD6D.PNG'); --hero-position: center 86%;"></div>
+        </div>
+    </div>
+    <div class="hero-carousel-lines" id="hero-carousel-lines" aria-label="Hero slides">
+        <button class="hero-line active" type="button" aria-label="Slide 1" data-slide="0"></button>
+        <button class="hero-line" type="button" aria-label="Slide 2" data-slide="1"></button>
+        <button class="hero-line" type="button" aria-label="Slide 3" data-slide="2"></button>
+    </div>
     <div class="hero-content">
         <p class="hero-eyebrow">premium streetwear</p>
         <h2>BUILT FOR<br>THE CULTURE</h2>
@@ -2804,10 +3052,15 @@
     </button>
 </div>
 
+<div class="filters-overlay" id="filters-overlay"></div>
+
 <!-- Filters Section -->
 <div class="filters-bar-container" id="filters-bar-container">
     <div class="filters-bar">
-        <span class="filter-label">FILTER BY</span>
+        <div class="filters-panel-header">
+            <span class="filter-label">FILTER BY</span>
+            <button class="filters-panel-close" id="filters-panel-close" type="button" aria-label="Close filters">&times;</button>
+        </div>
         <button class="clear-filters-btn" id="clear-filters-btn" type="button">Clear All</button>
         
         <!-- Gender Filter -->
@@ -2843,30 +3096,60 @@
         <!-- Product Filter -->
         <div class="filter-dropdown" data-filter="product">
             <button class="filter-btn">
-                Product
+                Product Type
                 <svg class="filter-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
             </button>
             <div class="filter-menu">
                 <label><input type="checkbox" value="hoodie" class="product-filter"> Hoodie</label>
+                <label><input type="checkbox" value="shirt" class="product-filter"> Shirt</label>
                 <label><input type="checkbox" value="quarter zip" class="product-filter"> Quarter Zip</label>
                 <label><input type="checkbox" value="jacket" class="product-filter"> Jacket</label>
                 <label><input type="checkbox" value="shorts" class="product-filter"> Shorts</label>
             </div>
         </div>
 
-        <!-- Style Filter -->
-        <div class="filter-dropdown" data-filter="style">
+        <!-- Price Filter -->
+        <div class="filter-dropdown" data-filter="price">
             <button class="filter-btn">
-                Style
+                Price Range
                 <svg class="filter-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
             </button>
             <div class="filter-menu">
-                <label><input type="checkbox" value="top" class="style-filter"> Top</label>
-                <label><input type="checkbox" value="bottom" class="style-filter"> Bottom</label>
+                <div class="price-filter-content">
+                    <div class="price-range-header">
+                        <span>Up to</span>
+                        <span class="price-range-value" id="price-range-value">$100</span>
+                    </div>
+                    <input type="range" min="0" max="100" value="100" step="1" class="price-range-slider" id="price-range-filter" aria-label="Maximum price">
+                    <div class="price-range-scale">
+                        <span>$0</span>
+                        <span id="price-range-max">$100</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Color Filter -->
+        <div class="filter-dropdown" data-filter="color">
+            <button class="filter-btn">
+                Color
+                <svg class="filter-arrow" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <div class="filter-menu">
+                <label><input type="checkbox" value="black" class="color-filter"> Black</label>
+                <label><input type="checkbox" value="white" class="color-filter"> White</label>
+                <label><input type="checkbox" value="gray" class="color-filter"> Gray</label>
+                <label><input type="checkbox" value="cream" class="color-filter"> Cream</label>
+                <label><input type="checkbox" value="blue" class="color-filter"> Blue</label>
+                <label><input type="checkbox" value="green" class="color-filter"> Green</label>
+                <label><input type="checkbox" value="red" class="color-filter"> Red</label>
+                <label><input type="checkbox" value="brown" class="color-filter"> Brown</label>
             </div>
         </div>
     </div>
@@ -3039,19 +3322,16 @@
     <div class="container">
         <h2>Why Choose Safire</h2>
         <div class="why-choose-grid">
-            <div class="why-choose-item">
-                <div class="why-icon">👕</div>
+            <div class="why-choose-item premium-quality-card">
                 <h3>Premium Quality</h3>
                 <p>Every piece is crafted from high-quality, durable materials that stand the test of time.</p>
             </div>
-            <div class="why-choose-item">
-                <div class="why-icon">🎨</div>
+            <div class="why-choose-item unique-designs-card">
                 <h3>Unique Designs</h3>
                 <p>Streetwear inspired designs that express your individual style and personality.</p>
             </div>
-            <div class="why-choose-item">
-                <div class="why-icon">🌟</div>
-                <h3>Brand Identity</h3>
+            <div class="why-choose-item brand-identity-card">
+                <h3 class="brand-identity-heading">Brand Identity</h3>
                 <p>Join a community of style-conscious individuals who value quality over quantity.</p>
             </div>
         </div>
@@ -3075,8 +3355,8 @@
             </div>
             <div class="testimonial">
                 <div class="testimonial-stars">★★★★★</div>
-                <p>"Great streetwear brand with authentic vibes. The sizing is accurate and the customer service is top-notch."</p>
-                <div class="testimonial-author">- Mike R., Chicago</div>
+                <p>"Can I model for your clothes"</p>
+                <div class="testimonial-author">- Gabe H., New York</div>
             </div>
         </div>
     </div>
@@ -3216,7 +3496,7 @@
         <h3 style="margin-bottom: 40px; font-size: 20px; letter-spacing: 1px;">SECURE PAYMENT METHODS</h3>
         <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; align-items: center;">
             <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                <span style="font-size: 32px;">💳</span>
+                <div style="display: inline-flex; align-items: center; justify-content: center; min-width: 116px; padding: 10px 18px; border-radius: 999px; background: #ffffff; color: #635bff; font-size: 24px; font-weight: 800; letter-spacing: -1.2px; line-height: 1; text-transform: lowercase; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);">stripe</div>
                 <p style="margin: 0; font-size: 14px; font-weight: 600;">Stripe</p>
             </div>
             <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
@@ -4400,8 +4680,30 @@ function resetNonCategoryFilters() {
         input.checked = false;
     });
 
+    const priceRangeInput = document.getElementById('price-range-filter');
+    if (priceRangeInput) {
+        priceRangeInput.value = priceRangeInput.max;
+        updatePriceRangeDisplay();
+    }
+
     const searchInput = document.getElementById('search-input');
     if (searchInput) searchInput.value = '';
+}
+
+function updatePriceRangeDisplay() {
+    const priceRangeInput = document.getElementById('price-range-filter');
+    const priceRangeValue = document.getElementById('price-range-value');
+    const priceRangeMax = document.getElementById('price-range-max');
+    if (!priceRangeInput || !priceRangeValue) return;
+
+    const min = Number(priceRangeInput.min || 0);
+    const max = Number(priceRangeInput.max || 100);
+    const value = Number(priceRangeInput.value || max);
+    const progress = max > min ? ((value - min) / (max - min)) * 100 : 100;
+
+    priceRangeInput.style.setProperty('--price-progress', `${progress}%`);
+    priceRangeValue.textContent = `$${value}`;
+    if (priceRangeMax) priceRangeMax.textContent = `$${max}`;
 }
 
 document.getElementById('search-input').addEventListener('input', (e) => {
@@ -4449,15 +4751,24 @@ document.querySelectorAll('.product-filter').forEach(checkbox => {
     checkbox.addEventListener('change', applyFilters);
 });
 
-document.querySelectorAll('.style-filter').forEach(checkbox => {
+document.querySelectorAll('.color-filter').forEach(checkbox => {
     checkbox.addEventListener('change', applyFilters);
 });
+
+const priceRangeFilter = document.getElementById('price-range-filter');
+if (priceRangeFilter) {
+    priceRangeFilter.addEventListener('input', () => {
+        updatePriceRangeDisplay();
+        applyFilters();
+    });
+}
 
 function applyFilters() {
     const selectedGenders = Array.from(document.querySelectorAll('.gender-filter:checked')).map(cb => cb.value);
     const selectedSizes = Array.from(document.querySelectorAll('.size-filter:checked')).map(cb => cb.value);
     const selectedProducts = Array.from(document.querySelectorAll('.product-filter:checked')).map(cb => cb.value.toLowerCase());
-    const selectedStyles = Array.from(document.querySelectorAll('.style-filter:checked')).map(cb => cb.value.toLowerCase());
+    const selectedColors = Array.from(document.querySelectorAll('.color-filter:checked')).map(cb => cb.value.toLowerCase());
+    const maxPrice = Number(document.getElementById('price-range-filter')?.value || Infinity);
     const searchTerm = document.getElementById('search-input').value;
 
     filteredProducts = productsData.filter(product => {
@@ -4477,18 +4788,21 @@ function applyFilters() {
         ].join(' '));
         const productType =
             productText.includes('hoodie') ? 'hoodie' :
+            (/\bshirts?\b/.test(productText) || /\btshirt\b/.test(productText) || /\bt\s+shirt\b/.test(productText) || /\btee\b/.test(productText)) ? 'shirt' :
             productText.includes('quarter zip') ? 'quarter zip' :
             productText.includes('jacket') ? 'jacket' :
             /\bshorts\b/.test(productText) ? 'shorts' :
             '';
         const productMatch = selectedProducts.length === 0 || selectedProducts.includes(productType);
-
-        const styleType = /\bshorts\b|\bpants?\b|\bjoggers?\b|\btrousers?\b/.test(productText) ? 'bottom' : 'top';
-        const styleMatch = selectedStyles.length === 0 || selectedStyles.includes(styleType);
+        const priceMatch = Number(product.price || 0) <= maxPrice;
+        const productColors = (product.colors || []).map(color => String(color.name || '').toLowerCase());
+        const colorMatch = selectedColors.length === 0 || selectedColors.some(selectedColor =>
+            productColors.some(productColor => productColor.includes(selectedColor))
+        );
         const searchMatch = productMatchesSearch(product, searchTerm);
         const quickCategoryMatch = matchesQuickCategory(product, activeQuickCategory);
 
-        return genderMatch && sizeMatch && productMatch && styleMatch && searchMatch && quickCategoryMatch;
+        return genderMatch && sizeMatch && productMatch && priceMatch && colorMatch && searchMatch && quickCategoryMatch;
     });
 
     currentPage = 1;
@@ -4500,7 +4814,9 @@ function applyFilters() {
 function updateFilterStates() {
     document.querySelectorAll('.filter-dropdown').forEach(dropdown => {
         const hasChecked = dropdown.querySelectorAll('input[type="checkbox"]:checked').length > 0;
-        dropdown.classList.toggle('has-selection', hasChecked);
+        const priceRangeInput = dropdown.querySelector('.price-range-slider');
+        const hasPriceSelection = !!priceRangeInput && Number(priceRangeInput.value) < Number(priceRangeInput.max);
+        dropdown.classList.toggle('has-selection', hasChecked || hasPriceSelection);
 
         dropdown.querySelectorAll('.filter-menu label').forEach(label => {
             const input = label.querySelector('input[type="checkbox"]');
@@ -4510,6 +4826,7 @@ function updateFilterStates() {
 }
 
 // Initialize
+updatePriceRangeDisplay();
 applyFilters();
 updateCartDisplay();
 updateWishlistDisplay();
@@ -4815,9 +5132,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const clearFiltersButton = document.getElementById('clear-filters-btn');
     const quickCategoryButtons = document.querySelectorAll('.quick-category-btn');
+    const priceRangeInput = document.getElementById('price-range-filter');
     const searchInput = document.getElementById('search-input');
     const filtersToggleButton = document.getElementById('filters-toggle-btn');
     const filtersBarContainer = document.getElementById('filters-bar-container');
+    const filtersOverlay = document.getElementById('filters-overlay');
+    const filtersPanelClose = document.getElementById('filters-panel-close');
+
+    if (priceRangeInput && Array.isArray(productsData) && productsData.length > 0) {
+        const maxProductPrice = Math.max(...productsData.map(product => Number(product.price || 0)));
+        priceRangeInput.max = String(maxProductPrice);
+        priceRangeInput.value = String(maxProductPrice);
+        updatePriceRangeDisplay();
+    }
+
+    function closeFiltersPanel() {
+        filtersBarContainer.classList.remove('open');
+        filtersToggleButton.classList.remove('open');
+        filtersToggleButton.setAttribute('aria-expanded', 'false');
+        if (filtersOverlay) filtersOverlay.classList.remove('active');
+    }
 
     if (filtersToggleButton && filtersBarContainer) {
         filtersToggleButton.addEventListener('click', function() {
@@ -4825,7 +5159,16 @@ document.addEventListener('DOMContentLoaded', function() {
             filtersBarContainer.classList.toggle('open', willOpen);
             filtersToggleButton.classList.toggle('open', willOpen);
             filtersToggleButton.setAttribute('aria-expanded', String(willOpen));
+            if (filtersOverlay) filtersOverlay.classList.toggle('active', willOpen);
         });
+    }
+
+    if (filtersPanelClose) {
+        filtersPanelClose.addEventListener('click', closeFiltersPanel);
+    }
+
+    if (filtersOverlay) {
+        filtersOverlay.addEventListener('click', closeFiltersPanel);
     }
 
     quickCategoryButtons.forEach((button) => {
@@ -4859,6 +5202,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeFiltersPanel();
+            document.querySelectorAll('.filter-dropdown.active').forEach(dropdown => {
+                dropdown.classList.remove('active');
+            });
+        }
+    });
+
     document.querySelectorAll('.filter-menu input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             updateFilterStates();
@@ -4874,6 +5226,10 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.filters-bar input[type="checkbox"]').forEach(input => {
                 input.checked = false;
             });
+            if (priceRangeInput) {
+                priceRangeInput.value = priceRangeInput.max;
+                updatePriceRangeDisplay();
+            }
             if (searchInput) searchInput.value = '';
             activeQuickCategory = 'all';
             applyFilters();
@@ -4883,6 +5239,107 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// Hero background carousel
+(function initHeroCarousel() {
+    const hero = document.querySelector('.hero');
+    const track = document.getElementById('hero-bg-track');
+    const lines = Array.from(document.querySelectorAll('.hero-line'));
+    if (!hero || !track || lines.length === 0) return;
+
+    const slides = Array.from(track.children);
+    if (slides.length <= 1) return;
+
+    const slideCount = slides.length;
+    const firstClone = slides[0].cloneNode(true);
+    track.appendChild(firstClone);
+
+    let activeIndex = 0;
+    let visualIndex = 0;
+    let timerId = null;
+    let resetId = null;
+    const intervalMs = 8000;
+    const transitionMs = 900;
+
+    function setTrackPosition(index, instant) {
+        if (instant) {
+            track.style.transition = 'none';
+        } else {
+            track.style.transition = `transform ${transitionMs}ms cubic-bezier(0.4, 0, 0.2, 1)`;
+        }
+        track.style.transform = `translateX(-${index * 100}%)`;
+        if (instant) {
+            // Force reflow so next animated transition is applied.
+            void track.offsetWidth;
+        }
+    }
+
+    function renderLines() {
+        lines.forEach((line, i) => line.classList.toggle('active', i === activeIndex));
+    }
+
+    function clearReset() {
+        if (resetId) {
+            clearTimeout(resetId);
+            resetId = null;
+        }
+    }
+
+    function goToNext() {
+        visualIndex += 1;
+        activeIndex = (activeIndex + 1) % slideCount;
+        setTrackPosition(visualIndex, false);
+        renderLines();
+
+        if (visualIndex === slideCount) {
+            clearReset();
+            resetId = setTimeout(() => {
+                visualIndex = 0;
+                setTrackPosition(visualIndex, true);
+                setTrackPosition(visualIndex, false);
+            }, transitionMs + 40);
+        }
+    }
+
+    function goToIndex(index) {
+        clearReset();
+        activeIndex = ((index % slideCount) + slideCount) % slideCount;
+        visualIndex = activeIndex;
+        setTrackPosition(visualIndex, false);
+        renderLines();
+    }
+
+    function start() {
+        stop();
+        timerId = setInterval(() => {
+            goToNext();
+        }, intervalMs);
+    }
+
+    function stop() {
+        if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+        }
+        clearReset();
+    }
+
+    lines.forEach((line) => {
+        line.addEventListener('click', () => {
+            const nextIndex = Number(line.dataset.slide || 0);
+            goToIndex(nextIndex);
+            start();
+        });
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) stop();
+        else start();
+    });
+
+    goToIndex(0);
+    start();
+})();
 
 </script>
 
