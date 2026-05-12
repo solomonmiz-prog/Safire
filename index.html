@@ -2756,14 +2756,14 @@
                 </svg>
                 <span id="wishlist-count">0</span>
             </div>
-            <div class="cart-icon" onclick="toggleCart()" title="Shopping Cart">
+            <a class="cart-icon" href="cart.html" title="Shopping Cart" aria-label="Open cart">
                 <svg class="action-icon" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="9" cy="20" r="1.5"></circle>
                     <circle cx="18" cy="20" r="1.5"></circle>
                     <path d="M2.5 3.5h2.7l2.5 11.2a1.1 1.1 0 0 0 1.1.85h8.4a1.1 1.1 0 0 0 1.07-.8L21 7.5H6.2"></path>
                 </svg>
                 <span class="cart-count" id="cart-count">0</span>
-            </div>
+            </a>
         </div>
     </div>
 </header>
@@ -3874,28 +3874,39 @@ function addToCart(id, name, price, image) {
     }
 
     product.selectedSize = selectedSize;
-    const selectedColor = product.selectedColor !== undefined ? product.selectedColor : 0; // Default to first color
-    
-    // Check if item with same id, size, and color already exists
-    const existing = cart.find(item => item.id === id && item.size === selectedSize && item.color === selectedColor);
-    
+
+    const selectedColorIndex = product.selectedColor !== undefined ? product.selectedColor : 0;
+    const selectedColorName = product.colors && product.colors[selectedColorIndex]
+        ? product.colors[selectedColorIndex].name
+        : 'Default';
+    const selectedProductId = product.productId || String(id);
+
+    // Match Stripe cart format: productId + size + color
+    const existing = cart.find(item =>
+        String(item.productId || item.id) === String(selectedProductId)
+        && String(item.size || '').toLowerCase() === String(selectedSize).toLowerCase()
+        && String(item.color || '').toLowerCase() === String(selectedColorName).toLowerCase()
+    );
+
     if (existing) {
         existing.quantity += 1;
     } else {
-        cart.push({ 
-            id, 
-            name, 
-            price, 
-            quantity: 1, 
-            image, 
+        cart.push({
+            id,
+            productId: selectedProductId,
+            name,
+            price,
+            quantity: 1,
+            image,
             freeShipping: !!product.freeShipping,
             size: selectedSize,
-            color: selectedColor
+            color: selectedColorName
         });
     }
+
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartDisplay();
-    
+
     // Show success animation
     showAddToCartSuccess();
 }
@@ -3952,57 +3963,10 @@ function getColorName(colorIndex, productId) {
 // Update Cart Display
 function updateCartDisplay() {
     const cartCount = document.getElementById('cart-count');
-    const cartItemsList = document.getElementById('cart-items-list');
-    const totalCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+    if (!cartCount) return;
+
+    const totalCount = cart.reduce((acc, item) => acc + (Number(item.quantity) || 1), 0);
     cartCount.innerText = totalCount;
-
-    if (cart.length === 0) {
-        cartItemsList.innerHTML = '<div class="cart-empty"><div style="font-size: 48px; margin-bottom: 15px;">🛒</div><p>Your cart is empty</p><p style="font-size: 13px; color: #ccc; margin-top: 10px;">Add items to get started!</p></div>';
-        document.getElementById('subtotal').innerText = '$0';
-        document.getElementById('shipping').innerText = 'Free';
-        document.getElementById('total').innerText = '$0';
-        return;
-    }
-
-    let subtotal = 0;
-    let cartItemsHTML = '';
-
-    cart.forEach((item, index) => {
-        subtotal += item.price * item.quantity;
-        const product = productsData.find(p => p.id === item.id);
-        let itemImage = item.image;
-        if (product && product.colors && product.colors[item.color] && product.colors[item.color].images) {
-            itemImage = product.colors[item.color].images.front;
-        }
-        const cartItemHTML = `
-            <div class="cart-item">
-                <img src="${itemImage}" class="cart-item-image" alt="${item.name}">
-                <div class="cart-item-details">
-                    <div class="cart-item-name">${item.name}</div>
-                    <div class="cart-item-options">
-                        ${item.size ? `<span>Size: ${item.size}</span>` : ''}
-                        ${item.color !== undefined ? `<span>Color: ${getColorName(item.color, item.id)}</span>` : ''}
-                    </div>
-                    <div class="cart-item-price">$${item.price.toFixed(0)}</div>
-                    <div class="quantity-controls">
-                        <button class="qty-btn" onclick="updateQuantity(${index}, -1)">−</button>
-                        <span>${item.quantity}</span>
-                        <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                        <button class="remove-btn" onclick="removeFromCart(${index})">Remove</button>
-                    </div>
-                </div>
-            </div>
-        `;
-        cartItemsHTML += cartItemHTML;
-    });
-    
-    cartItemsList.innerHTML = cartItemsHTML;
-
-    const shipping = 0.00;
-    const total = subtotal + shipping;
-    document.getElementById('subtotal').innerText = '$' + subtotal.toFixed(0);
-    document.getElementById('shipping').innerText = 'Free';
-    document.getElementById('total').innerText = '$' + total.toFixed(0);
 }
 
 // Update Wishlist Display
