@@ -42,7 +42,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             color: var(--text-primary);
             line-height: 1.6;
-            background-color: var(--secondary);
+            background-color: #000000;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -89,7 +89,7 @@
 
         .header-right {
             display: flex;
-            gap: 14px;
+            gap: 0;
             align-items: center;
             justify-content: space-between;
             position: static;
@@ -101,7 +101,7 @@
         .header-actions {
             display: inline-flex;
             align-items: center;
-            gap: 14px;
+            gap: 18px;
             margin-left: auto;
         }
 
@@ -144,13 +144,48 @@
             flex-shrink: 0;
         }
 
+        .search-toggle-btn {
+            background: transparent;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            color: var(--secondary);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+
+        .search-toggle-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .search-toggle-icon {
+            width: 20px;
+            height: 20px;
+        }
+
         .search-bar {
             background: rgba(255,255,255,0.1);
             border: 1px solid rgba(255,255,255,0.3);
             padding: 8px 12px;
             border-radius: 20px;
             color: var(--secondary);
+            width: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: width 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s ease, padding 0.3s ease;
+            padding-left: 0;
+            padding-right: 0;
+            pointer-events: none;
+        }
+
+        .search-bar.open {
             width: min(220px, 42vw);
+            opacity: 1;
+            padding: 8px 12px;
+            pointer-events: auto;
         }
 
         .search-bar::placeholder {
@@ -218,31 +253,55 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('images/concretebackround.png');
+            background:
+                linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.15) 12%, transparent 28%),
+                linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.78) 30%, rgba(0,0,0,0.4) 52%, rgba(0,0,0,0) 72%),
+                url('images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG');
             background-size: cover;
-            background-position: center;
+            background-position: center 10%;
             background-repeat: no-repeat;
-            height: 300px;
+            height: 590px;
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             color: var(--secondary);
-            text-align: center;
-            padding: 40px 20px;
+            text-align: left;
+            padding: 80px 64px 40px;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 480px;
+        }
+
+        .hero-eyebrow {
+            font-size: 12px !important;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.8) !important;
+            margin-bottom: 14px;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
         }
 
         .hero h2 {
-            font-size: 62px;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 14px;
             color: #ffffff;
-            text-shadow: 0 3px 10px rgba(0,0,0,0.55);
-            letter-spacing: -1px;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+            letter-spacing: -2px;
+            line-height: 1.0;
+            text-transform: uppercase;
         }
 
-        .hero p {
-            font-size: 20px;
-            color: rgba(255,255,255,0.95);
+        .hero-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 1px;
+            text-transform: none;
+            line-height: 1.6;
+            text-shadow: 0 1px 6px rgba(0,0,0,0.5);
         }
 
         /* Quick Category Bar */
@@ -502,40 +561,41 @@
         /* Filters Section */
         .filters-toggle-wrap {
             max-width: 1400px;
-            margin: 12px auto 0;
+            margin: 0 auto -6px;
             padding: 0 20px;
+            display: flex;
+            justify-content: flex-start;
         }
 
         .filters-toggle-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            border: 1px solid #d4d4d4;
-            background: #f7f7f7;
-            color: #222;
-            padding: 7px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
+            justify-content: center;
+            border: none;
+            background: transparent;
+            color: #ffffff;
+            width: auto;
+            height: auto;
+            padding: 4px;
+            border-radius: 0;
             cursor: pointer;
-            transition: background 0.2s ease, border-color 0.2s ease;
+            transition: opacity 0.2s ease, transform 0.2s ease;
         }
 
         .filters-toggle-btn:hover {
-            background: #efefef;
-            border-color: #bcbcbc;
+            background: transparent;
+            opacity: 0.85;
+            transform: translateY(1px);
         }
 
-        .filters-toggle-arrow {
-            width: 14px;
-            height: 14px;
-            transition: transform 0.22s ease;
+        .filters-toggle-icon {
+            width: 26px;
+            height: 26px;
+            color: currentColor;
         }
 
-        .filters-toggle-btn.open .filters-toggle-arrow {
-            transform: rotate(180deg);
+        .filters-toggle-btn.open .filters-toggle-icon {
+            transform: none;
         }
 
         .filters-bar-container {
@@ -693,7 +753,7 @@
         .products-container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 0 20px 20px;
         }
 
         .products {
@@ -1011,87 +1071,66 @@
         /* Color Circles */
         .color-options {
             display: flex;
-            gap: 8px;
-            justify-content: center;
+            gap: 10px;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: nowrap;
             margin: 15px 0;
         }
 
         .color-circle {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
-            border: 2px solid #ddd;
+            border: 1px solid rgba(255, 255, 255, 0.45);
             cursor: pointer;
-            transition: all 0.3s;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+            flex: 0 0 22px;
+            box-sizing: border-box;
         }
 
         .color-circle:hover {
-            transform: scale(1.2);
-            border-color: var(--primary);
+            transform: scale(1.03);
+            border-color: rgba(255, 255, 255, 0.62);
         }
 
         .color-circle.active {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(0,0,0,0.2);
+            border-color: rgba(255, 255, 255, 0.72);
+            box-shadow: none;
         }
 
         .color-count-badge {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
-            background: #f3f3f3;
-            border: 2px solid #ddd;
-            font-size: 12px;
+            background: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            font-size: 11px;
             font-weight: 700;
-            color: #555;
+            color: #ffffff;
             cursor: default;
-            transition: all 0.3s;
+            transition: transform 0.2s ease;
             opacity: 1;
             position: relative;
-            z-index: 2;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18), 0 1px 0 rgba(255, 255, 255, 0.65) inset;
-            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.65);
+            z-index: 1;
+            box-shadow: none;
+            text-shadow: none;
+            line-height: 1;
+            padding: 0;
+            flex: 0 0 22px;
+            box-sizing: border-box;
         }
 
         .color-count-badge::before,
         .color-count-badge::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: #f3f3f3;
-            border: 2px solid rgba(221, 221, 221, 0.9);
-            pointer-events: none;
-            z-index: -1;
-            transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .color-count-badge::before {
-            transform: translateX(4px);
-            opacity: 1;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
-        }
-
-        .color-count-badge::after {
-            transform: translateX(8px);
-            opacity: 1;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            content: none;
         }
 
         .color-count-badge:hover {
-            transform: scale(1.08);
-            box-shadow: 0 7px 14px rgba(0, 0, 0, 0.22), 0 1px 0 rgba(255, 255, 255, 0.7) inset;
-        }
-
-        .color-count-badge:hover::before {
-            transform: translateX(5px);
-        }
-
-        .color-count-badge:hover::after {
-            transform: translateX(10px);
+            transform: scale(1.04);
         }
 
         /* Size Selector */
@@ -1139,6 +1178,265 @@
             opacity: 0.4;
             cursor: not-allowed;
             background: #f5f5f5;
+        }
+
+        /* Post-hero dark theme */
+        .quick-category-bar,
+        .filters-toggle-wrap,
+        .filters-bar-container,
+        .products-container,
+        .why-choose-section,
+        .testimonials-section,
+        .complete-look-section,
+        .email-signup-section,
+        footer {
+            background: #000000;
+        }
+
+        .hero ~ * h1,
+        .hero ~ * h2,
+        .hero ~ * h3,
+        .hero ~ * h4,
+        .hero ~ * h5,
+        .hero ~ * h6,
+        .hero ~ * p,
+        .hero ~ * span,
+        .hero ~ * label,
+        .hero ~ * small,
+        .hero ~ * .filter-label {
+            color: #ffffff;
+        }
+
+        .quick-category-bar {
+            border-top: 1px solid #1f1f1f;
+            border-bottom: 1px solid #1f1f1f;
+        }
+
+        .quick-category-btn {
+            border: 1px solid #2a2a2a;
+            background: #111111;
+            color: #ffffff;
+        }
+
+        .quick-category-btn:hover {
+            background: #1a1a1a;
+            border-color: #333333;
+        }
+
+        .quick-category-btn.active {
+            background: #ffffff;
+            border-color: #ffffff;
+            color: #111111;
+        }
+
+        .filters-toggle-btn,
+        .filter-btn,
+        .clear-filters-btn {
+            border-color: #2a2a2a;
+            background: #111111;
+            color: #ffffff;
+        }
+
+        .filters-toggle-btn {
+            border: none;
+            background: transparent;
+            color: #ffffff;
+        }
+
+        .filters-toggle-btn:hover,
+        .filter-btn:hover,
+        .clear-filters-btn:hover {
+            background: #1a1a1a;
+            border-color: #3a3a3a;
+            color: #ffffff;
+        }
+
+        .filters-toggle-btn:hover {
+            background: transparent;
+            border-color: transparent;
+            opacity: 0.85;
+        }
+
+        .filter-dropdown.active .filter-btn,
+        .filter-dropdown.has-selection .filter-btn {
+            background: #ffffff;
+            border-color: #ffffff;
+            color: #111111;
+        }
+
+        .filter-menu {
+            background: #111111;
+            border-color: #2a2a2a;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+        }
+
+        .filter-menu label {
+            color: #ffffff;
+            border-bottom: 1px solid #1f1f1f;
+        }
+
+        .filter-menu label:hover,
+        .filter-menu label.selected {
+            background: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .product {
+            background: #111111;
+            border: 1px solid #1f1f1f;
+            border-radius: 12px;
+            color: #ffffff;
+            box-shadow: none;
+        }
+
+        .product:hover {
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+        }
+
+        .product-badge.bestseller {
+            background: #1f1f1f;
+            border: 1px solid #2a2a2a;
+            color: #ffffff;
+        }
+
+        .wishlist-btn {
+            background: transparent;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 0;
+            padding: 0;
+            color: #000000;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist-heart {
+            width: 28px;
+            height: 28px;
+            display: block;
+            stroke: #000000;
+            stroke-width: 1.5;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .wishlist-btn:hover {
+            background: transparent;
+            transform: scale(1.08);
+        }
+
+        .wishlist-btn.active {
+            background: transparent;
+        }
+
+        .wishlist-btn.active .wishlist-heart {
+            stroke: #000000;
+        }
+
+        .product-info h3,
+        .product-info p,
+        .product-price,
+        .size-selector label,
+        .product-category {
+            color: #ffffff;
+        }
+
+        .color-circle {
+            border-color: rgba(255, 255, 255, 0.45);
+        }
+
+        .color-count-badge {
+            background: #111111;
+            border-color: rgba(255, 255, 255, 0.45);
+            color: #ffffff;
+            text-shadow: none;
+            box-shadow: none;
+        }
+
+        .color-count-badge::before,
+        .color-count-badge::after {
+            background: #111111;
+            border-color: #ffffff;
+            box-shadow: none;
+            content: none;
+        }
+
+        .add-to-cart-btn {
+            background: #111111;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .add-to-cart-btn:hover {
+            background: transparent;
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .product .add-to-cart-btn:hover {
+            background: transparent !important;
+            color: #ffffff !important;
+            border-color: #ffffff !important;
+        }
+
+        .size-option {
+            border-color: #2a2a2a;
+            background: #111111;
+            color: #ffffff;
+        }
+
+        .size-option:hover {
+            border-color: #ffffff;
+        }
+
+        .size-option.active {
+            border-color: #ffffff;
+            background: #ffffff;
+            color: #111111;
+        }
+
+        .size-option.disabled {
+            background: #0d0d0d;
+            color: #666666;
+            border-color: #1f1f1f;
+        }
+
+        .page-btn {
+            border-color: #2a2a2a;
+            background: #111111;
+            color: #ffffff;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            border-color: #3a3a3a;
+            background: #1a1a1a;
+        }
+
+        .page-btn.active {
+            background: #ffffff;
+            border-color: #ffffff;
+            color: #111111;
+        }
+
+        .why-choose-item,
+        .testimonial,
+        .look-item {
+            background: #111111;
+            border: 1px solid #1f1f1f;
+            box-shadow: none;
+        }
+
+        .why-choose-item h3,
+        .testimonial p,
+        .testimonial-author,
+        .look-item h3,
+        .look-item p,
+        .complete-look-section > p,
+        .signup-content p {
+            color: #ffffff;
         }
 
         /* Cart Modal */
@@ -1447,13 +1745,19 @@
         /* Mobile Responsive */
         @media(max-width: 768px) {
             header {
-                flex-direction: column;
-                gap: 15px;
+                flex-direction: row;
+                gap: 0;
+                padding: 12px 16px;
             }
 
             nav {
                 flex-direction: column;
                 gap: 15px;
+            }
+
+            .safire-brand-name {
+                font-size: 16px;
+                letter-spacing: 4px;
             }
 
             .header-right {
@@ -1462,8 +1766,8 @@
                 flex-wrap: nowrap;
             }
 
-            .search-bar {
-                width: min(200px, 65vw);
+            .search-bar.open {
+                width: min(160px, 55vw);
             }
 
             .instagram-header-link {
@@ -1471,15 +1775,26 @@
             }
 
             .header-actions {
-                margin-left: 0;
+                margin-left: auto;
+                gap: 14px;
+            }
+
+            .hero {
+                height: 480px;
+                padding: 70px 28px 40px;
             }
 
             .hero h2 {
-                font-size: 32px;
+                font-size: 42px;
+                letter-spacing: -1px;
             }
 
-            .hero p {
-                font-size: 14px;
+            .hero-eyebrow {
+                font-size: 11px !important;
+            }
+
+            .hero-sub {
+                font-size: 12px;
             }
 
             .filters-bar-container {
@@ -1936,16 +2251,33 @@
             transform-origin: center center;
         }
 
+        .safire-brand-name {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: #ffffff;
+            text-transform: uppercase;
+            pointer-events: none;
+            user-select: none;
+            white-space: nowrap;
+            z-index: 1;
+        }
+
         header {
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            padding: 12px 24px;
-            background: linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)), url('images/concretebackround.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 18px 28px;
+            background: transparent;
         }
 
         header h1 {
@@ -1976,15 +2308,16 @@
             h3 { font-size: 1.3rem; }
 
             .hero {
-                height: 250px;
+                height: 460px;
+                padding-top: 70px;
             }
 
             .hero h2 {
                 font-size: 36px;
             }
 
-            .hero p {
-                font-size: 16px;
+            .hero-eyebrow, .hero-sub {
+                font-size: 11px !important;
             }
 
             .products {
@@ -2148,16 +2481,13 @@
             h3 { font-size: 1.1rem; }
 
             .hero {
-                height: 200px;
-                padding: 30px 15px;
+                height: 420px;
+                padding: 70px 20px 30px;
             }
 
             .hero h2 {
                 font-size: 28px;
-            }
-
-            .hero p {
-                font-size: 14px;
+                letter-spacing: -0.5px;
             }
 
             .products {
@@ -2267,9 +2597,9 @@
             }
 
             header {
-                flex-direction: column;
-                gap: 10px;
-                padding: 10px 16px 10px 8px;
+                flex-direction: row;
+                gap: 0;
+                padding: 10px 16px;
             }
 
             .header-right {
@@ -2278,7 +2608,7 @@
                 top: auto;
                 transform: none;
                 width: 100%;
-                justify-content: center;
+                justify-content: flex-end;
                 gap: 12px;
             }
 
@@ -2395,6 +2725,7 @@
 <header>
     <div class="logo-container">
     </div>
+    <span class="safire-brand-name">SAFIRE</span>
     <div class="header-right">
         <div class="search-left">
             <svg class="search-diamond" viewBox="0 0 64 52" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
@@ -2404,7 +2735,14 @@
                 <path d="M24 12l-6 10 14 24"></path>
                 <path d="M40 12l6 10-14 24"></path>
             </svg>
+            <button class="search-toggle-btn" id="search-toggle-btn" aria-label="Search" type="button">
+                <svg class="search-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
+                </svg>
+            </button>
             <input type="text" class="search-bar" id="search-input" placeholder="Search hoodies...">
+        </div>
         </div>
         <div class="header-actions">
             <a class="instagram-header-link" href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
@@ -2432,9 +2770,10 @@
 
 <!-- Hero Section -->
 <section class="hero">
-    <div>
-        <h2>SAFIRE</h2>
-        <p>Premium Streetwear Built For The Culture</p>
+    <div class="hero-content">
+        <p class="hero-eyebrow">premium streetwear</p>
+        <h2>BUILT FOR<br>THE CULTURE</h2>
+        <p class="hero-sub">timeless pieces heavy on quality made to stand out</p>
     </div>
 </section>
 
@@ -2453,10 +2792,14 @@
 </section>
 
 <div class="filters-toggle-wrap">
-    <button class="filters-toggle-btn" id="filters-toggle-btn" type="button" aria-expanded="false" aria-controls="filters-bar-container">
-        <span>Filters</span>
-        <svg class="filters-toggle-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polyline points="6 9 12 15 18 9"></polyline>
+    <button class="filters-toggle-btn" id="filters-toggle-btn" type="button" aria-label="Toggle filters" aria-expanded="false" aria-controls="filters-bar-container">
+        <svg class="filters-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="4" y1="7" x2="20" y2="7"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="17" x2="20" y2="17"></line>
+            <circle cx="9" cy="7" r="1.6" fill="currentColor" stroke="none"></circle>
+            <circle cx="15" cy="12" r="1.6" fill="currentColor" stroke="none"></circle>
+            <circle cx="12" cy="17" r="1.6" fill="currentColor" stroke="none"></circle>
         </svg>
     </button>
 </div>
@@ -2841,26 +3184,26 @@
 </section>
 
 <!-- Shipping & Returns Section -->
-<section style="padding: 80px 0; background: var(--secondary);">
+<section style="padding: 80px 0; background: #000000;">
     <div class="container">
-        <h2 style="text-align: center; margin-bottom: 60px;">Shipping & Returns</h2>
+        <h2 style="text-align: center; margin-bottom: 60px; color: #ffffff;">Shipping & Returns</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-            <div style="background: var(--light-gray); padding: 40px; border-radius: 12px;">
+            <div style="background: #111111; border: 1px solid #1f1f1f; padding: 40px; border-radius: 12px;">
                 <h3 style="color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 28px;">📦</span> Shipping</h3>
                 <ul style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 15px; color: var(--text-secondary);"><strong>Free Shipping:</strong> All orders ship free within the US</li>
-                    <li style="margin-bottom: 15px; color: var(--text-secondary);"><strong>7-14 Days:</strong> Standard processing and delivery time</li>
-                    <li style="margin-bottom: 15px; color: var(--text-secondary);"><strong>Tracking:</strong> Real-time order tracking via email</li>
-                    <li style="margin-bottom: 15px; color: var(--text-secondary);"><strong>International:</strong> Global shipping available (fees apply)</li>
+                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Free Shipping:</strong> All orders ship free within the US</li>
+                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">7-14 Days:</strong> Standard processing and delivery time</li>
+                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Tracking:</strong> Real-time order tracking via email</li>
+                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">International:</strong> Global shipping available (fees apply)</li>
                 </ul>
             </div>
-            <div style="background: var(--light-gray); padding: 40px; border-radius: 12px;">
+            <div style="background: #111111; border: 1px solid #1f1f1f; padding: 40px; border-radius: 12px;">
                 <h3 style="color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 28px;">↩️</span> Returns</h3>
                 <ul style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 15px; color: var(--text-secondary);"><strong>30-Day Window:</strong> Return items within 30 days</li>
-                    <li style="margin-bottom: 15px; color: var(--text-secondary);"><strong>Unused Items:</strong> Must have original tags attached</li>
-                    <li style="margin-bottom: 15px; color: var(--text-secondary);"><strong>Free Returns:</strong> Prepaid return labels provided</li>
-                    <li style="margin-bottom: 15px; color: var(--text-secondary);"><strong>Full Refund:</strong> Refunded within 5-7 business days</li>
+                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">30-Day Window:</strong> Return items within 30 days</li>
+                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Unused Items:</strong> Must have original tags attached</li>
+                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Free Returns:</strong> Prepaid return labels provided</li>
+                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Full Refund:</strong> Refunded within 5-7 business days</li>
                 </ul>
             </div>
         </div>
@@ -3409,11 +3752,11 @@ function renderProducts() {
                 <div class="product-image-container">
                     ${productBadges}
                     ${stockBadge}
-                   <div class="image-swap" onclick="event.stopPropagation(); swapImage(this, '${currentImage1}', '${currentImage2}')" ontouchstart="handleCardTouchStart(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2}')">
+                   <div class="image-swap">
 
     <img src="${currentImage1}" alt="${product.name}">
 
-                        <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleProductWishlist(event, ${product.id})" title="Add to Wishlist">♥</button>
+                        <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleProductWishlist(event, ${product.id})" title="Add to Wishlist"><svg class="wishlist-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L4.22 13.45 12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"></path></svg></button>
                     </div>
                 </div>
                 <div class="product-info">
@@ -3438,17 +3781,6 @@ function renderProducts() {
                             
                             return html;
                         })() : ''}
-                    </div>
-                    
-                    <!-- Size Selector -->
-                    <div class="size-selector">
-                        <label>Size:</label>
-                        <div class="size-options">
-                            ${Object.keys(product.stock).map((size, index) => 
-                                `<div class="size-option ${product.stock[size] > 0 ? (index === 0 ? 'active' : '') : 'disabled'}" 
-                                     onclick="selectSize(this, ${product.id}, '${size}')">${size}</div>`
-                            ).join('')}
-                        </div>
                     </div>
                     
                     <div class="product-actions">
@@ -3530,14 +3862,18 @@ function selectSize(element, productId, size) {
 // Add to Cart
 function addToCart(id, name, price, image) {
     const product = productsData.find(p => p.id === id) || {};
-    
-    // Require size selection
-    if (!product.selectedSize) {
-        alert('⚠️ Please select a size before adding to cart');
+
+    // Card view has no size selector. Default to first in-stock size.
+    let selectedSize = product.selectedSize;
+    if (!selectedSize && product.stock) {
+        selectedSize = Object.keys(product.stock).find(size => product.stock[size] > 0);
+    }
+    if (!selectedSize) {
+        alert('⚠️ This item is currently unavailable in all sizes');
         return;
     }
-    
-    const selectedSize = product.selectedSize;
+
+    product.selectedSize = selectedSize;
     const selectedColor = product.selectedColor !== undefined ? product.selectedColor : 0; // Default to first color
     
     // Check if item with same id, size, and color already exists
@@ -4107,6 +4443,34 @@ function resetNonCategoryFilters() {
 document.getElementById('search-input').addEventListener('input', (e) => {
     applyFilters();
 });
+
+// Search toggle: magnifying glass shows/hides the search input
+(function() {
+    const toggleBtn = document.getElementById('search-toggle-btn');
+    const searchBar = document.getElementById('search-input');
+    if (!toggleBtn || !searchBar) return;
+
+    toggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isOpen = searchBar.classList.toggle('open');
+        if (isOpen) {
+            searchBar.focus();
+        } else {
+            searchBar.value = '';
+            applyFilters();
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.search-left')) {
+            if (searchBar.classList.contains('open')) {
+                searchBar.classList.remove('open');
+                searchBar.value = '';
+                applyFilters();
+            }
+        }
+    });
+})();
 
 // Filter Functionality
 document.querySelectorAll('.gender-filter').forEach(checkbox => {
