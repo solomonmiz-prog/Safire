@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - SAFIRE</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon-diamond.svg">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .success-page {
+            min-height: calc(100vh - 61px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 16px;
+        }
+
+        .success-card {
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .success-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: #111;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .success-icon svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .success-card h1 {
+            margin: 0 0 12px;
+            font-size: clamp(24px, 5vw, 32px);
+            font-weight: 900;
+            letter-spacing: 0.02em;
+        }
+
+        .success-card .subtitle {
+            margin: 0 0 32px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .success-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 32px;
+        }
+
+        .success-details {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .success-detail-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .detail-icon {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .detail-text strong {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .detail-text span {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .success-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            display: block;
+            padding: 14px 20px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.03em;
+            transition: opacity 0.18s ease;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.85;
+        }
+
+        .btn-secondary {
+            display: block;
+            padding: 13px 20px;
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            border: 1px solid var(--border);
+            transition: background 0.18s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="index.html" class="brand">SAFIRE</a>
+        <div class="header-right">
+            <a href="cart.html" class="cart-link">Cart <span id="cart-count" class="cart-count-badge">0</span></a>
+        </div>
+    </header>
+
+    <main class="success-page">
+        <div class="success-card">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+
+            <h1>Order Confirmed</h1>
+            <p class="subtitle">Thank you for your purchase. A confirmation email will be sent to you shortly.</p>
+
+            <hr class="success-divider">
+
+            <div class="success-details">
+                <div class="success-detail-row">
+                    <div class="detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 12V22H4V12"></path>
+                            <path d="M22 7H2v5h20V7z"></path>
+                            <path d="M12 22V7"></path>
+                            <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                            <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                        </svg>
+                    </div>
+                    <div class="detail-text">
+                        <strong>Order Placed</strong>
+                        <span>Your order has been received and is being processed.</span>
+                    </div>
+                </div>
+
+                <div class="success-detail-row">
+                    <div class="detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="1" y="3" width="15" height="13" rx="2"></rect>
+                            <path d="M16 8h5l2 5v3h-7V8z"></path>
+                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                        </svg>
+                    </div>
+                    <div class="detail-text">
+                        <strong>Shipping</strong>
+                        <span>Your item will be shipped within 7–14 business days.</span>
+                    </div>
+                </div>
+
+                <div class="success-detail-row">
+                    <div class="detail-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </div>
+                    <div class="detail-text">
+                        <strong>Confirmation Email</strong>
+                        <span>Check your inbox for your order receipt and tracking details.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-actions">
+                <a href="products.html" class="btn-primary">Continue Shopping</a>
+                <a href="index.html" class="btn-secondary">Back to Home</a>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script>
+        // Clear the cart since payment succeeded
+        saveCart([]);
+        updateCartCount();
+    </script>
+</body>
+</html>
