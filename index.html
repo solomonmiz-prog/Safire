@@ -3369,16 +3369,16 @@
         <p>Pair your favorite hoodie with these matching pieces</p>
         <div class="complete-look-grid">
             <div class="look-item">
-                <img src="images/coffeeoverwavyfront.png" alt="Brown Safire T-Shirt" class="look-image">
+                <img src="images/skyblueoverwavyfront.png" alt="Sky Blue Safire T-Shirt" class="look-image">
                 <h3>Oversized Wavy-grid Safire T-Shirt</h3>
-                <p>$30</p>
-                <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 30, 'images/coffeeoverwavyfront.png')">Add to Cart</button>
+                <p>$40</p>
+                <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/skyblueoverwavyfront.png')">Add to Cart</button>
             </div>
             <div class="look-item">
                 <img src="images/milkteacottonfrontshorts.png" alt="Cream Cotton Shorts" class="look-image">
                 <h3>Loose Fit Cotton Shorts</h3>
-                <p>$30</p>
-                <button class="btn btn-primary" onclick="addToCart(8, 'Loose Fit Cotton Shorts', 30, 'images/milkteacottonfrontshorts.png')">Add to Cart</button>
+                <p>$40</p>
+                <button class="btn btn-primary" onclick="addToCart(8, 'Loose Fit Cotton Shorts', 40, 'images/milkteacottonfrontshorts.png')">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -3566,60 +3566,146 @@
 // Product Data (only two items shown)
 const productsData = [
     {
-        id: 5,
-        productId: "black-socrates-hoodie",
-        name: "Socrates Hoodie",
-        category: "classic",
-        gender: "men",
-        price: 50,
-        image1: "images/blacksocratesfront.png",
-        image2: "images/blackbacksocrates.png",
-        description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
-        details: "This hoodie combines a vintage wash with frayed details for a look that’s both edgy and comfortable. Crafted from 360 GSM fleece, it offers warmth without sacrificing style, making it ideal for layering or wearing solo. The relaxed fit and soft texture create the perfect canvas for your custom designs, adding a personal touch to this streetwear essential.",
+        id: 9,
+        productId: "oversized-wavy-grid-tshirt",
+        name: "Oversized Wavy-grid Safire T-Shirt",
+        category: "tshirts",
+        gender: "unisex",
+        price: 40,
+        image1: "images/skyblueoverwavyfront.png",
+        image2: "images/skyblueoverwavyback.png",
+        description: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank.",
+        details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRT0086-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n100% cotton\n\nFabric Weight\n300 gsm (8.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
         freeShipping: true,
-        sku: "BHS-002",
-        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        sku: "RT0086-C001-V2",
+        stock: { S: 15, M: 15, L: 15, XL: 15 },
         colors: [
             {
                 name: "Black",
                 hex: "#111111",
                 images: {
-                    front: "images/blacksocratesfront.png",
-                    back: "images/blackbacksocrates.png"
+                    front: "images/blackoverwavyfront.png",
+                    back: "images/blackoverwavyback.png"
                 }
             },
             {
-                name: "Sage",
-                hex: "#4F6E66",
+                name: "White",
+                hex: "#F5F5F5",
                 images: {
-                    front: "images/greensocratesfront.png",
-                    back: "images/greensocratesback.png"
+                    front: "images/whiteoverwavyfront.png",
+                    back: "images/whiteoverwavyback.png"
                 }
             },
             {
-                name: "Ash",
-                hex: "#8B8C82",
+                name: "Coffee",
+                hex: "#6F4E37",
                 images: {
-                    front: "images/greysocratesfront.png",
-                    back: "images/greysocratesback.png"
+                    front: "images/coffeeoverwavyfront.png",
+                    back: "images/coffeeoverwavyback.png"
                 }
             },
             {
-                name: "Indigo",
-                hex: "#5E6480",
+                name: "Navy Blue",
+                hex: "#1F3864",
                 images: {
-                    front: "images/navysocratesfront.png",
-                    back: "images/navysocratesback.png"
+                    front: "images/navyblueoverwavyfront.png",
+                    back: "images/navyblueoverwavyback.png"
                 }
             },
             {
-                name: "Sand",
-                hex: "#B68E68",
+                name: "Sky Blue",
+                hex: "#87CEEB",
                 images: {
-                    front: "images/brownsocratesfront.png",
-                    back: "images/brownsocratesback.png"
+                    front: "images/skyblueoverwavyfront.png",
+                    back: "images/skyblueoverwavyback.png"
+                }
+            }
+        ]
+    },
+    {
+        id: 8,
+        productId: "loose-fit-cotton-shorts",
+        name: "Loose Fit Cotton Shorts",
+        category: "bottoms",
+        gender: "men",
+        price: 40,
+        image1: "images/milkteacottonfrontshorts.png",
+        image2: "images/milkteacottonbackshorts.png",
+        description: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look.",
+        details: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look. Crafted from 80% cotton, 20% polyester in a muted earth tone, these shorts offer a substantial, cozy fit with a loose silhouette that is perfect for laid-back days. The modern design combines effortless style with durability, making it an ideal choice for showcasing personalized prints while maintaining an urban edge.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nR00226-P001-V7\n\nGender\nMen\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nL\n\nEffects\nDrawstring\n\nFit\nRegular\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Basics\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n425 gsm (12.5 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "R00226-P001-V7",
+        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        colors: [
+            {
+                name: "Cream",
+                hex: "#DED3BD",
+                images: {
+                    front: "images/milkteacottonfrontshorts.png",
+                    back: "images/milkteacottonbackshorts.png"
+                }
+            },
+            {
+                name: "Oat Grey",
+                hex: "#AAA79F",
+                images: {
+                    front: "images/oatgreycottonfrontshorts.png",
+                    back: "images/oatgreycottonbackshorts.png"
+                }
+            },
+            {
+                name: "White",
+                hex: "#F2F2F2",
+                images: {
+                    front: "images/whitecottonfrontshorts.png",
+                    back: "images/whitecottonbackshorts.png"
+                }
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/blackcottonfrontshorts.png",
+                    back: "images/blackcottonbackshorts.png"
+                }
+            }
+        ]
+    },
+    {
+        id: 7,
+        productId: "borough-oversized-tshirt",
+        name: "Borough Oversized T-Shirt",
+        category: "graphic",
+        gender: "unisex",
+        price: 40,
+        image1: "images/frontblackborough.png",
+        image2: "images/backblackborough.png",
+        description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
+        details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)",
+        freeShipping: true,
+        sku: "MT0012-C003-V3",
+        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        colors: [
+            {
+                name: "Black",
+                hex: "#0A0A0A",
+                images: {
+                    front: "images/frontblackborough.png",
+                    back: "images/backblackborough.png"
+                }
+            },
+            {
+                name: "White",
+                hex: "#F4F4F4",
+                images: {
+                    front: "images/frontwhiteborough.png",
+                    back: "images/backwhiteborough.png"
                 }
             }
         ]
@@ -3630,7 +3716,7 @@ const productsData = [
         name: "Classic Quarter Zip",
         category: "classic",
         gender: "men",
-        price: 50,
+        price: 60,
         image1: "images/grayqzipfront.png",
         image2: "images/grayqzipback.png",
         description: "Minimal quarter zip built with premium structure and an everyday luxury finish.",
@@ -3673,7 +3759,7 @@ const productsData = [
         name: "Varsity Jacket",
         category: "premium",
         gender: "men",
-        price: 50,
+        price: 60,
         image1: "images/frontgreenwhitejacket.png",
         image2: "images/backgreenwhitejacket.png",
         description: "SAFIRE's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge and everyday comfort.",
@@ -3735,12 +3821,71 @@ const productsData = [
         ]
     },
     {
+        id: 5,
+        productId: "black-socrates-hoodie",
+        name: "Socrates Hoodie",
+        category: "premium",
+        gender: "unisex",
+        price: 60,
+        image1: "images/blacksocratesfront.png",
+        image2: "images/blackbacksocrates.png",
+        description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
+        details: "This hoodie combines a vintage wash with frayed details for a look that’s both edgy and comfortable. Crafted from 360 GSM fleece, it offers warmth without sacrificing style, making it ideal for layering or wearing solo. The relaxed fit and soft texture create the perfect canvas for your custom designs, adding a personal touch to this streetwear essential.",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)",
+        freeShipping: true,
+        sku: "SOC-HOODIE-001",
+        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        colors: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/blacksocratesfront.png",
+                    back: "images/blackbacksocrates.png"
+                }
+            },
+            {
+                name: "Sage",
+                hex: "#4F6E66",
+                images: {
+                    front: "images/greensocratesfront.png",
+                    back: "images/greensocratesback.png"
+                }
+            },
+            {
+                name: "Ash",
+                hex: "#8B8C82",
+                images: {
+                    front: "images/greysocratesfront.png",
+                    back: "images/greysocratesback.png"
+                }
+            },
+            {
+                name: "Indigo",
+                hex: "#5E6480",
+                images: {
+                    front: "images/navysocratesfront.png",
+                    back: "images/navysocratesback.png"
+                }
+            },
+            {
+                name: "Sand",
+                hex: "#B68E68",
+                images: {
+                    front: "images/brownsocratesfront.png",
+                    back: "images/brownsocratesback.png"
+                }
+            }
+        ]
+    },
+    {
         id: 6,
         productId: "cropped-fleece-hoodie",
         name: "Plain Hoodie",
         category: "premium",
         gender: "women",
-        price: 50,
+        price: 60,
         image1: "images/plainhoodieblackfront.png",
         image2: "images/plainhoodieblackback.png",
         description: "A fashion-forward cropped hoodie with heavyweight warmth, fleece comfort, and a relaxed street-ready silhouette.",
@@ -3800,151 +3945,6 @@ const productsData = [
                 }
             }
         ]
-    },
-    {
-        id: 7,
-        productId: "borough-oversized-tshirt",
-        name: "Borough Oversized T-Shirt",
-        category: "graphic",
-        gender: "unisex",
-        price: 30,
-        image1: "images/frontblackborough.png",
-        image2: "images/backblackborough.png",
-        description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
-        details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)",
-        freeShipping: true,
-        sku: "MT0012-C003-V3",
-        stock: { S: 10, M: 10, L: 10, XL: 10 },
-        colors: [
-            {
-                name: "Black",
-                hex: "#0A0A0A",
-                images: {
-                    front: "images/frontblackborough.png",
-                    back: "images/backblackborough.png"
-                }
-            },
-            {
-                name: "White",
-                hex: "#F4F4F4",
-                images: {
-                    front: "images/frontwhiteborough.png",
-                    back: "images/backwhiteborough.png"
-                }
-            }
-        ]
-    },
-    {
-        id: 8,
-        productId: "loose-fit-cotton-shorts",
-        name: "Loose Fit Cotton Shorts",
-        category: "bottoms",
-        gender: "men",
-        price: 30,
-        image1: "images/milkteacottonfrontshorts.png",
-        image2: "images/milkteacottonbackshorts.png",
-        description: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look.",
-        details: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look. Crafted from 80% cotton, 20% polyester in a muted earth tone, these shorts offer a substantial, cozy fit with a loose silhouette that is perfect for laid-back days. The modern design combines effortless style with durability, making it an ideal choice for showcasing personalized prints while maintaining an urban edge.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nR00226-P001-V7\n\nGender\nMen\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nL\n\nEffects\nDrawstring\n\nFit\nRegular\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Basics\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n425 gsm (12.5 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
-        freeShipping: true,
-        sku: "R00226-P001-V7",
-        stock: { S: 10, M: 10, L: 10, XL: 10 },
-        colors: [
-            {
-                name: "Cream",
-                hex: "#DED3BD",
-                images: {
-                    front: "images/milkteacottonfrontshorts.png",
-                    back: "images/milkteacottonbackshorts.png"
-                }
-            },
-            {
-                name: "Oat Grey",
-                hex: "#AAA79F",
-                images: {
-                    front: "images/oatgreycottonfrontshorts.png",
-                    back: "images/oatgreycottonbackshorts.png"
-                }
-            },
-            {
-                name: "White",
-                hex: "#F2F2F2",
-                images: {
-                    front: "images/whitecottonfrontshorts.png",
-                    back: "images/whitecottonbackshorts.png"
-                }
-            },
-            {
-                name: "Black",
-                hex: "#111111",
-                images: {
-                    front: "images/blackcottonfrontshorts.png",
-                    back: "images/blackcottonbackshorts.png"
-                }
-            }
-        ]
-    },
-    {
-        id: 9,
-        productId: "oversized-wavy-grid-tshirt",
-        name: "Oversized Wavy-grid Safire T-Shirt",
-        category: "tshirts",
-        gender: "unisex",
-        price: 30,
-        image1: "images/blackoverwavyfront.png",
-        image2: "images/blackoverwavyback.png",
-        description: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank.",
-        details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRT0086-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n100% cotton\n\nFabric Weight\n300 gsm (8.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
-        freeShipping: true,
-        sku: "RT0086-C001-V2",
-        stock: { S: 15, M: 15, L: 15, XL: 15 },
-        colors: [
-            {
-                name: "Black",
-                hex: "#111111",
-                images: {
-                    front: "images/blackoverwavyfront.png",
-                    back: "images/blackoverwavyback.png"
-                }
-            },
-            {
-                name: "White",
-                hex: "#F5F5F5",
-                images: {
-                    front: "images/whiteoverwavyfront.png",
-                    back: "images/whiteoverwavyback.png"
-                }
-            },
-            {
-                name: "Coffee",
-                hex: "#6F4E37",
-                images: {
-                    front: "images/coffeeoverwavyfront.png",
-                    back: "images/coffeeoverwavyback.png"
-                }
-            },
-            {
-                name: "Navy Blue",
-                hex: "#1F3864",
-                images: {
-                    front: "images/navyblueoverwavyfront.png",
-                    back: "images/navyblueoverwavyback.png"
-                }
-            },
-            {
-                name: "Sky Blue",
-                hex: "#87CEEB",
-                images: {
-                    front: "images/skyblueoverwavyfront.png",
-                    back: "images/skyblueoverwavyback.png"
-                }
-            }
-        ]
     }
 ];
 
@@ -3963,7 +3963,7 @@ const DESKTOP_MEDIA_QUERY = '(min-width: 900px)';
 let currentPage = 1;
 
 function getProductsPerPage() {
-    return window.matchMedia(DESKTOP_MEDIA_QUERY).matches ? 12 : 6;
+    return 6;
 }
 
 function getColorPreviewLimit() {
@@ -3978,12 +3978,12 @@ function renderProducts() {
 
     const featuredOrder = {
         'oversized-wavy-grid-tshirt': 1,
-        'borough-oversized-tshirt': 2,
-        'loose-fit-cotton-shorts': 3,
-        'cropped-fleece-hoodie': 4,
-        'black-socrates-hoodie': 5,
-        'classic-quarter-zip': 6,
-        'varsity-jacket': 7
+        'black-socrates-hoodie': 2,
+        'borough-oversized-tshirt': 3,
+        'loose-fit-cotton-shorts': 4,
+        'classic-quarter-zip': 5,
+        'varsity-jacket': 6,
+        'cropped-fleece-hoodie': 7
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {

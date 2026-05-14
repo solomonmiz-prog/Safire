@@ -1,8 +1,65 @@
 const products = [
     {
+        id: "oversized-wavy-grid-tshirt",
+        name: "Oversized Wavy-grid Safire T-Shirt",
+        price: 40,
+        description: "100% cotton oversized t shirt",
+        images: [
+            "images/skyblueoverwavyfront.png",
+            "images/skyblueoverwavyback.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/blackoverwavyfront.png",
+                    "images/blackoverwavyback.png"
+                ]
+            },
+            {
+                name: "White",
+                hex: "#F5F5F5",
+                images: [
+                    "images/whiteoverwavyfront.png",
+                    "images/whiteoverwavyback.png"
+                ]
+            },
+            {
+                name: "Coffee",
+                hex: "#6F4E37",
+                images: [
+                    "images/coffeeoverwavyfront.png",
+                    "images/coffeeoverwavyback.png"
+                ]
+            },
+            {
+                name: "Navy Blue",
+                hex: "#1F3864",
+                images: [
+                    "images/navyblueoverwavyfront.png",
+                    "images/navyblueoverwavyback.png"
+                ]
+            },
+            {
+                name: "Sky Blue",
+                hex: "#87CEEB",
+                images: [
+                    "images/skyblueoverwavyfront.png",
+                    "images/skyblueoverwavyback.png"
+                ]
+            }
+        ],
+        sizes: ["S", "M", "L", "XL"],
+        freeShipping: true,
+        details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRT0086-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n100% cotton\n\nFabric Weight\n300 gsm (8.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
         id: "black-socrates-hoodie",
         name: "Socrates Hoodie",
-        price: 50,
+        price: 60,
         description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
         images: [
             "images/blacksocratesfront.png",
@@ -57,9 +114,91 @@ const products = [
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
+        id: "loose-fit-cotton-shorts",
+        name: "Loose Fit Cotton Shorts",
+        price: 40,
+        description: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look.",
+        images: [
+            "images/milkteacottonfrontshorts.png",
+            "images/milkteacottonbackshorts.png"
+        ],
+        colorways: [
+            {
+                name: "Cream",
+                hex: "#DED3BD",
+                images: [
+                    "images/milkteacottonfrontshorts.png",
+                    "images/milkteacottonbackshorts.png"
+                ]
+            },
+            {
+                name: "Oat Grey",
+                hex: "#AAA79F",
+                images: [
+                    "images/oatgreycottonfrontshorts.png",
+                    "images/oatgreycottonbackshorts.png"
+                ]
+            },
+            {
+                name: "White",
+                hex: "#F2F2F2",
+                images: [
+                    "images/whitecottonfrontshorts.png",
+                    "images/whitecottonbackshorts.png"
+                ]
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/blackcottonfrontshorts.png",
+                    "images/blackcottonbackshorts.png"
+                ]
+            }
+        ],
+        sizes: ["S", "M", "L", "XL"],
+        freeShipping: true,
+        details: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look. Crafted from 80% cotton, 20% polyester in a muted earth tone, these shorts offer a substantial, cozy fit with a loose silhouette that is perfect for laid-back days. The modern design combines effortless style with durability, making it an ideal choice for showcasing personalized prints while maintaining an urban edge.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nR00226-P001-V7\n\nGender\nMen\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nL\n\nEffects\nDrawstring\n\nFit\nRegular\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Basics\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n425 gsm (12.5 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
+        id: "borough-oversized-tshirt",
+        name: "Borough Oversized T-Shirt",
+        price: 40,
+        description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
+        images: [
+            "images/frontblackborough.png",
+            "images/backblackborough.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#0A0A0A",
+                images: [
+                    "images/frontblackborough.png",
+                    "images/backblackborough.png"
+                ]
+            },
+            {
+                name: "White",
+                hex: "#F4F4F4",
+                images: [
+                    "images/frontwhiteborough.png",
+                    "images/backwhiteborough.png"
+                ]
+            }
+        ],
+        sizes: ["S", "M", "L", "XL"],
+        freeShipping: true,
+        details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
         id: "classic-quarter-zip",
         name: "Classic Quarter Zip",
-        price: 50,
+        price: 60,
         description: "Minimal quarter zip built with premium structure and an everyday luxury finish.",
         images: [
             "images/grayqzipfront.png",
@@ -100,7 +239,7 @@ const products = [
     {
         id: "varsity-jacket",
         name: "Varsity Jacket",
-        price: 50,
+        price: 60,
         description: "SAFIRE's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge and everyday comfort.",
         images: [
             "images/frontgreenwhitejacket.png",
@@ -165,7 +304,7 @@ const products = [
     {
         id: "cropped-fleece-hoodie",
         name: "Plain Hoodie",
-        price: 50,
+        price: 60,
         description: "A fashion-forward cropped hoodie with heavyweight warmth, fleece comfort, and a relaxed street-ready silhouette.",
         images: [
             "images/plainhoodieblackfront.png",
@@ -226,153 +365,14 @@ const products = [
         details: "This fashion-forward hoodie combines a cropped length with a warm fleece lining and heavyweight construction. The cotton-polyester blend offers substantial comfort. A trendy piece for essential collections, particularly appealing to brands targeting the cropped silhouette market in womenswear or youth segments.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nEffects\nPocket\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nWinter\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n50% cotton, 50% polyester\n\nFabric Weight\n500 gsm (14.7 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
-    },
-    {
-        id: "borough-oversized-tshirt",
-        name: "Borough Oversized T-Shirt",
-        price: 30,
-        description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
-        images: [
-            "images/frontblackborough.png",
-            "images/backblackborough.png"
-        ],
-        colorways: [
-            {
-                name: "Black",
-                hex: "#0A0A0A",
-                images: [
-                    "images/frontblackborough.png",
-                    "images/backblackborough.png"
-                ]
-            },
-            {
-                name: "White",
-                hex: "#F4F4F4",
-                images: [
-                    "images/frontwhiteborough.png",
-                    "images/backwhiteborough.png"
-                ]
-            }
-        ],
-        sizes: ["S", "M", "L", "XL"],
-        freeShipping: true,
-        details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
-    },
-    {
-        id: "loose-fit-cotton-shorts",
-        name: "Loose Fit Cotton Shorts",
-        price: 30,
-        description: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look.",
-        images: [
-            "images/milkteacottonfrontshorts.png",
-            "images/milkteacottonbackshorts.png"
-        ],
-        colorways: [
-            {
-                name: "Cream",
-                hex: "#DED3BD",
-                images: [
-                    "images/milkteacottonfrontshorts.png",
-                    "images/milkteacottonbackshorts.png"
-                ]
-            },
-            {
-                name: "Oat Grey",
-                hex: "#AAA79F",
-                images: [
-                    "images/oatgreycottonfrontshorts.png",
-                    "images/oatgreycottonbackshorts.png"
-                ]
-            },
-            {
-                name: "White",
-                hex: "#F2F2F2",
-                images: [
-                    "images/whitecottonfrontshorts.png",
-                    "images/whitecottonbackshorts.png"
-                ]
-            },
-            {
-                name: "Black",
-                hex: "#111111",
-                images: [
-                    "images/blackcottonfrontshorts.png",
-                    "images/blackcottonbackshorts.png"
-                ]
-            }
-        ],
-        sizes: ["S", "M", "L", "XL"],
-        freeShipping: true,
-        details: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look. Crafted from 80% cotton, 20% polyester in a muted earth tone, these shorts offer a substantial, cozy fit with a loose silhouette that is perfect for laid-back days. The modern design combines effortless style with durability, making it an ideal choice for showcasing personalized prints while maintaining an urban edge.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nR00226-P001-V7\n\nGender\nMen\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nL\n\nEffects\nDrawstring\n\nFit\nRegular\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Basics\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n425 gsm (12.5 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
-    },
-    {
-        id: "oversized-wavy-grid-tshirt",
-        name: "Oversized Wavy-grid Safire T-Shirt",
-        price: 30,
-        description: "100% cotton oversized t shirt",
-        images: [
-            "images/blackoverwavyfront.png",
-            "images/blackoverwavyback.png"
-        ],
-        colorways: [
-            {
-                name: "Black",
-                hex: "#111111",
-                images: [
-                    "images/blackoverwavyfront.png",
-                    "images/blackoverwavyback.png"
-                ]
-            },
-            {
-                name: "White",
-                hex: "#F5F5F5",
-                images: [
-                    "images/whiteoverwavyfront.png",
-                    "images/whiteoverwavyback.png"
-                ]
-            },
-            {
-                name: "Coffee",
-                hex: "#6F4E37",
-                images: [
-                    "images/coffeeoverwavyfront.png",
-                    "images/coffeeoverwavyback.png"
-                ]
-            },
-            {
-                name: "Navy Blue",
-                hex: "#1F3864",
-                images: [
-                    "images/navyblueoverwavyfront.png",
-                    "images/navyblueoverwavyback.png"
-                ]
-            },
-            {
-                name: "Sky Blue",
-                hex: "#87CEEB",
-                images: [
-                    "images/skyblueoverwavyfront.png",
-                    "images/skyblueoverwavyback.png"
-                ]
-            }
-        ],
-        sizes: ["S", "M", "L", "XL"],
-        freeShipping: true,
-        details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRT0086-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n100% cotton\n\nFabric Weight\n300 gsm (8.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     }
 ];
 
 const stripePrices = {
-    "black-socrates-hoodie": "price_1TWnb69S93tBM5OXzBZrBSKa",
-    "classic-quarter-zip": "price_1TWnYV9S93tBM5OX0jOJ8u43",
-    "varsity-jacket": "price_1TWnWp9S93tBM5OXTgymoZtv",
-    "cropped-fleece-hoodie": "price_1TWnIT9S93tBM5OX7onflRwM",
+    "black-socrates-hoodie": "price_1T9yom9S93tBM5OXxuh5loMF",
+    "classic-quarter-zip": "price_1T9yqp9S93tBM5OX9uorrP1S",
+    "varsity-jacket": "price_1T9ytB9S93tBM5OXJmSgGvri",
+    "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
     "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
     "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
     "loose-fit-cotton-shorts": "price_1TO2z49S93tBM5OXO6Cu8sJg",
