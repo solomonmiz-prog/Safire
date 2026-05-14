@@ -103,22 +103,31 @@
             const selectedColorLabel = document.getElementById('selected-color-label');
 
             let activeImages = [...product.images];
+            let currentImageIndex = 0;
             let selectedColorName = null;
             let selectedColorDisplayName = null;
 
-            function setMainImage(src, thumbButton) {
+            function setMainImage(src, thumbButton, imageIndex = 0) {
                 mainImage.src = src;
                 mainImage.classList.remove('zoomed');
+                currentImageIndex = imageIndex;
                 document.querySelectorAll('.thumb').forEach((thumb) => thumb.classList.remove('active'));
                 if (thumbButton) thumbButton.classList.add('active');
-                
-                // Update active dot
-                const thumbIndex = Array.from(thumbRow.children).indexOf(thumbButton);
-                if (thumbIndex >= 0) {
-                    document.querySelectorAll('.dot').forEach((dot, i) => {
-                        dot.classList.toggle('active', i === thumbIndex);
-                    });
-                }
+
+                // Update active dot and thumbnail states from the canonical index.
+                document.querySelectorAll('.dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === imageIndex);
+                });
+                document.querySelectorAll('.thumb').forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === imageIndex);
+                });
+            }
+
+            function showImageAtIndex(index) {
+                if (!Array.isArray(activeImages) || activeImages.length === 0) return;
+                const boundedIndex = Math.max(0, Math.min(index, activeImages.length - 1));
+                const targetThumb = thumbRow.children[boundedIndex] || null;
+                setMainImage(activeImages[boundedIndex], targetThumb, boundedIndex);
             }
 
             function renderThumbnails(images) {
@@ -132,14 +141,15 @@
                     button.type = 'button';
                     button.setAttribute('aria-label', `View image ${index + 1}`);
                     button.innerHTML = `<img src="${src}" alt="${product.name} thumbnail ${index + 1}">`;
-                    button.addEventListener('click', () => setMainImage(src, button));
+                    button.addEventListener('click', () => setMainImage(src, button, index));
                     thumbRow.appendChild(button);
                     
                     const dot = document.createElement('span');
                     dot.className = `dot${index === 0 ? ' active' : ''}`;
-                    dot.addEventListener('click', () => setMainImage(src, button));
+                    dot.addEventListener('click', () => setMainImage(src, button, index));
                     dotsDiv.appendChild(dot);
                 });
+                currentImageIndex = 0;
                 mainImage.src = images[0];
                 mainImage.alt = selectedColorName ? `${product.name} - ${selectedColorName}` : product.name;
             }
@@ -186,6 +196,33 @@
             mainImage.addEventListener('click', () => {
                 mainImage.classList.toggle('zoomed');
             });
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            const swipeThreshold = 35;
+
+            mainImage.addEventListener('touchstart', (event) => {
+                if (!event.touches || event.touches.length !== 1) return;
+                touchStartX = event.touches[0].clientX;
+                touchStartY = event.touches[0].clientY;
+            }, { passive: true });
+
+            mainImage.addEventListener('touchend', (event) => {
+                if (!event.changedTouches || event.changedTouches.length !== 1) return;
+                const deltaX = event.changedTouches[0].clientX - touchStartX;
+                const deltaY = event.changedTouches[0].clientY - touchStartY;
+
+                // Only treat mostly-horizontal gestures as image swipes.
+                if (Math.abs(deltaX) < swipeThreshold || Math.abs(deltaX) <= Math.abs(deltaY)) {
+                    return;
+                }
+
+                if (deltaX < 0) {
+                    showImageAtIndex(currentImageIndex + 1);
+                } else {
+                    showImageAtIndex(currentImageIndex - 1);
+                }
+            }, { passive: true });
 
             const sizeGrid = document.getElementById('size-grid');
             let selectedSize = null;

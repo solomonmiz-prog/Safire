@@ -369,10 +369,10 @@ const products = [
 ];
 
 const stripePrices = {
-    "black-socrates-hoodie": "price_1T9yom9S93tBM5OXxuh5loMF",
-    "classic-quarter-zip": "price_1T9yqp9S93tBM5OX9uorrP1S",
-    "varsity-jacket": "price_1T9ytB9S93tBM5OXJmSgGvri",
-    "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
+    "black-socrates-hoodie": "price_1TWnb69S93tBM5OXzBZrBSKa",
+    "classic-quarter-zip": "price_1TWnYV9S93tBM5OX0jOJ8u43",
+    "varsity-jacket": "price_1TWnWp9S93tBM5OXTgymoZtv",
+    "cropped-fleece-hoodie": "price_1TWnIT9S93tBM5OX7onflRwM",
     "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
     "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
     "loose-fit-cotton-shorts": "price_1TO2z49S93tBM5OXO6Cu8sJg",

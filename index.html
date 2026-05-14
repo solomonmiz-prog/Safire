@@ -3369,16 +3369,16 @@
         <p>Pair your favorite hoodie with these matching pieces</p>
         <div class="complete-look-grid">
             <div class="look-item">
-                <img src="images/grayqzipfront.png" alt="Quarter Zip" class="look-image">
-                <h3>Classic Quarter Zip</h3>
-                <p>$50</p>
-                <button class="btn btn-primary" onclick="addToCart(3, 'Classic Quarter Zip', 50, 'images/grayqzipfront.png')">Add to Cart</button>
+                <img src="images/coffeeoverwavyfront.png" alt="Brown Safire T-Shirt" class="look-image">
+                <h3>Oversized Wavy-grid Safire T-Shirt</h3>
+                <p>$30</p>
+                <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 30, 'images/coffeeoverwavyfront.png')">Add to Cart</button>
             </div>
             <div class="look-item">
-                <img src="images/frontblackcreamjacket.png" alt="Varsity Jacket" class="look-image">
-                <h3>Varsity Jacket</h3>
-                <p>$50</p>
-                <button class="btn btn-primary" onclick="addToCart(4, 'Varsity Jacket', 50, 'images/frontblackcreamjacket.png')">Add to Cart</button>
+                <img src="images/milkteacottonfrontshorts.png" alt="Cream Cotton Shorts" class="look-image">
+                <h3>Loose Fit Cotton Shorts</h3>
+                <p>$30</p>
+                <button class="btn btn-primary" onclick="addToCart(8, 'Loose Fit Cotton Shorts', 30, 'images/milkteacottonfrontshorts.png')">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -3429,7 +3429,7 @@
                     <span style="font-size: 20px; color: var(--accent);">+</span>
                 </div>
                 <div style="background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;">
-                    <p style="padding: 20px 0; margin: 0; color: var(--text-secondary);">All Safire hoodies are made from premium 100% cotton or premium blend materials. Each piece is tested for durability and comfort to ensure it lasts.</p>
+                    <p style="padding: 20px 0; margin: 0; color: var(--text-secondary);">All Safire hoodies are made with premium materials and are tested for durability and comfort to ensure they last.</p>
                 </div>
             </div>
             <div class="faq-item" style="margin-bottom: 20px;">
@@ -3959,8 +3959,12 @@ localStorage.setItem('cart', JSON.stringify(cart));
 localStorage.setItem('wishlist', JSON.stringify(wishlist));
 
 let filteredProducts = [...productsData];
-const productsPerPage = 6;
+const DESKTOP_MEDIA_QUERY = '(min-width: 900px)';
 let currentPage = 1;
+
+function getProductsPerPage() {
+    return window.matchMedia(DESKTOP_MEDIA_QUERY).matches ? 12 : 6;
+}
 
 function getColorPreviewLimit() {
     return 3;
@@ -3989,6 +3993,7 @@ function renderProducts() {
         return a.id - b.id;
     });
 
+    const productsPerPage = getProductsPerPage();
     const totalPages = Math.max(1, Math.ceil(sortedProducts.length / productsPerPage));
     if (currentPage > totalPages) currentPage = totalPages;
     const startIndex = (currentPage - 1) * productsPerPage;
@@ -4100,6 +4105,14 @@ function setPage(page) {
     currentPage = page;
     renderProducts();
 }
+
+let wasDesktopViewport = window.matchMedia(DESKTOP_MEDIA_QUERY).matches;
+window.addEventListener('resize', () => {
+    const isDesktopViewport = window.matchMedia(DESKTOP_MEDIA_QUERY).matches;
+    if (isDesktopViewport === wasDesktopViewport) return;
+    wasDesktopViewport = isDesktopViewport;
+    renderProducts();
+});
 
 // Select Color Function
 function selectColor(element, productId, colorIndex) {
