@@ -1054,17 +1054,14 @@
 
         .image-swap img {
             position: absolute;
+            will-change: transform;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .product-image-container:hover .image-swap img {
+            transform: none;
+        }
             transition: transform 0.35s ease;
             transform: translateX(100%);
-        }
-
-        .product-image-container:hover .image-swap img {
-            transform: scale(1.05);
         }
 
         .image-swap img:nth-of-type(1) {
@@ -1077,6 +1074,27 @@
 
         .image-swap.active img:nth-of-type(2) {
             transform: translateX(0);
+        }
+
+        .image-slider-indicator {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            gap: 0;
+            z-index: 11;
+            pointer-events: none;
+        }
+
+        .image-slider-indicator .indicator-segment {
+            flex: 1;
+            height: 2px;
+            background: rgba(0, 0, 0, 0.28);
+        }
+
+        .image-slider-indicator .indicator-segment.active {
+            background: #000000;
         }
 
         .flip-arrow {
@@ -4069,9 +4087,10 @@ function renderProducts() {
                 <div class="product-image-container">
                     ${productBadges}
                     ${stockBadge}
-                   <div class="image-swap" ontouchstart="handleCardTouchStart(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2 || ''}')" onclick="handleCardImageClick(event, this)">
+                   <div class="image-swap" ontouchstart="handleCardTouchStart(event, this)" ontouchmove="handleCardTouchMove(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2 || ''}')" onclick="handleCardImageClick(event, this)">
                         <img src="${currentImage1}" alt="${product.name} front" loading="lazy">
                         ${hasSecond ? `<img src="${currentImage2}" alt="${product.name} back" loading="lazy">` : ''}
+                        ${hasSecond ? '<div class="image-slider-indicator"><span class="indicator-segment active"></span><span class="indicator-segment"></span></div>' : ''}
                         <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleProductWishlist(event, ${product.id})" title="Add to Wishlist"><svg class="wishlist-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L4.22 13.45 12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"></path></svg></button>
                     </div>
                 </div>
@@ -5133,14 +5152,19 @@ checkAdminMode();
 
 // Swap Image Function
 function swapImage(container, img1, img2) {
-    if (!img2) return;
-    const showingFront = !container.classList.contains('active');
-    container.classList.toggle('active', showingFront);
+    if (!img2 || !container) return;
+    const showBack = !container.classList.contains('active');
+    setCardImageSide(container, showBack);
+}
 
-    const dots = container.querySelectorAll('.dot');
-    if (dots.length >= 2) {
-        dots[0].classList.toggle('active', !showingFront);
-        dots[1].classList.toggle('active', showingFront);
+function setCardImageSide(container, showBack) {
+    if (!container) return;
+    container.classList.toggle('active', !!showBack);
+
+    const segments = container.querySelectorAll('.image-slider-indicator .indicator-segment');
+    if (segments.length >= 2) {
+        segments[0].classList.toggle('active', !showBack);
+        segments[1].classList.toggle('active', !!showBack);
     }
 }
 
@@ -5149,6 +5173,20 @@ function handleCardTouchStart(event, container) {
     if (!touch || !container) return;
     container.dataset.touchStartX = String(touch.clientX);
     container.dataset.touchStartY = String(touch.clientY);
+    container.dataset.touchMoved = '0';
+}
+
+function handleCardTouchMove(event, container) {
+    const touch = event.changedTouches && event.changedTouches[0];
+    if (!touch || !container) return;
+    const startX = Number(container.dataset.touchStartX || 0);
+    const startY = Number(container.dataset.touchStartY || 0);
+    const deltaX = touch.clientX - startX;
+    const deltaY = touch.clientY - startY;
+
+    if (Math.abs(deltaX) > 12 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        container.dataset.touchMoved = '1';
+    }
 }
 
 function handleCardTouchEnd(event, container, img1, img2) {
@@ -5162,19 +5200,21 @@ function handleCardTouchEnd(event, container, img1, img2) {
     const deltaX = touch.clientX - startX;
     const deltaY = touch.clientY - startY;
 
-    const isHorizontalSwipe = Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY);
+    const isHorizontalSwipe = Math.abs(deltaX) > 30 && Math.abs(deltaX) > Math.abs(deltaY);
     if (!isHorizontalSwipe) return;
+
+    const swipedLeft = deltaX < 0;
+    setCardImageSide(container, swipedLeft);
 
     container.dataset.didSwipe = '1';
     window.setTimeout(() => {
         if (container.dataset.didSwipe === '1') {
             container.dataset.didSwipe = '0';
         }
-    }, 350);
+    }, 650);
 
     event.preventDefault();
     event.stopPropagation();
-    swapImage(container, img1, img2);
 }
 
 function handleCardImageClick(event, container) {
