@@ -1033,6 +1033,18 @@
             overflow: hidden;
         }
 
+        .product-image-container::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 1px;
+            background: #000000;
+            z-index: 12;
+            pointer-events: none;
+        }
+
         .image-swap {
             position: relative;
             width: 100%;
@@ -1047,24 +1059,24 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            opacity: 0;
+            transition: transform 0.35s ease;
+            transform: translateX(100%);
         }
 
         .product-image-container:hover .image-swap img {
             transform: scale(1.05);
         }
 
-        .image-swap img:first-child {
-            opacity: 1;
+        .image-swap img:nth-of-type(1) {
+            transform: translateX(0);
         }
 
-        .image-swap.active img:first-child {
-            opacity: 0;
+        .image-swap.active img:nth-of-type(1) {
+            transform: translateX(-100%);
         }
 
-        .image-swap.active img:last-child {
-            opacity: 1;
+        .image-swap.active img:nth-of-type(2) {
+            transform: translateX(0);
         }
 
         .flip-arrow {
@@ -4057,7 +4069,7 @@ function renderProducts() {
                 <div class="product-image-container">
                     ${productBadges}
                     ${stockBadge}
-                   <div class="image-swap" ontouchstart="handleCardTouchStart(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2 || ''}')" onclick="event.stopPropagation(); swapImage(this, '${currentImage1}', '${currentImage2 || ''}')">
+                   <div class="image-swap" ontouchstart="handleCardTouchStart(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2 || ''}')" onclick="handleCardImageClick(event, this)">
                         <img src="${currentImage1}" alt="${product.name} front" loading="lazy">
                         ${hasSecond ? `<img src="${currentImage2}" alt="${product.name} back" loading="lazy">` : ''}
                         <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleProductWishlist(event, ${product.id})" title="Add to Wishlist"><svg class="wishlist-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L4.22 13.45 12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"></path></svg></button>
@@ -5122,9 +5134,8 @@ checkAdminMode();
 // Swap Image Function
 function swapImage(container, img1, img2) {
     if (!img2) return;
-    const img = container.querySelector("img");
-    const showingFront = img.src.includes(img1);
-    img.src = showingFront ? img2 : img1;
+    const showingFront = !container.classList.contains('active');
+    container.classList.toggle('active', showingFront);
 
     const dots = container.querySelectorAll('.dot');
     if (dots.length >= 2) {
@@ -5154,9 +5165,25 @@ function handleCardTouchEnd(event, container, img1, img2) {
     const isHorizontalSwipe = Math.abs(deltaX) > 35 && Math.abs(deltaX) > Math.abs(deltaY);
     if (!isHorizontalSwipe) return;
 
+    container.dataset.didSwipe = '1';
+    window.setTimeout(() => {
+        if (container.dataset.didSwipe === '1') {
+            container.dataset.didSwipe = '0';
+        }
+    }, 350);
+
     event.preventDefault();
     event.stopPropagation();
     swapImage(container, img1, img2);
+}
+
+function handleCardImageClick(event, container) {
+    if (!container) return;
+    if (container.dataset.didSwipe === '1') {
+        event.preventDefault();
+        event.stopPropagation();
+        container.dataset.didSwipe = '0';
+    }
 }
 
 // Filter Dropdown + Clear All
