@@ -3,6 +3,105 @@ const { google } = require("googleapis");
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+function formatOrderItemSummary(order) {
+  const meta = order.metadata || {};
+  const itemNames = meta.itemNames ? meta.itemNames.split(" | ") : [meta.productName || ""];
+  const itemSizes = meta.itemSizes ? meta.itemSizes.split(" | ") : [meta.size || ""];
+  const itemColors = meta.itemColors ? meta.itemColors.split(" | ") : [meta.color || ""];
+
+  return itemNames
+    .map((name, index) => {
+      const safeName = String(name || "").trim() || "Unknown item";
+      const safeSize = String(itemSizes[index] || "").trim().toUpperCase();
+      const safeColor = String(itemColors[index] || "").trim();
+      const detail = [safeSize && `Size ${safeSize}`, safeColor && `Color ${safeColor}`]
+        .filter(Boolean)
+        .join(", ");
+
+      return detail ? `${safeName} (${detail})` : safeName;
+    })
+    .join("; ");
+}
+
+function buildOrderEmail(order) {
+  const amount = order.amountTotal != null
+    ? `$${(order.amountTotal / 100).toFixed(2)} ${String(order.currency || "USD").toUpperCase()}`
+    : "Unknown";
+
+  const orderDate = order.completedAt
+    ? new Date(order.completedAt * 1000).toLocaleString("en-US", { timeZone: "America/New_York" })
+    : new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
+
+  const addressLine = [
+    order.shipping?.line1,
+    order.shipping?.line2,
+    order.shipping?.city,
+    order.shipping?.state,
+    order.shipping?.postal_code,
+    order.shipping?.country
+  ].filter(Boolean).join(", ");
+
+  const itemsSummary = formatOrderItemSummary(order);
+
+  const text = [
+    "New Stripe Order",
+    `Order ID: ${order.sessionId || "N/A"}`,
+    `Date: ${orderDate}`,
+    `Amount: ${amount}`,
+    `Customer: ${order.shipping?.name || "N/A"}`,
+    `Email: ${order.customerEmail || "N/A"}`,
+    `Phone: ${order.phone || "N/A"}`,
+    `Items: ${itemsSummary || "N/A"}`,
+    `Shipping Address: ${addressLine || "N/A"}`
+  ].join("\n");
+
+  const html = `
+    <h2>New Stripe Order</h2>
+    <p><strong>Order ID:</strong> ${order.sessionId || "N/A"}</p>
+    <p><strong>Date:</strong> ${orderDate}</p>
+    <p><strong>Amount:</strong> ${amount}</p>
+    <p><strong>Customer:</strong> ${order.shipping?.name || "N/A"}</p>
+    <p><strong>Email:</strong> ${order.customerEmail || "N/A"}</p>
+    <p><strong>Phone:</strong> ${order.phone || "N/A"}</p>
+    <p><strong>Items:</strong> ${itemsSummary || "N/A"}</p>
+    <p><strong>Shipping Address:</strong> ${addressLine || "N/A"}</p>
+  `;
+
+  return { text, html };
+}
+
+async function sendOrderEmail(order) {
+  const resendApiKey = process.env.RESEND_API_KEY;
+  const toEmail = process.env.ORDER_ALERT_EMAIL;
+  const fromEmail = process.env.ORDER_FROM_EMAIL || "Safire Orders <onboarding@resend.dev>";
+
+  if (!resendApiKey || !toEmail) {
+    console.warn("Email env vars not configured — skipping email notification.");
+    return;
+  }
+
+  const { text, html } = buildOrderEmail(order);
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      from: fromEmail,
+      to: [toEmail],
+      subject: `New Order ${order.sessionId || ""}`.trim(),
+      html,
+      text
+    })
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Resend email failed: ${response.status} ${errorText}`);
+  }
+}
+
 async function appendOrderToSheet(order) {
   const sheetId = process.env.GOOGLE_SHEET_ID;
   const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
@@ -163,7 +262,18 @@ exports.handler = async function handler(event) {
 
       console.log("Stripe order completed:", JSON.stringify(order));
 
-      await appendOrderToSheet(order);
+      const [sheetResult, emailResult] = await Promise.allSettled([
+        appendOrderToSheet(order),
+        sendOrderEmail(order)
+      ]);
+
+      if (sheetResult.status === "rejected") {
+        console.error("Sheet append failed:", sheetResult.reason);
+      }
+
+      if (emailResult.status === "rejected") {
+        console.error("Order email failed:", emailResult.reason);
+      }
     }
 
     return {
