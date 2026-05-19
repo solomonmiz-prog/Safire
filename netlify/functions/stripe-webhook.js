@@ -1,6 +1,66 @@
 const Stripe = require("stripe");
+const { google } = require("googleapis");
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+async function appendOrderToSheet(order) {
+  const sheetId = process.env.GOOGLE_SHEET_ID;
+  const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+  const privateKey = (process.env.GOOGLE_PRIVATE_KEY || "").replace(/\\n/g, "\n");
+
+  if (!sheetId || !serviceAccountEmail || !privateKey) {
+    console.warn("Google Sheets env vars not configured — skipping sheet append.");
+    return;
+  }
+
+  const auth = new google.auth.JWT(
+    serviceAccountEmail,
+    null,
+    privateKey,
+    ["https://www.googleapis.com/auth/spreadsheets"]
+  );
+
+  const sheets = google.sheets({ version: "v4", auth });
+
+  const date = order.completedAt
+    ? new Date(order.completedAt * 1000).toLocaleString("en-US", { timeZone: "America/New_York" })
+    : new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
+
+  const amountFormatted = order.amountTotal != null
+    ? `$${(order.amountTotal / 100).toFixed(2)}`
+    : "";
+
+  // Multi-item orders: one row per item
+  const meta = order.metadata || {};
+  const itemNames = meta.itemNames ? meta.itemNames.split(" | ") : [meta.productName || ""];
+  const itemSizes = meta.itemSizes ? meta.itemSizes.split(" | ") : [meta.size || ""];
+  const itemColors = meta.itemColors ? meta.itemColors.split(" | ") : [meta.color || ""];
+
+  const rows = itemNames.map((itemName, i) => [
+    order.sessionId || "",
+    date,
+    order.shipping?.name || "",
+    order.customerEmail || "",
+    order.phone || "",
+    itemName.trim(),
+    (itemSizes[i] || "").trim().toUpperCase(),
+    (itemColors[i] || "").trim(),
+    amountFormatted,
+    `${(order.shipping?.line1 || "")} ${(order.shipping?.line2 || "")}`.trim(),
+    order.shipping?.city || "",
+    order.shipping?.state || "",
+    order.shipping?.postal_code || "",
+    order.shipping?.country || ""
+  ]);
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: sheetId,
+    range: "Orders!A:N",
+    valueInputOption: "USER_ENTERED",
+    insertDataOption: "INSERT_ROWS",
+    requestBody: { values: rows }
+  });
+}
 
 exports.handler = async function handler(event) {
   if (event.httpMethod !== "POST") {
@@ -102,6 +162,8 @@ exports.handler = async function handler(event) {
       };
 
       console.log("Stripe order completed:", JSON.stringify(order));
+
+      await appendOrderToSheet(order);
     }
 
     return {
