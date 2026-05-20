@@ -379,10 +379,26 @@ a {
     cursor: pointer;
     padding: 14px 0;
     font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .accordion summary::-webkit-details-marker {
     display: none;
+}
+
+.accordion summary::after {
+    content: "\203A";
+    font-size: 18px;
+    line-height: 1;
+    color: #8a8a8a;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.accordion details[open] summary::after {
+    transform: rotate(90deg);
+    color: #111;
 }
 
 .accordion p {

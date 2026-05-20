@@ -196,6 +196,31 @@ const products = [
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
+        id: "not-for-everyone-hoodie",
+        name: "Not For Everyone Hoodie",
+        price: 60,
+        description: "Snow-washed zip-through hoodie with a soft textured feel and relaxed streetwear fit.",
+        images: [
+            "images/notforeveryonefrontblack.png",
+            "images/notforeveryonebackblack.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/notforeveryonefrontblack.png",
+                    "images/notforeveryonebackblack.png"
+                ]
+            }
+        ],
+        sizes: ["S", "M", "L", "XL"],
+        freeShipping: true,
+        details: "Presenting the Snow Washed Zip-Through Hoodie, perfect for custom branding. This hoodie features a unique snow-washed finish, offering a soft, textured feel. The zip-through design adds versatility, making it ideal for brands looking to add a stylish, comfortable piece to their casualwear collections.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nRU0074-P001-V3\n\nGender\nUnisex\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nXL\n\nEffects\nWashed / Zipper\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn / Winter\n\nStyle\nBasics / Casual / Street / Vintage\n\nMaterial\n42% cotton, 53% polyester, 5% other fibers\n\nFabric Weight\n355 gsm (10.5 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
         id: "classic-quarter-zip",
         name: "Classic Quarter Zip",
         price: 60,
@@ -375,6 +400,7 @@ const stripePrices = {
     "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
     "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
     "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
+    "not-for-everyone-hoodie": "price_1TYzPh9S93tBM5OXiV6SZO7H",
     "loose-fit-cotton-shorts": "price_1TO2z49S93tBM5OXO6Cu8sJg",
     "oversized-wavy-grid-tshirt": "price_1TQy3K9S93tBM5OXoDIMBmZM"
 };

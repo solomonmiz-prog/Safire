@@ -42,17 +42,29 @@
                 <button class="add-btn" id="add-to-cart-btn">Add to Cart</button>
 
                 <div class="accordion">
-                    <details open>
+                    <details>
+                        <summary>Note</summary>
+                        <p id="note-text"></p>
+                    </details>
+                    <details>
                         <summary>Details</summary>
                         <p id="details-text"></p>
                     </details>
                     <details>
-                        <summary>Shipping & Returns</summary>
-                        <p id="shipping-text"></p>
+                        <summary>Model</summary>
+                        <p id="model-text"></p>
+                    </details>
+                    <details>
+                        <summary>Features</summary>
+                        <p id="features-text"></p>
                     </details>
                     <details>
                         <summary>Care Instructions</summary>
                         <p id="care-text"></p>
+                    </details>
+                    <details>
+                        <summary>Fabric</summary>
+                        <p id="fabric-text"></p>
                     </details>
                 </div>
             </div>
@@ -84,6 +96,131 @@
             return normalizeValue(value).split('/')[0].trim().replace(/\s+/g, '-');
         }
 
+        function parseProductDetailSections(detailsText, careText) {
+            const raw = String(detailsText || '').replace(/\r/g, '').trim();
+            const paragraphs = raw.length > 0
+                ? raw.split(/\n\s*\n+/).map((part) => part.trim()).filter(Boolean)
+                : [];
+            const allLines = raw.length > 0
+                ? raw.split('\n').map((line) => line.trim()).filter(Boolean)
+                : [];
+
+            const headingKeys = new Set([
+                'product code', 'model', 'gender', 'height', 'weight', 'size',
+                'effects', 'fit', 'neckline', 'sleeve style', 'sleeve length', 'season', 'style',
+                'material', 'fabric weight', 'thickness', 'elasticity', 'breathability'
+            ]);
+
+            function normalizeKey(line) {
+                return String(line || '').toLowerCase().replace(/:$/, '').trim();
+            }
+
+            function isHeadingLine(line) {
+                return headingKeys.has(normalizeKey(line));
+            }
+
+            function findValueForKey(lines, keyName) {
+                const target = normalizeKey(keyName);
+                for (let i = 0; i < lines.length; i += 1) {
+                    const line = lines[i];
+                    const lineKey = normalizeKey(line);
+                    if (lineKey !== target) continue;
+
+                    const colonIndex = line.indexOf(':');
+                    if (colonIndex !== -1) {
+                        const inlineValue = line.slice(colonIndex + 1).trim();
+                        if (inlineValue) return inlineValue;
+                    }
+
+                    const next = lines[i + 1] ? lines[i + 1].trim() : '';
+                    if (next && !isHeadingLine(next)) return next;
+                    return '';
+                }
+                return '';
+            }
+
+            const sectionOrder = ['Note', 'Details', 'Model', 'Features', 'Care Instructions', 'Fabric'];
+            const sections = {
+                Note: '',
+                Details: '',
+                Model: '',
+                Features: '',
+                'Care Instructions': String(careText || '').trim(),
+                Fabric: ''
+            };
+
+            const noteParts = [];
+            if (paragraphs[0]) noteParts.push(paragraphs[0]);
+            const warningParagraph = paragraphs.find((part) => {
+                const value = part.toLowerCase();
+                return value.includes('batch variations') || value.includes('minor batch differences') || value.includes('we appreciate your understanding') || value.includes('each piece is handcrafted');
+            });
+            if (warningParagraph && warningParagraph !== paragraphs[0]) {
+                noteParts.push(warningParagraph);
+            }
+            sections.Note = noteParts.join('\n\n').trim();
+
+            const productCode = findValueForKey(allLines, 'Product Code');
+            if (productCode) {
+                sections.Details += `Product Code: ${productCode}`;
+            }
+
+            const hasModelSignal = allLines.some((line) => normalizeKey(line) === 'model')
+                || ['Height', 'Weight', 'Size'].some((key) => Boolean(findValueForKey(allLines, key)));
+
+            const modelPairs = [];
+            ['Gender', 'Height', 'Weight', 'Size'].forEach((key) => {
+                const value = findValueForKey(allLines, key);
+                if (value) modelPairs.push(`${key}: ${value}`);
+            });
+            if (hasModelSignal && modelPairs.length > 0) {
+                sections.Model = modelPairs.join('\n');
+            }
+
+            const featurePairs = [];
+            ['Effects', 'Fit', 'Neckline', 'Sleeve Style', 'Sleeve Length', 'Season', 'Style'].forEach((key) => {
+                const value = findValueForKey(allLines, key);
+                if (value) featurePairs.push(`${key}: ${value}`);
+            });
+            sections.Features = featurePairs.join('\n');
+
+            const fabricPairs = [];
+            ['Material', 'Fabric Weight', 'Thickness', 'Elasticity', 'Breathability'].forEach((key) => {
+                const value = findValueForKey(allLines, key);
+                if (value) fabricPairs.push(`${key}: ${value}`);
+            });
+            sections.Fabric = fabricPairs.join('\n');
+
+            if (!sections.Details && paragraphs.length > 0) {
+                sections.Details = paragraphs[0];
+            }
+
+            return sectionOrder.reduce((acc, sectionName) => {
+                acc[sectionName] = String(sections[sectionName] || '').trim();
+                return acc;
+            }, {});
+        }
+
+        function setAccordionSection(contentId, text, shouldOpen = false) {
+            const contentElement = document.getElementById(contentId);
+            if (!contentElement) return;
+
+            const detailsElement = contentElement.closest('details');
+            const cleanedText = String(text || '').trim();
+
+            if (!cleanedText) {
+                contentElement.textContent = '';
+                if (detailsElement) detailsElement.hidden = true;
+                return;
+            }
+
+            contentElement.textContent = cleanedText;
+            if (detailsElement) {
+                detailsElement.hidden = false;
+                detailsElement.open = !!shouldOpen;
+            }
+        }
+
         if (!product) {
             notFound.style.display = 'block';
         } else {
@@ -93,9 +230,14 @@
             document.getElementById('product-name').textContent = product.name;
             document.getElementById('product-price').textContent = `$${formatPrice(product.price)}`;
             document.getElementById('product-description').textContent = product.description;
-            document.getElementById('details-text').textContent = product.details;
-            document.getElementById('shipping-text').textContent = product.shippingReturns;
-            document.getElementById('care-text').textContent = product.careInstructions;
+
+            const parsedSections = parseProductDetailSections(product.details, product.careInstructions);
+            setAccordionSection('note-text', parsedSections.Note, false);
+            setAccordionSection('details-text', parsedSections.Details);
+            setAccordionSection('model-text', parsedSections.Model);
+            setAccordionSection('features-text', parsedSections.Features);
+            setAccordionSection('care-text', parsedSections['Care Instructions']);
+            setAccordionSection('fabric-text', parsedSections.Fabric);
 
             const mainImage = document.getElementById('main-image');
             const thumbRow = document.getElementById('thumbnail-row');
