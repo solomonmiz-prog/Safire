@@ -332,56 +332,56 @@ const products = [
         price: 60,
         description: "A fashion-forward cropped hoodie with heavyweight warmth, fleece comfort, and a relaxed street-ready silhouette.",
         images: [
-            "images/plainhoodieblackfront.png",
-            "images/plainhoodieblackback.png"
+            "images/newblankblackfront.png",
+            "images/newblankblackback.png"
         ],
         colorways: [
             {
                 name: "Black",
                 hex: "#0A0A0A",
                 images: [
-                    "images/pitchblackfrontplainhoodie.png",
-                    "images/pitchblackbackplainhoodie.png"
+                    "images/newblankblackfront.png",
+                    "images/newblankblackback.png"
                 ]
             },
             {
                 name: "Grey",
                 hex: "#7C7C7C",
                 images: [
-                    "images/plainhoodieblackfront.png",
-                    "images/plainhoodieblackback.png"
+                    "images/newgreyblueblankfront.png",
+                    "images/newgreyblueblankback.png"
                 ]
             },
             {
                 name: "White",
                 hex: "#F2F2F2",
                 images: [
-                    "images/plainhoodiewhitefront.png",
-                    "images/plainhoodiewhiteback.png"
+                    "images/newblankwitefront.png",
+                    "images/newwhiteblankback.png"
                 ]
             },
             {
                 name: "Oat White",
                 hex: "#D9D4C7",
                 images: [
-                    "images/plainhoodieoatwhitefront.png",
-                    "images/plainhoodieoatwhiteback.png"
+                    "images/newblankoatgreyfront.png",
+                    "images/newblankoatgreyback.png"
                 ]
             },
             {
                 name: "Flower Gray",
                 hex: "#B7B7B7",
                 images: [
-                    "images/plainhoodieflowergreyfront.png",
-                    "images/plainhoodieflowergreyback.png"
+                    "images/newblankflowergreyfront.png",
+                    "images/newblankflowergreyback.png"
                 ]
             },
             {
                 name: "Light Apricot",
                 hex: "#F4E7CF",
                 images: [
-                    "images/plainhoodielightapricotfront.png",
-                    "images/plainhoodielightapricotback.png"
+                    "images/newblankcreamfront.png",
+                    "images/newblankcreamback.png"
                 ]
             }
         ],
