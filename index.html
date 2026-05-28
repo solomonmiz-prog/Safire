@@ -3422,7 +3422,7 @@
             </div>
             <div class="testimonial">
                 <div class="testimonial-stars">★★★★★</div>
-                <p>"Can I model for your clothes"</p>
+                <p>"I love your brands commitment to making everyone feel beautiful"</p>
                 <div class="testimonial-author">- Gabe H., New York</div>
             </div>
         </div>
@@ -3442,10 +3442,10 @@
                 <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/skyblueoverwavyfront.png')">Add to Cart</button>
             </div>
             <div class="look-item">
-                <img src="images/milkteacottonfrontshorts.png" alt="Cream Cotton Shorts" class="look-image">
-                <h3>Loose Fit Cotton Shorts</h3>
-                <p>$40</p>
-                <button class="btn btn-primary" onclick="addToCart(8, 'Loose Fit Cotton Shorts', 40, 'images/milkteacottonfrontshorts.png')">Add to Cart</button>
+                <img src="images/newblankblackfront.png" alt="Plain Hoodie" class="look-image">
+                <h3>Plain Hoodie</h3>
+                <p>$60</p>
+                <button class="btn btn-primary" onclick="addToCart(6, 'Plain Hoodie', 60, 'images/newblankblackfront.png')">Add to Cart</button>
             </div>
         </div>
     </div>
@@ -3749,14 +3749,15 @@ const productsData = [
         category: "graphic",
         gender: "unisex",
         price: 40,
-        image1: "images/frontblackborough.png",
-        image2: "images/backblackborough.png",
+        image1: "images/frontwhiteborough.png",
+        image2: "images/backwhiteborough.png",
         description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
         details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)",
         freeShipping: true,
         sku: "MT0012-C003-V3",
+        selectedColor: 1,
         stock: { S: 10, M: 10, L: 10, XL: 10 },
         colors: [
             {
@@ -4083,12 +4084,12 @@ function renderProducts() {
     const featuredOrder = {
         'oversized-wavy-grid-tshirt': 1,
         'black-socrates-hoodie': 2,
-        'borough-oversized-tshirt': 3,
-        'not-for-everyone-hoodie': 4,
-        'loose-fit-cotton-shorts': 5,
+        'not-for-everyone-hoodie': 3,
+        'borough-oversized-tshirt': 4,
+        'cropped-fleece-hoodie': 5,
         'classic-quarter-zip': 6,
         'varsity-jacket': 7,
-        'cropped-fleece-hoodie': 8
+        'loose-fit-cotton-shorts': 8
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -4133,7 +4134,7 @@ function renderProducts() {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
         } else if (product.productId === 'oversized-wavy-grid-tshirt') {
             productBadges = '<div class="product-badge bestseller">NEW</div>';
-        } else if (product.productId === 'borough-oversized-tshirt') {
+        } else if (product.productId === 'black-socrates-hoodie') {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
         }
 

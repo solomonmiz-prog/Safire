@@ -168,8 +168,8 @@ const products = [
         price: 40,
         description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
         images: [
-            "images/frontblackborough.png",
-            "images/backblackborough.png"
+            "images/frontwhiteborough.png",
+            "images/backwhiteborough.png"
         ],
         colorways: [
             {
