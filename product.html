@@ -88,6 +88,12 @@
             return Math.round(Number(value) || 0).toString();
         }
 
+        const PRODUCT_PAGE_SALE_OFF = 10;
+
+        function getSalePrice(value) {
+            return Math.max(0, (Number(value) || 0) - PRODUCT_PAGE_SALE_OFF);
+        }
+
         function normalizeValue(value) {
             return String(value || '').trim().toLowerCase();
         }
@@ -225,10 +231,12 @@
             notFound.style.display = 'block';
         } else {
             layout.hidden = false;
+            const originalPrice = Number(product.price) || 0;
+            const salePrice = getSalePrice(originalPrice);
 
             document.title = `${product.name} | SAFIRE`;
             document.getElementById('product-name').textContent = product.name;
-            document.getElementById('product-price').textContent = `$${formatPrice(product.price)}`;
+            document.getElementById('product-price').innerHTML = `<span class="sale-price-row"><span class="sale-price-current">$${formatPrice(salePrice)}</span><span class="sale-price-old">$${formatPrice(originalPrice)}</span></span>`;
             document.getElementById('product-description').textContent = product.description;
 
             const parsedSections = parseProductDetailSections(product.details, product.careInstructions);
@@ -405,7 +413,7 @@
                         name: product.name,
                         color: scopedColor,
                         size: scopedSize,
-                        price: product.price
+                        price: salePrice
                     });
 
                     console.log('[Cart Debug] added key:', `${normalizeColorKey(scopedColor || 'default')}-${String(scopedSize || '').trim().toLowerCase()}`);

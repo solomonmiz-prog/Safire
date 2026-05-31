@@ -1,6 +1,7 @@
 const Stripe = require("stripe");
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const SITEWIDE_SALE_OFF_CENTS = 1000;
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -147,6 +148,7 @@ exports.handler = async function handler(event) {
 
         const currency = stripePrice.currency;
         const unitAmount = stripePrice.unit_amount;
+        const discountedUnitAmount = Math.max(50, unitAmount - SITEWIDE_SALE_OFF_CENTS);
 
         if (!currency || !Number.isInteger(unitAmount)) {
           throw new Error(`Price ${item.price} is missing currency or unit amount.`);
@@ -156,7 +158,7 @@ exports.handler = async function handler(event) {
           quantity: item.quantity,
           price_data: {
             currency,
-            unit_amount: unitAmount,
+            unit_amount: discountedUnitAmount,
             product_data: {
               name: item.productName || productName,
               description: `Size: ${item.selectedSizeLabel}\nColor: ${item.selectedColorLabel}`,

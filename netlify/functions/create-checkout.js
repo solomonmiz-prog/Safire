@@ -1,4 +1,5 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const SITEWIDE_SALE_OFF_CENTS = 1000;
 
 function isValidStripePriceId(value) {
   return /^price_[A-Za-z0-9]+$/.test(String(value || "").trim());
@@ -94,10 +95,32 @@ exports.handler = async function(event) {
       items_count: String(normalizedItems.length)
     };
 
+    const stripeLineItems = await Promise.all(
+      lineItems.map(async (lineItem, index) => {
+        const stripePrice = await stripe.prices.retrieve(lineItem.price, { expand: ["product"] });
+        const unitAmount = stripePrice.unit_amount;
+        const currency = stripePrice.currency;
+        const fallbackName = typeof stripePrice.product === "object" ? stripePrice.product.name : "Safire Vintage Item";
+        const itemMeta = normalizedItems[index] || firstItem;
+
+        return {
+          quantity: lineItem.quantity,
+          price_data: {
+            currency,
+            unit_amount: Math.max(50, Number(unitAmount || 0) - SITEWIDE_SALE_OFF_CENTS),
+            product_data: {
+              name: itemMeta.name || fallbackName,
+              description: `Size: ${itemMeta.size}\nColor: ${itemMeta.color}`
+            }
+          }
+        };
+      })
+    );
+
     const session = await stripe.checkout.sessions.create({
       mode: "payment",
       payment_method_types: ["card"],
-      line_items: lineItems,
+      line_items: stripeLineItems,
       metadata: sharedMetadata,
       payment_intent_data: {
         metadata: sharedMetadata

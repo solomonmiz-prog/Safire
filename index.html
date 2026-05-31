@@ -1316,7 +1316,71 @@
             font-weight: 700;
             font-size: 20px;
             color: var(--primary);
+            margin-bottom: 0;
+        }
+
+        .product-price-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
             margin-bottom: 8px;
+        }
+
+        .product-price-old {
+            font-size: 12px;
+            color: rgba(120, 120, 120, 0.86);
+            font-weight: 600;
+            text-decoration: line-through;
+            text-decoration-color: #cc1111;
+            text-decoration-thickness: 2px;
+        }
+
+        .sale-strip-section {
+            background: linear-gradient(90deg, #1c1c1c 0%, #6f0f0f 48%, #1c1c1c 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 14px 12px;
+        }
+
+        .sale-strip-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .sale-strip-text {
+            margin: 0;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .sale-strip-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .sale-strip-link:hover {
+            background: #ffffff;
+            color: #111111;
         }
 
         .product-actions {
@@ -1509,6 +1573,10 @@
             background: #ffffff;
             border-color: #ffffff;
             color: #111111;
+        }
+
+        .sale-strip-section {
+            background: linear-gradient(90deg, #131313 0%, #5a0d0d 48%, #131313 100%);
         }
 
         .filters-toggle-btn,
@@ -2694,6 +2762,15 @@
                 padding: 5px 8px;
             }
 
+            .sale-strip-text {
+                font-size: 11px;
+            }
+
+            .sale-strip-link {
+                font-size: 10px;
+                padding: 5px 10px;
+            }
+
             .why-choose-grid, .testimonials-grid, .complete-look-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -3078,17 +3155,32 @@
             <div class="hero-bg-slide" style="--hero-image: url('images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG');"></div>
             <div class="hero-bg-slide" style="--hero-image: url('images/herosection2movement.png');"></div>
             <div class="hero-bg-slide" style="--hero-image: url('images/64FAFB0E-E633-4291-AE74-0C261AA7AD6D.PNG'); --hero-position: center 86%;"></div>
+            <div class="hero-bg-slide" style="--hero-image: url('images/modelpage1wavygrid.png'); --hero-position: center 38%;"></div>
+            <div class="hero-bg-slide" style="--hero-image: url('images/wavygridmodelpage2.png'); --hero-position: center 36%;"></div>
+            <div class="hero-bg-slide" style="--hero-image: url('images/modelimage1qzip.png'); --hero-position: center 40%;"></div>
+            <div class="hero-bg-slide" style="--hero-image: url('images/modelimage2qzip.png'); --hero-position: center 42%;"></div>
         </div>
     </div>
     <div class="hero-carousel-lines" id="hero-carousel-lines" aria-label="Hero slides">
         <button class="hero-line active" type="button" aria-label="Slide 1" data-slide="0"></button>
         <button class="hero-line" type="button" aria-label="Slide 2" data-slide="1"></button>
         <button class="hero-line" type="button" aria-label="Slide 3" data-slide="2"></button>
+        <button class="hero-line" type="button" aria-label="Slide 4" data-slide="3"></button>
+        <button class="hero-line" type="button" aria-label="Slide 5" data-slide="4"></button>
+        <button class="hero-line" type="button" aria-label="Slide 6" data-slide="5"></button>
+        <button class="hero-line" type="button" aria-label="Slide 7" data-slide="6"></button>
     </div>
     <div class="hero-content">
         <p class="hero-eyebrow">premium streetwear</p>
         <h2>BUILT FOR<br>THE CULTURE</h2>
         <p class="hero-sub">timeless pieces heavy on quality made to stand out</p>
+    </div>
+</section>
+
+<section class="sale-strip-section" aria-label="Summer sale">
+    <div class="sale-strip-inner">
+        <p class="sale-strip-text">Summer sale $10 off everything June 1-7 only</p>
+        <a class="sale-strip-link" href="#products">Shop Now</a>
     </div>
 </section>
 
@@ -3438,13 +3530,13 @@
             <div class="look-item">
                 <img src="images/skyblueoverwavyfront.png" alt="Sky Blue Safire T-Shirt" class="look-image">
                 <h3>Oversized Wavy-grid Safire T-Shirt</h3>
-                <p>$40</p>
+                <p>$30 <span class="product-price-old">$40</span></p>
                 <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/skyblueoverwavyfront.png')">Add to Cart</button>
             </div>
             <div class="look-item">
                 <img src="images/newblankblackfront.png" alt="Plain Hoodie" class="look-image">
                 <h3>Plain Hoodie</h3>
-                <p>$60</p>
+                <p>$50 <span class="product-price-old">$60</span></p>
                 <button class="btn btn-primary" onclick="addToCart(6, 'Plain Hoodie', 60, 'images/newblankblackfront.png')">Add to Cart</button>
             </div>
         </div>
@@ -3486,7 +3578,7 @@
 </section>
 
 <!-- FAQ Section -->
-<section style="padding: 80px 0; background: var(--light-gray);">
+<section style="padding: 80px 0; background: #000000;">
     <div class="container">
         <h2 style="text-align: center; margin-bottom: 60px;">Frequently Asked Questions</h2>
         <div style="max-width: 800px; margin: 0 auto;">
@@ -3580,7 +3672,8 @@
         <img src="images/BFE09C59-E492-4B6A-B36E-F82B9EC6EE12_1_102_o.transparent.png" alt="Safire Logo">
         <span style="font-weight: 600; color: var(--primary);">SAFIRE</span>
     </div>
-    <p>&copy; 2026 SAFIRE. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
+    <p>&copy; 2026 SAFIRE. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" onclick="toggleFooterContactInfo(event)" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
+    <p id="footer-contact-info" style="display: none; margin-top: 10px; color: rgba(255,255,255,0.9); font-size: 14px;">Email: safireorders@gmail.com | Phone: 718-451-6192</p>
     <a class="footer-instagram-link" href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer">
         <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
             <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5Zm8.93 1.75a1.07 1.07 0 1 1 0 2.14 1.07 1.07 0 0 1 0-2.14ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
@@ -4015,6 +4108,65 @@ const productsData = [
         ]
     },
     {
+        id: 11,
+        productId: "vintage-crewneck",
+        name: "Vintage",
+        category: "premium",
+        gender: "women",
+        price: 60,
+        image1: "images/vintagecrewneckapricotfront.png",
+        image2: "images/vintagecrewneckapricotback.png",
+        description: "Classic heavyweight crewneck designed for layering or standalone wear in coordinated essential outfits.",
+        details: "This classic crewneck sweatshirt features the same heavyweight 100% cotton construction as the rest of the collection, designed to pair seamlessly with the RK0035 pants. The versatile design serves as an ideal layering piece or standalone top. A foundational item for brands building coordinated essential outfits.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRW0045-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\n100% cotton\n\nFabric Weight\n530 gsm (15.6 oz)\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "RW0045-C001-V2",
+        stock: { XXS: 10, XS: 10, S: 10, M: 10, L: 10 },
+        colors: [
+            {
+                name: "Apricot",
+                hex: "#E6C5A8",
+                images: {
+                    front: "images/vintagecrewneckapricotfront.png",
+                    back: "images/vintagecrewneckapricotback.png"
+                }
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/vintagecrewneckblackfront.png",
+                    back: "images/vintagecrewneckblackback.png"
+                }
+            },
+            {
+                name: "Coffee",
+                hex: "#6F4E37",
+                images: {
+                    front: "images/vintagecrewneckcoffeefront.png",
+                    back: "images/vintagecrewneckcoffee.png"
+                }
+            },
+            {
+                name: "Dark Grey",
+                hex: "#4B4B4B",
+                images: {
+                    front: "images/vintagecrewneckdarkgreyfront.png",
+                    back: "images/vintagecrewneckdarkgreyback.png"
+                }
+            },
+            {
+                name: "Retro Green",
+                hex: "#5E6F58",
+                images: {
+                    front: "images/vintagecrewneckretrogreenfront.png",
+                    back: "images/vintagecrewneckretrogreenback.png"
+                }
+            }
+        ]
+    },
+    {
         id: 10,
         productId: "not-for-everyone-hoodie",
         name: "Not For Everyone Hoodie",
@@ -4046,6 +4198,35 @@ const productsData = [
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 const validProductIds = new Set(productsData.map((product) => product.id));
+const SITEWIDE_SALE_OFF = 10;
+
+function getSalePrice(value) {
+    return Math.max(0, (Number(value) || 0) - SITEWIDE_SALE_OFF);
+}
+
+function findProductForCartItem(item) {
+    const productId = String(item && (item.productId || item.id) ? (item.productId || item.id) : '');
+    return productsData.find((product) => (
+        String(product.productId || '') === productId
+        || String(product.id) === productId
+    ));
+}
+
+function normalizeCartSalePrices(items) {
+    return (Array.isArray(items) ? items : []).map((item) => {
+        const matchedProduct = findProductForCartItem(item);
+        const normalizedPrice = matchedProduct
+            ? getSalePrice(matchedProduct.price)
+            : (Number(item.price) || 0);
+
+        return {
+            ...item,
+            price: normalizedPrice
+        };
+    });
+}
+
+cart = normalizeCartSalePrices(cart);
 
 cart = cart.filter((item) => validProductIds.has(item.id));
 wishlist = wishlist.filter((item) => validProductIds.has(item.id));
@@ -4082,14 +4263,15 @@ function renderProducts() {
     let productsHTML = '';
 
     const featuredOrder = {
-        'oversized-wavy-grid-tshirt': 1,
-        'black-socrates-hoodie': 2,
-        'not-for-everyone-hoodie': 3,
-        'borough-oversized-tshirt': 4,
-        'cropped-fleece-hoodie': 5,
-        'classic-quarter-zip': 6,
-        'varsity-jacket': 7,
-        'loose-fit-cotton-shorts': 8
+        'vintage-crewneck': 1,
+        'oversized-wavy-grid-tshirt': 2,
+        'black-socrates-hoodie': 3,
+        'not-for-everyone-hoodie': 4,
+        'borough-oversized-tshirt': 5,
+        'cropped-fleece-hoodie': 6,
+        'classic-quarter-zip': 7,
+        'varsity-jacket': 8,
+        'loose-fit-cotton-shorts': 9
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -4107,6 +4289,8 @@ function renderProducts() {
 
     paginatedProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
+        const originalPrice = Number(product.price) || 0;
+        const salePrice = getSalePrice(originalPrice);
         // Check for low stock (less than 3 items in any size)
         const lowStockSizes = Object.keys(product.stock).filter(size => product.stock[size] > 0 && product.stock[size] < 3);
         const stockBadge = lowStockSizes.length > 0 ? `<div class="stock-badge">Only ${lowStockSizes.map(size => product.stock[size] + ' ' + size).join(', ')} left!</div>` : '';
@@ -4132,7 +4316,7 @@ function renderProducts() {
             productBadges = '<div class="product-badge premium">Premium Fabric</div>';
         } else if (product.id === 2) {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
-        } else if (product.productId === 'oversized-wavy-grid-tshirt') {
+        } else if (product.productId === 'vintage-crewneck') {
             productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'black-socrates-hoodie') {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
@@ -4153,7 +4337,10 @@ function renderProducts() {
                 <div class="product-info">
                     <div class="product-category">${product.category}</div>
                     <h3>${getProductCardTitle(product)}</h3>
-                    <div class="product-price">$${product.price.toFixed(0)}</div>
+                    <div class="product-price-row">
+                        <div class="product-price">$${salePrice.toFixed(0)}</div>
+                        <div class="product-price-old">$${originalPrice.toFixed(0)}</div>
+                    </div>
                     
                     <!-- Color Options -->
                     <div class="color-options">
@@ -4175,7 +4362,7 @@ function renderProducts() {
                     </div>
                     
                     <div class="product-actions">
-                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${product.price}, '${currentImage1}')">
+                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${salePrice}, '${currentImage1}')">
                             Add to Cart
                         </button>
                     </div>
@@ -4261,6 +4448,7 @@ function selectSize(element, productId, size) {
 // Add to Cart
 function addToCart(id, name, price, image) {
     const product = productsData.find(p => p.id === id) || {};
+    const salePrice = getSalePrice(price);
 
     // Card view has no size selector. Default to first in-stock size.
     let selectedSize = product.selectedSize;
@@ -4294,7 +4482,7 @@ function addToCart(id, name, price, image) {
             id,
             productId: selectedProductId,
             name,
-            price,
+            price: salePrice,
             quantity: 1,
             image,
             freeShipping: !!product.freeShipping,
@@ -4381,13 +4569,15 @@ function updateWishlistDisplay() {
 
     let wishlistItemsHTML = '';
     wishlist.forEach((item, index) => {
+        const wishlistOriginalPrice = Number(item.price) || 0;
+        const wishlistSalePrice = getSalePrice(wishlistOriginalPrice);
         const wishlistItemHTML = `
             <div class="wishlist-item">
                 <img src="${item.image1}" class="wishlist-item-image" alt="${item.name}">
                 <div class="wishlist-item-details">
                     <div class="wishlist-item-name">${item.name}</div>
-                    <div class="wishlist-item-price">$${item.price.toFixed(0)}</div>
-                    <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.image1}'); toggleWishlist();">
+                    <div class="wishlist-item-price">$${wishlistSalePrice.toFixed(0)} <span class="product-price-old">$${wishlistOriginalPrice.toFixed(0)}</span></div>
+                    <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${wishlistSalePrice}, '${item.image1}'); toggleWishlist();">
                         Add to Cart
                     </button>
                     <button class="remove-btn" style="width: 100%; margin-top: 5px;" onclick="removeFromWishlist(${index})">Remove</button>
@@ -5171,6 +5361,14 @@ function toggleFAQ(element) {
     
     // Add smooth transition
     content.style.transition = 'max-height 0.3s ease, padding 0.3s ease';
+}
+
+function toggleFooterContactInfo(event) {
+    if (event) event.preventDefault();
+    const info = document.getElementById('footer-contact-info');
+    if (!info) return;
+
+    info.style.display = info.style.display === 'none' ? 'block' : 'none';
 }
 
 // Check if admin mode

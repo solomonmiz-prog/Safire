@@ -6,7 +6,10 @@ const products = [
         description: "100% cotton oversized t shirt",
         images: [
             "images/skyblueoverwavyfront.png",
-            "images/skyblueoverwavyback.png"
+            "images/skyblueoverwavyback.png",
+            "images/modelpage1wavygrid.png",
+            "images/wavygridmodelpage2.png",
+            "images/modelai%231.png"
         ],
         colorways: [
             {
@@ -14,7 +17,10 @@ const products = [
                 hex: "#111111",
                 images: [
                     "images/blackoverwavyfront.png",
-                    "images/blackoverwavyback.png"
+                    "images/blackoverwavyback.png",
+                    "images/modelpage1wavygrid.png",
+                    "images/wavygridmodelpage2.png",
+                    "images/modelai%231.png"
                 ]
             },
             {
@@ -22,7 +28,10 @@ const products = [
                 hex: "#F5F5F5",
                 images: [
                     "images/whiteoverwavyfront.png",
-                    "images/whiteoverwavyback.png"
+                    "images/whiteoverwavyback.png",
+                    "images/modelpage1wavygrid.png",
+                    "images/wavygridmodelpage2.png",
+                    "images/modelai%231.png"
                 ]
             },
             {
@@ -30,7 +39,10 @@ const products = [
                 hex: "#6F4E37",
                 images: [
                     "images/coffeeoverwavyfront.png",
-                    "images/coffeeoverwavyback.png"
+                    "images/coffeeoverwavyback.png",
+                    "images/modelpage1wavygrid.png",
+                    "images/wavygridmodelpage2.png",
+                    "images/modelai%231.png"
                 ]
             },
             {
@@ -38,7 +50,10 @@ const products = [
                 hex: "#1F3864",
                 images: [
                     "images/navyblueoverwavyfront.png",
-                    "images/navyblueoverwavyback.png"
+                    "images/navyblueoverwavyback.png",
+                    "images/modelpage1wavygrid.png",
+                    "images/wavygridmodelpage2.png",
+                    "images/modelai%231.png"
                 ]
             },
             {
@@ -46,7 +61,10 @@ const products = [
                 hex: "#87CEEB",
                 images: [
                     "images/skyblueoverwavyfront.png",
-                    "images/skyblueoverwavyback.png"
+                    "images/skyblueoverwavyback.png",
+                    "images/modelpage1wavygrid.png",
+                    "images/wavygridmodelpage2.png",
+                    "images/modelai%231.png"
                 ]
             }
         ],
@@ -63,7 +81,9 @@ const products = [
         description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
         images: [
             "images/blacksocratesfront.png",
-            "images/blackbacksocrates.png"
+            "images/blackbacksocrates.png",
+            "images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG",
+            "images/herosection2movement.png"
         ],
         colorways: [
             {
@@ -71,7 +91,9 @@ const products = [
                 hex: "#111111",
                 images: [
                     "images/blacksocratesfront.png",
-                    "images/blackbacksocrates.png"
+                    "images/blackbacksocrates.png",
+                    "images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG",
+                    "images/herosection2movement.png"
                 ]
             },
             {
@@ -79,7 +101,9 @@ const products = [
                 hex: "#4F6E66",
                 images: [
                     "images/greensocratesfront.png",
-                    "images/greensocratesback.png"
+                    "images/greensocratesback.png",
+                    "images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG",
+                    "images/herosection2movement.png"
                 ]
             },
             {
@@ -87,7 +111,9 @@ const products = [
                 hex: "#8B8C82",
                 images: [
                     "images/greysocratesfront.png",
-                    "images/greysocratesback.png"
+                    "images/greysocratesback.png",
+                    "images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG",
+                    "images/herosection2movement.png"
                 ]
             },
             {
@@ -95,7 +121,9 @@ const products = [
                 hex: "#5E6480",
                 images: [
                     "images/navysocratesfront.png",
-                    "images/navysocratesback.png"
+                    "images/navysocratesback.png",
+                    "images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG",
+                    "images/herosection2movement.png"
                 ]
             },
             {
@@ -103,7 +131,9 @@ const products = [
                 hex: "#B68E68",
                 images: [
                     "images/brownsocratesfront.png",
-                    "images/brownsocratesback.png"
+                    "images/brownsocratesback.png",
+                    "images/D903B3FF-3B93-4F56-B874-256C9ED6DD71.PNG",
+                    "images/herosection2movement.png"
                 ]
             }
         ],
@@ -196,6 +226,63 @@ const products = [
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
+        id: "vintage-crewneck",
+        name: "Vintage",
+        price: 60,
+        description: "Classic heavyweight crewneck designed for layering or standalone wear in coordinated essential outfits.",
+        images: [
+            "images/vintagecrewneckapricotfront.png",
+            "images/vintagecrewneckapricotback.png"
+        ],
+        colorways: [
+            {
+                name: "Apricot",
+                hex: "#E6C5A8",
+                images: [
+                    "images/vintagecrewneckapricotfront.png",
+                    "images/vintagecrewneckapricotback.png"
+                ]
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/vintagecrewneckblackfront.png",
+                    "images/vintagecrewneckblackback.png"
+                ]
+            },
+            {
+                name: "Coffee",
+                hex: "#6F4E37",
+                images: [
+                    "images/vintagecrewneckcoffeefront.png",
+                    "images/vintagecrewneckcoffee.png"
+                ]
+            },
+            {
+                name: "Dark Grey",
+                hex: "#4B4B4B",
+                images: [
+                    "images/vintagecrewneckdarkgreyfront.png",
+                    "images/vintagecrewneckdarkgreyback.png"
+                ]
+            },
+            {
+                name: "Retro Green",
+                hex: "#5E6F58",
+                images: [
+                    "images/vintagecrewneckretrogreenfront.png",
+                    "images/vintagecrewneckretrogreenback.png"
+                ]
+            }
+        ],
+        sizes: ["XXS", "XS", "S", "M", "L"],
+        freeShipping: true,
+        details: "This classic crewneck sweatshirt features the same heavyweight 100% cotton construction as the rest of the collection, designed to pair seamlessly with the RK0035 pants. The versatile design serves as an ideal layering piece or standalone top. A foundational item for brands building coordinated essential outfits.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRW0045-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\n100% cotton\n\nFabric Weight\n530 gsm (15.6 oz)\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
         id: "not-for-everyone-hoodie",
         name: "Not For Everyone Hoodie",
         price: 60,
@@ -227,7 +314,9 @@ const products = [
         description: "Minimal quarter zip built with premium structure and an everyday luxury finish.",
         images: [
             "images/grayqzipfront.png",
-            "images/grayqzipback.png"
+            "images/grayqzipback.png",
+            "images/modelimage1qzip.png",
+            "images/modelimage2qzip.png"
         ],
         colorways: [
             {
@@ -235,7 +324,9 @@ const products = [
                 hex: "#808080",
                 images: [
                     "images/grayqzipfront.png",
-                    "images/grayqzipback.png"
+                    "images/grayqzipback.png",
+                    "images/modelimage1qzip.png",
+                    "images/modelimage2qzip.png"
                 ]
             },
             {
@@ -243,7 +334,9 @@ const products = [
                 hex: "#111111",
                 images: [
                     "images/blackqzipfront.png",
-                    "images/blackqzipback.png"
+                    "images/blackqzipback.png",
+                    "images/modelimage1qzip.png",
+                    "images/modelimage2qzip.png"
                 ]
             },
             {
@@ -251,7 +344,9 @@ const products = [
                 hex: "#F5F5DC",
                 images: [
                     "images/creamqzipfront.png",
-                    "images/creamqzipback.png"
+                    "images/creamqzipback.png",
+                    "images/modelimage1qzip.png",
+                    "images/modelimage2qzip.png"
                 ]
             }
         ],
@@ -398,9 +493,10 @@ const stripePrices = {
     "classic-quarter-zip": "price_1T9yqp9S93tBM5OX9uorrP1S",
     "varsity-jacket": "price_1T9ytB9S93tBM5OXJmSgGvri",
     "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
-    "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
-    "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
-    "not-for-everyone-hoodie": "price_1TYzPh9S93tBM5OXiV6SZO7H",
-    "loose-fit-cotton-shorts": "price_1TO2z49S93tBM5OXO6Cu8sJg",
-    "oversized-wavy-grid-tshirt": "price_1TQy3K9S93tBM5OXoDIMBmZM"
+    "borough-oversized-tshirt": "price_1TcWCr9S93tBM5OXIdgtpFMB",
+    "borough-oversized-t-shirt": "price_1TcWCr9S93tBM5OXIdgtpFMB",
+    "vintage-crewneck": "price_1TcXG29S93tBM5OXYSdZrisE",
+    "not-for-everyone-hoodie": "price_1TcWDx9S93tBM5OX4PfYhD5x",
+    "loose-fit-cotton-shorts": "price_1TcWud9S93tBM5OXvZdhmVz5",
+    "oversized-wavy-grid-tshirt": "price_1TcWB99S93tBM5OXzL2nuQu8"
 };

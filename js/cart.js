@@ -6,6 +6,12 @@ function normalizeCartColor(value) {
     return normalizeCartValue(value).split('/')[0].trim().replace(/\s+/g, '-');
 }
 
+const SITEWIDE_SALE_OFF = 10;
+
+function getSalePrice(value) {
+    return Math.max(0, (Number(value) || 0) - SITEWIDE_SALE_OFF);
+}
+
 function formatCartColorLabel(value) {
     const normalized = normalizeCartColor(value);
     if (!normalized || normalized === 'default') return 'Default';
@@ -38,14 +44,22 @@ function getCart() {
         if (!Array.isArray(parsed)) return [];
 
         const sanitizedCart = parsed
-            .map((item) => ({
-                productId: normalizeCartValue(item.productId),
-                name: item.name,
-                color: normalizeCartColor(item.color),
-                size: normalizeCartValue(item.size),
-                price: Number(item.price) || 0,
-                quantity: Math.max(1, Number(item.quantity) || 1)
-            }))
+            .map((item) => {
+                const normalizedProductId = normalizeCartValue(item.productId || item.id);
+                const matchedProduct = getProductById(normalizedProductId);
+                const normalizedPrice = matchedProduct
+                    ? getSalePrice(Number(matchedProduct.price) || 0)
+                    : (Number(item.price) || 0);
+
+                return {
+                    productId: normalizedProductId,
+                    name: item.name,
+                    color: normalizeCartColor(item.color),
+                    size: normalizeCartValue(item.size),
+                    price: normalizedPrice,
+                    quantity: Math.max(1, Number(item.quantity) || 1)
+                };
+            })
             .filter((item) => getProductById(item.productId));
 
         if (sanitizedCart.length !== parsed.length) {
@@ -101,13 +115,14 @@ function updateCartCount() {
 
 function addToCart(item) {
     const cart = getCart();
+    const salePrice = getSalePrice(item.price);
 
     const normalizedItem = {
         productId: normalizeCartValue(item.productId),
         name: item.name,
         color: normalizeCartColor(item.color),
         size: normalizeCartValue(item.size),
-        price: Number(item.price) || 0,
+        price: salePrice,
         quantity: 1
     };
 
