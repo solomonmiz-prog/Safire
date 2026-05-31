@@ -262,6 +262,7 @@
             padding: 80px 64px 40px;
             position: relative;
             overflow: hidden;
+            touch-action: pan-y;
         }
 
         .hero-bg-carousel {
@@ -277,6 +278,7 @@
             height: 100%;
             transform: translateX(0);
             transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
         }
 
         .hero-bg-slide {
@@ -321,6 +323,10 @@
             max-width: 480px;
             position: relative;
             z-index: 1;
+        }
+
+        .hero.is-dragging .hero-bg-track {
+            transition: none;
         }
 
         .hero-eyebrow {
@@ -1049,6 +1055,7 @@
             width: 100%;
             height: 100%;
             touch-action: pan-y;
+            overflow: hidden;
         }
 
         .image-swap img {
@@ -1061,8 +1068,18 @@
             object-fit: cover;
             object-position: center;
             display: block;
-            transition: transform 0.35s ease;
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
             transform: translateX(100%);
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .image-swap.swiping img {
+            transition: none;
+        }
+
+        .image-swap.swipe-animate img {
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .product-image-container:hover .image-swap img {
@@ -3836,6 +3853,81 @@ const productsData = [
         ]
     },
     {
+        id: 12,
+        productId: "mesh-drawstring-shorts",
+        name: "Mesh Drawstring Shorts",
+        category: "bottoms",
+        gender: "unisex",
+        price: 40,
+        image1: "images/meshshortsblackfront.png",
+        image2: "images/meshshortsblackback.png",
+        description: "Performance mesh shorts with dual-layer breathability and an adjustable drawstring waist.",
+        details: "These performance shorts feature a functional dual-layer mesh construction and a drawstring waist for optimal breathability and comfort during activity. Made from 100% polyester for moisture-wicking. An essential piece for athleisure and sportswear collections, ideal for warm-weather training or casual wear.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRK0044-P001-V3\n\nGender\nUnisex\n\nEffects\nDrawstring / Pocket\n\nFit\nLoose\n\nSeason\nSummer\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n100% polyester\n\nFabric Weight\n145 gsm (4.3 oz)\n\nBreathability\nHigh",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "RK0044-P001-V3",
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10, "3XL": 10 },
+        colors: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/meshshortsblackfront.png",
+                    back: "images/meshshortsblackback.png"
+                }
+            },
+            {
+                name: "Brown",
+                hex: "#6E4A3B",
+                images: {
+                    front: "images/meshshortsbrownfront.png",
+                    back: "images/meshshortsbrownback.png"
+                }
+            },
+            {
+                name: "Colorful Blue",
+                hex: "#3E6FB2",
+                images: {
+                    front: "images/meshshortscolorfulbluefront.png",
+                    back: "images/meshshortscolorfulblueback.png"
+                }
+            },
+            {
+                name: "Grey",
+                hex: "#8E8E8E",
+                images: {
+                    front: "images/meshshortsgreyfront.png",
+                    back: "images/meshshortsgreyback.png"
+                }
+            },
+            {
+                name: "Purple",
+                hex: "#6B4A9E",
+                images: {
+                    front: "images/meshshortspurplefront.png",
+                    back: "images/meshshortspurpleback.png"
+                }
+            },
+            {
+                name: "Sky Blue",
+                hex: "#6EBBEA",
+                images: {
+                    front: "images/meshshortsskybluefront.png",
+                    back: "images/meshshortsskyblueback.png"
+                }
+            },
+            {
+                name: "Army Green",
+                hex: "#5F6B46",
+                images: {
+                    front: "images/meshshortsarmygreenfront.png",
+                    back: "images/messhortsarmygreenback.png"
+                }
+            }
+        ]
+    },
+    {
         id: 7,
         productId: "borough-oversized-tshirt",
         name: "Borough Oversized T-Shirt",
@@ -3996,7 +4088,42 @@ const productsData = [
         careInstructions: "Machine wash at 30°C (gentle cycle)",
         freeShipping: true,
         sku: "SOC-HOODIE-001",
-        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [27.56, 28.35, 29.13, 29.92, 30.71],
+                chest: [25.98, 26.77, 27.56, 28.35, 29.13],
+                shoulder: [24.80, 25.59, 26.38, 27.17, 27.95],
+                sleeveLength: [21.06, 21.46, 21.85, 22.24, 22.64]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [70, 72, 74, 76, 78],
+                chest: [66, 68, 70, 72, 74],
+                shoulder: [63, 65, 67, 69, 71],
+                sleeveLength: [53.5, 54.5, 55.5, 56.5, 57.5]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
         colors: [
             {
                 name: "Black",
@@ -4251,6 +4378,7 @@ function getProductCardTitle(product) {
 
     if (productId === 'oversized-wavy-grid-tshirt') return 'Wavy Grid';
     if (productId === 'loose-fit-cotton-shorts') return 'Cotton Shorts';
+    if (productId === 'mesh-drawstring-shorts') return 'Mesh Shorts';
     if (productId === 'borough-oversized-tshirt') return 'Oversized Borough';
 
     return product && product.name ? product.name : '';
@@ -4263,15 +4391,16 @@ function renderProducts() {
     let productsHTML = '';
 
     const featuredOrder = {
-        'vintage-crewneck': 1,
-        'oversized-wavy-grid-tshirt': 2,
+        'mesh-drawstring-shorts': 1,
+        'vintage-crewneck': 2,
         'black-socrates-hoodie': 3,
-        'not-for-everyone-hoodie': 4,
-        'borough-oversized-tshirt': 5,
-        'cropped-fleece-hoodie': 6,
-        'classic-quarter-zip': 7,
-        'varsity-jacket': 8,
-        'loose-fit-cotton-shorts': 9
+        'oversized-wavy-grid-tshirt': 4,
+        'not-for-everyone-hoodie': 5,
+        'borough-oversized-tshirt': 6,
+        'cropped-fleece-hoodie': 7,
+        'classic-quarter-zip': 8,
+        'varsity-jacket': 9,
+        'loose-fit-cotton-shorts': 10
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -4320,6 +4449,8 @@ function renderProducts() {
             productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'black-socrates-hoodie') {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
+        } else if (product.productId === 'mesh-drawstring-shorts') {
+            productBadges = '<div class="product-badge bestseller">NEW</div>';
         }
 
         const productHTML = `
@@ -4327,9 +4458,9 @@ function renderProducts() {
                 <div class="product-image-container">
                     ${productBadges}
                     ${stockBadge}
-                   <div class="image-swap" ontouchstart="handleCardTouchStart(event, this)" ontouchmove="handleCardTouchMove(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2 || ''}')" onclick="handleCardImageClick(event, this)">
-                        <img src="${currentImage1}" alt="${product.name} front" loading="lazy">
-                        ${hasSecond ? `<img src="${currentImage2}" alt="${product.name} back" loading="lazy">` : ''}
+                   <div class="image-swap" ontouchstart="handleCardTouchStart(event, this)" ontouchmove="handleCardTouchMove(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2 || ''}')" onpointerdown="handleCardPointerDown(event, this)" onpointermove="handleCardPointerMove(event, this)" onpointerup="handleCardPointerUp(event, this, '${currentImage1}', '${currentImage2 || ''}')" onpointercancel="handleCardPointerCancel(event, this)" onclick="handleCardImageClick(event, this)">
+                        <img src="${currentImage1}" alt="${product.name} front" loading="lazy" draggable="false">
+                        ${hasSecond ? `<img src="${currentImage2}" alt="${product.name} back" loading="lazy" draggable="false">` : ''}
                         ${hasSecond ? '<div class="image-slider-indicator"><span class="indicator-segment active"></span><span class="indicator-segment"></span></div>' : ''}
                         <button class="wishlist-btn ${isInWishlist ? 'active' : ''}" onclick="toggleProductWishlist(event, ${product.id})" title="Add to Wishlist"><svg class="wishlist-heart" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L4.22 13.45 12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78Z"></path></svg></button>
                     </div>
@@ -5422,53 +5553,166 @@ function setCardImageSide(container, showBack) {
     }
 }
 
-function handleCardTouchStart(event, container) {
-    const touch = event.changedTouches && event.changedTouches[0];
-    if (!touch || !container) return;
-    container.dataset.touchStartX = String(touch.clientX);
-    container.dataset.touchStartY = String(touch.clientY);
+function updateCardSwipeProgress(container, dragPercent) {
+    if (!container) return;
+    const images = container.querySelectorAll('img');
+    if (images.length < 2) return;
+
+    const showBack = container.classList.contains('active');
+    const baseFirst = showBack ? -100 : 0;
+    const baseSecond = showBack ? 0 : 100;
+
+    images[0].style.transform = `translateX(${baseFirst + dragPercent}%)`;
+    images[1].style.transform = `translateX(${baseSecond + dragPercent}%)`;
+}
+
+function clearCardSwipeProgress(container) {
+    if (!container) return;
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+        img.style.transform = '';
+    });
+}
+
+function beginCardSwipe(container, clientX, clientY) {
+    if (!container) return;
+    container.dataset.touchStartX = String(clientX);
+    container.dataset.touchStartY = String(clientY);
     container.dataset.touchMoved = '0';
+    container.dataset.swipeAxisLocked = '0';
+    container.dataset.swipeHorizontal = '0';
+}
+
+function moveCardSwipe(event, container, clientX, clientY) {
+    if (!container) return;
+    if (!container.dataset.touchStartX) return;
+    const startX = Number(container.dataset.touchStartX || 0);
+    const startY = Number(container.dataset.touchStartY || 0);
+
+    const deltaX = clientX - startX;
+    const deltaY = clientY - startY;
+
+    if (container.dataset.swipeAxisLocked !== '1' && (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8)) {
+        container.dataset.swipeAxisLocked = '1';
+        container.dataset.swipeHorizontal = Math.abs(deltaX) > Math.abs(deltaY) ? '1' : '0';
+    }
+
+    const isHorizontal = container.dataset.swipeHorizontal === '1';
+    if (!isHorizontal) return;
+
+    container.dataset.touchMoved = '1';
+    container.classList.add('swiping');
+    container.classList.remove('swipe-animate');
+
+    const width = Math.max(container.clientWidth || 1, 1);
+    const dragPercent = Math.max(-45, Math.min(45, (deltaX / width) * 100));
+    updateCardSwipeProgress(container, dragPercent);
+
+    if (event.cancelable) event.preventDefault();
+}
+
+function endCardSwipe(event, container, clientX, clientY, img1, img2) {
+    if (!img2 || !container) return;
+    if (!container.dataset.touchStartX) return;
+
+    const startX = Number(container.dataset.touchStartX || 0);
+    const startY = Number(container.dataset.touchStartY || 0);
+
+    const deltaX = clientX - startX;
+    const deltaY = clientY - startY;
+    const isHorizontalSwipe = Math.abs(deltaX) > 30 && Math.abs(deltaX) > Math.abs(deltaY);
+
+    container.classList.remove('swiping');
+    container.classList.add('swipe-animate');
+
+    if (isHorizontalSwipe) {
+        const swipedLeft = deltaX < 0;
+        setCardImageSide(container, swipedLeft);
+
+        container.dataset.didSwipe = '1';
+        window.setTimeout(() => {
+            if (container.dataset.didSwipe === '1') {
+                container.dataset.didSwipe = '0';
+            }
+        }, 650);
+
+        if (event.cancelable) event.preventDefault();
+        event.stopPropagation();
+    }
+
+    clearCardSwipeProgress(container);
+
+    window.setTimeout(() => {
+        container.classList.remove('swipe-animate');
+    }, 340);
+}
+
+function handleCardTouchStart(event, container) {
+    const touch = event.touches && event.touches[0];
+    if (!touch || !container) return;
+    beginCardSwipe(container, touch.clientX, touch.clientY);
 }
 
 function handleCardTouchMove(event, container) {
-    const touch = event.changedTouches && event.changedTouches[0];
+    const touch = event.touches && event.touches[0];
     if (!touch || !container) return;
-    const startX = Number(container.dataset.touchStartX || 0);
-    const startY = Number(container.dataset.touchStartY || 0);
-    const deltaX = touch.clientX - startX;
-    const deltaY = touch.clientY - startY;
-
-    if (Math.abs(deltaX) > 12 && Math.abs(deltaX) > Math.abs(deltaY)) {
-        container.dataset.touchMoved = '1';
-    }
+    moveCardSwipe(event, container, touch.clientX, touch.clientY);
 }
 
 function handleCardTouchEnd(event, container, img1, img2) {
-    if (!img2 || !container) return;
-
     const touch = event.changedTouches && event.changedTouches[0];
     if (!touch) return;
+    endCardSwipe(event, container, touch.clientX, touch.clientY, img1, img2);
+}
 
-    const startX = Number(container.dataset.touchStartX || 0);
-    const startY = Number(container.dataset.touchStartY || 0);
-    const deltaX = touch.clientX - startX;
-    const deltaY = touch.clientY - startY;
-
-    const isHorizontalSwipe = Math.abs(deltaX) > 30 && Math.abs(deltaX) > Math.abs(deltaY);
-    if (!isHorizontalSwipe) return;
-
-    const swipedLeft = deltaX < 0;
-    setCardImageSide(container, swipedLeft);
-
-    container.dataset.didSwipe = '1';
-    window.setTimeout(() => {
-        if (container.dataset.didSwipe === '1') {
-            container.dataset.didSwipe = '0';
+function handleCardPointerDown(event, container) {
+    if (!container) return;
+    if (event.pointerType === 'mouse' && event.button !== 0) return;
+    container.dataset.pointerId = String(event.pointerId);
+    if (typeof container.setPointerCapture === 'function') {
+        try {
+            container.setPointerCapture(event.pointerId);
+        } catch (_) {
+            // Ignore pointer capture errors on unsupported browsers.
         }
-    }, 650);
+    }
+    beginCardSwipe(container, event.clientX, event.clientY);
+}
 
-    event.preventDefault();
-    event.stopPropagation();
+function handleCardPointerMove(event, container) {
+    if (!container) return;
+    if (container.dataset.pointerId !== String(event.pointerId)) return;
+    moveCardSwipe(event, container, event.clientX, event.clientY);
+}
+
+function handleCardPointerUp(event, container, img1, img2) {
+    if (!container) return;
+    if (container.dataset.pointerId !== String(event.pointerId)) return;
+    endCardSwipe(event, container, event.clientX, event.clientY, img1, img2);
+    if (typeof container.releasePointerCapture === 'function') {
+        try {
+            container.releasePointerCapture(event.pointerId);
+        } catch (_) {
+            // Ignore pointer capture errors on unsupported browsers.
+        }
+    }
+    container.dataset.pointerId = '';
+}
+
+function handleCardPointerCancel(event, container) {
+    if (!container) return;
+    if (container.dataset.pointerId !== String(event.pointerId)) return;
+    container.classList.remove('swiping');
+    container.classList.remove('swipe-animate');
+    clearCardSwipeProgress(container);
+    if (typeof container.releasePointerCapture === 'function') {
+        try {
+            container.releasePointerCapture(event.pointerId);
+        } catch (_) {
+            // Ignore pointer capture errors on unsupported browsers.
+        }
+    }
+    container.dataset.pointerId = '';
 }
 
 function handleCardImageClick(event, container) {
@@ -5611,8 +5855,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let visualIndex = 0;
     let timerId = null;
     let resetId = null;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragCurrentX = 0;
+    let isDragging = false;
+    let isHorizontalDrag = false;
+    let activePointerId = null;
     const intervalMs = 8000;
     const transitionMs = 900;
+    const swipeThresholdPx = 42;
 
     function setTrackPosition(index, instant) {
         if (instant) {
@@ -5631,6 +5882,13 @@ document.addEventListener('DOMContentLoaded', function() {
         lines.forEach((line, i) => line.classList.toggle('active', i === activeIndex));
     }
 
+    function normalizeFromLoopClone() {
+        if (visualIndex !== slideCount) return;
+        visualIndex = 0;
+        setTrackPosition(visualIndex, true);
+        setTrackPosition(visualIndex, false);
+    }
+
     function clearReset() {
         if (resetId) {
             clearTimeout(resetId);
@@ -5639,6 +5897,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function goToNext() {
+        normalizeFromLoopClone();
         visualIndex += 1;
         activeIndex = (activeIndex + 1) % slideCount;
         setTrackPosition(visualIndex, false);
@@ -5656,6 +5915,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function goToIndex(index) {
         clearReset();
+        normalizeFromLoopClone();
         activeIndex = ((index % slideCount) + slideCount) % slideCount;
         visualIndex = activeIndex;
         setTrackPosition(visualIndex, false);
@@ -5664,6 +5924,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function start() {
         stop();
+        normalizeFromLoopClone();
         timerId = setInterval(() => {
             goToNext();
         }, intervalMs);
@@ -5677,12 +5938,141 @@ document.addEventListener('DOMContentLoaded', function() {
         clearReset();
     }
 
+    function getEventPoint(event) {
+        if (event.touches && event.touches[0]) {
+            return { x: event.touches[0].clientX, y: event.touches[0].clientY };
+        }
+        if (event.changedTouches && event.changedTouches[0]) {
+            return { x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY };
+        }
+        if (typeof event.clientX === 'number' && typeof event.clientY === 'number') {
+            return { x: event.clientX, y: event.clientY };
+        }
+        return null;
+    }
+
+    function beginDrag(event) {
+        const point = getEventPoint(event);
+        if (!point) return;
+
+        normalizeFromLoopClone();
+        stop();
+        isDragging = true;
+        isHorizontalDrag = false;
+        dragStartX = point.x;
+        dragStartY = point.y;
+        dragCurrentX = point.x;
+        hero.classList.add('is-dragging');
+    }
+
+    function moveDrag(event) {
+        if (!isDragging) return;
+        const point = getEventPoint(event);
+        if (!point) return;
+
+        const deltaX = point.x - dragStartX;
+        const deltaY = point.y - dragStartY;
+        dragCurrentX = point.x;
+
+        if (!isHorizontalDrag && (Math.abs(deltaX) > 8 || Math.abs(deltaY) > 8)) {
+            isHorizontalDrag = Math.abs(deltaX) > Math.abs(deltaY);
+        }
+
+        if (!isHorizontalDrag) return;
+
+        const width = Math.max(hero.clientWidth || 1, 1);
+        const dragPercent = Math.max(-24, Math.min(24, (deltaX / width) * 100));
+        track.style.transform = `translateX(calc(-${visualIndex * 100}% + ${dragPercent}%))`;
+
+        if (event.cancelable) event.preventDefault();
+    }
+
+    function endDrag() {
+        if (!isDragging) return;
+
+        const deltaX = dragCurrentX - dragStartX;
+        const shouldSwipe = isHorizontalDrag && Math.abs(deltaX) > swipeThresholdPx;
+
+        isDragging = false;
+        isHorizontalDrag = false;
+        hero.classList.remove('is-dragging');
+
+        if (shouldSwipe) {
+            if (deltaX < 0) {
+                goToNext();
+            } else {
+                goToIndex(activeIndex - 1);
+            }
+        } else {
+            setTrackPosition(visualIndex, false);
+        }
+
+        start();
+    }
+
     lines.forEach((line) => {
         line.addEventListener('click', () => {
             const nextIndex = Number(line.dataset.slide || 0);
             goToIndex(nextIndex);
             start();
         });
+    });
+
+    hero.addEventListener('touchstart', (event) => {
+        if (event.touches && event.touches.length > 1) return;
+        beginDrag(event);
+    }, { passive: true });
+
+    hero.addEventListener('touchmove', (event) => {
+        moveDrag(event);
+    }, { passive: false });
+
+    hero.addEventListener('touchend', () => {
+        endDrag();
+    }, { passive: true });
+
+    hero.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        activePointerId = event.pointerId;
+        if (typeof hero.setPointerCapture === 'function') {
+            try {
+                hero.setPointerCapture(event.pointerId);
+            } catch (_) {
+                // Ignore pointer capture errors on unsupported browsers.
+            }
+        }
+        beginDrag(event);
+    });
+
+    hero.addEventListener('pointermove', (event) => {
+        if (activePointerId !== event.pointerId) return;
+        moveDrag(event);
+    });
+
+    hero.addEventListener('pointerup', (event) => {
+        if (activePointerId !== event.pointerId) return;
+        if (typeof hero.releasePointerCapture === 'function') {
+            try {
+                hero.releasePointerCapture(event.pointerId);
+            } catch (_) {
+                // Ignore pointer capture errors on unsupported browsers.
+            }
+        }
+        activePointerId = null;
+        endDrag();
+    });
+
+    hero.addEventListener('pointercancel', (event) => {
+        if (activePointerId !== event.pointerId) return;
+        if (typeof hero.releasePointerCapture === 'function') {
+            try {
+                hero.releasePointerCapture(event.pointerId);
+            } catch (_) {
+                // Ignore pointer capture errors on unsupported browsers.
+            }
+        }
+        activePointerId = null;
+        endDrag();
     });
 
     document.addEventListener('visibilitychange', () => {

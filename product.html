@@ -21,7 +21,7 @@
         <section class="product-layout product" id="product-layout" hidden>
             <div class="media-stack">
                 <div class="main-image-wrap" id="main-image-wrap">
-                    <img id="main-image" src="" alt="Product image">
+                    <img id="main-image" src="" alt="Product image" draggable="false">
                     <div class="color-options-side" id="color-options"></div>
                 </div>
                 <div class="image-dots" id="image-dots"></div>
@@ -32,7 +32,10 @@
                 <h1 id="product-name"></h1>
                 <p class="price" id="product-price"></p>
                 <p class="desc" id="product-description"></p>
-                <p class="desc" id="selected-color-label" style="margin-top:-4px;font-weight:600;"></p>
+                <div id="product-meta-row" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:-4px;">
+                    <p class="desc" id="product-gender" style="margin:0;font-weight:600;"></p>
+                    <p class="desc" id="selected-color-label" style="margin:0;font-weight:600;"></p>
+                </div>
 
                 <div>
                     <p style="margin:0 0 8px;font-weight:700;">Select Size</p>
@@ -66,6 +69,10 @@
                         <summary>Fabric</summary>
                         <p id="fabric-text"></p>
                     </details>
+                    <details id="size-guide-details">
+                        <summary>Size Guide</summary>
+                        <div id="size-guide-text"></div>
+                    </details>
                 </div>
             </div>
         </section>
@@ -74,7 +81,7 @@
     </main>
 
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="js/products.js"></script>
+    <script src="js/products.js?v=20260531f"></script>
     <script src="js/cart.js"></script>
     <script>
         const params = new URLSearchParams(window.location.search);
@@ -145,10 +152,11 @@
                 return '';
             }
 
-            const sectionOrder = ['Note', 'Details', 'Model', 'Features', 'Care Instructions', 'Fabric'];
+            const sectionOrder = ['Note', 'Details', 'Gender', 'Model', 'Features', 'Care Instructions', 'Fabric'];
             const sections = {
                 Note: '',
                 Details: '',
+                Gender: '',
                 Model: '',
                 Features: '',
                 'Care Instructions': String(careText || '').trim(),
@@ -169,6 +177,11 @@
             const productCode = findValueForKey(allLines, 'Product Code');
             if (productCode) {
                 sections.Details += `Product Code: ${productCode}`;
+            }
+
+            const genderValue = findValueForKey(allLines, 'Gender');
+            if (genderValue) {
+                sections.Gender = genderValue;
             }
 
             const hasModelSignal = allLines.some((line) => normalizeKey(line) === 'model')
@@ -227,6 +240,127 @@
             }
         }
 
+        function setAccordionHTMLSection(contentId, html, shouldOpen = false) {
+            const contentElement = document.getElementById(contentId);
+            if (!contentElement) return;
+
+            const detailsElement = contentElement.closest('details');
+            const cleanedHTML = String(html || '').trim();
+
+            if (!cleanedHTML) {
+                contentElement.innerHTML = '';
+                if (detailsElement) detailsElement.hidden = true;
+                return;
+            }
+
+            contentElement.innerHTML = cleanedHTML;
+            if (detailsElement) {
+                detailsElement.hidden = false;
+                detailsElement.open = !!shouldOpen;
+            }
+        }
+
+        function setSizeGuideUnit(unit) {
+            const contentElement = document.getElementById('size-guide-text');
+            if (!contentElement) return;
+
+            const nextUnit = unit === 'centimeters' ? 'centimeters' : 'inches';
+            contentElement.dataset.activeUnit = nextUnit;
+
+            contentElement.querySelectorAll('[data-size-unit]').forEach((button) => {
+                const isActive = button.dataset.sizeUnit === nextUnit;
+                button.setAttribute('aria-selected', String(isActive));
+                button.classList.toggle('active', isActive);
+                button.style.color = isActive ? '#111' : '#777';
+                button.style.fontWeight = isActive ? '700' : '600';
+                button.style.borderBottomColor = isActive ? '#111' : 'transparent';
+            });
+
+            contentElement.querySelectorAll('[data-size-panel]').forEach((panel) => {
+                const isActive = panel.dataset.sizePanel === nextUnit;
+                panel.hidden = !isActive;
+            });
+        }
+
+        function buildSizeGuideHTML(sizeGuide) {
+            if (!sizeGuide) return '';
+
+            const section = (title, data, unitKey) => `
+                <div data-size-panel="${unitKey}" style="margin-top: 18px;" hidden>
+                    <h4 style="margin: 0 0 10px; font-size: 15px;">${title}</h4>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; min-width: 520px; font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left; padding: 10px 8px; border-bottom: 1px solid #ddd;">Size</th>
+                                    ${data.sizes.map((size) => `<th style="text-align: left; padding: 10px 8px; border-bottom: 1px solid #ddd;">${size}</th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${[
+                                    ['Length', 'length'],
+                                    ['Waist', 'waist'],
+                                    ['Hip', 'hip'],
+                                    ['Chest', 'chest'],
+                                    ['Shoulder', 'shoulder'],
+                                    ['Sleeve length', 'sleeveLength']
+                                ].filter(([, key]) => Array.isArray(data[key]))
+                                    .map(([label, key]) => `
+                                <tr>
+                                    <td style="padding: 10px 8px; border-bottom: 1px solid #eee; font-weight: 600;">${label}</td>
+                                    ${data[key].map((value) => `<td style="padding: 10px 8px; border-bottom: 1px solid #eee;">${value}</td>`).join('')}
+                                </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            const howToMeasure = `
+                <div style="margin-top: 18px;">
+                    <h4 style="margin: 0 0 10px; font-size: 15px;">How to Measure</h4>
+                    <div style="display: grid; gap: 10px; font-size: 13px; line-height: 1.6;">
+                        ${sizeGuide.howToMeasure.map((item, index) => `
+                            <div style="padding: 10px 12px; border: 1px solid #e4e4e4; border-radius: 8px;">
+                                <strong>${index + 1}. ${item.title}</strong>
+                                <div>${item.description}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            return `
+                <div style="display: grid; gap: 14px; color: var(--text-secondary);">
+                    <p style="margin: 0;">1-3 cm sizing differences may occur.</p>
+                    <div style="display: flex; gap: 18px; border-bottom: 1px solid #ddd; align-items: flex-end;">
+                        <button
+                            type="button"
+                            data-size-unit="inches"
+                            aria-selected="true"
+                            onclick="setSizeGuideUnit('inches')"
+                            style="appearance: none; background: transparent; border: 0; padding: 0 0 12px; margin: 0; font: inherit; font-weight: 700; color: #111; border-bottom: 2px solid #111; cursor: pointer;"
+                        >
+                            Inches
+                        </button>
+                        <button
+                            type="button"
+                            data-size-unit="centimeters"
+                            aria-selected="false"
+                            onclick="setSizeGuideUnit('centimeters')"
+                            style="appearance: none; background: transparent; border: 0; padding: 0 0 12px; margin: 0; font: inherit; font-weight: 700; color: #777; border-bottom: 2px solid transparent; cursor: pointer;"
+                        >
+                            Centimeters
+                        </button>
+                    </div>
+                    ${section('Inches', sizeGuide.inches, 'inches')}
+                    ${section('Centimeters', sizeGuide.centimeters, 'centimeters')}
+                    ${howToMeasure}
+                </div>
+            `;
+        }
+
         if (!product) {
             notFound.style.display = 'block';
         } else {
@@ -246,6 +380,19 @@
             setAccordionSection('features-text', parsedSections.Features);
             setAccordionSection('care-text', parsedSections['Care Instructions']);
             setAccordionSection('fabric-text', parsedSections.Fabric);
+            setAccordionHTMLSection('size-guide-text', buildSizeGuideHTML(product.sizeGuide));
+            setSizeGuideUnit('inches');
+
+            const genderText = parsedSections.Gender || product.gender || '';
+            const genderElement = document.getElementById('product-gender');
+            const productMetaRow = document.getElementById('product-meta-row');
+            if (genderElement) {
+                genderElement.textContent = genderText ? `Gender: ${genderText}` : '';
+                genderElement.hidden = !genderText;
+            }
+            if (productMetaRow) {
+                productMetaRow.hidden = !genderText && !product.colorways;
+            }
 
             const mainImage = document.getElementById('main-image');
             const thumbRow = document.getElementById('thumbnail-row');
@@ -253,9 +400,124 @@
             const selectedColorLabel = document.getElementById('selected-color-label');
 
             let activeImages = [...product.images];
+            let activeGalleryImages = [...activeImages];
             let currentImageIndex = 0;
             let selectedColorName = null;
             let selectedColorDisplayName = null;
+            const isMeshShortsProduct = product.id === 'mesh-drawstring-shorts';
+            const collageUrlCache = new Map();
+
+            function loadImageElement(src) {
+                return new Promise((resolve, reject) => {
+                    const image = new Image();
+                    image.onload = () => resolve(image);
+                    image.onerror = () => reject(new Error(`Failed to load ${src}`));
+                    image.src = src;
+                });
+            }
+
+            async function buildCollageFromSources(sources) {
+                const safeImages = (Array.isArray(sources) ? sources : []).slice(0, 4);
+                if (safeImages.length < 4) return null;
+
+                const cacheKey = safeImages.join('|');
+                if (collageUrlCache.has(cacheKey)) {
+                    return collageUrlCache.get(cacheKey);
+                }
+
+                try {
+                    const loaded = await Promise.all(safeImages.map((src) => loadImageElement(src)));
+                    const canvas = document.createElement('canvas');
+                    const size = 1200;
+                    const gap = 8;
+                    const cell = Math.floor((size - gap) / 2);
+                    canvas.width = size;
+                    canvas.height = size;
+
+                    const context = canvas.getContext('2d');
+                    if (!context) return null;
+
+                    context.fillStyle = '#ffffff';
+                    context.fillRect(0, 0, size, size);
+
+                    const positions = [
+                        { x: 0, y: 0 },
+                        { x: cell + gap, y: 0 },
+                        { x: 0, y: cell + gap },
+                        { x: cell + gap, y: cell + gap }
+                    ];
+
+                    loaded.forEach((image, index) => {
+                        const slot = positions[index];
+                        if (!slot) return;
+
+                        context.save();
+                        context.beginPath();
+                        context.rect(slot.x, slot.y, cell, cell);
+                        context.clip();
+
+                        const scale = Math.max(cell / image.width, cell / image.height);
+                        const drawWidth = image.width * scale;
+                        const drawHeight = image.height * scale;
+                        const drawX = slot.x + (cell - drawWidth) / 2;
+                        const drawY = slot.y + (cell - drawHeight) / 2;
+
+                        context.drawImage(image, drawX, drawY, drawWidth, drawHeight);
+                        context.restore();
+                    });
+
+                    context.strokeStyle = '#111111';
+                    context.lineWidth = 8;
+                    context.strokeRect(0, 0, size, size);
+
+                    return await new Promise((resolve) => {
+                        canvas.toBlob((blob) => {
+                            if (!blob) {
+                                resolve(null);
+                                return;
+                            }
+
+                            const objectUrl = URL.createObjectURL(blob);
+                            collageUrlCache.set(cacheKey, objectUrl);
+                            resolve(objectUrl);
+                        }, 'image/png');
+                    });
+                } catch (_error) {
+                    return null;
+                }
+            }
+
+            function getMeshFrontAndBack(images) {
+                const safeImages = Array.isArray(images) ? images : [];
+                if (safeImages.length >= 2) {
+                    return [safeImages[0], safeImages[1]];
+                }
+                return safeImages.slice(0, 2);
+            }
+
+            async function buildMeshFixedCollages() {
+                if (!isMeshShortsProduct) return [];
+
+                const collageSetOne = [
+                    'images/meshshorts%231.png',
+                    'images/meshshort%232.png',
+                    'images/meshshorts%233.png',
+                    'images/meshshorts%234.png'
+                ];
+                const collageSetTwo = [
+                    'images/meshshort%235.png',
+                    'images/meshshorts%236.png',
+                    'images/meshshorts%237.png',
+                    'images/meshshorts%238.png'
+                ];
+
+                const [firstCollage, secondCollage] = await Promise.all([
+                    buildCollageFromSources(collageSetOne),
+                    buildCollageFromSources(collageSetTwo)
+                ]);
+
+                return [firstCollage, secondCollage].filter(Boolean);
+            }
 
             function setMainImage(src, thumbButton, imageIndex = 0) {
                 mainImage.src = src;
@@ -273,19 +535,59 @@
                 });
             }
 
-            function showImageAtIndex(index) {
-                if (!Array.isArray(activeImages) || activeImages.length === 0) return;
-                const boundedIndex = Math.max(0, Math.min(index, activeImages.length - 1));
+            let isSwipeAnimating = false;
+            let didImageSwipe = false;
+
+            function showImageAtIndex(index, options = {}) {
+                if (!Array.isArray(activeGalleryImages) || activeGalleryImages.length === 0) return;
+                const boundedIndex = Math.max(0, Math.min(index, activeGalleryImages.length - 1));
+                if (boundedIndex === currentImageIndex) return;
+
                 const targetThumb = thumbRow.children[boundedIndex] || null;
-                setMainImage(activeImages[boundedIndex], targetThumb, boundedIndex);
+                const shouldAnimate = !!options.animate && !isSwipeAnimating;
+                const direction = options.direction === 'right' ? 'right' : 'left';
+
+                if (!shouldAnimate || typeof mainImage.animate !== 'function') {
+                    setMainImage(activeGalleryImages[boundedIndex], targetThumb, boundedIndex);
+                    return;
+                }
+
+                const exitX = direction === 'left' ? -22 : 22;
+                const enterX = direction === 'left' ? 22 : -22;
+                isSwipeAnimating = true;
+
+                const exitAnimation = mainImage.animate(
+                    [
+                        { transform: 'translateX(0)', opacity: 1 },
+                        { transform: `translateX(${exitX}px)`, opacity: 0.28 }
+                    ],
+                    { duration: 140, easing: 'cubic-bezier(0.4, 0, 1, 1)', fill: 'forwards' }
+                );
+
+                exitAnimation.onfinish = () => {
+                    setMainImage(activeGalleryImages[boundedIndex], targetThumb, boundedIndex);
+                    mainImage.animate(
+                        [
+                            { transform: `translateX(${enterX}px)`, opacity: 0.28 },
+                            { transform: 'translateX(0)', opacity: 1 }
+                        ],
+                        { duration: 220, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'forwards' }
+                    ).onfinish = () => {
+                        isSwipeAnimating = false;
+                    };
+                };
+
+                exitAnimation.oncancel = () => {
+                    isSwipeAnimating = false;
+                };
             }
 
-            function renderThumbnails(images) {
+            function renderGalleryFrames(frames) {
                 thumbRow.innerHTML = '';
                 const dotsDiv = document.getElementById('image-dots');
                 dotsDiv.innerHTML = '';
-                
-                images.forEach((src, index) => {
+
+                frames.forEach((src, index) => {
                     const button = document.createElement('button');
                     button.className = `thumb${index === 0 ? ' active' : ''}`;
                     button.type = 'button';
@@ -300,8 +602,35 @@
                     dotsDiv.appendChild(dot);
                 });
                 currentImageIndex = 0;
-                mainImage.src = images[0];
+                mainImage.src = frames[0] || '';
                 mainImage.alt = selectedColorName ? `${product.name} - ${selectedColorName}` : product.name;
+            }
+
+            function renderThumbnails(images) {
+                if (!isMeshShortsProduct) {
+                    activeGalleryImages = [...images];
+                    renderGalleryFrames(activeGalleryImages);
+                    return;
+                }
+
+                const frontAndBack = getMeshFrontAndBack(images);
+                activeGalleryImages = [...frontAndBack];
+                renderGalleryFrames(activeGalleryImages);
+
+                buildMeshFixedCollages().then((collages) => {
+                    if (collages.length < 2) return;
+
+                    const currentFrontAndBack = getMeshFrontAndBack(activeImages);
+                    if (
+                        currentFrontAndBack.length !== frontAndBack.length
+                        || currentFrontAndBack.some((src, index) => src !== frontAndBack[index])
+                    ) {
+                        return;
+                    }
+
+                    activeGalleryImages = [...frontAndBack, ...collages];
+                    renderGalleryFrames(activeGalleryImages);
+                });
             }
 
             if (Array.isArray(product.colorways) && product.colorways.length > 0) {
@@ -344,18 +673,38 @@
             renderThumbnails(activeImages);
 
             mainImage.addEventListener('click', () => {
+                if (didImageSwipe) {
+                    didImageSwipe = false;
+                    return;
+                }
                 mainImage.classList.toggle('zoomed');
             });
 
             let touchStartX = 0;
             let touchStartY = 0;
+            let touchCurrentX = 0;
+            let touchCurrentY = 0;
             const swipeThreshold = 35;
 
             mainImage.addEventListener('touchstart', (event) => {
                 if (!event.touches || event.touches.length !== 1) return;
                 touchStartX = event.touches[0].clientX;
                 touchStartY = event.touches[0].clientY;
+                touchCurrentX = touchStartX;
+                touchCurrentY = touchStartY;
             }, { passive: true });
+
+            mainImage.addEventListener('touchmove', (event) => {
+                if (!event.touches || event.touches.length !== 1) return;
+                touchCurrentX = event.touches[0].clientX;
+                touchCurrentY = event.touches[0].clientY;
+                const deltaX = touchCurrentX - touchStartX;
+                const deltaY = touchCurrentY - touchStartY;
+
+                if (Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY) && event.cancelable) {
+                    event.preventDefault();
+                }
+            }, { passive: false });
 
             mainImage.addEventListener('touchend', (event) => {
                 if (!event.changedTouches || event.changedTouches.length !== 1) return;
@@ -368,11 +717,72 @@
                 }
 
                 if (deltaX < 0) {
-                    showImageAtIndex(currentImageIndex + 1);
+                    didImageSwipe = true;
+                    showImageAtIndex(currentImageIndex + 1, { animate: true, direction: 'left' });
                 } else {
-                    showImageAtIndex(currentImageIndex - 1);
+                    didImageSwipe = true;
+                    showImageAtIndex(currentImageIndex - 1, { animate: true, direction: 'right' });
                 }
             }, { passive: true });
+
+            let pointerStartX = 0;
+            let pointerStartY = 0;
+            let activePointerId = null;
+
+            mainImage.addEventListener('pointerdown', (event) => {
+                if (event.pointerType === 'mouse' && event.button !== 0) return;
+                activePointerId = event.pointerId;
+                pointerStartX = event.clientX;
+                pointerStartY = event.clientY;
+                if (typeof mainImage.setPointerCapture === 'function') {
+                    try {
+                        mainImage.setPointerCapture(event.pointerId);
+                    } catch (_) {
+                        // Ignore pointer capture errors on unsupported browsers.
+                    }
+                }
+            });
+
+            mainImage.addEventListener('pointerup', (event) => {
+                if (activePointerId !== event.pointerId) return;
+
+                if (typeof mainImage.releasePointerCapture === 'function') {
+                    try {
+                        mainImage.releasePointerCapture(event.pointerId);
+                    } catch (_) {
+                        // Ignore pointer capture errors on unsupported browsers.
+                    }
+                }
+
+                const deltaX = event.clientX - pointerStartX;
+                const deltaY = event.clientY - pointerStartY;
+                activePointerId = null;
+
+                if (Math.abs(deltaX) < swipeThreshold || Math.abs(deltaX) <= Math.abs(deltaY)) {
+                    return;
+                }
+
+                if (deltaX < 0) {
+                    didImageSwipe = true;
+                    showImageAtIndex(currentImageIndex + 1, { animate: true, direction: 'left' });
+                } else {
+                    didImageSwipe = true;
+                    showImageAtIndex(currentImageIndex - 1, { animate: true, direction: 'right' });
+                }
+            });
+
+            mainImage.addEventListener('pointercancel', (event) => {
+                if (activePointerId === event.pointerId) {
+                    if (typeof mainImage.releasePointerCapture === 'function') {
+                        try {
+                            mainImage.releasePointerCapture(event.pointerId);
+                        } catch (_) {
+                            // Ignore pointer capture errors on unsupported browsers.
+                        }
+                    }
+                    activePointerId = null;
+                }
+            });
 
             const sizeGrid = document.getElementById('size-grid');
             let selectedSize = null;
