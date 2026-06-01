@@ -24,7 +24,7 @@
         :root {
             --primary: #1a1a1a;
             --secondary: #ffffff;
-            --accent: #ff6b35;
+            --accent: #3a86ff;
             --dark-gray: #2a2a2a;
             --light-gray: #f5f5f5;
             --text-primary: #1a1a1a;
@@ -42,7 +42,11 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             color: var(--text-primary);
             line-height: 1.6;
-            background-color: #000000;
+            background:
+                radial-gradient(circle at 12% 6%, rgba(58, 134, 255, 0.2), transparent 30%),
+                radial-gradient(circle at 88% 88%, rgba(58, 134, 255, 0.14), transparent 34%),
+                #050505;
+            background-attachment: fixed;
         }
 
         h1, h2, h3, h4, h5, h6 {
@@ -402,17 +406,20 @@
 
         /* Why Choose Section */
         .why-choose-section {
-            padding: 60px 0;
-            background: var(--secondary);
+            padding: 88px 0;
+            background: transparent;
+            border-top: none;
+            border-bottom: none;
         }
 
         .why-choose-section h2 {
             text-align: center;
             font-size: 42px;
             font-weight: 700;
-            color: var(--primary);
+            color: #ffffff;
             margin-bottom: 60px;
             letter-spacing: -1px;
+            text-transform: uppercase;
         }
 
         .why-choose-grid {
@@ -426,15 +433,16 @@
         .why-choose-item {
             text-align: center;
             padding: 30px 20px;
-            background: white;
+            background: linear-gradient(155deg, rgba(20,20,20,0.95), rgba(10,10,10,0.95));
+            border: 1px solid rgba(255,255,255,0.14);
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.32);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .why-choose-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            box-shadow: 0 14px 36px rgba(0,0,0,0.4);
         }
 
         .why-icon {
@@ -515,28 +523,29 @@
         .why-choose-item h3 {
             font-size: 24px;
             font-weight: 600;
-            color: var(--primary);
+            color: #ffffff;
             margin-bottom: 15px;
         }
 
         .why-choose-item p {
-            color: #666;
+            color: rgba(255,255,255,0.78);
             line-height: 1.6;
         }
 
         /* Testimonials Section */
         .testimonials-section {
-            padding: 60px 0;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 86px 0;
+            background: transparent;
         }
 
         .testimonials-section h2 {
             text-align: center;
             font-size: 42px;
             font-weight: 700;
-            color: var(--primary);
+            color: #ffffff;
             margin-bottom: 60px;
             letter-spacing: -1px;
+            text-transform: uppercase;
         }
 
         .testimonials-grid {
@@ -548,10 +557,11 @@
         }
 
         .testimonial {
-            background: white;
+            background: linear-gradient(150deg, rgba(18,18,18,0.95), rgba(9,9,9,0.96));
+            border: 1px solid rgba(255,255,255,0.14);
             padding: 30px;
             border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.32);
             text-align: center;
         }
 
@@ -563,7 +573,7 @@
 
         .testimonial p {
             font-style: italic;
-            color: #555;
+            color: rgba(255,255,255,0.82);
             line-height: 1.6;
             margin-bottom: 20px;
             font-size: 16px;
@@ -571,7 +581,42 @@
 
         .testimonial-author {
             font-weight: 600;
-            color: var(--primary);
+            color: #ffffff;
+        }
+
+        .testimonial.is-hidden {
+            display: none;
+        }
+
+        .testimonials-section.expanded .testimonial.is-hidden {
+            display: block;
+        }
+
+        .testimonials-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 26px;
+        }
+
+        .reviews-see-all-btn {
+            appearance: none;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: #0f0f0f;
+            color: #ffffff;
+            border-radius: 999px;
+            padding: 10px 20px;
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .reviews-see-all-btn:hover {
+            transform: translateY(-1px);
+            opacity: 0.98;
+            border-color: rgba(58, 134, 255, 0.72);
         }
 
         /* Complete the Look Section */
@@ -640,10 +685,12 @@
 
         /* Email Signup Section */
         .email-signup-section {
-            background: linear-gradient(135deg, var(--primary) 0%, #2a2a2a 100%);
+            background: transparent;
             padding: 60px 0;
             color: white;
             text-align: center;
+            border-top: none;
+            border-bottom: none;
         }
 
         .signup-content h2 {
@@ -1253,7 +1300,7 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            background: rgba(255, 107, 53, 0.95);
+            background: rgba(58, 134, 255, 0.95);
             color: white;
             padding: 8px 12px;
             border-radius: 20px;
@@ -1546,14 +1593,10 @@
         /* Post-hero dark theme */
         .quick-category-bar,
         .filters-toggle-wrap,
-        .filters-bar-container,
         .products-container,
-        .why-choose-section,
-        .testimonials-section,
         .complete-look-section,
-        .email-signup-section,
         footer {
-            background: #000000;
+            background: transparent;
         }
 
         .hero ~ * h1,
@@ -1978,7 +2021,7 @@
             background: transparent;
             color: var(--accent);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+            box-shadow: 0 4px 12px rgba(58, 134, 255, 0.25);
         }
 
         /* Wishlist Modal */
@@ -2328,7 +2371,7 @@
         .form-group select:focus {
             outline: none;
             border-color: var(--accent);
-            box-shadow: 0 0 5px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 0 5px rgba(58, 134, 255, 0.3);
         }
 
         .form-row {
@@ -2384,7 +2427,7 @@
 
         .payment-option:hover {
             border-color: var(--accent);
-            background: rgba(255, 107, 53, 0.05);
+            background: rgba(58, 134, 255, 0.08);
         }
 
         .payment-option input[type="radio"] {
@@ -2395,7 +2438,7 @@
 
         .payment-option.selected {
             border-color: var(--accent);
-            background: rgba(255, 107, 53, 0.1);
+            background: rgba(58, 134, 255, 0.14);
         }
 
         .payment-icon {
@@ -2435,7 +2478,7 @@
             background: transparent;
             color: var(--accent);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+            box-shadow: 0 8px 20px rgba(58, 134, 255, 0.3);
         }
 
         .place-order-btn:active {
@@ -2516,7 +2559,7 @@
         }
 
         .payment-instructions {
-            background: rgba(255, 107, 53, 0.1);
+            background: rgba(58, 134, 255, 0.1);
             border: 2px solid var(--accent);
             padding: 20px;
             border-radius: 6px;
@@ -3114,6 +3157,425 @@
                 opacity: 1;
             }
         }
+
+        .culture-section {
+            position: relative;
+            padding: 96px 0;
+            background: transparent;
+            overflow: hidden;
+        }
+
+        .culture-shell {
+            max-width: 1120px;
+            margin: 0 auto;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.14);
+            background: linear-gradient(145deg, rgba(16,16,16,0.95), rgba(8,8,8,0.94));
+            box-shadow: 0 28px 60px rgba(0,0,0,0.45);
+            padding: 42px;
+        }
+
+        .culture-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr;
+            gap: 34px;
+            align-items: stretch;
+        }
+
+        .culture-eyebrow {
+            margin: 0 0 10px;
+            color: rgba(255,255,255,0.62);
+            font-size: 11px;
+            letter-spacing: 2.2px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .culture-title {
+            margin: 0 0 16px;
+            color: #ffffff;
+            font-size: clamp(30px, 4.6vw, 56px);
+            line-height: 0.98;
+            letter-spacing: -1.2px;
+            text-transform: uppercase;
+        }
+
+        .culture-lead {
+            margin: 0 0 22px;
+            color: rgba(255,255,255,0.86);
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 62ch;
+        }
+
+        .culture-points {
+            display: grid;
+            gap: 14px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .culture-points li {
+            color: rgba(255,255,255,0.9);
+            font-size: 15px;
+            line-height: 1.7;
+            padding: 12px 14px;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .culture-points li strong {
+            color: #ffffff;
+            font-weight: 700;
+        }
+
+        .culture-visual {
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.14);
+            background:
+                linear-gradient(160deg, rgba(58,134,255,0.2) 0%, rgba(58,134,255,0.04) 34%, rgba(255,255,255,0.04) 100%),
+                #0b0b0b;
+            min-height: 340px;
+            padding: 30px 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .culture-quote {
+            margin: 0;
+            color: #ffffff;
+            font-size: clamp(26px, 3.2vw, 40px);
+            line-height: 1.08;
+            letter-spacing: -0.9px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .culture-tag {
+            width: fit-content;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.24);
+            color: rgba(255,255,255,0.88);
+            padding: 8px 14px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.6px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 860px) {
+            .culture-section {
+                padding: 66px 0;
+            }
+
+            .culture-shell {
+                border-radius: 18px;
+                padding: 24px 16px;
+            }
+
+            .culture-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .culture-title {
+                font-size: 34px;
+            }
+
+            .culture-lead {
+                font-size: 15px;
+            }
+
+            .culture-visual {
+                min-height: 220px;
+                padding: 20px;
+            }
+
+            .culture-quote {
+                font-size: 30px;
+            }
+        }
+
+        .complete-look-reimagined {
+            background: transparent;
+            padding: 90px 0;
+        }
+
+        .complete-look-shell {
+            max-width: 1120px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 24px;
+            background: linear-gradient(160deg, rgba(16,16,16,0.95), rgba(8,8,8,0.94));
+            padding: 36px;
+        }
+
+        .complete-look-head {
+            margin-bottom: 22px;
+        }
+
+        .complete-look-eyebrow {
+            margin: 0 0 8px;
+            color: rgba(255,255,255,0.64);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+
+        .complete-look-reimagined h2 {
+            margin: 0 0 10px;
+            color: #ffffff;
+            font-size: clamp(30px, 4vw, 48px);
+            letter-spacing: -1px;
+        }
+
+        .complete-look-sub {
+            margin: 0;
+            color: rgba(255,255,255,0.82);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .complete-look-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .look-item {
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.14);
+            background: #0f0f0f;
+            box-shadow: none;
+            overflow: hidden;
+        }
+
+        .look-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            display: block;
+        }
+
+        .look-item-body {
+            padding: 16px;
+        }
+
+        .look-item-tag {
+            display: inline-flex;
+            margin-bottom: 8px;
+            color: rgba(255,255,255,0.72);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 999px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.4px;
+            font-weight: 700;
+            padding: 6px 10px;
+        }
+
+        .look-item h3 {
+            color: #ffffff;
+            margin: 0 0 8px;
+            font-size: 22px;
+            line-height: 1.2;
+        }
+
+        .look-item p {
+            color: #ffffff;
+            margin: 0 0 12px;
+            font-size: 17px;
+        }
+
+        .faq-reimagined-section {
+            padding: 92px 0;
+            background: transparent;
+        }
+
+        .faq-shell {
+            max-width: 1040px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 24px;
+            background: linear-gradient(155deg, rgba(17,17,17,0.95), rgba(8,8,8,0.95));
+            padding: 34px;
+        }
+
+        .faq-headline {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .faq-headline p {
+            margin: 0 0 10px;
+            color: rgba(255,255,255,0.64);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .faq-headline h2 {
+            margin: 0;
+            color: #ffffff;
+            font-size: clamp(28px, 4vw, 46px);
+            letter-spacing: -1px;
+        }
+
+        .faq-reimagined-item {
+            margin-bottom: 14px;
+        }
+
+        .faq-reimagined-item > div:first-child {
+            background: #111111;
+            border: 1px solid rgba(255,255,255,0.14);
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.25s ease, border-color 0.25s ease;
+        }
+
+        .faq-reimagined-item > div:first-child:hover {
+            background: #171717;
+            border-color: rgba(255,255,255,0.24);
+        }
+
+        .faq-reimagined-item h4 {
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .faq-reimagined-item span {
+            font-size: 22px;
+            color: var(--accent);
+        }
+
+        .faq-reimagined-item > div:nth-child(2) {
+            background: #0f0f0f;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-reimagined-item > div:nth-child(2) p {
+            color: rgba(255,255,255,0.86);
+            margin: 0;
+            padding: 20px 0;
+            line-height: 1.7;
+        }
+
+        .shipping-returns-reimagined {
+            padding: 92px 0;
+            background: transparent;
+        }
+
+        .shipping-shell {
+            max-width: 1120px;
+            margin: 0 auto;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 24px;
+            background: linear-gradient(160deg, rgba(16,16,16,0.95), rgba(8,8,8,0.95));
+            padding: 36px;
+        }
+
+        .shipping-headline {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .shipping-headline p {
+            margin: 0 0 10px;
+            color: rgba(255,255,255,0.64);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .shipping-headline h2 {
+            margin: 0;
+            color: #ffffff;
+            font-size: clamp(28px, 4vw, 46px);
+            letter-spacing: -1px;
+        }
+
+        .shipping-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .shipping-card {
+            background: #101010;
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 16px;
+            padding: 26px;
+        }
+
+        .shipping-card h3 {
+            margin: 0 0 16px;
+            color: #ffffff;
+            font-size: 22px;
+            letter-spacing: -0.2px;
+        }
+
+        .shipping-card ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+        }
+
+        .shipping-card li {
+            color: rgba(255,255,255,0.86);
+            line-height: 1.7;
+            padding: 10px 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.03);
+        }
+
+        .shipping-card li strong {
+            color: #ffffff;
+        }
+
+        @media (max-width: 860px) {
+            .complete-look-reimagined,
+            .faq-reimagined-section,
+            .shipping-returns-reimagined {
+                padding: 66px 0;
+            }
+
+            .complete-look-shell,
+            .faq-shell,
+            .shipping-shell {
+                padding: 22px 16px;
+                border-radius: 18px;
+            }
+
+            .complete-look-grid,
+            .shipping-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .look-item h3,
+            .shipping-card h3 {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -3515,7 +3977,7 @@
 </section>
 
 <!-- Testimonials -->
-<section class="testimonials-section">
+<section class="testimonials-section" id="testimonials-section">
     <div class="container">
         <h2>What Our Customers Say</h2>
         <div class="testimonials-grid">
@@ -3534,27 +3996,47 @@
                 <p>"I love your brands commitment to making everyone feel beautiful"</p>
                 <div class="testimonial-author">- Gabe H., New York</div>
             </div>
+            <div class="testimonial is-hidden" data-review-extra="true">
+                <div class="testimonial-stars">★★★★★</div>
+                <p>"The Socrates Hoodie makes Raymond M. look super sexy"</p>
+                <div class="testimonial-author">- Moe H, New York</div>
+            </div>
+        </div>
+        <div class="testimonials-actions">
+            <button type="button" class="reviews-see-all-btn" id="reviews-see-all-btn" onclick="toggleAllReviews()" aria-expanded="false">See All Reviews</button>
         </div>
     </div>
 </section>
 
 <!-- Complete the Look -->
-<section class="complete-look-section">
+<section class="complete-look-section complete-look-reimagined">
     <div class="container">
-        <h2>Complete the Look</h2>
-        <p>Pair your favorite hoodie with these matching pieces</p>
-        <div class="complete-look-grid">
-            <div class="look-item">
-                <img src="images/skyblueoverwavyfront.png" alt="Sky Blue Safire T-Shirt" class="look-image">
-                <h3>Oversized Wavy-grid Safire T-Shirt</h3>
-                <p>$30 <span class="product-price-old">$40</span></p>
-                <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/skyblueoverwavyfront.png')">Add to Cart</button>
+        <div class="complete-look-shell">
+            <div class="complete-look-head">
+                <p class="complete-look-eyebrow">Style Stack</p>
+                <h2>Complete the Look</h2>
+                <p class="complete-look-sub">Build your fit in two moves. Pair top essentials with pieces that match the silhouette and energy.</p>
             </div>
-            <div class="look-item">
-                <img src="images/newblankblackfront.png" alt="Plain Hoodie" class="look-image">
-                <h3>Plain Hoodie</h3>
-                <p>$50 <span class="product-price-old">$60</span></p>
-                <button class="btn btn-primary" onclick="addToCart(6, 'Plain Hoodie', 60, 'images/newblankblackfront.png')">Add to Cart</button>
+
+            <div class="complete-look-grid">
+                <div class="look-item">
+                    <img src="images/skyblueoverwavyfront.png" alt="Sky Blue Safire T-Shirt" class="look-image">
+                    <div class="look-item-body">
+                        <span class="look-item-tag">Top Layer</span>
+                        <h3>Oversized Wavy-grid Safire T-Shirt</h3>
+                        <p>$30 <span class="product-price-old">$40</span></p>
+                        <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/skyblueoverwavyfront.png')">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="look-item">
+                    <img src="images/newblankblackfront.png" alt="Plain Hoodie" class="look-image">
+                    <div class="look-item-body">
+                        <span class="look-item-tag">Core Layer</span>
+                        <h3>Plain Hoodie</h3>
+                        <p>$50 <span class="product-price-old">$60</span></p>
+                        <button class="btn btn-primary" onclick="addToCart(6, 'Plain Hoodie', 60, 'images/newblankblackfront.png')">Add to Cart</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -3574,65 +4056,78 @@
     </div>
 </section>
 
-<!-- About Us Section -->
-<section style="padding: 80px 0; background: var(--secondary);">
+<!-- Culture Section -->
+<section class="culture-section">
     <div class="container">
-        <div style="max-width: 1000px; margin: 0 auto;">
-            <h2 style="text-align: center; margin-bottom: 40px;">About Safire</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center;">
+        <div class="culture-shell">
+            <div class="culture-grid">
                 <div>
-                    <h3 style="margin-bottom: 20px; color: var(--primary);">Built for the Culture</h3>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary); font-size: 16px; line-height: 1.8;">Safire was founded on a simple belief: premium streetwear shouldn't require a premium price tag. We craft every hoodie with meticulous attention to detail, using only the finest fabrics sourced from sustainable suppliers.</p>
-                    <p style="margin-bottom: 15px; color: var(--text-secondary); font-size: 16px; line-height: 1.8;">Each design tells a story. From classic cuts to limited-edition graphics, Safire represents authenticity, quality, and the spirit of modern streetwear culture.</p>
-                    <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8;">We're more than just a brand—we're a community of style-conscious individuals who value craftsmanship and self-expression.</p>
+                    <p class="culture-eyebrow">Built For The Culture</p>
+                    <h2 class="culture-title">Made for movers, not mannequins.</h2>
+                    <p class="culture-lead">Safire is for people who build their own lane. We design everyday uniforms that hold their shape, photograph clean, and feel heavy in hand without feeling heavy on you.</p>
+                    <ul class="culture-points">
+                        <li><strong>Quality first.</strong> Premium-weight fabrics and cut lines that stay sharp wear after wear.</li>
+                        <li><strong>Style with intent.</strong> Pieces that layer easy and hit whether you are outside, in studio, or on the move.</li>
+                        <li><strong>Community over hype.</strong> We are building a culture around self-expression, not fast trends.</li>
+                    </ul>
                 </div>
-                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 16px; height: 300px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; font-weight: 600; text-align: center; padding: 30px;">
-                    🎨 Crafted with Passion
-                </div>
+                <aside class="culture-visual" aria-label="Safire culture statement">
+                    <span class="culture-tag">Streetwear Essentials</span>
+                    <p class="culture-quote">Dress loud. Move quiet. Leave a mark.</p>
+                    <span class="culture-tag">Designed In New York</span>
+                </aside>
             </div>
         </div>
     </div>
 </section>
 
 <!-- FAQ Section -->
-<section style="padding: 80px 0; background: #000000;">
+<section class="faq-reimagined-section">
     <div class="container">
-        <h2 style="text-align: center; margin-bottom: 60px;">Frequently Asked Questions</h2>
-        <div style="max-width: 800px; margin: 0 auto;">
-            <div class="faq-item" style="margin-bottom: 20px;">
-                <div style="background: white; padding: 20px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;" onclick="toggleFAQ(this)">
-                    <h4 style="margin: 0; color: var(--primary);">What is the quality of your hoodies?</h4>
-                    <span style="font-size: 20px; color: var(--accent);">+</span>
-                </div>
-                <div style="background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;">
-                    <p style="padding: 20px 0; margin: 0; color: var(--text-secondary);">All Safire hoodies are made with premium materials and are tested for durability and comfort to ensure they last.</p>
-                </div>
+        <div class="faq-shell">
+            <div class="faq-headline">
+                <p>Support</p>
+                <h2>Frequently Asked Questions</h2>
             </div>
-            <div class="faq-item" style="margin-bottom: 20px;">
-                <div style="background: white; padding: 20px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;" onclick="toggleFAQ(this)">
-                    <h4 style="margin: 0; color: var(--primary);">How long does shipping take?</h4>
-                    <span style="font-size: 20px; color: var(--accent);">+</span>
+            <div style="max-width: 860px; margin: 0 auto;">
+                <div class="faq-item faq-reimagined-item">
+                    <div onclick="toggleFAQ(this)">
+                        <h4>What is the quality of your hoodies?</h4>
+                        <span>+</span>
+                    </div>
+                    <div>
+                        <p>All Safire hoodies are made with premium materials and are tested for durability and comfort to ensure they last.</p>
+                    </div>
                 </div>
-                <div style="background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;">
-                    <p style="padding: 20px 0; margin: 0; color: var(--text-secondary);">We offer free shipping on all orders. Delivery typically takes 7-14 business days. International orders may take 10-15 business days.</p>
+
+                <div class="faq-item faq-reimagined-item">
+                    <div onclick="toggleFAQ(this)">
+                        <h4>How long does shipping take?</h4>
+                        <span>+</span>
+                    </div>
+                    <div>
+                        <p>We offer free shipping on all orders. Delivery typically takes 7-14 business days. International orders may take 10-15 business days.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="faq-item" style="margin-bottom: 20px;">
-                <div style="background: white; padding: 20px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;" onclick="toggleFAQ(this)">
-                    <h4 style="margin: 0; color: var(--primary);">What is your return policy?</h4>
-                    <span style="font-size: 20px; color: var(--accent);">+</span>
+
+                <div class="faq-item faq-reimagined-item">
+                    <div onclick="toggleFAQ(this)">
+                        <h4>What is your return policy?</h4>
+                        <span>+</span>
+                    </div>
+                    <div>
+                        <p>We offer a 30-day return policy. Items must be unused with original tags. Simply contact our support team to initiate a return.</p>
+                    </div>
                 </div>
-                <div style="background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;">
-                    <p style="padding: 20px 0; margin: 0; color: var(--text-secondary);">We offer a 30-day return policy. Items must be unused with original tags. Simply contact our support team to initiate a return.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div style="background: white; padding: 20px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: all 0.3s ease;" onclick="toggleFAQ(this)">
-                    <h4 style="margin: 0; color: var(--primary);">Do you ship internationally?</h4>
-                    <span style="font-size: 20px; color: var(--accent);">+</span>
-                </div>
-                <div style="background: white; padding: 0 20px; max-height: 0; overflow: hidden; transition: all 0.3s ease; border-radius: 0 0 8px 8px;">
-                    <p style="padding: 20px 0; margin: 0; color: var(--text-secondary);">Yes! We ship to over 50 countries. Shipping costs and times vary by location. Contact us for international shipping quotes.</p>
+
+                <div class="faq-item faq-reimagined-item">
+                    <div onclick="toggleFAQ(this)">
+                        <h4>Do you ship internationally?</h4>
+                        <span>+</span>
+                    </div>
+                    <div>
+                        <p>Yes. We ship to over 50 countries. Shipping costs and times vary by location. Contact us anytime for international shipping quotes.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -3640,27 +4135,32 @@
 </section>
 
 <!-- Shipping & Returns Section -->
-<section style="padding: 80px 0; background: #000000;">
+<section class="shipping-returns-reimagined">
     <div class="container">
-        <h2 style="text-align: center; margin-bottom: 60px; color: #ffffff;">Shipping & Returns</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
-            <div style="background: #111111; border: 1px solid #1f1f1f; padding: 40px; border-radius: 12px;">
-                <h3 style="color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 28px;">📦</span> Shipping</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Free Shipping:</strong> All orders ship free within the US</li>
-                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">7-14 Days:</strong> Standard processing and delivery time</li>
-                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Tracking:</strong> Real-time order tracking via email</li>
-                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">International:</strong> Global shipping available (fees apply)</li>
-                </ul>
+        <div class="shipping-shell">
+            <div class="shipping-headline">
+                <p>Order Confidence</p>
+                <h2>Shipping & Returns</h2>
             </div>
-            <div style="background: #111111; border: 1px solid #1f1f1f; padding: 40px; border-radius: 12px;">
-                <h3 style="color: var(--accent); margin-bottom: 20px; display: flex; align-items: center; gap: 10px;"><span style="font-size: 28px;">↩️</span> Returns</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">30-Day Window:</strong> Return items within 30 days</li>
-                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Unused Items:</strong> Must have original tags attached</li>
-                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Free Returns:</strong> Prepaid return labels provided</li>
-                    <li style="margin-bottom: 15px; color: rgba(255,255,255,0.86);"><strong style="color: #ffffff;">Full Refund:</strong> Refunded within 5-7 business days</li>
-                </ul>
+            <div class="shipping-grid">
+                <div class="shipping-card">
+                    <h3>Shipping</h3>
+                    <ul>
+                        <li><strong>Free Shipping:</strong> All orders ship free within the US.</li>
+                        <li><strong>7-14 Days:</strong> Standard processing and delivery timeline.</li>
+                        <li><strong>Live Tracking:</strong> Updates sent straight to your email.</li>
+                        <li><strong>International:</strong> Global delivery available with regional rates.</li>
+                    </ul>
+                </div>
+                <div class="shipping-card">
+                    <h3>Returns</h3>
+                    <ul>
+                        <li><strong>30-Day Window:</strong> Return eligible items within 30 days.</li>
+                        <li><strong>Condition:</strong> Items must be unused with original tags.</li>
+                        <li><strong>Simple Process:</strong> Contact support and we guide each step.</li>
+                        <li><strong>Refund Speed:</strong> Approved returns are refunded in 5-7 business days.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -3690,7 +4190,7 @@
         <span style="font-weight: 600; color: var(--primary);">SAFIRE</span>
     </div>
     <p>&copy; 2026 SAFIRE. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" onclick="toggleFooterContactInfo(event)" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
-    <p id="footer-contact-info" style="display: none; margin-top: 10px; color: rgba(255,255,255,0.9); font-size: 14px;">Email: safireorders@gmail.com | Phone: 718-451-6192</p>
+    <p id="footer-contact-info" style="display: none; margin-top: 10px; color: rgba(255,255,255,0.9); font-size: 14px;">Email: safireorders@gmail.com</p>
     <a class="footer-instagram-link" href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer">
         <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
             <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5Zm8.93 1.75a1.07 1.07 0 1 1 0 2.14 1.07 1.07 0 0 1 0-2.14ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
@@ -4238,7 +4738,7 @@ const productsData = [
         id: 11,
         productId: "vintage-crewneck",
         name: "Vintage",
-        category: "premium",
+        category: "hoodies",
         gender: "women",
         price: 60,
         image1: "images/vintagecrewneckapricotfront.png",
@@ -4404,6 +4904,14 @@ function renderProducts() {
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
+        if (activeQuickCategory === 'women') {
+            const aIsVintage = a.productId === 'vintage-crewneck';
+            const bIsVintage = b.productId === 'vintage-crewneck';
+            if (aIsVintage !== bIsVintage) {
+                return aIsVintage ? -1 : 1;
+            }
+        }
+
         const orderA = featuredOrder[a.productId] || 999;
         const orderB = featuredOrder[b.productId] || 999;
         if (orderA !== orderB) return orderA - orderB;
@@ -5079,10 +5587,11 @@ let activeQuickCategory = 'all';
 
 function getProductCategoryTags(product) {
     const productGender = normalizeSearchText(product.gender || 'men');
+    // Use concise identity fields for quick tags; long detail copy can mention other item types.
     const productText = normalizeSearchText([
         product.name,
         product.description,
-        product.details,
+        product.category,
         product.id,
         product.productId
     ].join(' '));
@@ -5462,6 +5971,17 @@ function subscribeNewsletter() {
     
     document.getElementById('signup-email').value = '';
     alert('✓ Thanks for subscribing! You\'ll receive updates soon.');
+}
+
+function toggleAllReviews() {
+    const section = document.getElementById('testimonials-section');
+    const button = document.getElementById('reviews-see-all-btn');
+    if (!section || !button) return;
+
+    const willExpand = !section.classList.contains('expanded');
+    section.classList.toggle('expanded', willExpand);
+    button.textContent = willExpand ? 'Show Less' : 'See All Reviews';
+    button.setAttribute('aria-expanded', String(willExpand));
 }
 
 // Toggle FAQ Items
@@ -6010,8 +6530,27 @@ document.addEventListener('DOMContentLoaded', function() {
         start();
     }
 
+    function isHeroControlTarget(eventTarget) {
+        return Boolean(eventTarget && eventTarget.closest && eventTarget.closest('.hero-line'));
+    }
+
     lines.forEach((line) => {
         line.addEventListener('click', () => {
+            const nextIndex = Number(line.dataset.slide || 0);
+            goToIndex(nextIndex);
+            start();
+        });
+
+        line.addEventListener('touchstart', (event) => {
+            event.stopPropagation();
+            const nextIndex = Number(line.dataset.slide || 0);
+            goToIndex(nextIndex);
+            start();
+        }, { passive: true });
+
+        line.addEventListener('keydown', (event) => {
+            if (event.key !== 'Enter' && event.key !== ' ') return;
+            event.preventDefault();
             const nextIndex = Number(line.dataset.slide || 0);
             goToIndex(nextIndex);
             start();
@@ -6019,6 +6558,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     hero.addEventListener('touchstart', (event) => {
+        if (isHeroControlTarget(event.target)) return;
         if (event.touches && event.touches.length > 1) return;
         beginDrag(event);
     }, { passive: true });
@@ -6032,6 +6572,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { passive: true });
 
     hero.addEventListener('pointerdown', (event) => {
+        if (isHeroControlTarget(event.target)) return;
         if (event.pointerType === 'mouse' && event.button !== 0) return;
         activePointerId = event.pointerId;
         if (typeof hero.setPointerCapture === 'function') {
