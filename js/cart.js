@@ -6,7 +6,7 @@ function normalizeCartColor(value) {
     return normalizeCartValue(value).split('/')[0].trim().replace(/\s+/g, '-');
 }
 
-const SITEWIDE_SALE_OFF = 10;
+const SITEWIDE_SALE_OFF = 0;
 
 function getSalePrice(value) {
     return Math.max(0, (Number(value) || 0) - SITEWIDE_SALE_OFF);
@@ -48,7 +48,7 @@ function getCart() {
                 const normalizedProductId = normalizeCartValue(item.productId || item.id);
                 const matchedProduct = getProductById(normalizedProductId);
                 const normalizedPrice = matchedProduct
-                    ? getSalePrice(Number(matchedProduct.price) || 0)
+                    ? (Number(matchedProduct.price) || 0)
                     : (Number(item.price) || 0);
 
                 return {
@@ -115,14 +115,14 @@ function updateCartCount() {
 
 function addToCart(item) {
     const cart = getCart();
-    const salePrice = getSalePrice(item.price);
+    const regularPrice = Number(item.price) || 0;
 
     const normalizedItem = {
         productId: normalizeCartValue(item.productId),
         name: item.name,
         color: normalizeCartColor(item.color),
         size: normalizeCartValue(item.size),
-        price: salePrice,
+        price: regularPrice,
         quantity: 1
     };
 

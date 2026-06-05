@@ -38,10 +38,15 @@
             box-sizing: border-box;
         }
 
+        html,
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             color: var(--text-primary);
             line-height: 1.6;
+            background-color: #050505;
+        }
+
+        body {
             background:
                 radial-gradient(circle at 12% 6%, rgba(58, 134, 255, 0.2), transparent 30%),
                 radial-gradient(circle at 88% 88%, rgba(58, 134, 255, 0.14), transparent 34%),
@@ -2714,6 +2719,17 @@
 
         /* Mobile Optimizations */
         @media (max-width: 768px) {
+            html,
+            body {
+                background:
+                    radial-gradient(circle at 12% 6%, rgba(58, 134, 255, 0.2), transparent 34%),
+                    radial-gradient(circle at 88% 88%, rgba(58, 134, 255, 0.14), transparent 38%),
+                    #050505;
+                background-attachment: scroll;
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
             section {
                 padding: 60px 0;
             }
@@ -3656,13 +3672,6 @@
     </div>
 </section>
 
-<section class="sale-strip-section" aria-label="Summer sale">
-    <div class="sale-strip-inner">
-        <p class="sale-strip-text">Summer sale $10 off everything June 1-7 only</p>
-        <a class="sale-strip-link" href="#products">Shop Now</a>
-    </div>
-</section>
-
 <!-- Quick Categories -->
 <section class="quick-category-bar">
     <div class="quick-category-container">
@@ -4024,7 +4033,7 @@
                     <div class="look-item-body">
                         <span class="look-item-tag">Top Layer</span>
                         <h3>Oversized Wavy-grid Safire T-Shirt</h3>
-                        <p>$30 <span class="product-price-old">$40</span></p>
+                        <p>$40</p>
                         <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/skyblueoverwavyfront.png')">Add to Cart</button>
                     </div>
                 </div>
@@ -4033,7 +4042,7 @@
                     <div class="look-item-body">
                         <span class="look-item-tag">Core Layer</span>
                         <h3>Plain Hoodie</h3>
-                        <p>$50 <span class="product-price-old">$60</span></p>
+                        <p>$60</p>
                         <button class="btn btn-primary" onclick="addToCart(6, 'Plain Hoodie', 60, 'images/newblankblackfront.png')">Add to Cart</button>
                     </div>
                 </div>
@@ -4794,6 +4803,67 @@ const productsData = [
         ]
     },
     {
+        id: 13,
+        productId: "safire-shores-crewneck",
+        name: "Safire Shores",
+        category: "premium",
+        gender: "unisex",
+        price: 50,
+        image1: "images/safireshoresbluefront.png",
+        image2: "images/safireshoresblueback.png",
+        description: "Essential drop-shoulder crewneck with technical comfort, shape retention, and clean all-season layering.",
+        details: "This crewneck sweatshirt showcases a contemporary drop shoulder design in an essential silhouette. The technical fabric blend provides excellent comfort and shape retention. A versatile layering piece recommended for core collections, easily branded to create cohesive outfit options.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRW0029-P001-V2\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\nMain Fabric: 48.9% polyester, 43.4% cotton, 7.7% spandex; Contrast Fabric: 95.6% polyester, 4.4% spandex\n\nFabric Weight\n400 gsm (11.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "RW0029-P001-V2",
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10, "3XL": 10 },
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
+                length: [27.17, 27.95, 28.74, 29.53, 30.31, 30.71],
+                chest: [21.26, 22.05, 22.83, 23.62, 24.41, 25.20],
+                shoulder: [20.83, 21.54, 22.24, 22.95, 23.66, 24.37],
+                sleeveLength: [21.81, 22.13, 22.44, 22.76, 23.07, 23.39]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
+                length: [69, 71, 73, 75, 77, 78],
+                chest: [54, 56, 58, 60, 62, 64],
+                shoulder: [52.9, 54.7, 56.5, 58.3, 60.1, 61.9],
+                sleeveLength: [55.4, 56.2, 57, 57.8, 58.6, 59.4]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
+        colors: [
+            {
+                name: "Sky Blue",
+                hex: "#C8F2F4",
+                images: {
+                    front: "images/safireshoresbluefront.png",
+                    back: "images/safireshoresblueback.png"
+                }
+            }
+        ]
+    },
+    {
         id: 10,
         productId: "not-for-everyone-hoodie",
         name: "Not For Everyone Hoodie",
@@ -4825,7 +4895,7 @@ const productsData = [
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 const validProductIds = new Set(productsData.map((product) => product.id));
-const SITEWIDE_SALE_OFF = 10;
+const SITEWIDE_SALE_OFF = 0;
 
 function getSalePrice(value) {
     return Math.max(0, (Number(value) || 0) - SITEWIDE_SALE_OFF);
@@ -4843,7 +4913,7 @@ function normalizeCartSalePrices(items) {
     return (Array.isArray(items) ? items : []).map((item) => {
         const matchedProduct = findProductForCartItem(item);
         const normalizedPrice = matchedProduct
-            ? getSalePrice(matchedProduct.price)
+            ? (Number(matchedProduct.price) || 0)
             : (Number(item.price) || 0);
 
         return {
@@ -4891,16 +4961,17 @@ function renderProducts() {
     let productsHTML = '';
 
     const featuredOrder = {
-        'mesh-drawstring-shorts': 1,
-        'vintage-crewneck': 2,
-        'black-socrates-hoodie': 3,
-        'oversized-wavy-grid-tshirt': 4,
-        'not-for-everyone-hoodie': 5,
-        'borough-oversized-tshirt': 6,
-        'cropped-fleece-hoodie': 7,
-        'classic-quarter-zip': 8,
-        'varsity-jacket': 9,
-        'loose-fit-cotton-shorts': 10
+        'safire-shores-crewneck': 1,
+        'mesh-drawstring-shorts': 2,
+        'vintage-crewneck': 3,
+        'black-socrates-hoodie': 4,
+        'oversized-wavy-grid-tshirt': 5,
+        'not-for-everyone-hoodie': 6,
+        'borough-oversized-tshirt': 7,
+        'cropped-fleece-hoodie': 8,
+        'classic-quarter-zip': 9,
+        'varsity-jacket': 10,
+        'loose-fit-cotton-shorts': 11
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -4927,7 +4998,7 @@ function renderProducts() {
     paginatedProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
         const originalPrice = Number(product.price) || 0;
-        const salePrice = getSalePrice(originalPrice);
+        const displayPrice = originalPrice;
         // Check for low stock (less than 3 items in any size)
         const lowStockSizes = Object.keys(product.stock).filter(size => product.stock[size] > 0 && product.stock[size] < 3);
         const stockBadge = lowStockSizes.length > 0 ? `<div class="stock-badge">Only ${lowStockSizes.map(size => product.stock[size] + ' ' + size).join(', ')} left!</div>` : '';
@@ -4953,6 +5024,8 @@ function renderProducts() {
             productBadges = '<div class="product-badge premium">Premium Fabric</div>';
         } else if (product.id === 2) {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
+        } else if (product.productId === 'safire-shores-crewneck') {
+            productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'vintage-crewneck') {
             productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'black-socrates-hoodie') {
@@ -4977,8 +5050,7 @@ function renderProducts() {
                     <div class="product-category">${product.category}</div>
                     <h3>${getProductCardTitle(product)}</h3>
                     <div class="product-price-row">
-                        <div class="product-price">$${salePrice.toFixed(0)}</div>
-                        <div class="product-price-old">$${originalPrice.toFixed(0)}</div>
+                        <div class="product-price">$${displayPrice.toFixed(0)}</div>
                     </div>
                     
                     <!-- Color Options -->
@@ -5001,7 +5073,7 @@ function renderProducts() {
                     </div>
                     
                     <div class="product-actions">
-                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${salePrice}, '${currentImage1}')">
+                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${displayPrice}, '${currentImage1}')">
                             Add to Cart
                         </button>
                     </div>
@@ -5087,7 +5159,7 @@ function selectSize(element, productId, size) {
 // Add to Cart
 function addToCart(id, name, price, image) {
     const product = productsData.find(p => p.id === id) || {};
-    const salePrice = getSalePrice(price);
+    const regularPrice = Number(price) || 0;
 
     // Card view has no size selector. Default to first in-stock size.
     let selectedSize = product.selectedSize;
@@ -5121,7 +5193,7 @@ function addToCart(id, name, price, image) {
             id,
             productId: selectedProductId,
             name,
-            price: salePrice,
+            price: regularPrice,
             quantity: 1,
             image,
             freeShipping: !!product.freeShipping,
@@ -5208,15 +5280,14 @@ function updateWishlistDisplay() {
 
     let wishlistItemsHTML = '';
     wishlist.forEach((item, index) => {
-        const wishlistOriginalPrice = Number(item.price) || 0;
-        const wishlistSalePrice = getSalePrice(wishlistOriginalPrice);
+        const wishlistPrice = Number(item.price) || 0;
         const wishlistItemHTML = `
             <div class="wishlist-item">
                 <img src="${item.image1}" class="wishlist-item-image" alt="${item.name}">
                 <div class="wishlist-item-details">
                     <div class="wishlist-item-name">${item.name}</div>
-                    <div class="wishlist-item-price">$${wishlistSalePrice.toFixed(0)} <span class="product-price-old">$${wishlistOriginalPrice.toFixed(0)}</span></div>
-                    <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${wishlistSalePrice}, '${item.image1}'); toggleWishlist();">
+                    <div class="wishlist-item-price">$${wishlistPrice.toFixed(0)}</div>
+                    <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${wishlistPrice}, '${item.image1}'); toggleWishlist();">
                         Add to Cart
                     </button>
                     <button class="remove-btn" style="width: 100%; margin-top: 5px;" onclick="removeFromWishlist(${index})">Remove</button>

@@ -95,7 +95,7 @@
             return Math.round(Number(value) || 0).toString();
         }
 
-        const PRODUCT_PAGE_SALE_OFF = 10;
+        const PRODUCT_PAGE_SALE_OFF = 0;
 
         function getSalePrice(value) {
             return Math.max(0, (Number(value) || 0) - PRODUCT_PAGE_SALE_OFF);
@@ -366,11 +366,10 @@
         } else {
             layout.hidden = false;
             const originalPrice = Number(product.price) || 0;
-            const salePrice = getSalePrice(originalPrice);
 
             document.title = `${product.name} | SAFIRE`;
             document.getElementById('product-name').textContent = product.name;
-            document.getElementById('product-price').innerHTML = `<span class="sale-price-row"><span class="sale-price-current">$${formatPrice(salePrice)}</span><span class="sale-price-old">$${formatPrice(originalPrice)}</span></span>`;
+            document.getElementById('product-price').textContent = `$${formatPrice(originalPrice)}`;
             document.getElementById('product-description').textContent = product.description;
 
             const parsedSections = parseProductDetailSections(product.details, product.careInstructions);
@@ -810,7 +809,8 @@
                     const activeSizeButton = productContainer.querySelector('.size-btn.active');
                     const activeColorButton = productContainer.querySelector('.color-dot.active');
 
-                    const scopedSize = activeSizeButton ? normalizeValue(activeSizeButton.value || activeSizeButton.textContent) : null;
+                    const scopedSize = selectedSize
+                        || (activeSizeButton ? normalizeValue(activeSizeButton.value || activeSizeButton.textContent) : null);
                     const scopedColor = activeColorButton ? normalizeColorKey(activeColorButton.value || activeColorButton.title) : normalizeColorKey(selectedColorName || 'default');
 
                     if (!scopedSize) {
@@ -823,7 +823,7 @@
                         name: product.name,
                         color: scopedColor,
                         size: scopedSize,
-                        price: salePrice
+                        price: originalPrice
                     });
 
                     console.log('[Cart Debug] added key:', `${normalizeColorKey(scopedColor || 'default')}-${String(scopedSize || '').trim().toLowerCase()}`);

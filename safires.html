@@ -3195,6 +3195,33 @@ const productsData = [
                 }
             }
         ]
+    },
+    {
+        id: 13,
+        productId: "safire-shores-crewneck",
+        name: "Safire Shores",
+        category: "premium",
+        gender: "unisex",
+        price: 50,
+        image1: "images/safireshoresbluefront.png",
+        image2: "images/safireshoresblueback.png",
+        description: "Essential drop-shoulder crewneck with technical comfort, shape retention, and clean all-season layering.",
+        details: "This crewneck sweatshirt showcases a contemporary drop shoulder design in an essential silhouette. The technical fabric blend provides excellent comfort and shape retention. A versatile layering piece recommended for core collections, easily branded to create cohesive outfit options.",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "RW0029-P001-V2",
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10, "3XL": 10 },
+        colors: [
+            {
+                name: "Sky Blue",
+                hex: "#C8F2F4",
+                images: {
+                    front: "images/safireshoresbluefront.png",
+                    back: "images/safireshoresblueback.png"
+                }
+            }
+        ]
     }
 ];
 
@@ -3227,10 +3254,11 @@ function renderProducts() {
     const featuredOrder = {
         'borough-oversized-tshirt': 1,
         'loose-fit-cotton-shorts': 2,
-        'cropped-fleece-hoodie': 3,
-        'black-socrates-hoodie': 4,
-        'classic-quarter-zip': 5,
-        'varsity-jacket': 6
+        'safire-shores-crewneck': 3,
+        'cropped-fleece-hoodie': 4,
+        'black-socrates-hoodie': 5,
+        'classic-quarter-zip': 6,
+        'varsity-jacket': 7
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {

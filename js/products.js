@@ -881,19 +881,80 @@ const products = [
         details: "This fashion-forward hoodie combines a cropped length with a warm fleece lining and heavyweight construction. The cotton-polyester blend offers substantial comfort. A trendy piece for essential collections, particularly appealing to brands targeting the cropped silhouette market in womenswear or youth segments.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nEffects\nPocket\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nWinter\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n50% cotton, 50% polyester\n\nFabric Weight\n500 gsm (14.7 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
+        id: "safire-shores-crewneck",
+        name: "Safire Shores",
+        price: 50,
+        description: "Essential drop-shoulder crewneck with technical comfort, shape retention, and clean all-season layering.",
+        images: [
+            "images/safireshoresbluefront.png",
+            "images/safireshoresblueback.png"
+        ],
+        colorways: [
+            {
+                name: "Sky Blue",
+                hex: "#C8F2F4",
+                images: [
+                    "images/safireshoresbluefront.png",
+                    "images/safireshoresblueback.png"
+                ]
+            }
+        ],
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10, "3XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
+                length: [27.17, 27.95, 28.74, 29.53, 30.31, 30.71],
+                chest: [21.26, 22.05, 22.83, 23.62, 24.41, 25.20],
+                shoulder: [20.83, 21.54, 22.24, 22.95, 23.66, 24.37],
+                sleeveLength: [21.81, 22.13, 22.44, 22.76, 23.07, 23.39]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL", "3XL"],
+                length: [69, 71, 73, 75, 77, 78],
+                chest: [54, 56, 58, 60, 62, 64],
+                shoulder: [52.9, 54.7, 56.5, 58.3, 60.1, 61.9],
+                sleeveLength: [55.4, 56.2, 57, 57.8, 58.6, 59.4]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "This crewneck sweatshirt showcases a contemporary drop shoulder design in an essential silhouette. The technical fabric blend provides excellent comfort and shape retention. A versatile layering piece recommended for core collections, easily branded to create cohesive outfit options.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRW0029-P001-V2\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\nMain Fabric: 48.9% polyester, 43.4% cotton, 7.7% spandex; Contrast Fabric: 95.6% polyester, 4.4% spandex\n\nFabric Weight\n400 gsm (11.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     }
 ];
 
 const stripePrices = {
-    "black-socrates-hoodie": "price_1T9yom9S93tBM5OXxuh5loMF",
-    "classic-quarter-zip": "price_1T9yqp9S93tBM5OX9uorrP1S",
-    "varsity-jacket": "price_1T9ytB9S93tBM5OXJmSgGvri",
+    "black-socrates-hoodie": "price_1TWnb69S93tBM5OXzBZrBSKa",
+    "classic-quarter-zip": "price_1TWnYV9S93tBM5OX0jOJ8u43",
+    "varsity-jacket": "price_1TWnWp9S93tBM5OXTgymoZtv",
     "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
-    "borough-oversized-tshirt": "price_1TcWCr9S93tBM5OXIdgtpFMB",
-    "borough-oversized-t-shirt": "price_1TcWCr9S93tBM5OXIdgtpFMB",
-    "vintage-crewneck": "price_1TcXG29S93tBM5OXYSdZrisE",
-    "not-for-everyone-hoodie": "price_1TcWDx9S93tBM5OX4PfYhD5x",
-    "loose-fit-cotton-shorts": "price_1TcWud9S93tBM5OXvZdhmVz5",
+    "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
+    "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
+    "vintage-crewneck": "price_1Tf2KR9S93tBM5OXSLZRESp5",
+    "not-for-everyone-hoodie": "price_1TYzPh9S93tBM5OXiV6SZO7H",
+    "loose-fit-cotton-shorts": "price_1Tf2Hk9S93tBM5OXMbmC3MTt",
     "mesh-drawstring-shorts": "price_1TdHfd9S93tBM5OXBv2VxxpY",
-    "oversized-wavy-grid-tshirt": "price_1TcWB99S93tBM5OXzL2nuQu8"
+    "oversized-wavy-grid-tshirt": "price_1TQy3K9S93tBM5OXoDIMBmZM",
+    "safire-shores-crewneck": "price_1Tf2Pl9S93tBM5OXRSWbhH2E"
 };
