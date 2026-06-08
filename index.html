@@ -740,6 +740,9 @@
             padding: 0 20px;
             display: flex;
             justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
         .filters-toggle-btn {
@@ -767,6 +770,46 @@
             width: 26px;
             height: 26px;
             color: currentColor;
+        }
+
+        .filters-toggle-summary {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.78);
+            letter-spacing: 0.2px;
+        }
+
+        .filters-active-strip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .active-filter-chip {
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.08);
+            color: #ffffff;
+            border-radius: 999px;
+            padding: 4px 9px;
+            font-size: 10px;
+            letter-spacing: 0.2px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .active-filter-chip:hover {
+            background: rgba(255,255,255,0.16);
+            border-color: rgba(255,255,255,0.4);
+        }
+
+        .active-filter-chip-x {
+            font-size: 11px;
+            line-height: 1;
+            opacity: 0.85;
         }
 
         .filters-toggle-btn.open .filters-toggle-icon {
@@ -843,6 +886,13 @@
             letter-spacing: 1px;
             color: #666;
             white-space: nowrap;
+        }
+
+        .filters-match-count {
+            margin-left: 8px;
+            font-size: 11px;
+            color: #9a9a9a;
+            letter-spacing: 0.3px;
         }
 
         .clear-filters-btn {
@@ -974,6 +1024,17 @@
             accent-color: var(--primary);
         }
 
+        .filter-option-text {
+            flex: 1;
+        }
+
+        .filter-option-count {
+            margin-left: auto;
+            font-size: 11px;
+            color: #8f8f8f;
+            font-weight: 600;
+        }
+
         .price-filter-content {
             padding: 16px;
         }
@@ -1039,7 +1100,7 @@
 
         .products {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(5, minmax(0, 1fr));
             gap: 0;
             margin-bottom: 50px;
             background: #111111;
@@ -1054,6 +1115,8 @@
             animation: fadeIn 0.6s ease-out forwards;
             opacity: 0;
             border: 1px solid #1f1f1f;
+            display: flex;
+            flex-direction: column;
         }
 
         .product:nth-child(1) { animation-delay: 0.1s; }
@@ -1356,6 +1419,9 @@
 
         .product-info {
             padding: 12px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
         }
 
         .product-category {
@@ -1455,6 +1521,7 @@
         .product-actions {
             display: flex;
             gap: 10px;
+            margin-top: auto;
         }
 
         .add-to-cart-btn {
@@ -2034,15 +2101,18 @@
             position: fixed;
             left: -400px;
             top: 0;
-            width: 350px;
+            width: min(420px, 94vw);
             height: 100vh;
-            background: var(--secondary);
-            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
+            background:
+                radial-gradient(circle at 12% 8%, rgba(198, 157, 88, 0.22), transparent 44%),
+                linear-gradient(155deg, #0f0f0f 0%, #070707 68%);
+            box-shadow: 8px 0 36px rgba(0,0,0,0.45);
             z-index: 1000;
             overflow-y: auto;
             transition: left 0.3s ease;
             display: flex;
             flex-direction: column;
+            border-right: 1px solid rgba(255,255,255,0.1);
         }
 
         .wishlist-modal.open {
@@ -2050,43 +2120,53 @@
         }
 
         .wishlist-header {
-            background: var(--primary);
-            color: var(--secondary);
-            padding: 20px;
+            background: linear-gradient(155deg, rgba(24,24,24,0.96), rgba(9,9,9,0.96));
+            color: #f5efe2;
+            padding: 18px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.7px;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(198, 157, 88, 0.35);
         }
 
         .wishlist-close {
-            background: none;
-            border: none;
-            color: var(--secondary);
-            font-size: 24px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.18);
+            color: #f4e9d2;
+            width: 32px;
+            height: 32px;
+            border-radius: 999px;
+            font-size: 20px;
             cursor: pointer;
         }
 
         .wishlist-items {
             flex: 1;
-            padding: 20px;
+            padding: 18px;
             overflow-y: auto;
         }
 
         .wishlist-item {
-            display: flex;
+            display: grid;
+            grid-template-columns: 84px 1fr;
             gap: 12px;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 12px;
+            padding: 12px;
+            border: 1px solid rgba(255,255,255,0.12);
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border-radius: 14px;
+            backdrop-filter: blur(1.5px);
         }
 
         .wishlist-item-image {
-            width: 60px;
-            height: 60px;
-            border-radius: 4px;
+            width: 84px;
+            height: 84px;
+            border-radius: 10px;
             object-fit: cover;
-            background: var(--light-gray);
+            background: #161616;
         }
 
         .wishlist-item-details {
@@ -2094,28 +2174,63 @@
         }
 
         .wishlist-item-name {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--dark-gray);
+            font-weight: 700;
+            font-size: 13px;
+            color: #f4f4f4;
+            letter-spacing: 0.2px;
         }
 
         .wishlist-item-price {
             font-size: 12px;
-            color: var(--accent);
-            font-weight: 600;
-            margin: 5px 0;
+            color: #c8a86b;
+            font-weight: 700;
+            margin: 6px 0 8px;
+        }
+
+        .wishlist-item-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .wishlist-item-actions .add-to-cart-btn,
+        .wishlist-item-actions .remove-btn {
+            flex: 1;
+            min-height: 32px;
+            font-size: 11px;
+            padding: 7px 8px;
+        }
+
+        .wishlist-item-actions .remove-btn {
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.24);
+            background: transparent;
+            color: #f2f2f2;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease;
+        }
+
+        .wishlist-item-actions .remove-btn:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.42);
         }
 
         .wishlist-empty {
             text-align: center;
             padding: 60px 20px;
-            color: #bbb;
+            color: #cfcfcf;
         }
 
         .wishlist-empty p {
             margin: 0;
             font-size: 16px;
             font-weight: 500;
+        }
+
+        .wishlist-empty .wishlist-empty-icon {
+            font-size: 40px;
+            margin-bottom: 14px;
+            color: #c8a86b;
         }
 
         /* Overlay */
@@ -3697,6 +3812,8 @@
             <circle cx="12" cy="17" r="1.6" fill="currentColor" stroke="none"></circle>
         </svg>
     </button>
+    <span class="filters-toggle-summary" id="filters-toggle-summary">All items</span>
+    <div class="filters-active-strip" id="filters-active-strip" aria-live="polite"></div>
 </div>
 
 <div class="filters-overlay" id="filters-overlay"></div>
@@ -3705,7 +3822,7 @@
 <div class="filters-bar-container" id="filters-bar-container">
     <div class="filters-bar">
         <div class="filters-panel-header">
-            <span class="filter-label">FILTER BY</span>
+            <span class="filter-label">FILTER BY <span class="filters-match-count" id="filters-match-count">0 items</span></span>
             <button class="filters-panel-close" id="filters-panel-close" type="button" aria-label="Close filters">&times;</button>
         </div>
         <button class="clear-filters-btn" id="clear-filters-btn" type="button">Clear All</button>
@@ -4885,7 +5002,7 @@ const DESKTOP_MEDIA_QUERY = '(min-width: 900px)';
 let currentPage = 1;
 
 function getProductsPerPage() {
-    return 6;
+    return window.matchMedia(DESKTOP_MEDIA_QUERY).matches ? 15 : 6;
 }
 
 function getColorPreviewLimit() {
@@ -5221,7 +5338,7 @@ function updateWishlistDisplay() {
     wishlistCount.innerText = wishlist.length;
 
     if (wishlist.length === 0) {
-        wishlistItems.innerHTML = '<div class="wishlist-empty"><div style="font-size: 48px; margin-bottom: 15px;">💖</div><p>Your wishlist is empty</p><p style="font-size: 13px; color: #ccc; margin-top: 10px;">Save items to your wishlist!</p></div>';
+        wishlistItems.innerHTML = '<div class="wishlist-empty"><div class="wishlist-empty-icon">◇</div><p>Your wishlist is empty</p><p style="font-size: 13px; color: #b0b0b0; margin-top: 10px;">Save your favorite pieces to style premium fits faster.</p></div>';
         return;
     }
 
@@ -5234,10 +5351,10 @@ function updateWishlistDisplay() {
                 <div class="wishlist-item-details">
                     <div class="wishlist-item-name">${item.name}</div>
                     <div class="wishlist-item-price">$${wishlistPrice.toFixed(0)}</div>
-                    <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${wishlistPrice}, '${item.image1}'); toggleWishlist();">
-                        Add to Cart
-                    </button>
-                    <button class="remove-btn" style="width: 100%; margin-top: 5px;" onclick="removeFromWishlist(${index})">Remove</button>
+                    <div class="wishlist-item-actions">
+                        <button class="add-to-cart-btn" onclick="addToCart(${item.id}, '${item.name}', ${wishlistPrice}, '${item.image1}'); toggleWishlist();">Add to Cart</button>
+                        <button class="remove-btn" onclick="removeFromWishlist(${index})">Remove</button>
+                    </div>
                 </div>
             </div>
         `;
@@ -5730,51 +5847,201 @@ if (priceRangeFilter) {
     });
 }
 
-function applyFilters() {
-    const selectedGenders = Array.from(document.querySelectorAll('.gender-filter:checked')).map(cb => cb.value);
-    const selectedSizes = Array.from(document.querySelectorAll('.size-filter:checked')).map(cb => cb.value);
-    const selectedProducts = Array.from(document.querySelectorAll('.product-filter:checked')).map(cb => cb.value.toLowerCase());
-    const selectedColors = Array.from(document.querySelectorAll('.color-filter:checked')).map(cb => cb.value.toLowerCase());
-    const maxPrice = Number(document.getElementById('price-range-filter')?.value || Infinity);
-    const searchTerm = document.getElementById('search-input').value;
+function collectActiveFilters() {
+    return {
+        genders: Array.from(document.querySelectorAll('.gender-filter:checked')).map((cb) => String(cb.value).toLowerCase()),
+        sizes: Array.from(document.querySelectorAll('.size-filter:checked')).map((cb) => String(cb.value).toUpperCase()),
+        products: Array.from(document.querySelectorAll('.product-filter:checked')).map((cb) => String(cb.value).toLowerCase()),
+        colors: Array.from(document.querySelectorAll('.color-filter:checked')).map((cb) => String(cb.value).toLowerCase()),
+        maxPrice: Number(document.getElementById('price-range-filter')?.value || Infinity),
+        searchTerm: String(document.getElementById('search-input')?.value || '').trim(),
+        quickCategory: activeQuickCategory
+    };
+}
 
-    filteredProducts = productsData.filter(product => {
-        const productGender = String(product.gender || 'men').toLowerCase();
-        const genderMatch = selectedGenders.length === 0 || selectedGenders.some((selectedGender) =>
-            productGender.includes(selectedGender) || productGender.includes('unisex')
-        );
-        const sizeMatch = selectedSizes.length === 0 || selectedSizes.some(size => product.stock && product.stock[size] > 0);
+function getProductTypeForFilters(product) {
+    const productText = normalizeSearchText([
+        product.name,
+        product.description,
+        product.details,
+        product.category,
+        product.productId
+    ].join(' '));
 
-        const productName = String(product.name || '').toLowerCase();
-        const productText = normalizeSearchText([
-            product.name,
-            product.description,
-            product.details,
-            product.category,
-            product.productId
-        ].join(' '));
-        const productType =
-            productText.includes('hoodie') ? 'hoodie' :
-            (/\bshirts?\b/.test(productText) || /\btshirt\b/.test(productText) || /\bt\s+shirt\b/.test(productText) || /\btee\b/.test(productText)) ? 'shirt' :
-            productText.includes('quarter zip') ? 'quarter zip' :
-            productText.includes('jacket') ? 'jacket' :
-            /\bshorts\b/.test(productText) ? 'shorts' :
-            '';
-        const productMatch = selectedProducts.length === 0 || selectedProducts.includes(productType);
-        const priceMatch = Number(product.price || 0) <= maxPrice;
-        const productColors = (product.colors || []).map(color => String(color.name || '').toLowerCase());
-        const colorMatch = selectedColors.length === 0 || selectedColors.some(selectedColor =>
-            productColors.some(productColor => productColor.includes(selectedColor))
-        );
-        const searchMatch = productMatchesSearch(product, searchTerm);
-        const quickCategoryMatch = matchesQuickCategory(product, activeQuickCategory);
+    if (productText.includes('hoodie')) return 'hoodie';
+    if ((/\bshirts?\b/.test(productText) || /\btshirt\b/.test(productText) || /\bt\s+shirt\b/.test(productText) || /\btee\b/.test(productText))) return 'shirt';
+    if (productText.includes('quarter zip')) return 'quarter zip';
+    if (productText.includes('jacket')) return 'jacket';
+    if (/\bshorts\b/.test(productText)) return 'shorts';
+    return '';
+}
 
-        return genderMatch && sizeMatch && productMatch && priceMatch && colorMatch && searchMatch && quickCategoryMatch;
+function productMatchesActiveFilters(product, activeFilters) {
+    const productGender = String(product.gender || 'men').toLowerCase();
+    const genderMatch = activeFilters.genders.length === 0 || activeFilters.genders.some((selectedGender) => (
+        productGender.includes(selectedGender) || productGender.includes('unisex')
+    ));
+
+    const sizeMatch = activeFilters.sizes.length === 0 || activeFilters.sizes.some((size) => product.stock && product.stock[size] > 0);
+    const productType = getProductTypeForFilters(product);
+    const productMatch = activeFilters.products.length === 0 || activeFilters.products.includes(productType);
+    const priceMatch = Number(product.price || 0) <= activeFilters.maxPrice;
+    const productColors = (product.colors || []).map((color) => String(color.name || '').toLowerCase());
+    const colorMatch = activeFilters.colors.length === 0 || activeFilters.colors.some((selectedColor) => (
+        productColors.some((productColor) => productColor.includes(selectedColor))
+    ));
+    const searchMatch = productMatchesSearch(product, activeFilters.searchTerm);
+    const quickCategoryMatch = matchesQuickCategory(product, activeFilters.quickCategory);
+
+    return genderMatch && sizeMatch && productMatch && priceMatch && colorMatch && searchMatch && quickCategoryMatch;
+}
+
+function initializeFilterOptionLabels() {
+    document.querySelectorAll('.filter-menu label').forEach((label) => {
+        const input = label.querySelector('input[type="checkbox"]');
+        if (!input) return;
+        if (label.querySelector('.filter-option-text')) return;
+
+        const baseText = (label.textContent || '').replace(/\s+/g, ' ').trim();
+        label.dataset.baseText = baseText;
+
+        Array.from(label.childNodes).forEach((node) => {
+            if (node !== input) label.removeChild(node);
+        });
+
+        const textSpan = document.createElement('span');
+        textSpan.className = 'filter-option-text';
+        textSpan.textContent = baseText;
+
+        const countSpan = document.createElement('span');
+        countSpan.className = 'filter-option-count';
+        countSpan.textContent = '0';
+
+        label.appendChild(textSpan);
+        label.appendChild(countSpan);
     });
+}
+
+function updateFilterOptionCounts() {
+    const activeFilters = collectActiveFilters();
+
+    const configs = [
+        { selector: '.gender-filter', key: 'genders', normalize: (value) => String(value).toLowerCase() },
+        { selector: '.size-filter', key: 'sizes', normalize: (value) => String(value).toUpperCase() },
+        { selector: '.product-filter', key: 'products', normalize: (value) => String(value).toLowerCase() },
+        { selector: '.color-filter', key: 'colors', normalize: (value) => String(value).toLowerCase() }
+    ];
+
+    configs.forEach((config) => {
+        document.querySelectorAll(config.selector).forEach((input) => {
+            const optionValue = config.normalize(input.value);
+            const scopedFilters = {
+                ...activeFilters,
+                [config.key]: Array.from(new Set([...(activeFilters[config.key] || []), optionValue]))
+            };
+
+            const matchCount = productsData.filter((product) => productMatchesActiveFilters(product, scopedFilters)).length;
+            const countEl = input.closest('label')?.querySelector('.filter-option-count');
+            if (countEl) countEl.textContent = String(matchCount);
+        });
+    });
+}
+
+function updateFilterSummaryText(totalMatches) {
+    const summaryEl = document.getElementById('filters-toggle-summary');
+    const panelCountEl = document.getElementById('filters-match-count');
+    const activeFilters = collectActiveFilters();
+    const activeCount = activeFilters.genders.length + activeFilters.sizes.length + activeFilters.products.length + activeFilters.colors.length
+        + ((activeFilters.searchTerm && activeFilters.searchTerm.length > 0) ? 1 : 0)
+        + ((Number.isFinite(activeFilters.maxPrice) && Number(activeFilters.maxPrice) < Number(document.getElementById('price-range-filter')?.max || activeFilters.maxPrice)) ? 1 : 0)
+        + ((activeQuickCategory !== 'all') ? 1 : 0);
+
+    if (summaryEl) {
+        summaryEl.textContent = activeCount > 0
+            ? `${activeCount} filter${activeCount === 1 ? '' : 's'} • ${totalMatches} item${totalMatches === 1 ? '' : 's'}`
+            : `All items (${totalMatches})`;
+    }
+
+    if (panelCountEl) {
+        panelCountEl.textContent = `${totalMatches} item${totalMatches === 1 ? '' : 's'}`;
+    }
+}
+
+function updateActiveFilterChips() {
+    const chipsWrap = document.getElementById('filters-active-strip');
+    if (!chipsWrap) return;
+
+    const activeFilters = collectActiveFilters();
+    const chips = [];
+
+    activeFilters.genders.forEach((value) => chips.push({ group: 'gender', value, label: value.charAt(0).toUpperCase() + value.slice(1) }));
+    activeFilters.sizes.forEach((value) => chips.push({ group: 'size', value, label: value }));
+    activeFilters.products.forEach((value) => chips.push({ group: 'product', value, label: value === 'quarter zip' ? 'Quarter Zip' : value.charAt(0).toUpperCase() + value.slice(1) }));
+    activeFilters.colors.forEach((value) => chips.push({ group: 'color', value, label: value.charAt(0).toUpperCase() + value.slice(1) }));
+
+    const maxPriceInput = document.getElementById('price-range-filter');
+    if (maxPriceInput && Number(activeFilters.maxPrice) < Number(maxPriceInput.max)) {
+        chips.push({ group: 'price', value: String(activeFilters.maxPrice), label: `Price <= $${activeFilters.maxPrice}` });
+    }
+
+    if (activeFilters.searchTerm) {
+        chips.push({ group: 'search', value: activeFilters.searchTerm, label: `Search: ${activeFilters.searchTerm}` });
+    }
+
+    if (activeQuickCategory !== 'all') {
+        chips.push({ group: 'quick', value: activeQuickCategory, label: `Category: ${activeQuickCategory}` });
+    }
+
+    chipsWrap.innerHTML = chips.map((chip) => (
+        `<button type="button" class="active-filter-chip" onclick="removeFilterChip('${chip.group}','${String(chip.value).replace(/'/g, "\\'")}')">${chip.label}<span class="active-filter-chip-x">x</span></button>`
+    )).join('');
+}
+
+function removeFilterChip(group, value) {
+    if (group === 'price') {
+        const priceRangeInput = document.getElementById('price-range-filter');
+        if (priceRangeInput) {
+            priceRangeInput.value = priceRangeInput.max;
+            updatePriceRangeDisplay();
+        }
+    } else if (group === 'search') {
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) searchInput.value = '';
+    } else if (group === 'quick') {
+        activeQuickCategory = 'all';
+    } else {
+        const selectorMap = {
+            gender: '.gender-filter',
+            size: '.size-filter',
+            product: '.product-filter',
+            color: '.color-filter'
+        };
+        const selector = selectorMap[group];
+        if (selector) {
+            document.querySelectorAll(selector).forEach((input) => {
+                if (String(input.value).toLowerCase() === String(value).toLowerCase()) {
+                    input.checked = false;
+                }
+            });
+        }
+    }
+
+    applyFilters();
+}
+
+window.removeFilterChip = removeFilterChip;
+
+function applyFilters() {
+    const activeFilters = collectActiveFilters();
+
+    filteredProducts = productsData.filter((product) => productMatchesActiveFilters(product, activeFilters));
 
     currentPage = 1;
     renderProducts();
     updateFilterStates();
+    updateFilterOptionCounts();
+    updateFilterSummaryText(filteredProducts.length);
+    updateActiveFilterChips();
     updateQuickCategoryState();
 }
 
@@ -5794,6 +6061,7 @@ function updateFilterStates() {
 
 // Initialize
 updatePriceRangeDisplay();
+initializeFilterOptionLabels();
 applyFilters();
 updateCartDisplay();
 updateWishlistDisplay();
