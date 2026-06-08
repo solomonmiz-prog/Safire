@@ -2742,19 +2742,19 @@
 <section class="complete-look-section">
     <div class="container">
         <h2>Complete the Look</h2>
-        <p>Pair your favorite hoodie with these matching pieces</p>
+        <p>Pair the white Safire grid tee with black Safire mesh shorts</p>
         <div class="complete-look-grid">
             <div class="look-item">
-                <img src="images/grayqzipfront.png" alt="Quarter Zip" class="look-image">
-                <h3>Classic Quarter Zip</h3>
-                <p>$50</p>
-                <button class="btn btn-primary" onclick="addToCart(3, 'Classic Quarter Zip', 50, 'images/grayqzipfront.png')">Add to Cart</button>
+                <img src="images/whiteoverwavyfront.png" alt="White Safire Grid Tee" class="look-image">
+                <h3>White Safire Grid Tee</h3>
+                <p>$40</p>
+                <button class="btn btn-primary" onclick="window.location.href='product.html?id=oversized-wavy-grid-tshirt'">View Product</button>
             </div>
             <div class="look-item">
-                <img src="images/frontblackcreamjacket.png" alt="Varsity Jacket" class="look-image">
-                <h3>Varsity Jacket</h3>
-                <p>$50</p>
-                <button class="btn btn-primary" onclick="addToCart(4, 'Varsity Jacket', 50, 'images/frontblackcreamjacket.png')">Add to Cart</button>
+                <img src="images/meshshortsblackfront.png" alt="Black Safire Mesh Shorts" class="look-image">
+                <h3>Black Safire Mesh Shorts</h3>
+                <p>$40</p>
+                <button class="btn btn-primary" onclick="window.location.href='product.html?id=mesh-drawstring-shorts'">View Product</button>
             </div>
         </div>
     </div>
@@ -3146,57 +3146,6 @@ const productsData = [
         ]
     },
     {
-        id: 8,
-        productId: "loose-fit-cotton-shorts",
-        name: "Loose Fit Cotton Shorts",
-        category: "bottoms",
-        gender: "men",
-        price: 30,
-        image1: "images/milkteacottonfrontshorts.png",
-        image2: "images/milkteacottonbackshorts.png",
-        description: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look.",
-        details: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look. Crafted from 80% cotton, 20% polyester in a muted earth tone, these shorts offer a substantial, cozy fit with a loose silhouette that is perfect for laid-back days. The modern design combines effortless style with durability, making it an ideal choice for showcasing personalized prints while maintaining an urban edge.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nR00226-P001-V7\n\nGender\nMen\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nL\n\nEffects\nDrawstring\n\nFit\nRegular\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Basics\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n425 gsm (12.5 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
-        freeShipping: true,
-        sku: "R00226-P001-V7",
-        stock: { S: 10, M: 10, L: 10, XL: 10 },
-        colors: [
-            {
-                name: "Cream",
-                hex: "#DED3BD",
-                images: {
-                    front: "images/milkteacottonfrontshorts.png",
-                    back: "images/milkteacottonbackshorts.png"
-                }
-            },
-            {
-                name: "Oat Grey",
-                hex: "#AAA79F",
-                images: {
-                    front: "images/oatgreycottonfrontshorts.png",
-                    back: "images/oatgreycottonbackshorts.png"
-                }
-            },
-            {
-                name: "White",
-                hex: "#F2F2F2",
-                images: {
-                    front: "images/whitecottonfrontshorts.png",
-                    back: "images/whitecottonbackshorts.png"
-                }
-            },
-            {
-                name: "Black",
-                hex: "#111111",
-                images: {
-                    front: "images/blackcottonfrontshorts.png",
-                    back: "images/blackcottonbackshorts.png"
-                }
-            }
-        ]
-    },
-    {
         id: 13,
         productId: "safire-shores-crewneck",
         name: "Safire Shores",
@@ -3253,7 +3202,6 @@ function renderProducts() {
 
     const featuredOrder = {
         'borough-oversized-tshirt': 1,
-        'loose-fit-cotton-shorts': 2,
         'safire-shores-crewneck': 3,
         'cropped-fleece-hoodie': 4,
         'black-socrates-hoodie': 5,
@@ -3300,8 +3248,6 @@ function renderProducts() {
             productBadges = '<div class="product-badge premium">Premium Fabric</div>';
         } else if (product.id === 2) {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
-        } else if (product.productId === 'loose-fit-cotton-shorts') {
-            productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'borough-oversized-tshirt') {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
         }

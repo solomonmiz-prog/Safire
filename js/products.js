@@ -179,55 +179,6 @@ const products = [
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
-        id: "loose-fit-cotton-shorts",
-        name: "Loose Fit Cotton Shorts",
-        price: 40,
-        description: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look.",
-        images: [
-            "images/milkteacottonfrontshorts.png",
-            "images/milkteacottonbackshorts.png"
-        ],
-        colorways: [
-            {
-                name: "Cream",
-                hex: "#DED3BD",
-                images: [
-                    "images/milkteacottonfrontshorts.png",
-                    "images/milkteacottonbackshorts.png"
-                ]
-            },
-            {
-                name: "Oat Grey",
-                hex: "#AAA79F",
-                images: [
-                    "images/oatgreycottonfrontshorts.png",
-                    "images/oatgreycottonbackshorts.png"
-                ]
-            },
-            {
-                name: "White",
-                hex: "#F2F2F2",
-                images: [
-                    "images/whitecottonfrontshorts.png",
-                    "images/whitecottonbackshorts.png"
-                ]
-            },
-            {
-                name: "Black",
-                hex: "#111111",
-                images: [
-                    "images/blackcottonfrontshorts.png",
-                    "images/blackcottonbackshorts.png"
-                ]
-            }
-        ],
-        sizes: ["S", "M", "L", "XL"],
-        freeShipping: true,
-        details: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look. Crafted from 80% cotton, 20% polyester in a muted earth tone, these shorts offer a substantial, cozy fit with a loose silhouette that is perfect for laid-back days. The modern design combines effortless style with durability, making it an ideal choice for showcasing personalized prints while maintaining an urban edge.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nR00226-P001-V7\n\nGender\nMen\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nL\n\nEffects\nDrawstring\n\nFit\nRegular\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Basics\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n425 gsm (12.5 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
-    },
-    {
         id: "mesh-drawstring-shorts",
         name: "Mesh Drawstring Shorts",
         price: 40,
@@ -953,7 +904,6 @@ const stripePrices = {
     "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
     "vintage-crewneck": "price_1Tf2KR9S93tBM5OXSLZRESp5",
     "not-for-everyone-hoodie": "price_1TYzPh9S93tBM5OXiV6SZO7H",
-    "loose-fit-cotton-shorts": "price_1Tf2Hk9S93tBM5OXMbmC3MTt",
     "mesh-drawstring-shorts": "price_1TdHfd9S93tBM5OXBv2VxxpY",
     "oversized-wavy-grid-tshirt": "price_1TQy3K9S93tBM5OXoDIMBmZM",
     "safire-shores-crewneck": "price_1Tf2Pl9S93tBM5OXRSWbhH2E"

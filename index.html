@@ -22,14 +22,14 @@
     </script>
     <style>
         :root {
-            --primary: #1a1a1a;
-            --secondary: #ffffff;
-            --accent: #3a86ff;
-            --dark-gray: #2a2a2a;
-            --light-gray: #f5f5f5;
-            --text-primary: #1a1a1a;
-            --text-secondary: #666666;
-            --text-light: #999999;
+            --primary: #0f0f10;
+            --secondary: #f4efe4;
+            --accent: #c8a86b;
+            --dark-gray: #1a1815;
+            --light-gray: #141311;
+            --text-primary: #f4efe4;
+            --text-secondary: #c4b69e;
+            --text-light: #9d8f77;
         }
 
         * {
@@ -48,8 +48,8 @@
 
         body {
             background:
-                radial-gradient(circle at 12% 6%, rgba(58, 134, 255, 0.2), transparent 30%),
-                radial-gradient(circle at 88% 88%, rgba(58, 134, 255, 0.14), transparent 34%),
+                radial-gradient(circle at 12% 6%, rgba(200, 168, 107, 0.22), transparent 34%),
+                radial-gradient(circle at 88% 88%, rgba(133, 93, 46, 0.16), transparent 38%),
                 #050505;
             background-attachment: fixed;
         }
@@ -621,7 +621,7 @@
         .reviews-see-all-btn:hover {
             transform: translateY(-1px);
             opacity: 0.98;
-            border-color: rgba(58, 134, 255, 0.72);
+            border-color: rgba(200, 168, 107, 0.72);
         }
 
         /* Complete the Look Section */
@@ -1242,12 +1242,12 @@
         }
 
         .product-badge.premium {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #9c7a3e 0%, #d4b074 100%);
             color: white;
         }
 
         .product-badge.limited {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #5f4630 0%, #a98050 100%);
             color: white;
         }
 
@@ -1305,7 +1305,7 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            background: rgba(58, 134, 255, 0.95);
+            background: rgba(200, 168, 107, 0.95);
             color: white;
             padding: 8px 12px;
             border-radius: 20px;
@@ -2026,7 +2026,7 @@
             background: transparent;
             color: var(--accent);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(58, 134, 255, 0.25);
+            box-shadow: 0 4px 12px rgba(200, 168, 107, 0.25);
         }
 
         /* Wishlist Modal */
@@ -2432,7 +2432,7 @@
 
         .payment-option:hover {
             border-color: var(--accent);
-            background: rgba(58, 134, 255, 0.08);
+            background: rgba(200, 168, 107, 0.08);
         }
 
         .payment-option input[type="radio"] {
@@ -2443,7 +2443,7 @@
 
         .payment-option.selected {
             border-color: var(--accent);
-            background: rgba(58, 134, 255, 0.14);
+            background: rgba(200, 168, 107, 0.14);
         }
 
         .payment-icon {
@@ -2483,7 +2483,7 @@
             background: transparent;
             color: var(--accent);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(58, 134, 255, 0.3);
+            box-shadow: 0 8px 20px rgba(200, 168, 107, 0.3);
         }
 
         .place-order-btn:active {
@@ -2564,7 +2564,7 @@
         }
 
         .payment-instructions {
-            background: rgba(58, 134, 255, 0.1);
+            background: rgba(200, 168, 107, 0.1);
             border: 2px solid var(--accent);
             padding: 20px;
             border-radius: 6px;
@@ -2722,8 +2722,8 @@
             html,
             body {
                 background:
-                    radial-gradient(circle at 12% 6%, rgba(58, 134, 255, 0.2), transparent 34%),
-                    radial-gradient(circle at 88% 88%, rgba(58, 134, 255, 0.14), transparent 38%),
+                    radial-gradient(circle at 12% 6%, rgba(200, 168, 107, 0.22), transparent 36%),
+                    radial-gradient(circle at 88% 88%, rgba(133, 93, 46, 0.16), transparent 40%),
                     #050505;
                 background-attachment: scroll;
                 background-repeat: no-repeat;
@@ -4029,21 +4029,21 @@
 
             <div class="complete-look-grid">
                 <div class="look-item">
-                    <img src="images/skyblueoverwavyfront.png" alt="Sky Blue Safire T-Shirt" class="look-image">
+                    <img src="images/whiteoverwavyfront.png" alt="White Safire Grid Tee" class="look-image">
                     <div class="look-item-body">
                         <span class="look-item-tag">Top Layer</span>
-                        <h3>Oversized Wavy-grid Safire T-Shirt</h3>
+                        <h3>White Safire Grid Tee</h3>
                         <p>$40</p>
-                        <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/skyblueoverwavyfront.png')">Add to Cart</button>
+                        <button class="btn btn-primary" onclick="addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/whiteoverwavyfront.png')">Add to Cart</button>
                     </div>
                 </div>
                 <div class="look-item">
-                    <img src="images/newblankblackfront.png" alt="Plain Hoodie" class="look-image">
+                    <img src="images/meshshortsblackfront.png" alt="Black Safire Mesh Shorts" class="look-image">
                     <div class="look-item-body">
-                        <span class="look-item-tag">Core Layer</span>
-                        <h3>Plain Hoodie</h3>
-                        <p>$60</p>
-                        <button class="btn btn-primary" onclick="addToCart(6, 'Plain Hoodie', 60, 'images/newblankblackfront.png')">Add to Cart</button>
+                        <span class="look-item-tag">Bottom Layer</span>
+                        <h3>Black Safire Mesh Shorts</h3>
+                        <p>$40</p>
+                        <button class="btn btn-primary" onclick="addToCart(12, 'Mesh Drawstring Shorts', 40, 'images/meshshortsblackfront.png')">Add to Cart</button>
                     </div>
                 </div>
             </div>
@@ -4306,57 +4306,6 @@ const productsData = [
                 images: {
                     front: "images/skyblueoverwavyfront.png",
                     back: "images/skyblueoverwavyback.png"
-                }
-            }
-        ]
-    },
-    {
-        id: 8,
-        productId: "loose-fit-cotton-shorts",
-        name: "Loose Fit Cotton Shorts",
-        category: "bottoms",
-        gender: "men",
-        price: 40,
-        image1: "images/milkteacottonfrontshorts.png",
-        image2: "images/milkteacottonbackshorts.png",
-        description: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look.",
-        details: "Step into a realm of comfort and contemporary style with these heavyweight shorts, designed for a relaxed yet refined look. Crafted from 80% cotton, 20% polyester in a muted earth tone, these shorts offer a substantial, cozy fit with a loose silhouette that is perfect for laid-back days. The modern design combines effortless style with durability, making it an ideal choice for showcasing personalized prints while maintaining an urban edge.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nR00226-P001-V7\n\nGender\nMen\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nL\n\nEffects\nDrawstring\n\nFit\nRegular\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Basics\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n425 gsm (12.5 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
-        freeShipping: true,
-        sku: "R00226-P001-V7",
-        stock: { S: 10, M: 10, L: 10, XL: 10 },
-        colors: [
-            {
-                name: "Cream",
-                hex: "#DED3BD",
-                images: {
-                    front: "images/milkteacottonfrontshorts.png",
-                    back: "images/milkteacottonbackshorts.png"
-                }
-            },
-            {
-                name: "Oat Grey",
-                hex: "#AAA79F",
-                images: {
-                    front: "images/oatgreycottonfrontshorts.png",
-                    back: "images/oatgreycottonbackshorts.png"
-                }
-            },
-            {
-                name: "White",
-                hex: "#F2F2F2",
-                images: {
-                    front: "images/whitecottonfrontshorts.png",
-                    back: "images/whitecottonbackshorts.png"
-                }
-            },
-            {
-                name: "Black",
-                hex: "#111111",
-                images: {
-                    front: "images/blackcottonfrontshorts.png",
-                    back: "images/blackcottonbackshorts.png"
                 }
             }
         ]
@@ -4947,7 +4896,6 @@ function getProductCardTitle(product) {
     const productId = String(product && product.productId ? product.productId : '');
 
     if (productId === 'oversized-wavy-grid-tshirt') return 'Wavy Grid';
-    if (productId === 'loose-fit-cotton-shorts') return 'Cotton Shorts';
     if (productId === 'mesh-drawstring-shorts') return 'Mesh Shorts';
     if (productId === 'borough-oversized-tshirt') return 'Oversized Borough';
 
@@ -4970,8 +4918,7 @@ function renderProducts() {
         'borough-oversized-tshirt': 7,
         'cropped-fleece-hoodie': 8,
         'classic-quarter-zip': 9,
-        'varsity-jacket': 10,
-        'loose-fit-cotton-shorts': 11
+        'varsity-jacket': 10
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
