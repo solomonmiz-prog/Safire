@@ -2889,7 +2889,7 @@
         <img src="images/BFE09C59-E492-4B6A-B36E-F82B9EC6EE12_1_102_o.transparent.png" alt="Safire Logo">
         <span style="font-weight: 600; color: var(--primary);">SAFIRE</span>
     </div>
-    <p>&copy; 2026 SAFIRE. All rights reserved. | <a href="#" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a> | <a href="?admin=true" style="color: var(--accent); text-decoration: none;">Admin</a></p>
+    <p>&copy; 2026 SAFIRE. All rights reserved. | <a href="privacy.html" style="color: var(--accent); text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: var(--accent); text-decoration: none;">Contact</a></p>
     <a class="footer-instagram-link" href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer">
         <svg class="instagram-icon" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
             <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5a4.25 4.25 0 0 0-4.25-4.25h-8.5Zm8.93 1.75a1.07 1.07 0 1 1 0 2.14 1.07 1.07 0 0 1 0-2.14ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
@@ -2897,46 +2897,6 @@
         Follow us on Instagram @safire_vintage
     </a>
 </footer>
-
-<!-- Admin Dashboard (Hidden by default) -->
-<div id="admin-dashboard" style="display: none; position: fixed; inset: 0; background: white; z-index: 2000; overflow-y: auto;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-            <h1 style="color: var(--primary);">Safires Admin Dashboard</h1>
-            <a href="?" style="padding: 10px 20px; background: var(--accent); color: white; text-decoration: none; border-radius: 6px;">Back to Store</a>
-        </div>
-
-        <!-- Settings Section -->
-        <div style="background: var(--light-gray); padding: 25px; border-radius: 8px; margin-bottom: 30px;">
-            <h3>Settings</h3>
-            <div style="margin-top: 20px;">
-                <label style="display: block; margin-bottom: 15px;">
-                    <strong>Your Email (for notifications):</strong><br>
-                    <input type="email" id="business-email-input" placeholder="your-email@example.com" style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px;">
-                </label>
-                <button onclick="saveSettings()" style="padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Save Settings</button>
-            </div>
-        </div>
-
-        <!-- Orders Section -->
-        <div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3>Orders</h3>
-                <div style="display: flex; gap: 10px;">
-                    <button onclick="exportOrdersCSV()" style="padding: 10px 15px; background: var(--accent); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">📥 Export CSV</button>
-                    <button onclick="deleteAllOrders()" style="padding: 10px 15px; background: #ff4444; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">🗑️ Clear All</button>
-                </div>
-            </div>
-
-            <div id="orders-container" style="display: grid; gap: 20px;">
-                <!-- Orders will be loaded here -->
-            </div>
-            <div id="no-orders" style="text-align: center; padding: 40px; color: #999;">
-                No orders yet
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
 // Product Data (only two items shown)
@@ -3795,14 +3755,6 @@ function trackOrder() {
 
 // Send Order Email
 function sendOrderEmail(customerInfo, orderId) {
-    // Store order in localStorage for admin dashboard
-    localStorage.setItem('order_' + orderId, JSON.stringify({
-        ...customerInfo,
-        orderId: orderId,
-        date: new Date().toISOString(),
-        status: 'Pending Payment'
-    }));
-    
     // Create email data
     const emailContent = `
 New Order Received!
@@ -3827,11 +3779,9 @@ ${customerInfo.cartItems.map(item => `- ${item.name} x${item.quantity} = $${(ite
 ORDER TOTAL: $${customerInfo.orderTotal.toFixed(0)}
 
 STATUS: Pending Payment
-
-Dashboard: Check your orders at safires.html?admin=true
     `;
-    
-    console.log('✓ Order saved to dashboard');
+
+    console.log('Order details prepared for notification.');
     console.log(emailContent);
 }
 
@@ -4034,177 +3984,6 @@ applyFilters();
 updateCartDisplay();
 updateWishlistDisplay();
 
-// Load settings
-function loadSettings() {
-    const businessEmail = localStorage.getItem('businessEmail') || 'your-email@example.com';
-    document.getElementById('business-email-input').value = businessEmail;
-}
-
-// Save settings
-function saveSettings() {
-    const businessEmail = document.getElementById('business-email-input').value.trim();
-    
-    if (!businessEmail) {
-        alert('Please enter an email address');
-        return;
-    }
-    
-    localStorage.setItem('businessEmail', businessEmail);
-    alert('✓ Settings saved successfully!');
-}
-
-// Load and display orders
-function loadOrders() {
-    const ordersContainer = document.getElementById('orders-container');
-    const noOrders = document.getElementById('no-orders');
-    ordersContainer.innerHTML = '';
-    
-    const orders = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith('order_')) {
-            orders.push(JSON.parse(localStorage.getItem(key)));
-        }
-    }
-    
-    if (orders.length === 0) {
-        noOrders.style.display = 'block';
-        return;
-    }
-    
-    noOrders.style.display = 'none';
-    
-    // Sort by date (newest first)
-    orders.sort((a, b) => new Date(b.date) - new Date(a.date));
-    
-    orders.forEach(order => {
-        const orderHTML = `
-            <div style="border: 2px solid #ddd; border-radius: 8px; padding: 20px; background: white;">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px;">
-                    <div>
-                        <h4 style="margin: 0 0 5px 0; color: var(--primary);">Order #${order.orderId}</h4>
-                        <small style="color: #666;">${new Date(order.date).toLocaleString()}</small>
-                    </div>
-                    <span style="background: ${order.status === 'Paid' ? '#90EE90' : order.status === 'Shipped' ? '#87CEEB' : '#FFD700'}; color: var(--primary); padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 12px;">
-                        ${order.status}
-                    </span>
-                </div>
-
-                <div style="background: var(--light-gray); padding: 15px; border-radius: 6px; margin-bottom: 15px;">
-                    <strong>Customer Information:</strong><br>
-                    <small style="color: #666;">
-                        <p style="margin: 5px 0;"><strong>Name:</strong> ${order.name}</p>
-                        <p style="margin: 5px 0;"><strong>Email:</strong> ${order.email}</p>
-                        <p style="margin: 5px 0;"><strong>Phone:</strong> ${order.phone}</p>
-                        <p style="margin: 5px 0;"><strong>Address:</strong> ${order.address}, ${order.city}, ${order.state} ${order.zip}, ${order.country}</p>
-                        <p style="margin: 5px 0;"><strong>Payment Method:</strong> ${order.paymentMethod.toUpperCase()}</p>
-                    </small>
-                </div>
-
-                <div style="margin-bottom: 15px;">
-                    <strong>Items Ordered:</strong><br>
-                    <ul style="margin: 10px 0; padding-left: 20px; color: #666;">
-                        ${order.cartItems.map(item => {
-                            const colorName = getColorName(item.color, item.id);
-                            return `<li>${item.name} (${colorName}, Size: ${item.size}) x${item.quantity} = $${(item.price * item.quantity).toFixed(0)}</li>`;
-                        }).join('')}
-                    </ul>
-                </div>
-
-                <div style="background: var(--light-gray); padding: 15px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <strong>Total Amount:</strong><br>
-                        <span style="font-size: 24px; color: var(--accent); font-weight: 700;">$${order.orderTotal.toFixed(0)}</span>
-                    </div>
-                    <button onclick="copyToClipboard('${order.email}')" style="padding: 10px 15px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer;">📋 Copy Email</button>
-                </div>
-
-                <div style="display: flex; gap: 10px;">
-                    <select id="status-${order.orderId}" style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
-                        <option value="Pending Payment" ${order.status === 'Pending Payment' ? 'selected' : ''}>Pending Payment</option>
-                        <option value="Paid" ${order.status === 'Paid' ? 'selected' : ''}>Paid</option>
-                        <option value="Shipped" ${order.status === 'Shipped' ? 'selected' : ''}>Shipped</option>
-                        <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
-                    </select>
-                    <button onclick="updateOrderStatus(${order.orderId})" style="padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">Update</button>
-                    <button onclick="deleteOrder(${order.orderId})" style="padding: 10px 20px; background: #ff4444; color: white; border: none; border-radius: 4px; cursor: pointer;">Delete</button>
-                </div>
-            </div>
-        `;
-        ordersContainer.innerHTML += orderHTML;
-    });
-}
-
-// Update order status
-function updateOrderStatus(orderId) {
-    const newStatus = document.getElementById('status-' + orderId).value;
-    const orderData = JSON.parse(localStorage.getItem('order_' + orderId));
-    orderData.status = newStatus;
-    localStorage.setItem('order_' + orderId, JSON.stringify(orderData));
-    loadOrders();
-    alert('✓ Order status updated!');
-}
-
-// Delete single order
-function deleteOrder(orderId) {
-    if (confirm('Are you sure you want to delete Order #' + orderId + '?')) {
-        localStorage.removeItem('order_' + orderId);
-        loadOrders();
-    }
-}
-
-// Delete all orders
-function deleteAllOrders() {
-    if (confirm('This will delete ALL orders. Are you absolutely sure?')) {
-        for (let i = localStorage.length - 1; i >= 0; i--) {
-            const key = localStorage.key(i);
-            if (key.startsWith('order_')) {
-                localStorage.removeItem(key);
-            }
-        }
-        loadOrders();
-        alert('✓ All orders deleted');
-    }
-}
-
-// Export orders as CSV
-function exportOrdersCSV() {
-    const orders = [];
-    for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith('order_')) {
-            orders.push(JSON.parse(localStorage.getItem(key)));
-        }
-    }
-    
-    if (orders.length === 0) {
-        alert('No orders to export');
-        return;
-    }
-    
-    let csv = 'Order ID,Date,Customer Name,Email,Phone,Address,Payment Method,Status,Total\n';
-    
-    orders.forEach(order => {
-        csv += `"${order.orderId}","${new Date(order.date).toLocaleString()}","${order.name}","${order.email}","${order.phone}","${order.address}, ${order.city}, ${order.state} ${order.zip}","${order.paymentMethod}","${order.status}","$${order.orderTotal.toFixed(0)}"\n`;
-    });
-    
-    const element = document.createElement('a');
-    element.setAttribute('href', 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv));
-    element.setAttribute('download', 'safires_orders_' + new Date().toISOString().split('T')[0] + '.csv');
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-    alert('✓ Orders exported as CSV');
-}
-
-// Copy to clipboard
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        alert('✓ Copied: ' + text);
-    });
-}
-
 // Subscribe to newsletter
 function subscribeNewsletter() {
     const email = document.getElementById('signup-email').value;
@@ -4256,39 +4035,6 @@ function toggleFAQ(element) {
     // Add smooth transition
     content.style.transition = 'max-height 0.3s ease, padding 0.3s ease';
 }
-
-// Check if admin mode
-function checkAdminMode() {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('admin') === 'true') {
-        const adminEmail = localStorage.getItem('adminEmail') || '';
-        const requestedEmail = prompt('Enter admin email to access dashboard:');
-        
-        if (requestedEmail && (adminEmail === '' || requestedEmail === adminEmail)) {
-            if (adminEmail === '') {
-                localStorage.setItem('adminEmail', requestedEmail);
-            }
-            document.getElementById('admin-dashboard').style.display = 'block';
-            document.querySelector('header').style.display = 'none';
-            document.querySelector('.hero').style.display = 'none';
-            const quickCategoryBar = document.querySelector('.quick-category-bar');
-            if (quickCategoryBar) quickCategoryBar.style.display = 'none';
-            const filtersToggleWrap = document.querySelector('.filters-toggle-wrap');
-            if (filtersToggleWrap) filtersToggleWrap.style.display = 'none';
-            document.querySelector('.filters-bar-container').style.display = 'none';
-            document.querySelector('.products-container').style.display = 'none';
-            document.querySelector('footer').style.display = 'none';
-            loadSettings();
-            loadOrders();
-        } else {
-            alert('Incorrect email. Access denied.');
-            window.location.href = '?';
-        }
-    }
-}
-
-// Run admin check on page load
-checkAdminMode();
 
 // Swap Image Function
 function swapImage(container, img1, img2) {
