@@ -904,7 +904,7 @@ const stripePrices = {
     "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
     "vintage-crewneck": "price_1Tf2KR9S93tBM5OXSLZRESp5",
     "not-for-everyone-hoodie": "price_1TYzPh9S93tBM5OXiV6SZO7H",
-    "mesh-drawstring-shorts": "price_1TdHfd9S93tBM5OXBv2VxxpY",
+    "mesh-drawstring-shorts": "price_1Tf2Hk9S93tBM5OXMbmC3MTt",
     "oversized-wavy-grid-tshirt": "price_1TQy3K9S93tBM5OXoDIMBmZM",
     "safire-shores-crewneck": "price_1Tf2Pl9S93tBM5OXRSWbhH2E"
 };

@@ -3261,7 +3261,7 @@ function renderProducts() {
                     
                     <div class="product-actions">
                         <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${product.price}, '${currentImage1}')">
-                            Add to Cart
+                            Add Set
                         </button>
                     </div>
                 </div>
@@ -3497,7 +3497,7 @@ function updateWishlistDisplay() {
                     <div class="wishlist-item-name">${item.name}</div>
                     <div class="wishlist-item-price">$${item.price.toFixed(0)}</div>
                     <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.image1}'); toggleWishlist();">
-                        Add to Cart
+                        Add Set
                     </button>
                     <button class="remove-btn" style="width: 100%; margin-top: 5px;" onclick="removeFromWishlist(${index})">Remove</button>
                 </div>
@@ -3755,6 +3755,17 @@ function trackOrder() {
 
 // Send Order Email
 function sendOrderEmail(customerInfo, orderId) {
+<<<<<<< HEAD
+=======
+    // Store order in localStorage for internal order tracking
+    localStorage.setItem('order_' + orderId, JSON.stringify({
+        ...customerInfo,
+        orderId: orderId,
+        date: new Date().toISOString(),
+        status: 'Pending Payment'
+    }));
+    
+>>>>>>> 9f113d7 (fix price id for mesh shorts)
     // Create email data
     const emailContent = `
 New Order Received!
@@ -3780,8 +3791,13 @@ ORDER TOTAL: $${customerInfo.orderTotal.toFixed(0)}
 
 STATUS: Pending Payment
     `;
+<<<<<<< HEAD
 
     console.log('Order details prepared for notification.');
+=======
+    
+    console.log('✓ Order saved locally');
+>>>>>>> 9f113d7 (fix price id for mesh shorts)
     console.log(emailContent);
 }
 

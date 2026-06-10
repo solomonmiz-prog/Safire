@@ -3437,16 +3437,18 @@
         }
 
         .complete-look-shell {
-            max-width: 1120px;
+            width: 100%;
+            max-width: 1200px;
             margin: 0 auto;
             border: 1px solid rgba(255,255,255,0.14);
-            border-radius: 24px;
+            border-radius: 18px;
             background: linear-gradient(160deg, rgba(16,16,16,0.95), rgba(8,8,8,0.94));
-            padding: 36px;
+            padding: 12px;
         }
 
         .complete-look-head {
-            margin-bottom: 22px;
+            margin-bottom: 14px;
+            text-align: center;
         }
 
         .complete-look-eyebrow {
@@ -3459,23 +3461,25 @@
         }
 
         .complete-look-reimagined h2 {
-            margin: 0 0 10px;
+            margin: 0 0 6px;
             color: #ffffff;
-            font-size: clamp(30px, 4vw, 48px);
+            font-size: clamp(24px, 3vw, 34px);
             letter-spacing: -1px;
         }
 
         .complete-look-sub {
             margin: 0;
             color: rgba(255,255,255,0.82);
-            font-size: 15px;
-            line-height: 1.7;
+            font-size: 12px;
+            line-height: 1.35;
         }
 
         .complete-look-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            max-width: 100%;
+            margin: 0 auto;
         }
 
         .complete-look-bundle {
@@ -3532,11 +3536,22 @@
         }
 
         .look-item {
-            border-radius: 16px;
+            border-radius: 14px;
             border: 1px solid rgba(255,255,255,0.14);
             background: #0f0f0f;
             box-shadow: none;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            text-decoration: none;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            padding: 0;
+        }
+
+        .look-item:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.24);
         }
 
         .look-image {
@@ -3544,36 +3559,77 @@
             aspect-ratio: 1 / 1;
             object-fit: cover;
             display: block;
+            border-radius: 12px;
+        }
+
+        .look-combo-row {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+            border-radius: 0;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+
+        .look-mini-link {
+            display: grid;
+            gap: 0;
+            color: inherit;
+            text-decoration: none;
+            background: #111111;
+            justify-items: stretch;
+        }
+
+        .look-mini-image {
+            width: 100%;
+            height: 122px;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 0;
+            border: 0;
+            display: block;
+            padding: 0;
+            background: #111111;
         }
 
         .look-item-body {
-            padding: 16px;
+            padding: 6px;
+            display: grid;
+            gap: 0;
+            flex: 1;
+        }
+
+        .look-item-link {
+            color: inherit;
+            text-decoration: none;
+            display: block;
         }
 
         .look-item-tag {
             display: inline-flex;
-            margin-bottom: 8px;
+            margin-bottom: 2px;
             color: rgba(255,255,255,0.72);
             border: 1px solid rgba(255,255,255,0.2);
             border-radius: 999px;
-            font-size: 10px;
+            font-size: 8px;
             text-transform: uppercase;
             letter-spacing: 1.4px;
             font-weight: 700;
-            padding: 6px 10px;
+            padding: 3px 6px;
         }
 
         .look-item h3 {
             color: #ffffff;
-            margin: 0 0 8px;
-            font-size: 22px;
+            margin: 0;
+            font-size: 12px;
             line-height: 1.2;
         }
 
         .look-item p {
             color: #ffffff;
-            margin: 0 0 12px;
-            font-size: 17px;
+            margin: 0 0 4px;
+            font-size: 10px;
         }
 
         .faq-reimagined-section {
@@ -3754,9 +3810,33 @@
                 grid-template-columns: 1fr;
             }
 
+            .look-combo-row {
+                grid-template-columns: 1fr;
+            }
+
             .look-item h3,
             .shipping-card h3 {
-                font-size: 20px;
+                font-size: 16px;
+            }
+
+            .complete-look-shell {
+                max-width: 100%;
+                width: 100%;
+                padding: 10px;
+            }
+
+            .complete-look-grid {
+                max-width: 100%;
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .look-mini-image {
+                height: 110px;
+            }
+
+            .look-combo-row {
+                margin-bottom: 6px;
             }
         }
 
@@ -4199,10 +4279,11 @@
             <div class="complete-look-head">
                 <p class="complete-look-eyebrow">Style Stack</p>
                 <h2>Complete the Look</h2>
-                <p class="complete-look-sub">Build your fit in two moves. Pair top essentials with pieces that match the silhouette and energy.</p>
+                <p class="complete-look-sub">White Safire grid tee plus black mesh shorts. Nothing else in this set.</p>
             </div>
 
             <div class="complete-look-grid">
+<<<<<<< HEAD
                 <div class="complete-look-bundle">
                     <div class="bundle-item-grid">
                         <article class="bundle-item">
@@ -4225,6 +4306,46 @@
                     <div class="bundle-cta-row">
                         <p class="bundle-price">Bundle Total: $80</p>
                         <button class="btn btn-primary" onclick="addCompleteLookBundle()">Add Full Bundle</button>
+=======
+                <div class="look-item">
+                    <div class="look-combo-row">
+                        <a class="look-mini-link" href="product.html?id=oversized-wavy-grid-tshirt">
+                            <img src="images/whiteoverwavyfront.png" alt="White Safire Grid Tee" class="look-mini-image">
+                        </a>
+
+                        <a class="look-mini-link" href="product.html?id=mesh-drawstring-shorts">
+                            <img src="images/meshshortsblackfront.png" alt="Black Safire Mesh Shorts" class="look-mini-image">
+                        </a>
+                    </div>
+
+                    <div class="look-item-body">
+                        <span class="look-item-tag">Starter Collection</span>
+                        <h3>White Tee + Black Mesh Shorts</h3>
+                        <p>$80 total</p>
+                        <button class="btn btn-primary" onclick="addWhiteTeeBlackShortsSet()">Add Set</button>
+                    </div>
+                </div>
+
+                <div class="look-item" aria-hidden="true" style="opacity:0.28; pointer-events:none;">
+                    <div class="look-combo-row" style="align-items:center; justify-items:center; min-height: 180px;">
+                        <span style="color: rgba(255,255,255,0.55); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Future Set</span>
+                    </div>
+                    <div class="look-item-body">
+                        <span class="look-item-tag">Coming Soon</span>
+                        <h3>More Sets</h3>
+                        <p>Reserved slot</p>
+                    </div>
+                </div>
+
+                <div class="look-item" aria-hidden="true" style="opacity:0.28; pointer-events:none;">
+                    <div class="look-combo-row" style="align-items:center; justify-items:center; min-height: 180px;">
+                        <span style="color: rgba(255,255,255,0.55); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Future Set</span>
+                    </div>
+                    <div class="look-item-body">
+                        <span class="look-item-tag">Coming Soon</span>
+                        <h3>More Sets</h3>
+                        <p>Reserved slot</p>
+>>>>>>> 9f113d7 (fix price id for mesh shorts)
                     </div>
                 </div>
             </div>
@@ -5162,7 +5283,7 @@ function renderProducts() {
                     
                     <div class="product-actions">
                         <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${displayPrice}, '${currentImage1}')">
-                            Add to Cart
+                            Add Set
                         </button>
                     </div>
                 </div>
@@ -5297,6 +5418,24 @@ function addToCart(id, name, price, image) {
     showAddToCartSuccess();
 }
 
+function addWhiteTeeBlackShortsSet() {
+    const tee = productsData.find(p => p.productId === 'oversized-wavy-grid-tshirt');
+    const shorts = productsData.find(p => p.productId === 'mesh-drawstring-shorts');
+
+    if (tee && Array.isArray(tee.colors)) {
+        const whiteIndex = tee.colors.findIndex(color => String(color.name || '').toLowerCase() === 'white');
+        if (whiteIndex >= 0) tee.selectedColor = whiteIndex;
+    }
+
+    if (shorts && Array.isArray(shorts.colors)) {
+        const blackIndex = shorts.colors.findIndex(color => String(color.name || '').toLowerCase().includes('black'));
+        if (blackIndex >= 0) shorts.selectedColor = blackIndex;
+    }
+
+    addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/whiteoverwavyfront.png');
+    addToCart(12, 'Mesh Drawstring Shorts', 40, 'images/meshshortsblackfront.png');
+}
+
 function showAddToCartSuccess() {
     // Animate cart icon
     const cartIcon = document.querySelector('.cart-icon');
@@ -5375,10 +5514,17 @@ function updateWishlistDisplay() {
                 <div class="wishlist-item-details">
                     <div class="wishlist-item-name">${item.name}</div>
                     <div class="wishlist-item-price">$${wishlistPrice.toFixed(0)}</div>
+<<<<<<< HEAD
                     <div class="wishlist-item-actions">
                         <button class="add-to-cart-btn" onclick="addToCart(${item.id}, '${item.name}', ${wishlistPrice}, '${item.image1}'); toggleWishlist();">Add to Cart</button>
                         <button class="remove-btn" onclick="removeFromWishlist(${index})">Remove</button>
                     </div>
+=======
+                    <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${wishlistPrice}, '${item.image1}'); toggleWishlist();">
+                        Add Set
+                    </button>
+                    <button class="remove-btn" style="width: 100%; margin-top: 5px;" onclick="removeFromWishlist(${index})">Remove</button>
+>>>>>>> 9f113d7 (fix price id for mesh shorts)
                 </div>
             </div>
         `;
@@ -5634,6 +5780,17 @@ function trackOrder() {
 
 // Send Order Email
 function sendOrderEmail(customerInfo, orderId) {
+<<<<<<< HEAD
+=======
+    // Store order in localStorage for internal order tracking
+    localStorage.setItem('order_' + orderId, JSON.stringify({
+        ...customerInfo,
+        orderId: orderId,
+        date: new Date().toISOString(),
+        status: 'Pending Payment'
+    }));
+    
+>>>>>>> 9f113d7 (fix price id for mesh shorts)
     // Create email data
     const emailContent = `
 New Order Received!
@@ -5659,8 +5816,13 @@ ORDER TOTAL: $${customerInfo.orderTotal.toFixed(0)}
 
 STATUS: Pending Payment
     `;
+<<<<<<< HEAD
 
     console.log('Order details prepared for notification.');
+=======
+    
+    console.log('✓ Order saved locally');
+>>>>>>> 9f113d7 (fix price id for mesh shorts)
     console.log(emailContent);
 }
 
@@ -6151,11 +6313,14 @@ function toggleFooterContactInfo(event) {
     info.style.display = info.style.display === 'none' ? 'block' : 'none';
 }
 
+<<<<<<< HEAD
 function addCompleteLookBundle() {
     addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/whiteoverwavyfront.png');
     addToCart(12, 'Mesh Drawstring Shorts', 40, 'images/meshshortsblackfront.png');
 }
 
+=======
+>>>>>>> 9f113d7 (fix price id for mesh shorts)
 // Swap Image Function
 function swapImage(container, img1, img2) {
     if (!img2 || !container) return;
