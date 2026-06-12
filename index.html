@@ -4283,30 +4283,6 @@
             </div>
 
             <div class="complete-look-grid">
-<<<<<<< HEAD
-                <div class="complete-look-bundle">
-                    <div class="bundle-item-grid">
-                        <article class="bundle-item">
-                            <img src="images/whiteoverwavyfront.png" alt="White Safire Grid Tee" class="look-image">
-                            <div class="bundle-item-meta">
-                                <span class="look-item-tag">Top Layer</span>
-                                <h3>White Safire Grid Tee</h3>
-                                <p>$40</p>
-                            </div>
-                        </article>
-                        <article class="bundle-item">
-                            <img src="images/meshshortsblackfront.png" alt="Black Safire Mesh Shorts" class="look-image">
-                            <div class="bundle-item-meta">
-                                <span class="look-item-tag">Bottom Layer</span>
-                                <h3>Black Safire Mesh Shorts</h3>
-                                <p>$40</p>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="bundle-cta-row">
-                        <p class="bundle-price">Bundle Total: $80</p>
-                        <button class="btn btn-primary" onclick="addCompleteLookBundle()">Add Full Bundle</button>
-=======
                 <div class="look-item">
                     <div class="look-combo-row">
                         <a class="look-mini-link" href="product.html?id=oversized-wavy-grid-tshirt">
@@ -4345,7 +4321,6 @@
                         <span class="look-item-tag">Coming Soon</span>
                         <h3>More Sets</h3>
                         <p>Reserved slot</p>
->>>>>>> 9f113d7 (fix price id for mesh shorts)
                     </div>
                 </div>
             </div>
@@ -5283,7 +5258,7 @@ function renderProducts() {
                     
                     <div class="product-actions">
                         <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${displayPrice}, '${currentImage1}')">
-                            Add Set
+                            Add to Cart
                         </button>
                     </div>
                 </div>
@@ -5514,17 +5489,10 @@ function updateWishlistDisplay() {
                 <div class="wishlist-item-details">
                     <div class="wishlist-item-name">${item.name}</div>
                     <div class="wishlist-item-price">$${wishlistPrice.toFixed(0)}</div>
-<<<<<<< HEAD
                     <div class="wishlist-item-actions">
-                        <button class="add-to-cart-btn" onclick="addToCart(${item.id}, '${item.name}', ${wishlistPrice}, '${item.image1}'); toggleWishlist();">Add to Cart</button>
+                        <button class="add-to-cart-btn" onclick="addToCart(${item.id}, '${item.name}', ${wishlistPrice}, '${item.image1}'); toggleWishlist();">Add Set</button>
                         <button class="remove-btn" onclick="removeFromWishlist(${index})">Remove</button>
                     </div>
-=======
-                    <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${wishlistPrice}, '${item.image1}'); toggleWishlist();">
-                        Add Set
-                    </button>
-                    <button class="remove-btn" style="width: 100%; margin-top: 5px;" onclick="removeFromWishlist(${index})">Remove</button>
->>>>>>> 9f113d7 (fix price id for mesh shorts)
                 </div>
             </div>
         `;
@@ -5780,8 +5748,6 @@ function trackOrder() {
 
 // Send Order Email
 function sendOrderEmail(customerInfo, orderId) {
-<<<<<<< HEAD
-=======
     // Store order in localStorage for internal order tracking
     localStorage.setItem('order_' + orderId, JSON.stringify({
         ...customerInfo,
@@ -5789,8 +5755,6 @@ function sendOrderEmail(customerInfo, orderId) {
         date: new Date().toISOString(),
         status: 'Pending Payment'
     }));
-    
->>>>>>> 9f113d7 (fix price id for mesh shorts)
     // Create email data
     const emailContent = `
 New Order Received!
@@ -5816,13 +5780,7 @@ ORDER TOTAL: $${customerInfo.orderTotal.toFixed(0)}
 
 STATUS: Pending Payment
     `;
-<<<<<<< HEAD
-
-    console.log('Order details prepared for notification.');
-=======
-    
     console.log('✓ Order saved locally');
->>>>>>> 9f113d7 (fix price id for mesh shorts)
     console.log(emailContent);
 }
 
@@ -6313,14 +6271,6 @@ function toggleFooterContactInfo(event) {
     info.style.display = info.style.display === 'none' ? 'block' : 'none';
 }
 
-<<<<<<< HEAD
-function addCompleteLookBundle() {
-    addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/whiteoverwavyfront.png');
-    addToCart(12, 'Mesh Drawstring Shorts', 40, 'images/meshshortsblackfront.png');
-}
-
-=======
->>>>>>> 9f113d7 (fix price id for mesh shorts)
 // Swap Image Function
 function swapImage(container, img1, img2) {
     if (!img2 || !container) return;
