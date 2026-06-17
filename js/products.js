@@ -173,6 +173,40 @@ const products = [
             }
         ],
         sizes: ["S", "M", "L", "XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL"],
+                length: [24.80, 25.39, 25.98, 26.57],
+                shoulder: [22.44, 23.23, 24.02, 24.80],
+                chest: [24.41, 25.20, 25.98, 26.77],
+                sleeveLength: [22.44, 22.83, 23.23, 23.62]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL"],
+                length: [63, 64.5, 66, 67.5],
+                shoulder: [57, 59, 61, 63],
+                chest: [62, 64, 66, 68],
+                sleeveLength: [57, 58, 59, 60]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
         details: "This hoodie combines a vintage wash with frayed details for a look that’s both edgy and comfortable. Crafted from 360 GSM fleece, it offers warmth without sacrificing style, making it ideal for layering or wearing solo. The relaxed fit and soft texture create the perfect canvas for your custom designs, adding a personal touch to this streetwear essential.\n\nEach piece is handcrafted, ensuring its uniqueness. Minor variations from website images are natural and highlight its artisanal quality.\n\nGender\nUnisex\n\nEffects\nWashed / Frayed\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nCasual / Street\n\nMaterial\n42% cotton, 53% polyester, 5% other fibers\n\nFabric Weight\n360 gsm (10.6 oz)\n\nThickness\nThicken\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
         freeShipping: true,
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
