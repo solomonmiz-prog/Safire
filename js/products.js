@@ -1,5 +1,65 @@
 const products = [
     {
+        id: "safire-horizon-zip-hoodie",
+        name: "Safire Horizon",
+        price: 60,
+        description: "Heavyweight dual-zip hoodie with utility patch pockets and DTG-ready premium surface.",
+        images: [
+            "images/safirehorizonziphoodiegreyfront.png",
+            "images/safirehorizonziphoodiegreyback.png"
+        ],
+        colorways: [
+            {
+                name: "Grey",
+                hex: "#B5B5B5",
+                images: [
+                    "images/safirehorizonziphoodiegreyfront.png",
+                    "images/safirehorizonziphoodiegreyback.png"
+                ]
+            }
+        ],
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [26.77, 27.56, 28.35, 29.13, 29.92],
+                shoulder: [24.02, 24.80, 25.59, 26.38, 27.17],
+                chest: [24.02, 24.80, 25.59, 26.38, 27.17],
+                sleeveLength: [21.46, 21.85, 22.24, 22.64, 23.03]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [68, 70, 72, 74, 76],
+                shoulder: [61, 63, 65, 67, 69],
+                chest: [61, 63, 65, 67, 69],
+                sleeveLength: [54.5, 55.5, 56.5, 57.5, 58.5]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "This functional hoodie features a unique dual-zip design and practical patch pockets for utility-inspired style. The heavyweight fabric composition ensures warmth and durability. A versatile essential piece that bridges the gap between casual wear and technical outerwear, perfect for brands seeking functional basics. Optimized for DTG print applications.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRQ0020-C001-V2\n\nGender\nUnisex\n\nFeatures\nEffects\nZipper / Pocket\n\nFit\nOversized\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nBasics / Casual / Sporty / Street\n\nMaterial\nMain Fabric: 61% cotton, 39% polyester; Contrast Fabric: 100% polyester\n\nFabric Weight\n420 gsm (12.4 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
         id: "oversized-wavy-grid-tshirt",
         name: "Oversized Wavy-grid Safire T-Shirt",
         price: 40,
@@ -930,6 +990,7 @@ const products = [
 ];
 
 const stripePrices = {
+    "safire-horizon-zip-hoodie": "price_1Tn7mf9S93tBM5OXMTuyhDn8",
     "black-socrates-hoodie": "price_1TWnb69S93tBM5OXzBZrBSKa",
     "classic-quarter-zip": "price_1TWnYV9S93tBM5OX0jOJ8u43",
     "varsity-jacket": "price_1TWnWp9S93tBM5OXTgymoZtv",

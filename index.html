@@ -4489,6 +4489,34 @@
 // Product Data (only two items shown)
 const productsData = [
     {
+        id: 14,
+        productId: "safire-horizon-zip-hoodie",
+        name: "Safire Horizon",
+        category: "premium",
+        gender: "unisex",
+        price: 60,
+        image1: "images/safirehorizonziphoodiegreyfront.png",
+        image2: "images/safirehorizonziphoodiegreyback.png",
+        description: "Heavyweight dual-zip hoodie with utility patch pockets and DTG-ready premium surface.",
+        details: "This functional hoodie features a unique dual-zip design and practical patch pockets for utility-inspired style. The heavyweight fabric composition ensures warmth and durability. A versatile essential piece that bridges the gap between casual wear and technical outerwear, perfect for brands seeking functional basics. Optimized for DTG print applications.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRQ0020-C001-V2\n\nGender\nUnisex\n\nFeatures\nEffects\nZipper / Pocket\n\nFit\nOversized\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nBasics / Casual / Sporty / Street\n\nMaterial\nMain Fabric: 61% cotton, 39% polyester; Contrast Fabric: 100% polyester\n\nFabric Weight\n420 gsm (12.4 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "RQ0020-C001-V2",
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        colors: [
+            {
+                name: "Grey",
+                hex: "#B5B5B5",
+                images: {
+                    front: "images/safirehorizonziphoodiegreyfront.png",
+                    back: "images/safirehorizonziphoodiegreyback.png"
+                }
+            }
+        ]
+    },
+    {
         id: 9,
         productId: "oversized-wavy-grid-tshirt",
         name: "Oversized Wavy-grid Safire T-Shirt",
@@ -5146,16 +5174,17 @@ function renderProducts() {
     let productsHTML = '';
 
     const featuredOrder = {
-        'safire-shores-crewneck': 1,
-        'mesh-drawstring-shorts': 2,
-        'vintage-crewneck': 3,
-        'black-socrates-hoodie': 4,
-        'oversized-wavy-grid-tshirt': 5,
-        'not-for-everyone-hoodie': 6,
-        'borough-oversized-tshirt': 7,
-        'cropped-fleece-hoodie': 8,
-        'classic-quarter-zip': 9,
-        'varsity-jacket': 10
+        'safire-horizon-zip-hoodie': 1,
+        'safire-shores-crewneck': 2,
+        'mesh-drawstring-shorts': 3,
+        'vintage-crewneck': 4,
+        'black-socrates-hoodie': 5,
+        'oversized-wavy-grid-tshirt': 6,
+        'not-for-everyone-hoodie': 7,
+        'borough-oversized-tshirt': 8,
+        'cropped-fleece-hoodie': 9,
+        'classic-quarter-zip': 10,
+        'varsity-jacket': 11
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -5208,6 +5237,8 @@ function renderProducts() {
             productBadges = '<div class="product-badge premium">Premium Fabric</div>';
         } else if (product.id === 2) {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
+        } else if (product.productId === 'safire-horizon-zip-hoodie') {
+            productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'safire-shores-crewneck') {
             productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'vintage-crewneck') {
