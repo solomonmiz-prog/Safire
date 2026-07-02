@@ -4001,25 +4001,35 @@ updateCartDisplay();
 updateWishlistDisplay();
 
 // Subscribe to newsletter
-function subscribeNewsletter() {
-    const email = document.getElementById('signup-email').value;
-    if (!email || !email.includes('@')) {
+async function subscribeNewsletter() {
+    const emailInput = document.getElementById('signup-email');
+    const email = emailInput.value.trim().toLowerCase();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailPattern.test(email)) {
         alert('Please enter a valid email address');
         return;
     }
-    
-    // Store in localStorage (in real app, this would be sent to server)
-    const subscribers = JSON.parse(localStorage.getItem('newsletter_subscribers') || '[]');
-    if (subscribers.includes(email)) {
-        alert('You\'re already subscribed!');
-        return;
+
+    try {
+        const response = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const responseData = await response.json().catch(() => ({}));
+        if (!response.ok) {
+            throw new Error(responseData.error || 'Subscription failed. Please try again.');
+        }
+
+        emailInput.value = '';
+        alert('✓ Thanks for subscribing! You\'ll receive updates soon.');
+    } catch (error) {
+        alert(error.message || 'Could not subscribe right now. Please try again.');
     }
-    
-    subscribers.push(email);
-    localStorage.setItem('newsletter_subscribers', JSON.stringify(subscribers));
-    
-    document.getElementById('signup-email').value = '';
-    alert('✓ Thanks for subscribing! You\'ll receive updates soon.');
 }
 
 // Toggle FAQ Items
