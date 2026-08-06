@@ -986,6 +986,126 @@ const products = [
         details: "This crewneck sweatshirt showcases a contemporary drop shoulder design in an essential silhouette. The technical fabric blend provides excellent comfort and shape retention. A versatile layering piece recommended for core collections, easily branded to create cohesive outfit options.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRW0029-P001-V2\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\nMain Fabric: 48.9% polyester, 43.4% cotton, 7.7% spandex; Contrast Fabric: 95.6% polyester, 4.4% spandex\n\nFabric Weight\n400 gsm (11.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
+        id: "melt-sweatshirt",
+        name: "Melt Sweatshirt",
+        price: 45,
+        description: "Durable 320 gsm cotton-poly crewneck designed for everyday comfort and clean chest/back print placement.",
+        images: [
+            "images/meltsweatshirtfront.png",
+            "images/meltsweatshirtback.png"
+        ],
+        colorways: [
+            {
+                name: "Blue",
+                hex: "#AFCDF8",
+                images: [
+                    "images/meltsweatshirtfront.png",
+                    "images/meltsweatshirtback.png"
+                ]
+            }
+        ],
+        stock: { XS: 10, S: 10, M: 10, L: 10, XL: 10 },
+        sizes: ["XS", "S", "M", "L", "XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["XS", "S", "M", "L", "XL", "2XL"],
+                length: [27.17, 27.95, 28.74, 29.53, 30.31, 31.10],
+                chest: [20.47, 21.26, 22.05, 22.83, 23.62, 24.41],
+                shoulder: [17.13, 17.72, 18.31, 18.90, 19.49, 20.08],
+                sleeveLength: [24.02, 24.61, 25.20, 25.79, 26.38, 26.97]
+            },
+            centimeters: {
+                sizes: ["XS", "S", "M", "L", "XL", "2XL"],
+                length: [69, 71, 73, 75, 77, 79],
+                chest: [52, 54, 56, 58, 60, 62],
+                shoulder: [43.5, 45, 46.5, 48, 49.5, 51],
+                sleeveLength: [61, 62.5, 64, 65.5, 67, 68.5]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "Crafted from a robust 320g cotton-polyester blend, this classic crewneck offers reliable warmth and long-lasting durability for everyday wear. The medium-weight interior keeps comfort consistent across seasons, while the clean front and back panels make it ideal for chest or back artwork. A strong foundational sweatshirt for basics, team merchandise, and print collections.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n85% cotton, 15% polyester\n\nFabric Weight\n320 gsm (9.4 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
+        id: "melt-shirt",
+        name: "Melt Shirt",
+        price: 30,
+        description: "Premium 100% cotton tee with breathable comfort and two large print areas for standout front and back designs.",
+        images: [
+            "images/meltshirtfront.png",
+            "images/meltshirtback.png"
+        ],
+        colorways: [
+            {
+                name: "Brown",
+                hex: "#6F4E37",
+                images: [
+                    "images/meltshirtfront.png",
+                    "images/meltshirtback.png"
+                ]
+            }
+        ],
+        stock: { S: 10, M: 10, L: 10, XL: 10, XXL: 10 },
+        sizes: ["S", "M", "L", "XL", "XXL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "XXL"],
+                length: [27.56, 28.35, 29.13, 29.92, 30.71],
+                shoulder: [21.14, 21.73, 22.44, 23.15, 23.86],
+                chest: [21.85, 22.64, 23.62, 24.61, 25.59],
+                sleeveLength: [8.23, 8.43, 8.66, 8.90, 9.13]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "XXL"],
+                length: [70, 72, 74, 76, 78],
+                shoulder: [53.7, 55.2, 57, 58.8, 60.6],
+                chest: [55.5, 57.5, 60, 62.5, 65],
+                sleeveLength: [20.9, 21.4, 22, 22.6, 23.2]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "Let your design take center stage with two large print areas on a solid color background. Made from premium 100% cotton, this tee offers breathability, durability, and long-lasting comfort. Whether you are showcasing bold graphics or subtle designs, this t-shirt is your canvas to make a lasting impression.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Street\n\nMaterial\n100% cotton\n\nFabric Weight\n230 gsm (6.8 oz)\n\nThickness\nThin\n\nElasticity\nNon-Stretch\n\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     }
 ];
 
@@ -1001,5 +1121,7 @@ const stripePrices = {
     "not-for-everyone-hoodie": "price_1TYzPh9S93tBM5OXiV6SZO7H",
     "mesh-drawstring-shorts": "price_1Tf2Hk9S93tBM5OXMbmC3MTt",
     "oversized-wavy-grid-tshirt": "price_1TQy3K9S93tBM5OXoDIMBmZM",
-    "safire-shores-crewneck": "price_1Tf2Pl9S93tBM5OXRSWbhH2E"
+    "safire-shores-crewneck": "price_1Tf2Pl9S93tBM5OXRSWbhH2E",
+    "melt-sweatshirt": "price_1U1GJR9S93tBM5OXwsrNfiYx",
+    "melt-shirt": "price_1U1GSA9S93tBM5OXN3ORImmZ"
 };
