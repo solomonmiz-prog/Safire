@@ -62,7 +62,7 @@ const products = [
     {
         id: "oversized-wavy-grid-tshirt",
         name: "Oversized Wavy-grid Safire T-Shirt",
-        price: 40,
+        price: 30,
         description: "100% cotton oversized t shirt",
         images: [
             "images/skyblueoverwavyfront.png",
@@ -275,7 +275,7 @@ const products = [
     {
         id: "mesh-drawstring-shorts",
         name: "Mesh Drawstring Shorts",
-        price: 40,
+        price: 30,
         description: "Performance mesh shorts with dual-layer breathability and an adjustable drawstring waist.",
         images: [
             "images/meshshortsblackfront.png",
@@ -396,7 +396,7 @@ const products = [
     {
         id: "borough-oversized-tshirt",
         name: "Borough Oversized T-Shirt",
-        price: 40,
+        price: 30,
         description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
         images: [
             "images/frontwhiteborough.png",
@@ -463,7 +463,7 @@ const products = [
     {
         id: "vintage-crewneck",
         name: "Vintage",
-        price: 60,
+        price: 50,
         description: "Classic heavyweight crewneck designed for layering or standalone wear in coordinated essential outfits.",
         images: [
             "images/vintagecrewneckapricotfront.png",
@@ -1115,12 +1115,12 @@ const stripePrices = {
     "classic-quarter-zip": "price_1TWnYV9S93tBM5OX0jOJ8u43",
     "varsity-jacket": "price_1TWnWp9S93tBM5OXTgymoZtv",
     "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
-    "borough-oversized-tshirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
+    "borough-oversized-tshirt": "price_1TcWCr9S93tBM5OXIdgtpFMB",
     "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
-    "vintage-crewneck": "price_1Tf2KR9S93tBM5OXSLZRESp5",
+    "vintage-crewneck": "price_1TcXG29S93tBM5OXYSdZrisE",
     "not-for-everyone-hoodie": "price_1TYzPh9S93tBM5OXiV6SZO7H",
-    "mesh-drawstring-shorts": "price_1Tf2Hk9S93tBM5OXMbmC3MTt",
-    "oversized-wavy-grid-tshirt": "price_1TQy3K9S93tBM5OXoDIMBmZM",
+    "mesh-drawstring-shorts": "price_1TdHfd9S93tBM5OXBv2VxxpY",
+    "oversized-wavy-grid-tshirt": "price_1TcWB99S93tBM5OXzL2nuQu8v",
     "safire-shores-crewneck": "price_1Tf2Pl9S93tBM5OXRSWbhH2E",
     "melt-sweatshirt": "price_1U1GJR9S93tBM5OXwsrNfiYx",
     "melt-shirt": "price_1U1GSA9S93tBM5OXN3ORImmZ"
