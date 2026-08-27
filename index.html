@@ -4522,6 +4522,34 @@ const productsData = [
         ]
     },
     {
+        id: 17,
+        productId: "safire-orbit-jersey",
+        name: "Safire Orbit",
+        category: "premium",
+        gender: "unisex",
+        price: 30,
+        image1: "images/soccerkitfront.png",
+        image2: "images/soccerkitback.png",
+        description: "Contrast collar striped soccer jersey with a clean athletic silhouette and a relaxed street-ready feel.",
+        details: "Safire's Contrast Collar Striped Soccer Jersey brings a classic athletic aesthetic to your catalog. Featuring a subtle vertical jacquard pattern and a sharp contrast collar, this top is accentuated by sporty dual stripes on the sleeves. Designed for versatility, it offers a comfortable fit suitable for both activewear and trendy 'blokecore' fashion. This item is an excellent canvas for Custom Sportswear, optimized for vibrant Custom DTF printing results to support your Dropshipping business.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nModel\nFeatures\nFit\nLoose\nNeckline\nV-Neck\nSleeve Style\nDrop Shoulder\nSleeve Length\nShort Sleeve\nSeason\nSummer\nStyle\nBasics / Casual / Preppy / Sporty / Street\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n100% polyester\nFabric Weight\n165 gsm (4.9 oz)\nThickness\nThin\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "SAFIRE-ORBIT-JERSEY",
+        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        sizes: ["S", "M", "L", "XL"],
+        colors: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/soccerkitfront.png",
+                    back: "images/soccerkitback.png"
+                }
+            }
+        ]
+    },
+    {
         id: 9,
         productId: "oversized-wavy-grid-tshirt",
         name: "Oversized Wavy-grid Safire T-Shirt",
@@ -4807,7 +4835,7 @@ const productsData = [
         name: "Socrates Hoodie",
         category: "premium",
         gender: "unisex",
-        price: 60,
+        price: 50,
         image1: "images/blacksocratesfront.png",
         image2: "images/blackbacksocrates.png",
         description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
@@ -5210,7 +5238,7 @@ const productsData = [
         name: "Not For Everyone Hoodie",
         category: "premium",
         gender: "unisex",
-        price: 60,
+        price: 50,
         image1: "images/notforeveryonefrontblack.png",
         image2: "images/notforeveryonebackblack.png",
         description: "Snow-washed zip-through hoodie with a soft textured feel and relaxed streetwear fit.",
@@ -5287,6 +5315,7 @@ function getColorPreviewLimit() {
 function getProductCardTitle(product) {
     const productId = String(product && product.productId ? product.productId : '');
 
+    if (productId === 'safire-orbit-jersey') return 'Safire Orbit';
     if (productId === 'oversized-wavy-grid-tshirt') return 'Wavy Grid';
     if (productId === 'mesh-drawstring-shorts') return 'Mesh Shorts';
     if (productId === 'borough-oversized-tshirt') return 'Oversized Borough';
@@ -5301,19 +5330,20 @@ function renderProducts() {
     let productsHTML = '';
 
     const featuredOrder = {
-        'melt-sweatshirt': 1,
-        'melt-shirt': 2,
-        'safire-horizon-zip-hoodie': 3,
-        'safire-shores-crewneck': 4,
-        'mesh-drawstring-shorts': 5,
-        'vintage-crewneck': 6,
-        'black-socrates-hoodie': 7,
-        'oversized-wavy-grid-tshirt': 8,
-        'not-for-everyone-hoodie': 9,
-        'borough-oversized-tshirt': 10,
-        'cropped-fleece-hoodie': 11,
-        'classic-quarter-zip': 12,
-        'varsity-jacket': 13
+        'safire-orbit-jersey': 1,
+        'black-socrates-hoodie': 2,
+        'oversized-wavy-grid-tshirt': 3,
+        'safire-horizon-zip-hoodie': 4,
+        'vintage-crewneck': 5,
+        'mesh-drawstring-shorts': 6,
+        'safire-shores-crewneck': 7,
+        'not-for-everyone-hoodie': 8,
+        'borough-oversized-tshirt': 9,
+        'cropped-fleece-hoodie': 10,
+        'classic-quarter-zip': 11,
+        'varsity-jacket': 12,
+        'melt-sweatshirt': 13,
+        'melt-shirt': 14
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -5366,20 +5396,16 @@ function renderProducts() {
             productBadges = '<div class="product-badge premium">Premium Fabric</div>';
         } else if (product.id === 2) {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
+        } else if (product.productId === 'safire-orbit-jersey') {
+            productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'safire-horizon-zip-hoodie') {
-            productBadges = '<div class="product-badge bestseller">NEW</div>';
-        } else if (product.productId === 'safire-shores-crewneck') {
-            productBadges = '<div class="product-badge bestseller">NEW</div>';
+            productBadges = '<div class="product-badge bestseller">Best Seller</div>';
         } else if (product.productId === 'melt-sweatshirt') {
             productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'melt-shirt') {
             productBadges = '<div class="product-badge bestseller">NEW</div>';
-        } else if (product.productId === 'vintage-crewneck') {
-            productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'black-socrates-hoodie') {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
-        } else if (product.productId === 'mesh-drawstring-shorts') {
-            productBadges = '<div class="product-badge bestseller">NEW</div>';
         }
 
         const productHTML = `

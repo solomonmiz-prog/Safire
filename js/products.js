@@ -170,9 +170,69 @@ const products = [
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
+        id: "safire-orbit-jersey",
+        name: "Safire Orbit",
+        price: 30,
+        description: "Contrast collar striped soccer jersey with a clean athletic silhouette and a relaxed street-ready feel.",
+        images: [
+            "images/soccerkitfront.png",
+            "images/soccerkitback.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/soccerkitfront.png",
+                    "images/soccerkitback.png"
+                ]
+            }
+        ],
+        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        sizes: ["S", "M", "L", "XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL"],
+                length: [27.95, 28.74, 29.53, 30.31],
+                shoulder: [19.68, 20.28, 20.87, 21.46],
+                chest: [23.23, 24.02, 24.80, 25.59],
+                sleeveLength: [10.75, 10.98, 11.22, 11.46]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL"],
+                length: [71, 73, 75, 77],
+                shoulder: [50, 51.5, 53, 54.5],
+                chest: [59, 61, 63, 65],
+                sleeveLength: [27.3, 27.9, 28.5, 29.1]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "Safire's Contrast Collar Striped Soccer Jersey brings a classic athletic aesthetic to your catalog. Featuring a subtle vertical jacquard pattern and a sharp contrast collar, this top is accentuated by sporty dual stripes on the sleeves. Designed for versatility, it offers a comfortable fit suitable for both activewear and trendy 'blokecore' fashion. This item is an excellent canvas for Custom Sportswear, optimized for vibrant Custom DTF printing results to support your Dropshipping business.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nModel\nFeatures\nFit\nLoose\nNeckline\nV-Neck\nSleeve Style\nDrop Shoulder\nSleeve Length\nShort Sleeve\nSeason\nSummer\nStyle\nBasics / Casual / Preppy / Sporty / Street\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n100% polyester\nFabric Weight\n165 gsm (4.9 oz)\nThickness\nThin\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
         id: "black-socrates-hoodie",
         name: "Socrates Hoodie",
-        price: 60,
+        price: 50,
         description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
         images: [
             "images/blacksocratesfront.png",
@@ -692,7 +752,7 @@ const products = [
             ]
         },
         freeShipping: true,
-        details: "Safire's Quarter-Zip Drop Shoulder Sweatshirt elevate your casual lineup with Tapstitch's Quarter-Zip Drop Shoulder Sweatshirt. Featuring a high stand collar and a sleek metal zipper, this piece delivers a modern, relaxed silhouette. Detailed with practical side welt pockets and structured ribbed trims, it combines everyday utility with style. Perfectly suited for Custom Printing, this sweatshirt ensures high-quality results for Custom DTG and DTF projects. A reliable choice for Print-on-Demand businesses, it supports seamless global Dropshipping.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nEffects\nZipper / Pocket\n\nFit\nLoose\n\nNeckline\nLapel Collar\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n85% cotton, 15% polyester\n\nFabric Weight\n320 gsm (9.4 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
+        details: "Safire's Quarter-Zip Drop Shoulder Sweatshirt elevates your casual lineup with a streamlined athletic feel. Featuring a high stand collar and a sleek metal zipper, this piece delivers a modern, relaxed silhouette. Detailed with practical side welt pockets and structured ribbed trims, it combines everyday utility with style. Perfectly suited for Custom Printing, this sweatshirt ensures high-quality results for Custom DTG and DTF projects. A reliable choice for Print-on-Demand businesses, it supports seamless global Dropshipping.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nEffects\nZipper / Pocket\n\nFit\nLoose\n\nNeckline\nLapel Collar\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n85% cotton, 15% polyester\n\nFabric Weight\n320 gsm (9.4 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
         shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
@@ -1111,17 +1171,19 @@ const products = [
 
 const stripePrices = {
     "safire-horizon-zip-hoodie": "price_1Tn7mf9S93tBM5OXMTuyhDn8",
-    "black-socrates-hoodie": "price_1TWnb69S93tBM5OXzBZrBSKa",
+    "black-socrates-hoodie": "price_1T9yom9S93tBM5OXxuh5loMF",
     "classic-quarter-zip": "price_1TWnYV9S93tBM5OX0jOJ8u43",
     "varsity-jacket": "price_1TWnWp9S93tBM5OXTgymoZtv",
     "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
     "borough-oversized-tshirt": "price_1TcWCr9S93tBM5OXIdgtpFMB",
     "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
     "vintage-crewneck": "price_1TcXG29S93tBM5OXYSdZrisE",
-    "not-for-everyone-hoodie": "price_1TYzPh9S93tBM5OXiV6SZO7H",
+    "not-for-everyone-hoodie": "price_1TcWDx9S93tBM5OX4PfYhD5x",
     "mesh-drawstring-shorts": "price_1TdHfd9S93tBM5OXBv2VxxpY",
     "oversized-wavy-grid-tshirt": "price_1TcWB99S93tBM5OXzL2nuQu8v",
     "safire-shores-crewneck": "price_1Tf2Pl9S93tBM5OXRSWbhH2E",
     "melt-sweatshirt": "price_1U1GJR9S93tBM5OXwsrNfiYx",
-    "melt-shirt": "price_1U1GSA9S93tBM5OXN3ORImmZ"
+    "melt-shirt": "price_1U1GSA9S93tBM5OXN3ORImmZ",
+    "safire-orbit-jersey": "price_1U99IT9S93tBM5OXGmptSRPB",
+    "orbit-jersey": "price_1U99IT9S93tBM5OXGmptSRPB"
 };
