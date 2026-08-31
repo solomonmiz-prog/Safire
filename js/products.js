@@ -1048,6 +1048,152 @@ const products = [
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
+        id: "safire-sweatpants",
+        name: "Script Sweatpants",
+        price: 40,
+        description: "Elevate your streetwear lineup with these heavyweight cotton sweatpants. Designed with a distinct balloon silhouette and a loose fit, this pair features a striking mineral wash effect that adds vintage character.",
+        images: [
+            "images/blackpoantssetfront.png",
+            "images/blackpantsbackset.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/blackpoantssetfront.png",
+                    "images/blackpantsbackset.png"
+                ]
+            },
+            {
+                name: "Light Grey",
+                hex: "#C8CFCF",
+                images: [
+                    "images/lightgreysetpantsfront.png",
+                    "images/lightgreypantssetback.png"
+                ]
+            },
+            {
+                name: "Haze Blue",
+                hex: "#B9C9D8",
+                images: [
+                    "images/hazebluepantssetfront.png",
+                    "images/hazebluesetpantsback.png"
+                ]
+            }
+        ],
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [40.94, 41.73, 42.52, 43.31, 44.09],
+                waist: [12.60, 13.39, 14.17, 14.96, 15.75],
+                hip: [22.83, 23.62, 24.41, 25.20, 25.98]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [104, 106, 108, 110, 112],
+                waist: [32, 34, 36, 38, 40],
+                hip: [58, 60, 62, 64, 66]
+            },
+            howToMeasure: [
+                {
+                    title: "Waist",
+                    description: "Measure straight across the narrowest waist line from edge to edge."
+                },
+                {
+                    title: "Hip",
+                    description: "Measure straight across the widest hip line from edge to edge."
+                },
+                {
+                    title: "Length",
+                    description: "Measure from the waistband to the leg opening or hem."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "Elevate your streetwear lineup with these heavyweight cotton sweatpants. Designed with a distinct balloon silhouette and a loose fit, this pair features a striking mineral wash effect that adds vintage character. Engineered for ultimate comfort, they come equipped with an elastic waist, practical slash pockets, and a clean straight hem. Perfect for everyday casual wear, skateboarding, or street dance, these pants offer a premium custom canvas for DTG and DTF printing. This Unisex essential combines a bold grunge aesthetic with modern athleisure comfort.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nModel\nFeatures\nEffects\nWashed / Elastic Waist / Pocket\nFit\nLoose\nSeason\nSpring / Autumn\nStyle\nBasics / Casual / Street / Vintage\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n85% cotton, 15% polyester\nFabric Weight\n350 gsm (10.3 oz)\nThickness\nThick\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
+        id: "script-zip-hoodie",
+        name: "Script Zip",
+        price: 50,
+        description: "Unisex full-zip hoodie with a mineral wash finish, boxy loose fit, and premium print-ready construction.",
+        images: [
+            "images/blackzipsetfront.png",
+            "images/blackzipsetback.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/blackzipsetfront.png",
+                    "images/blackzipsetback.png"
+                ]
+            },
+            {
+                name: "Light Grey",
+                hex: "#C8CFCF",
+                images: [
+                    "images/lightgreyzipsetfront.png",
+                    "images/lightgreyzipsetback.png"
+                ]
+            },
+            {
+                name: "Haze Blue",
+                hex: "#B9C9D8",
+                images: [
+                    "images/hazebluezipsetfront.png",
+                    "images/hazebluezipsetback.png"
+                ]
+            }
+        ],
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [24.41, 25.20, 25.98, 26.77, 27.56],
+                shoulder: [22.05, 22.83, 23.62, 24.41, 25.20],
+                chest: [23.62, 24.41, 25.20, 25.98, 26.77],
+                sleeveLength: [24.80, 25.20, 25.59, 25.98, 26.38]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [62, 64, 66, 68, 70],
+                shoulder: [56, 58, 60, 62, 64],
+                chest: [60, 62, 64, 66, 68],
+                sleeveLength: [63, 64, 65, 66, 67]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "Elevate your streetwear rotation with this Unisex full zip hoodie. Crafted from midweight knit cotton, it features a distinct mineral wash effect for a vintage grunge aesthetic. The boxy silhouette and loose fit are complemented by drop shoulders and a short length, creating a modern, relaxed drape. Functional details include a full-zip closure, patch pockets, and classic ribbed cuffs and hem. Engineered for premium DTG and DTF customization, this hoodie is the ultimate canvas for your brand's unique graphic designs.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nProduct Code\nUT0291-C001-V2\nGender\nUnisex\nModel\nFeatures\nEffects\nWashed / Snow Wash / Zipper / Pocket\nFit\nLoose\nNeckline\nHooded\nSleeve Style\nRegular Sleeve\nSleeve Length\nLong Sleeve\nSeason\nAutumn / Winter\nStyle\nBasics / Casual / Street / Vintage\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n85% cotton, 15% polyester\nFabric Weight\n350 gsm (10.3 oz)\nThickness\nModerate\nBreathability\nModerate",
+        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
         id: "melt-sweatshirt",
         name: "Melt Sweatshirt",
         price: 45,
@@ -1185,5 +1331,7 @@ const stripePrices = {
     "melt-sweatshirt": "price_1U1GJR9S93tBM5OXwsrNfiYx",
     "melt-shirt": "price_1U1GSA9S93tBM5OXN3ORImmZ",
     "safire-orbit-jersey": "price_1U99IT9S93tBM5OXGmptSRPB",
-    "orbit-jersey": "price_1U99IT9S93tBM5OXGmptSRPB"
+    "orbit-jersey": "price_1U99IT9S93tBM5OXGmptSRPB",
+    "safire-sweatpants": "price_1U9IQQ9S93tBM5OXwYLYL88B",
+    "script-zip-hoodie": "price_1UAcxO9S93tBM5OXt0o1yT66"
 };
