@@ -5411,11 +5411,21 @@ function getSalePrice(value) {
 }
 
 function findProductForCartItem(item) {
-    const productId = String(item && (item.productId || item.id) ? (item.productId || item.id) : '');
-    return productsData.find((product) => (
-        String(product.productId || '') === productId
-        || String(product.id) === productId
-    ));
+    const identifiers = [];
+    if (item && item.productId !== undefined && item.productId !== null) {
+        identifiers.push(String(item.productId));
+    }
+    if (item && item.id !== undefined && item.id !== null) {
+        identifiers.push(String(item.id));
+    }
+    if (identifiers.length === 0) return null;
+
+    return productsData.find((product) => {
+        const productIdentifiers = [product.productId, product.id].filter((value) => value !== undefined && value !== null && value !== '');
+        return productIdentifiers.some((productIdentifier) => (
+            identifiers.some((identifier) => String(productIdentifier).trim() === String(identifier).trim())
+        ));
+    });
 }
 
 function normalizeCartSalePrices(items) {
@@ -5432,10 +5442,27 @@ function normalizeCartSalePrices(items) {
     });
 }
 
-cart = normalizeCartSalePrices(cart);
+function cartHasValidProduct(item) {
+    const identifiers = [];
+    if (item && item.productId !== undefined && item.productId !== null) {
+        identifiers.push(String(item.productId).trim());
+    }
+    if (item && item.id !== undefined && item.id !== null) {
+        identifiers.push(String(item.id).trim());
+    }
+    if (identifiers.length === 0) return false;
 
-cart = cart.filter((item) => validProductIds.has(item.id));
-wishlist = wishlist.filter((item) => validProductIds.has(item.id));
+    return identifiers.some((identifier) => (
+        validProductIds.has(identifier)
+        || productsData.some((product) => {
+            const productIdentifiers = [product.productId, product.id].filter((value) => value !== undefined && value !== null && value !== '');
+            return productIdentifiers.some((productIdentifier) => String(productIdentifier).trim() === identifier);
+        })
+    ));
+}
+
+cart = normalizeCartSalePrices(cart.filter(cartHasValidProduct));
+wishlist = wishlist.filter(cartHasValidProduct);
 
 localStorage.setItem('cart', JSON.stringify(cart));
 localStorage.setItem('wishlist', JSON.stringify(wishlist));

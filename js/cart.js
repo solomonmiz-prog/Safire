@@ -79,7 +79,12 @@ function saveCart(cart) {
 function getProductById(productId) {
     if (typeof products === 'undefined' || !Array.isArray(products)) return null;
     const normalizedProductId = normalizeCartValue(productId);
-    return products.find((entry) => normalizeCartValue(entry.id) === normalizedProductId) || null;
+    if (!normalizedProductId) return null;
+
+    return products.find((entry) => {
+        const productIds = [entry.id, entry.productId].filter((value) => value !== undefined && value !== null && value !== '');
+        return productIds.some((value) => normalizeCartValue(value) === normalizedProductId);
+    }) || null;
 }
 
 function getStripePriceId(productId) {
