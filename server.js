@@ -84,18 +84,27 @@ app.post('/api/subscribe', async (req, res) => {
     const brevoResponse = await createBrevoContact(payload, brevoApiKey);
 
     if (brevoResponse.status >= 200 && brevoResponse.status < 300) {
-      return res.json({ message: 'Subscribed successfully.' });
+      return res.json({ message: 'Thanks for subscribing! You are on the list.' });
+    }
+
+    const message = brevoResponse.data?.message || '';
+    const isDuplicate = (
+      brevoResponse.status === 400 || brevoResponse.status === 409
+    ) && /already exists|already subscribed|duplicate/i.test(message);
+
+    if (isDuplicate) {
+      return res.json({ message: 'This email is already subscribed.' });
     }
 
     if (brevoResponse.status === 401 || brevoResponse.status === 403) {
-      return res.status(500).json({ error: 'Email service authentication failed.' });
+      return res.status(500).json({ error: 'Email service authentication failed. Please contact the site owner.' });
     }
 
-    if (brevoResponse.status === 400 && brevoResponse.data?.message) {
-      return res.status(400).json({ error: brevoResponse.data.message });
+    if (brevoResponse.status === 400 && message) {
+      return res.status(400).json({ error: message });
     }
 
-    return res.status(502).json({ error: 'Subscription provider error. Please try again.' });
+    return res.status(502).json({ error: 'Subscription provider error. Please try again in a moment.' });
   } catch (_error) {
     return res.status(502).json({ error: 'Unable to reach email service. Please try again.' });
   }

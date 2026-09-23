@@ -3,7 +3,7 @@ const products = [
         id: "safire-horizon-zip-hoodie",
         name: "Safire Horizon",
         price: 60,
-        description: "Heavyweight dual-zip hoodie with utility patch pockets and DTG-ready premium surface.",
+        description: "Heavyweight dual-zip hoodie with utility patch pockets and DTG-ready clean surface.",
         images: [
             "images/safirehorizonziphoodiegreyfront.png",
             "images/safirehorizonziphoodiegreyback.png"
@@ -56,7 +56,7 @@ const products = [
         },
         freeShipping: true,
         details: "This functional hoodie features a unique dual-zip design and practical patch pockets for utility-inspired style. The heavyweight fabric composition ensures warmth and durability. A versatile essential piece that bridges the gap between casual wear and technical outerwear, perfect for brands seeking functional basics. Optimized for DTG print applications.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRQ0020-C001-V2\n\nGender\nUnisex\n\nFeatures\nEffects\nZipper / Pocket\n\nFit\nOversized\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nBasics / Casual / Sporty / Street\n\nMaterial\nMain Fabric: 61% cotton, 39% polyester; Contrast Fabric: 100% polyester\n\nFabric Weight\n420 gsm (12.4 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -69,7 +69,7 @@ const products = [
             "images/skyblueoverwavyback.png",
             "images/modelpage1wavygrid.png",
             "images/wavygridmodelpage2.png",
-            "images/modelai%231.png"
+            "images/modelai-1.png"
         ],
         colorways: [
             {
@@ -80,7 +80,7 @@ const products = [
                     "images/blackoverwavyback.png",
                     "images/modelpage1wavygrid.png",
                     "images/wavygridmodelpage2.png",
-                    "images/modelai%231.png"
+                    "images/modelai-1.png"
                 ]
             },
             {
@@ -91,7 +91,7 @@ const products = [
                     "images/whiteoverwavyback.png",
                     "images/modelpage1wavygrid.png",
                     "images/wavygridmodelpage2.png",
-                    "images/modelai%231.png"
+                    "images/modelai-1.png"
                 ]
             },
             {
@@ -102,7 +102,7 @@ const products = [
                     "images/coffeeoverwavyback.png",
                     "images/modelpage1wavygrid.png",
                     "images/wavygridmodelpage2.png",
-                    "images/modelai%231.png"
+                    "images/modelai-1.png"
                 ]
             },
             {
@@ -113,7 +113,7 @@ const products = [
                     "images/navyblueoverwavyback.png",
                     "images/modelpage1wavygrid.png",
                     "images/wavygridmodelpage2.png",
-                    "images/modelai%231.png"
+                    "images/modelai-1.png"
                 ]
             },
             {
@@ -124,7 +124,7 @@ const products = [
                     "images/skyblueoverwavyback.png",
                     "images/modelpage1wavygrid.png",
                     "images/wavygridmodelpage2.png",
-                    "images/modelai%231.png"
+                    "images/modelai-1.png"
                 ]
             }
         ],
@@ -166,7 +166,7 @@ const products = [
         },
         freeShipping: true,
         details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRT0086-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n100% cotton\n\nFabric Weight\n300 gsm (8.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -226,14 +226,14 @@ const products = [
         },
         freeShipping: true,
         details: "Safire's Contrast Collar Striped Soccer Jersey brings a classic athletic aesthetic to your catalog. Featuring a subtle vertical jacquard pattern and a sharp contrast collar, this top is accentuated by sporty dual stripes on the sleeves. Designed for versatility, it offers a comfortable fit suitable for both activewear and trendy 'blokecore' fashion. This item is an excellent canvas for Custom Sportswear, optimized for vibrant Custom DTF printing results to support your Dropshipping business.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nModel\nFeatures\nFit\nLoose\nNeckline\nV-Neck\nSleeve Style\nDrop Shoulder\nSleeve Length\nShort Sleeve\nSeason\nSummer\nStyle\nBasics / Casual / Preppy / Sporty / Street\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n100% polyester\nFabric Weight\n165 gsm (4.9 oz)\nThickness\nThin\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
         id: "black-socrates-hoodie",
         name: "Socrates Hoodie",
         price: 50,
-        description: "A heavyweight essential with a distressed finish and premium streetwear fit.",
+        description: "A heavyweight essential with a distressed finish and streetwear essentials fit.",
         images: [
             "images/blacksocratesfront.png",
             "images/blackbacksocrates.png",
@@ -329,7 +329,7 @@ const products = [
         },
         details: "This hoodie combines a vintage wash with frayed details for a look that’s both edgy and comfortable. Crafted from 360 GSM fleece, it offers warmth without sacrificing style, making it ideal for layering or wearing solo. The relaxed fit and soft texture create the perfect canvas for your custom designs, adding a personal touch to this streetwear essential.\n\nEach piece is handcrafted, ensuring its uniqueness. Minor variations from website images are natural and highlight its artisanal quality.\n\nGender\nUnisex\n\nEffects\nWashed / Frayed\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nCasual / Street\n\nMaterial\n42% cotton, 53% polyester, 5% other fibers\n\nFabric Weight\n360 gsm (10.6 oz)\n\nThickness\nThicken\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
         freeShipping: true,
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -340,14 +340,14 @@ const products = [
         images: [
             "images/meshshortsblackfront.png",
             "images/meshshortsblackback.png",
-            "images/meshshorts%231.png",
-            "images/meshshort%232.png",
-            "images/meshshorts%233.png",
-            "images/meshshorts%234.png",
-            "images/meshshort%235.png",
-            "images/meshshorts%236.png",
-            "images/meshshorts%237.png",
-            "images/meshshorts%238.png",
+            "images/meshshorts-1.png",
+            "images/meshshort-2.png",
+            "images/meshshorts-3.png",
+            "images/meshshorts-4.png",
+            "images/meshshort-5.png",
+            "images/meshshorts-6.png",
+            "images/meshshorts-7.png",
+            "images/meshshorts-8.png",
             "images/Mesh%20Drawstring%20Shorts-mockups-21.png",
             "images/Mesh%20Drawstring%20Shorts-mockups-22.png"
         ],
@@ -358,14 +358,14 @@ const products = [
                 images: [
                     "images/meshshortsblackfront.png",
                     "images/meshshortsblackback.png",
-                    "images/meshshorts%231.png",
-                    "images/meshshort%232.png",
-                    "images/meshshorts%233.png",
-                    "images/meshshorts%234.png",
-                    "images/meshshort%235.png",
-                    "images/meshshorts%236.png",
-                    "images/meshshorts%237.png",
-                    "images/meshshorts%238.png",
+                    "images/meshshorts-1.png",
+                    "images/meshshort-2.png",
+                    "images/meshshorts-3.png",
+                    "images/meshshorts-4.png",
+                    "images/meshshort-5.png",
+                    "images/meshshorts-6.png",
+                    "images/meshshorts-7.png",
+                    "images/meshshorts-8.png",
                     "images/Mesh%20Drawstring%20Shorts-mockups-21.png",
                     "images/Mesh%20Drawstring%20Shorts-mockups-22.png"
                 ]
@@ -450,7 +450,7 @@ const products = [
         },
         freeShipping: true,
         details: "These performance shorts feature a functional dual-layer mesh construction and a drawstring waist for optimal breathability and comfort during activity. Made from 100% polyester for moisture-wicking. An essential piece for athleisure and sportswear collections, ideal for warm-weather training or casual wear.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRK0044-P001-V3\n\nGender\nUnisex\n\nEffects\nDrawstring / Pocket\n\nFit\nLoose\n\nSeason\nSummer\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n100% polyester\n\nFabric Weight\n145 gsm (4.3 oz)\n\nBreathability\nHigh",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -517,7 +517,7 @@ const products = [
         },
         freeShipping: true,
         details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -609,7 +609,7 @@ const products = [
         },
         freeShipping: true,
         details: "This classic crewneck sweatshirt features the same heavyweight 100% cotton construction as the rest of the collection, designed to pair seamlessly with the RK0035 pants. The versatile design serves as an ideal layering piece or standalone top. A foundational item for brands building coordinated essential outfits.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRW0045-C001-V2\n\nGender\nUnisex\n\nFit\nOversized\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\n100% cotton\n\nFabric Weight\n530 gsm (15.6 oz)\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -669,14 +669,14 @@ const products = [
         },
         freeShipping: true,
         details: "Presenting the Snow Washed Zip-Through Hoodie, perfect for custom branding. This hoodie features a unique snow-washed finish, offering a soft, textured feel. The zip-through design adds versatility, making it ideal for brands looking to add a stylish, comfortable piece to their casualwear collections.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nRU0074-P001-V3\n\nGender\nUnisex\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nXL\n\nEffects\nWashed / Zipper\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn / Winter\n\nStyle\nBasics / Casual / Street / Vintage\n\nMaterial\n42% cotton, 53% polyester, 5% other fibers\n\nFabric Weight\n355 gsm (10.5 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
         id: "classic-quarter-zip",
         name: "Classic Quarter Zip",
         price: 60,
-        description: "Minimal quarter zip built with premium structure and an everyday luxury finish.",
+        description: "Minimal quarter zip built with clean structure and an everyday luxury finish.",
         images: [
             "images/grayqzipfront.png",
             "images/grayqzipback.png",
@@ -753,7 +753,7 @@ const products = [
         },
         freeShipping: true,
         details: "Safire's Quarter-Zip Drop Shoulder Sweatshirt elevates your casual lineup with a streamlined athletic feel. Featuring a high stand collar and a sleek metal zipper, this piece delivers a modern, relaxed silhouette. Detailed with practical side welt pockets and structured ribbed trims, it combines everyday utility with style. Perfectly suited for Custom Printing, this sweatshirt ensures high-quality results for Custom DTG and DTF projects. A reliable choice for Print-on-Demand businesses, it supports seamless global Dropshipping.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nEffects\nZipper / Pocket\n\nFit\nLoose\n\nNeckline\nLapel Collar\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n85% cotton, 15% polyester\n\nFabric Weight\n320 gsm (9.4 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -884,7 +884,7 @@ const products = [
         },
         freeShipping: true,
         details: "Material\nMain Fabric: 48.9% polyester, 43.4% cotton, 7.7% spandex; Contrast Fabric: 95.6% polyester, 4.4% spandex\n\nFabric Weight\n400 gsm (11.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate\n\nEffects\nZipper / Pocket\n\nFit\nLoose\n\nNeckline\nStand Collar\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nWinter\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nGender\nUnisex\n\nSafire's Contrast Piping Zip Bomber Jacket redefines athleisure with a polished edge. Featuring distinct contrast piping along the shoulders and sporty striped ribbed trims at the collar, cuffs, and hem, this outerwear piece offers a retro-inspired look. The design includes a full-zip closure, practical side pockets, and a relaxed drop-shoulder fit for everyday comfort. Ideal for creating high-quality Custom Jackets, it is specifically optimized for Custom DTF printing to ensure vibrant results. Expand your offering with this stylish essential, ready for seamless Print-on-Demand and Dropshipping fulfillment.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -984,7 +984,7 @@ const products = [
         },
         freeShipping: true,
         details: "This fashion-forward hoodie combines a cropped length with a warm fleece lining and heavyweight construction. The cotton-polyester blend offers substantial comfort. A trendy piece for essential collections, particularly appealing to brands targeting the cropped silhouette market in womenswear or youth segments.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nEffects\nPocket\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nWinter\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n50% cotton, 50% polyester\n\nFabric Weight\n500 gsm (14.7 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -1044,7 +1044,7 @@ const products = [
         },
         freeShipping: true,
         details: "This crewneck sweatshirt showcases a contemporary drop shoulder design in an essential silhouette. The technical fabric blend provides excellent comfort and shape retention. A versatile layering piece recommended for core collections, easily branded to create cohesive outfit options.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nRW0029-P001-V2\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nAutumn / Winter\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\nMain Fabric: 48.9% polyester, 43.4% cotton, 7.7% spandex; Contrast Fabric: 95.6% polyester, 4.4% spandex\n\nFabric Weight\n400 gsm (11.8 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -1113,15 +1113,15 @@ const products = [
             ]
         },
         freeShipping: true,
-        details: "Elevate your streetwear lineup with these heavyweight cotton sweatpants. Designed with a distinct balloon silhouette and a loose fit, this pair features a striking mineral wash effect that adds vintage character. Engineered for ultimate comfort, they come equipped with an elastic waist, practical slash pockets, and a clean straight hem. Perfect for everyday casual wear, skateboarding, or street dance, these pants offer a premium custom canvas for DTG and DTF printing. This Unisex essential combines a bold grunge aesthetic with modern athleisure comfort.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nModel\nFeatures\nEffects\nWashed / Elastic Waist / Pocket\nFit\nLoose\nSeason\nSpring / Autumn\nStyle\nBasics / Casual / Street / Vintage\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n85% cotton, 15% polyester\nFabric Weight\n350 gsm (10.3 oz)\nThickness\nThick\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        details: "Elevate your streetwear lineup with these heavyweight cotton sweatpants. Designed with a distinct balloon silhouette and a loose fit, this pair features a striking mineral wash effect that adds vintage character. Engineered for ultimate comfort, they come equipped with an elastic waist, practical slash pockets, and a clean straight hem. Perfect for everyday casual wear, skateboarding, or street dance, these pants offer a solid custom canvas for DTG and DTF printing. This Unisex essential combines a bold grunge aesthetic with modern athleisure comfort.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nModel\nFeatures\nEffects\nWashed / Elastic Waist / Pocket\nFit\nLoose\nSeason\nSpring / Autumn\nStyle\nBasics / Casual / Street / Vintage\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n85% cotton, 15% polyester\nFabric Weight\n350 gsm (10.3 oz)\nThickness\nThick\nBreathability\nModerate",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
         id: "script-zip-hoodie",
         name: "Script Zip",
         price: 50,
-        description: "Unisex full-zip hoodie with a mineral wash finish, boxy loose fit, and premium print-ready construction.",
+        description: "Unisex full-zip hoodie with a mineral wash finish, boxy loose fit, and easy print-ready construction.",
         images: [
             "images/blackzipsetfront.png",
             "images/blackzipsetback.png"
@@ -1189,8 +1189,8 @@ const products = [
             ]
         },
         freeShipping: true,
-        details: "Elevate your streetwear rotation with this Unisex full zip hoodie. Crafted from midweight knit cotton, it features a distinct mineral wash effect for a vintage grunge aesthetic. The boxy silhouette and loose fit are complemented by drop shoulders and a short length, creating a modern, relaxed drape. Functional details include a full-zip closure, patch pockets, and classic ribbed cuffs and hem. Engineered for premium DTG and DTF customization, this hoodie is the ultimate canvas for your brand's unique graphic designs.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nProduct Code\nUT0291-C001-V2\nGender\nUnisex\nModel\nFeatures\nEffects\nWashed / Snow Wash / Zipper / Pocket\nFit\nLoose\nNeckline\nHooded\nSleeve Style\nRegular Sleeve\nSleeve Length\nLong Sleeve\nSeason\nAutumn / Winter\nStyle\nBasics / Casual / Street / Vintage\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n85% cotton, 15% polyester\nFabric Weight\n350 gsm (10.3 oz)\nThickness\nModerate\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        details: "Elevate your streetwear rotation with this Unisex full zip hoodie. Crafted from midweight knit cotton, it features a distinct mineral wash effect for a vintage grunge aesthetic. The boxy silhouette and loose fit are complemented by drop shoulders and a short length, creating a modern, relaxed drape. Functional details include a full-zip closure, patch pockets, and classic ribbed cuffs and hem. Engineered for DTG and DTF customization, this hoodie is the ultimate canvas for your brand's unique graphic designs.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nProduct Code\nUT0291-C001-V2\nGender\nUnisex\nModel\nFeatures\nEffects\nWashed / Snow Wash / Zipper / Pocket\nFit\nLoose\nNeckline\nHooded\nSleeve Style\nRegular Sleeve\nSleeve Length\nLong Sleeve\nSeason\nAutumn / Winter\nStyle\nBasics / Casual / Street / Vintage\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n85% cotton, 15% polyester\nFabric Weight\n350 gsm (10.3 oz)\nThickness\nModerate\nBreathability\nModerate",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
@@ -1250,14 +1250,14 @@ const products = [
         },
         freeShipping: true,
         details: "Crafted from a robust 320g cotton-polyester blend, this classic crewneck offers reliable warmth and long-lasting durability for everyday wear. The medium-weight interior keeps comfort consistent across seasons, while the clean front and back panels make it ideal for chest or back artwork. A strong foundational sweatshirt for basics, team merchandise, and print collections.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n85% cotton, 15% polyester\n\nFabric Weight\n320 gsm (9.4 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
         id: "melt-shirt",
         name: "Melt Shirt",
         price: 30,
-        description: "Premium 100% cotton tee with breathable comfort and two large print areas for standout front and back designs.",
+        description: "100% cotton tee with breathable comfort and two large print areas for standout front and back designs.",
         images: [
             "images/meltshirtfront.png",
             "images/meltshirtback.png"
@@ -1309,8 +1309,8 @@ const products = [
             ]
         },
         freeShipping: true,
-        details: "Let your design take center stage with two large print areas on a solid color background. Made from premium 100% cotton, this tee offers breathability, durability, and long-lasting comfort. Whether you are showcasing bold graphics or subtle designs, this t-shirt is your canvas to make a lasting impression.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Street\n\nMaterial\n100% cotton\n\nFabric Weight\n230 gsm (6.8 oz)\n\nThickness\nThin\n\nElasticity\nNon-Stretch\n\nBreathability\nModerate",
-        shippingReturns: "Free standard shipping on all orders. Returns accepted within 30 days if unworn with tags.",
+        details: "Let your design take center stage with two large print areas on a solid color background. Made from 100% cotton, this tee offers breathability, durability, and long-lasting comfort. Whether you are showcasing bold graphics or subtle designs, this t-shirt is your canvas to make a lasting impression.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Street\n\nMaterial\n100% cotton\n\nFabric Weight\n230 gsm (6.8 oz)\n\nThickness\nThin\n\nElasticity\nNon-Stretch\n\nBreathability\nModerate",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     }
 ];

@@ -181,8 +181,9 @@ a {
 
 .price {
     margin: 0;
-    color: #111;
+    color: #f8f3eb;
     font-weight: 700;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 .sale-price-row {
@@ -193,8 +194,9 @@ a {
 }
 
 .sale-price-current {
-    color: #111;
+    color: #f8f3eb;
     font-weight: 700;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 .sale-price-old {
@@ -283,10 +285,12 @@ a {
 .info .price {
     margin-top: 8px;
     font-size: 22px;
+    color: #f4efe4;
 }
 
 .info .sale-price-current {
     font-size: 22px;
+    color: #f4efe4;
 }
 
 .info .desc {
