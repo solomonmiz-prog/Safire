@@ -1,5 +1,4 @@
 const Stripe = require("stripe");
-const { google } = require("googleapis");
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
@@ -70,96 +69,94 @@ function buildOrderEmail(order) {
   return { text, html };
 }
 
-async function sendOrderEmail(order) {
+function buildCustomerConfirmation(order) {
+  const amount = order.amountTotal != null
+    ? `$${(order.amountTotal / 100).toFixed(2)} ${String(order.currency || "USD").toUpperCase()}`
+    : "Unknown";
+
+  const itemsSummary = formatOrderItemSummary(order);
+
+  const text = [
+    `Thank you for your order from Safire!`,
+    `Order ID: ${order.sessionId || "N/A"}`,
+    `Amount: ${amount}`,
+    `Items: ${itemsSummary || "N/A"}`,
+    `Shipping: ${order.shipping?.name || "N/A"} — ${order.shipping?.line1 || ""} ${order.shipping?.city || ""}`
+  ].join('\n');
+
+  const html = `
+    <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:#111;">
+      <h1 style="margin-bottom:0.25rem">Thanks for your Safire order</h1>
+      <p style="margin-top:0">Order ID: <strong>${order.sessionId || "N/A"}</strong></p>
+      <p><strong>Amount:</strong> ${amount}</p>
+      <p><strong>Items:</strong> ${itemsSummary || "N/A"}</p>
+      <p><strong>Shipping:</strong> ${order.shipping?.name || "N/A"}<br>${[order.shipping?.line1, order.shipping?.city, order.shipping?.state, order.shipping?.postal_code].filter(Boolean).join(', ')}</p>
+      <p style="margin-top:1rem">If you have questions, reply to this email.</p>
+      <hr>
+      <p style="color:#666;font-size:12px;margin-top:8px">Safire — Streetwear essentials</p>
+    </div>
+  `;
+
+  return { text, html };
+}
+
+async function sendOrderEmails(order) {
   const resendApiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.ORDER_ALERT_EMAIL;
-  const fromEmail = process.env.ORDER_FROM_EMAIL || "Safire Orders <onboarding@resend.dev>";
+  const ownerEmail = process.env.ORDER_ALERT_EMAIL;
+  const fromEmail = process.env.ORDER_FROM_EMAIL || "orders@safirevintage.com";
 
-  if (!resendApiKey || !toEmail) {
-    console.warn("Email env vars not configured — skipping email notification.");
+  if (!resendApiKey || !ownerEmail) {
+    console.warn("Resend or owner email not configured — skipping emails.");
     return;
   }
 
-  const { text, html } = buildOrderEmail(order);
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${resendApiKey}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
+  // Owner email
+  const ownerContent = buildOrderEmail(order);
+  const ownerPayload = {
+    from: fromEmail,
+    to: [ownerEmail],
+    subject: `New Safire Order — ${order.amountTotal != null ? `$${(order.amountTotal/100).toFixed(2)}` : ''}`.trim(),
+    html: ownerContent.html,
+    text: ownerContent.text
+  };
+
+  // Customer email (if available)
+  let customerPayload = null;
+  if (order.customerEmail) {
+    const customerContent = buildCustomerConfirmation(order);
+    customerPayload = {
       from: fromEmail,
-      to: [toEmail],
-      subject: `New Order ${order.sessionId || ""}`.trim(),
-      html,
-      text
-    })
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Resend email failed: ${response.status} ${errorText}`);
-  }
-}
-
-async function appendOrderToSheet(order) {
-  const sheetId = process.env.GOOGLE_SHEET_ID;
-  const serviceAccountEmail = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
-  const privateKey = (process.env.GOOGLE_PRIVATE_KEY || "").replace(/\\n/g, "\n");
-
-  if (!sheetId || !serviceAccountEmail || !privateKey) {
-    console.warn("Google Sheets env vars not configured — skipping sheet append.");
-    return;
+      to: [order.customerEmail],
+      subject: 'Your Safire Order Confirmation',
+      html: customerContent.html,
+      text: customerContent.text
+    };
   }
 
-  const auth = new google.auth.JWT(
-    serviceAccountEmail,
-    null,
-    privateKey,
-    ["https://www.googleapis.com/auth/spreadsheets"]
-  );
+  const send = async (payload) => {
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
 
-  const sheets = google.sheets({ version: "v4", auth });
+    if (!res.ok) {
+      const errText = await res.text();
+      throw new Error(`Resend send failed: ${res.status} ${errText}`);
+    }
+    return res;
+  };
 
-  const date = order.completedAt
-    ? new Date(order.completedAt * 1000).toLocaleString("en-US", { timeZone: "America/New_York" })
-    : new Date().toLocaleString("en-US", { timeZone: "America/New_York" });
+  const tasks = [send(ownerPayload)];
+  if (customerPayload) tasks.push(send(customerPayload));
 
-  const amountFormatted = order.amountTotal != null
-    ? `$${(order.amountTotal / 100).toFixed(2)}`
-    : "";
-
-  // Multi-item orders: one row per item
-  const meta = order.metadata || {};
-  const itemNames = meta.itemNames ? meta.itemNames.split(" | ") : [meta.productName || ""];
-  const itemSizes = meta.itemSizes ? meta.itemSizes.split(" | ") : [meta.size || ""];
-  const itemColors = meta.itemColors ? meta.itemColors.split(" | ") : [meta.color || ""];
-
-  const rows = itemNames.map((itemName, i) => [
-    order.sessionId || "",
-    date,
-    order.shipping?.name || "",
-    order.customerEmail || "",
-    order.phone || "",
-    itemName.trim(),
-    (itemSizes[i] || "").trim().toUpperCase(),
-    (itemColors[i] || "").trim(),
-    amountFormatted,
-    `${(order.shipping?.line1 || "")} ${(order.shipping?.line2 || "")}`.trim(),
-    order.shipping?.city || "",
-    order.shipping?.state || "",
-    order.shipping?.postal_code || "",
-    order.shipping?.country || ""
-  ]);
-
-  await sheets.spreadsheets.values.append({
-    spreadsheetId: sheetId,
-    range: "Orders!A:N",
-    valueInputOption: "USER_ENTERED",
-    insertDataOption: "INSERT_ROWS",
-    requestBody: { values: rows }
-  });
+  await Promise.all(tasks);
 }
+
+// Google Sheets integration removed — orders now only send emails via Resend
 
 exports.handler = async function handler(event) {
   if (event.httpMethod !== "POST") {
