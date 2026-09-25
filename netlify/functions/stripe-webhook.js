@@ -296,11 +296,28 @@ exports.handler = async function handler(event) {
       ? Buffer.from(event.body || "", "base64").toString("utf8")
       : (event.body || "");
 
-    const stripeEvent = stripe.webhooks.constructEvent(
-      rawBody,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET
-    );
+    let stripeEvent;
+    try {
+      stripeEvent = stripe.webhooks.constructEvent(
+        rawBody,
+        signature,
+        process.env.STRIPE_WEBHOOK_SECRET
+      );
+    } catch (liveSignatureError) {
+      if (!process.env.STRIPE_TEST_WEBHOOK_SECRET) {
+        throw liveSignatureError;
+      }
+
+      try {
+        stripeEvent = stripe.webhooks.constructEvent(
+          rawBody,
+          signature,
+          process.env.STRIPE_TEST_WEBHOOK_SECRET
+        );
+      } catch (_testSignatureError) {
+        throw liveSignatureError;
+      }
+    }
 
     if (stripeEvent.type === "checkout.session.completed") {
       const session = stripeEvent.data.object;
