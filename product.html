@@ -365,7 +365,24 @@
             notFound.style.display = 'block';
         } else {
             layout.hidden = false;
-            const originalPrice = Number(product.price) || 0;
+            // Use canonical price where possible: prefer listing's `productsData` (if present),
+            // otherwise fall back to the local `product.price` from `products.js`.
+            let originalPrice = Number(product.price) || 0;
+            try {
+                if (typeof productsData !== 'undefined' && Array.isArray(productsData) && productsData.length > 0) {
+                    const normalizedPid = String(product.productId || product.id || '').trim();
+                    const listingMatch = productsData.find((p) => {
+                        if (!p) return false;
+                        const ids = [p.productId, p.id, p.name].map((v) => String(v || '').trim());
+                        return ids.includes(normalizedPid) || ids.includes(String(product.id || '').trim());
+                    });
+                    if (listingMatch && listingMatch.price !== undefined) {
+                        originalPrice = Number(listingMatch.price) || originalPrice;
+                    }
+                }
+            } catch (_e) {
+                // ignore — keep local product.price
+            }
 
             document.title = `${product.name} | SAFIRE`;
             document.getElementById('product-name').textContent = product.name;
