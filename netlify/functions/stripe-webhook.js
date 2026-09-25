@@ -189,10 +189,14 @@ function normalizeLineItem(lineItem) {
 
 async function sendBrevoEmail({ toEmail, toName, subject, text, html }) {
   const brevoApiKey = process.env.BREVO_API_KEY;
-  const senderEmail = process.env.BREVO_FROM_EMAIL || "orders@safirevintage.com";
+  const senderEmail = process.env.BREVO_TRANSACTIONAL_SENDER_EMAIL;
 
   if (!brevoApiKey) {
     throw new Error("BREVO_API_KEY is not configured.");
+  }
+
+  if (!senderEmail) {
+    throw new Error("BREVO_TRANSACTIONAL_SENDER_EMAIL is not configured.");
   }
 
   const response = await fetch("https://api.brevo.com/v3/smtp/email", {
