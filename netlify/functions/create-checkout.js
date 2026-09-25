@@ -1,5 +1,4 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-const SITEWIDE_SALE_OFF_CENTS = 1000;
 
 function isValidStripePriceId(value) {
   return /^price_[A-Za-z0-9]+$/.test(String(value || "").trim());
@@ -107,7 +106,7 @@ exports.handler = async function(event) {
           quantity: lineItem.quantity,
           price_data: {
             currency,
-            unit_amount: Math.max(50, Number(unitAmount || 0) - SITEWIDE_SALE_OFF_CENTS),
+            unit_amount: Number(unitAmount || 0),
             product_data: {
               name: itemMeta.name || fallbackName,
               description: `Size: ${itemMeta.size}\nColor: ${itemMeta.color}`
