@@ -386,7 +386,46 @@
 
             document.title = `${product.name} | SAFIRE`;
             document.getElementById('product-name').textContent = product.name;
-            document.getElementById('product-price').textContent = `$${formatPrice(originalPrice)}`;
+            const priceElement = document.getElementById('product-price');
+            priceElement.textContent = `$${formatPrice(originalPrice)}`;
+
+            // Ensure PDP uses the same canonical price as product cards.
+            // Strategy: prefer global `productsData` (used by product cards). If absent,
+            // fetch `/index.html` and parse its `productsData` blocks to find a match.
+            async function getCanonicalPriceFor(product) {
+                try {
+                    const normalizedPid = String(product.productId || product.id || '').trim();
+                    // 1) If `productsData` is exposed on the page, use it.
+                    if (typeof productsData !== 'undefined' && Array.isArray(productsData)) {
+                        const match = productsData.find((p) => String(p.productId || p.id || p.name || '').trim() === normalizedPid || String(p.id || '').trim() === String(product.id || '').trim());
+                        if (match && match.price !== undefined) return Number(match.price) || null;
+                    }
+
+                    // 2) Try fetching the site's listing page and parse `productsData` declarations.
+                    const resp = await fetch('/index.html', { cache: 'no-store' });
+                    if (!resp.ok) return null;
+                    const text = await resp.text();
+                    // Regex to find product blocks with productId and price: { ... productId: "id", ... price: 60,
+                    const re = /\{[^}]*?productId\s*:\s*\"([\w\-]+)\"[\s\S]*?price\s*:\s*(\d+\.?\d*)/g;
+                    let m;
+                    while ((m = re.exec(text)) !== null) {
+                        const pid = m[1];
+                        const price = Number(m[2]);
+                        if (pid === normalizedPid) return price;
+                    }
+                } catch (_e) {
+                    // ignore errors and fall back to local price
+                }
+                return null;
+            }
+
+            (async () => {
+                const canonical = await getCanonicalPriceFor(product);
+                if (canonical !== null && Number(canonical) !== Number(originalPrice)) {
+                    originalPrice = Number(canonical);
+                    priceElement.textContent = `$${formatPrice(originalPrice)}`;
+                }
+            })();
             document.getElementById('product-description').textContent = product.description;
 
             const parsedSections = parseProductDetailSections(product.details, product.careInstructions);
