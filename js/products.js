@@ -62,7 +62,7 @@ const products = [
     {
         id: "oversized-wavy-grid-tshirt",
         name: "Oversized Wavy-grid Safire T-Shirt",
-        price: 30,
+        price: 40,
         description: "100% cotton oversized t shirt",
         images: [
             "images/skyblueoverwavyfront.png",
@@ -172,7 +172,7 @@ const products = [
     {
         id: "safire-orbit-jersey",
         name: "Safire Orbit",
-        price: 30,
+        price: 40,
         description: "Contrast collar striped soccer jersey with a clean athletic silhouette and a relaxed street-ready feel.",
         images: [
             "images/soccerkitfront.png",
@@ -232,7 +232,7 @@ const products = [
     {
         id: "black-socrates-hoodie",
         name: "Socrates Hoodie",
-        price: 50,
+        price: 60,
         description: "A heavyweight essential with a distressed finish and streetwear essentials fit.",
         images: [
             "images/blacksocratesfront.png",
@@ -335,7 +335,7 @@ const products = [
     {
         id: "mesh-drawstring-shorts",
         name: "Mesh Drawstring Shorts",
-        price: 30,
+        price: 40,
         description: "Performance mesh shorts with dual-layer breathability and an adjustable drawstring waist.",
         images: [
             "images/meshshortsblackfront.png",
@@ -456,7 +456,7 @@ const products = [
     {
         id: "borough-oversized-tshirt",
         name: "Borough Oversized T-Shirt",
-        price: 30,
+        price: 40,
         description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
         images: [
             "images/frontwhiteborough.png",
@@ -523,7 +523,7 @@ const products = [
     {
         id: "vintage-crewneck",
         name: "Vintage",
-        price: 50,
+        price: 60,
         description: "Classic heavyweight crewneck designed for layering or standalone wear in coordinated essential outfits.",
         images: [
             "images/vintagecrewneckapricotfront.png",
@@ -887,106 +887,7 @@ const products = [
         shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
-    {
-        id: "cropped-fleece-hoodie",
-        name: "Plain Hoodie",
-        price: 60,
-        description: "A fashion-forward cropped hoodie with heavyweight warmth, fleece comfort, and a relaxed street-ready silhouette.",
-        images: [
-            "images/newblankblackfront.png",
-            "images/newblankblackback.png"
-        ],
-        colorways: [
-            {
-                name: "Black",
-                hex: "#0A0A0A",
-                images: [
-                    "images/newblankblackfront.png",
-                    "images/newblankblackback.png"
-                ]
-            },
-            {
-                name: "Grey",
-                hex: "#7C7C7C",
-                images: [
-                    "images/newgreyblueblankfront.png",
-                    "images/newgreyblueblankback.png"
-                ]
-            },
-            {
-                name: "White",
-                hex: "#F2F2F2",
-                images: [
-                    "images/newblankwitefront.png",
-                    "images/newwhiteblankback.png"
-                ]
-            },
-            {
-                name: "Oat White",
-                hex: "#D9D4C7",
-                images: [
-                    "images/newblankoatgreyfront.png",
-                    "images/newblankoatgreyback.png"
-                ]
-            },
-            {
-                name: "Flower Gray",
-                hex: "#B7B7B7",
-                images: [
-                    "images/newblankflowergreyfront.png",
-                    "images/newblankflowergreyback.png"
-                ]
-            },
-            {
-                name: "Light Apricot",
-                hex: "#F4E7CF",
-                images: [
-                    "images/newblankcreamfront.png",
-                    "images/newblankcreamback.png"
-                ]
-            }
-        ],
-        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
-        sizes: ["S", "M", "L", "XL", "2XL"],
-        sizeGuide: {
-            inches: {
-                sizes: ["S", "M", "L", "XL", "2XL"],
-                length: [24.80, 25.59, 26.38, 27.17, 27.95],
-                shoulder: [22.83, 23.62, 24.41, 25.20, 25.98],
-                chest: [23.62, 24.41, 25.20, 25.98, 26.77],
-                sleeveLength: [21.65, 22.05, 22.44, 22.83, 23.23]
-            },
-            centimeters: {
-                sizes: ["S", "M", "L", "XL", "2XL"],
-                length: [63, 65, 67, 69, 71],
-                shoulder: [58, 60, 62, 64, 66],
-                chest: [60, 62, 64, 66, 68],
-                sleeveLength: [55, 56, 57, 58, 59]
-            },
-            howToMeasure: [
-                {
-                    title: "Length",
-                    description: "Measure from where the shoulder seam meets the collar to the hem."
-                },
-                {
-                    title: "Shoulder",
-                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
-                },
-                {
-                    title: "Chest",
-                    description: "Measure from the stitches below the armpits on one side to another."
-                },
-                {
-                    title: "Sleeve length",
-                    description: "Measure from where the shoulder seam meets armhole to the cuff."
-                }
-            ]
-        },
-        freeShipping: true,
-        details: "This fashion-forward hoodie combines a cropped length with a warm fleece lining and heavyweight construction. The cotton-polyester blend offers substantial comfort. A trendy piece for essential collections, particularly appealing to brands targeting the cropped silhouette market in womenswear or youth segments.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nEffects\nPocket\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nWinter\n\nStyle\nBasics / Casual / Sporty\n\nMaterial\n50% cotton, 50% polyester\n\nFabric Weight\n500 gsm (14.7 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
-        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
-    },
+    // Plain Hoodie (cropped-fleece-hoodie) removed per request
     {
         id: "safire-shores-crewneck",
         name: "Safire Shores",
@@ -1120,7 +1021,7 @@ const products = [
     {
         id: "script-zip-hoodie",
         name: "Script Zip",
-        price: 50,
+        price: 60,
         description: "Unisex full-zip hoodie with a mineral wash finish, boxy loose fit, and easy print-ready construction.",
         images: [
             "images/blackzipsetfront.png",
@@ -1317,15 +1218,15 @@ const products = [
 
 const stripePrices = {
     "safire-horizon-zip-hoodie": "price_1Tn7mf9S93tBM5OXMTuyhDn8",
-    "black-socrates-hoodie": "price_1T9yom9S93tBM5OXxuh5loMF",
+    "black-socrates-hoodie": "price_1TWnb69S93tBM5OXzBZrBSKa",
     "classic-quarter-zip": "price_1TWnYV9S93tBM5OX0jOJ8u43",
     "varsity-jacket": "price_1TWnWp9S93tBM5OXTgymoZtv",
-    "cropped-fleece-hoodie": "price_1TDv4M9S93tBM5OXCrLVwvkT",
+    // "cropped-fleece-hoodie": removed
     "borough-oversized-tshirt": "price_1TcWCr9S93tBM5OXIdgtpFMB",
     "borough-oversized-t-shirt": "price_1TMbOM9S93tBM5OXaKt24jzl",
-    "vintage-crewneck": "price_1TcXG29S93tBM5OXYSdZrisE",
-    "not-for-everyone-hoodie": "price_1TcWDx9S93tBM5OX4PfYhD5x",
-    "mesh-drawstring-shorts": "price_1TdHfd9S93tBM5OXBv2VxxpY",
+    "vintage-crewneck": "price_1Tf2KR9S93tBM5OXSLZRESp5",
+    "not-for-everyone-hoodie": "price_1TYzPh9S93tBM5OXiV6SZO7H",
+    "mesh-drawstring-shorts": "price_1Tf2Hk9S93tBM5OXMbmC3MTt",
     "oversized-wavy-grid-tshirt": "price_1TcWB99S93tBM5OXzL2nuQu8v",
     "safire-shores-crewneck": "price_1Tf2Pl9S93tBM5OXRSWbhH2E",
     "melt-sweatshirt": "price_1U1GJR9S93tBM5OXwsrNfiYx",
