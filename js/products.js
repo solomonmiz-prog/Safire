@@ -60,6 +60,82 @@ const products = [
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
     {
+        id: "signature-stitch-hoodie",
+        name: "Signature Stitch",
+        price: 60,
+        description: "Slightly cropped unisex hoodie with a rugged frayed edge and enzyme-wash finish for a vintage worn-in look.",
+        images: [
+            "images/signaturestitchlightgrayfront.png",
+            "images/signaturestitchlightgrayback.png"
+        ],
+        colorways: [
+            {
+                name: "Light Gray",
+                hex: "#B7C0C8",
+                images: [
+                    "images/signaturestitchlightgrayfront.png",
+                    "images/signaturestitchlightgrayback.png"
+                ]
+            },
+            {
+                name: "Blue",
+                hex: "#A9B9C7",
+                images: [
+                    "images/signaturestitchbluefront.png",
+                    "images/signaturestitchblueback.png"
+                ]
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/signaturestitchblackfront.png",
+                    "images/signaturestitchblackback.png"
+                ]
+            }
+        ],
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [24.80, 25.59, 26.38, 27.17, 27.95],
+                shoulder: [26.18, 26.77, 27.36, 27.95, 28.54],
+                chest: [27.95, 28.74, 29.53, 30.31, 31.10],
+                sleeveLength: [23.23, 23.62, 24.02, 24.41, 24.80]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [63, 65, 67, 69, 71],
+                shoulder: [66.5, 68, 69.5, 71, 72.5],
+                chest: [71, 73, 75, 77, 79],
+                sleeveLength: [59, 60, 61, 62, 63]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "This unisex hoodie boasts a slightly cropped silhouette with a rugged frayed edge and enzyme wash, giving it a vintage, worn-in appeal. Crafted from soft 350G fleece, it provides warmth and comfort. Complete the look with matching sweatpants #RK0004 for a stylish set. Ideal for casual wear, this hoodie is versatile, customizable with prints, and available in multiple colors. Perfect for all genders.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nModel\nFeatures\nEffects\nWashed / Frayed / Slightly Cropped\n\nFit\nOversized\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn / Winter\n\nStyle\nBasics / Casual / Street\n\nCare Instructions\nCare set icon\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\n\nFabric\nMaterial\n57.4% polyester, 36.8% cotton, 5.8% other fibers\n\nFabric Weight\n350 gsm (10.3 oz)\n\nThickness\nExtra Thick\n\nBreathability\nModerate for size guide here is inches Size Guide\n\n1-3 cm sizing differences may occur.",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
         id: "oversized-wavy-grid-tshirt",
         name: "Oversized Wavy-grid Safire T-Shirt",
         price: 40,
@@ -951,7 +1027,7 @@ const products = [
     {
         id: "safire-sweatpants",
         name: "Script Sweatpants",
-        price: 40,
+        price: 50,
         description: "Elevate your streetwear lineup with these heavyweight cotton sweatpants. Designed with a distinct balloon silhouette and a loose fit, this pair features a striking mineral wash effect that adds vintage character.",
         images: [
             "images/blackpoantssetfront.png",
@@ -1218,6 +1294,7 @@ const products = [
 
 const stripePrices = {
     "safire-horizon-zip-hoodie": "price_1Tn7mf9S93tBM5OXMTuyhDn8",
+    "signature-stitch-hoodie": "price_1UKknS9S93tBM5OXx0XjRbaR",
     "black-socrates-hoodie": "price_1TWnb69S93tBM5OXzBZrBSKa",
     "classic-quarter-zip": "price_1TWnYV9S93tBM5OX0jOJ8u43",
     "varsity-jacket": "price_1TWnWp9S93tBM5OXTgymoZtv",

@@ -3265,7 +3265,7 @@ function renderProducts() {
                     
                     <div class="product-actions">
                         <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${product.price}, '${currentImage1}')">
-                            Add Set
+                            Add to Cart
                         </button>
                     </div>
                 </div>
@@ -3501,7 +3501,7 @@ function updateWishlistDisplay() {
                     <div class="wishlist-item-name">${item.name}</div>
                     <div class="wishlist-item-price">$${item.price.toFixed(0)}</div>
                     <button class="add-to-cart-btn" style="font-size: 12px; padding: 8px;" onclick="addToCart(${item.id}, '${item.name}', ${item.price}, '${item.image1}'); toggleWishlist();">
-                        Add Set
+                        Add to Cart
                     </button>
                     <button class="remove-btn" style="width: 100%; margin-top: 5px;" onclick="removeFromWishlist(${index})">Remove</button>
                 </div>

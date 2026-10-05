@@ -42,7 +42,7 @@
                     <div class="size-grid" id="size-grid"></div>
                 </div>
 
-                <button class="add-btn" id="add-to-cart-btn">Add Set</button>
+                <button class="add-btn" id="add-to-cart-btn">Add to Cart</button>
 
                 <div class="accordion">
                     <details>
@@ -81,8 +81,8 @@
     </main>
 
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="js/products.js?v=20260531f"></script>
-    <script src="js/cart.js"></script>
+    <script src="js/products.js?v=20261001"></script>
+    <script src="js/cart.js?v=20261001"></script>
     <script>
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
@@ -841,6 +841,11 @@
                 }
             });
 
+            const addToCartButton = document.getElementById('add-to-cart-btn');
+            if (addToCartButton) {
+                addToCartButton.textContent = 'Add to Cart';
+            }
+
             const sizeGrid = document.getElementById('size-grid');
             let selectedSize = null;
 
@@ -860,6 +865,7 @@
 
             document.querySelectorAll('.add-btn').forEach((button) => {
                 const cleanButton = button.cloneNode(true);
+                cleanButton.textContent = 'Add to Cart';
                 button.replaceWith(cleanButton);
 
                 cleanButton.addEventListener('click', () => {

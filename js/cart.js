@@ -62,7 +62,18 @@ function getCart() {
             })
             .filter((item) => getProductById(item.productId));
 
-        if (sanitizedCart.length !== parsed.length) {
+        const pricesUpdated = sanitizedCart.some((item) => {
+            const originalItem = parsed.find((entry) => {
+                const entryId = normalizeCartValue(entry.productId || entry.id || '');
+                return entryId && entryId === item.productId
+                    && String(entry.name || '').trim() === String(item.name || '').trim();
+            });
+            const originalPrice = Number(originalItem && originalItem.price !== undefined ? originalItem.price : item.price) || 0;
+            const currentPrice = Number(item.price) || 0;
+            return originalPrice !== currentPrice;
+        });
+
+        if (sanitizedCart.length !== parsed.length || pricesUpdated) {
             saveCart(sanitizedCart);
         }
 
@@ -77,14 +88,22 @@ function saveCart(cart) {
 }
 
 function getProductById(productId) {
-    if (typeof products === 'undefined' || !Array.isArray(products)) return null;
     const normalizedProductId = normalizeCartValue(productId);
     if (!normalizedProductId) return null;
 
-    return products.find((entry) => {
-        const productIds = [entry.id, entry.productId].filter((value) => value !== undefined && value !== null && value !== '');
-        return productIds.some((value) => normalizeCartValue(value) === normalizedProductId);
-    }) || null;
+    const catalogLists = [];
+    if (typeof products !== 'undefined' && Array.isArray(products)) catalogLists.push(products);
+    if (typeof productsData !== 'undefined' && Array.isArray(productsData)) catalogLists.push(productsData);
+
+    for (const list of catalogLists) {
+        const match = list.find((entry) => {
+            const productIds = [entry.id, entry.productId, entry.sku].filter((value) => value !== undefined && value !== null && value !== '');
+            return productIds.some((value) => normalizeCartValue(value) === normalizedProductId);
+        });
+        if (match) return match;
+    }
+
+    return null;
 }
 
 function getStripePriceId(productId) {
@@ -120,7 +139,8 @@ function updateCartCount() {
 
 function addToCart(item) {
     const cart = getCart();
-    const regularPrice = Number(item.price) || 0;
+    const productMatch = getProductById(item.productId || item.id);
+    const regularPrice = productMatch ? (Number(productMatch.price) || 0) : (Number(item.price) || 0);
 
     const normalizedItem = {
         productId: normalizeCartValue(item.productId),

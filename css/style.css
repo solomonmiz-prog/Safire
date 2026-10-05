@@ -503,6 +503,21 @@ a {
     cursor: pointer;
 }
 
+#size-guide-text button[data-size-unit] {
+    color: #d7d2c9 !important;
+    background: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+#size-guide-text button[data-size-unit][aria-selected="true"] {
+    color: #111111 !important;
+    background: rgba(200, 168, 107, 0.98) !important;
+    border-bottom-color: var(--accent) !important;
+    border-radius: 6px 6px 0 0;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
 .dot.active {
     background: var(--accent);
 }

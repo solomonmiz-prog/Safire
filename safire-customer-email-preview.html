@@ -1,0 +1,435 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safire Order Confirmation Preview</title>
+    <style>
+      :root {
+        --bg: #f3efe8;
+        --card: #ffffff;
+        --ink: #111111;
+        --muted: #4a4742;
+        --sand: #f8f6f1;
+        --line: #e4ddcf;
+        --gold: #b79d64;
+        --gold-strong: #d5b774;
+        --table-head: #f6f3ee;
+        --table-line: #e8e3d8;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        padding: 32px 16px;
+        background: var(--bg);
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--ink);
+      }
+
+      .email-shell {
+        max-width: 760px;
+        margin: 0 auto;
+        background: var(--card);
+        border: 1px solid #e7e1d5;
+      }
+
+      .brand-bar {
+        background: #0f0f0f;
+        padding: 26px 32px 18px;
+        text-align: center;
+      }
+
+      .brand-main {
+        font-size: 28px;
+        line-height: 1.2;
+        letter-spacing: 0.3em;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .brand-tag {
+        font-size: 10px;
+        letter-spacing: 0.22em;
+        color: var(--gold);
+        text-transform: uppercase;
+        margin-top: 8px;
+      }
+
+      .email-body {
+        padding: 34px 32px 28px;
+      }
+
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      h1 {
+        margin: 0 0 18px;
+        font-size: 38px;
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+
+      .intro {
+        margin: 0 0 20px;
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .summary-grid {
+        display: table;
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+        margin-bottom: 22px;
+      }
+
+      .summary-row {
+        display: table-row;
+      }
+
+      .summary-cell {
+        display: table-cell;
+        width: 50%;
+        padding: 14px 16px;
+        background: var(--sand);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        vertical-align: top;
+      }
+
+      .summary-cell.dark {
+        background: #111111;
+        border-color: #111111;
+        color: #ffffff;
+      }
+
+      .label {
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+
+      .summary-cell.dark .label {
+        color: var(--gold-strong);
+      }
+
+      .summary-cell:not(.dark) .label {
+        color: #867765;
+      }
+
+      .value {
+        font-size: 15px;
+        font-weight: 700;
+        color: inherit;
+      }
+
+      .total-value {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.2;
+        color: inherit;
+      }
+
+      .table-label {
+        margin-bottom: 10px;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--gold);
+        font-weight: 700;
+      }
+
+      .product-card-list {
+        display: block;
+        width: 100%;
+      }
+
+      .product-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: var(--sand);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+
+      .product-card:last-child {
+        margin-bottom: 0;
+      }
+
+      .product-card-image {
+        width: 96px;
+        height: 96px;
+        object-fit: cover;
+        border-radius: 10px;
+        border: 1px solid var(--table-line);
+        background: #f5f2ee;
+        display: block;
+        flex-shrink: 0;
+      }
+
+      .product-card-fallback {
+        width: 96px;
+        height: 96px;
+        border-radius: 10px;
+        border: 1px solid var(--table-line);
+        background: #efeae0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #867765;
+        flex-shrink: 0;
+      }
+
+      .product-card-details {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .product-card-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.4;
+        margin-bottom: 8px;
+      }
+
+      .product-meta {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px 12px;
+        font-size: 12px;
+        color: #333333;
+      }
+
+      .product-meta-label {
+        display: inline-block;
+        min-width: 38px;
+        font-size: 10px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #867765;
+        margin-right: 6px;
+      }
+
+      .product-card-total {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--ink);
+        white-space: nowrap;
+        margin-left: 10px;
+      }
+
+      .shipping-box {
+        margin-top: 24px;
+        background: var(--sand);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 18px 20px;
+      }
+
+      .shipping-box .label {
+        margin-bottom: 10px;
+      }
+
+      .shipping-address {
+        font-size: 14px;
+        line-height: 1.8;
+        color: #1d1d1d;
+      }
+
+      .footer {
+        margin-top: 24px;
+        text-align: center;
+      }
+
+      .footer p {
+        margin: 0 0 12px;
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--muted);
+      }
+
+      .cta {
+        display: inline-block;
+        background: #111111;
+        border-radius: 999px;
+        padding: 12px 22px;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .cta a {
+        color: #ffffff;
+        text-decoration: none;
+      }
+
+      @media only screen and (max-width: 620px) {
+        .email-body { padding: 24px 18px !important; }
+        .summary-grid { display: block !important; }
+        .summary-row { display: block !important; }
+        .summary-cell { display: block !important; width: 100% !important; margin-bottom: 12px !important; }
+        th, td { font-size: 12px !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-shell">
+      <div class="brand-bar">
+        <div class="brand-main">SAFIRE</div>
+        <div class="brand-tag">Vintage Streetwear</div>
+      </div>
+
+      <div class="email-body">
+        <div class="eyebrow">Order confirmed</div>
+        <h1>Order Confirmed</h1>
+        <p class="intro">Thank you for shopping with Safire. Your order is now being prepared with care.</p>
+
+        <div class="summary-grid">
+          <div class="summary-row">
+            <div class="summary-cell">
+              <div class="label">Order ID</div>
+              <div class="value">SAF-2026-1001</div>
+            </div>
+            <div class="summary-cell">
+              <div class="label">Order Date</div>
+              <div class="value">Oct 5, 2026</div>
+            </div>
+          </div>
+
+          <div class="summary-row">
+            <div class="summary-cell dark">
+              <div class="label">Total</div>
+              <div class="total-value">$60.00</div>
+            </div>
+            <div class="summary-cell">
+              <div class="label">Customer</div>
+              <div class="value">James Carter</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-label">Order summary</div>
+        <div class="product-card-list" aria-label="Order summary cards">
+          <div class="product-card">
+            <img class="product-card-image" src="https://safirevintage.com/images/greensocratesfront.png" alt="Socrates Hoodie" />
+            <div class="product-card-details">
+              <div class="product-card-name">Socrates Hoodie</div>
+              <div class="product-meta">
+                <div><span class="product-meta-label">Size</span>M</div>
+                <div><span class="product-meta-label">Qty</span>1</div>
+                <div><span class="product-meta-label">Color</span>Sage / Green</div>
+                <div><span class="product-meta-label">Price</span>$60.00</div>
+              </div>
+            </div>
+            <div class="product-card-total">$60.00</div>
+          </div>
+
+          <div class="product-card">
+            <img class="product-card-image" src="https://safirevintage.com/images/lightgreysetpantsfront.png" alt="Script Sweatpants" />
+            <div class="product-card-details">
+              <div class="product-card-name">Script Sweatpants</div>
+              <div class="product-meta">
+                <div><span class="product-meta-label">Size</span>L</div>
+                <div><span class="product-meta-label">Qty</span>1</div>
+                <div><span class="product-meta-label">Color</span>Stone / storefront: Light Grey</div>
+                <div><span class="product-meta-label">Price</span>$50.00</div>
+              </div>
+            </div>
+            <div class="product-card-total">$50.00</div>
+          </div>
+
+          <div class="product-card">
+            <img class="product-card-image" src="https://safirevintage.com/images/safirehorizonziphoodiegreyfront.png" alt="Safire Horizon" />
+            <div class="product-card-details">
+              <div class="product-card-name">Safire Horizon</div>
+              <div class="product-meta">
+                <div><span class="product-meta-label">Size</span>M</div>
+                <div><span class="product-meta-label">Qty</span>1</div>
+                <div><span class="product-meta-label">Color</span>Grey</div>
+                <div><span class="product-meta-label">Price</span>$60.00</div>
+              </div>
+            </div>
+            <div class="product-card-total">$60.00</div>
+          </div>
+
+          <div class="product-card">
+            <img class="product-card-image" src="https://safirevintage.com/images/signaturestitchbluefront.png" alt="Signature Stitch" />
+            <div class="product-card-details">
+              <div class="product-card-name">Signature Stitch</div>
+              <div class="product-meta">
+                <div><span class="product-meta-label">Size</span>M</div>
+                <div><span class="product-meta-label">Qty</span>1</div>
+                <div><span class="product-meta-label">Color</span>Blue</div>
+                <div><span class="product-meta-label">Price</span>$60.00</div>
+              </div>
+            </div>
+            <div class="product-card-total">$60.00</div>
+          </div>
+
+          <div class="product-card">
+            <img class="product-card-image" src="https://safirevintage.com/images/frontpurplejacket.png" alt="Varsity Jacket" />
+            <div class="product-card-details">
+              <div class="product-card-name">Varsity Jacket</div>
+              <div class="product-meta">
+                <div><span class="product-meta-label">Size</span>L</div>
+                <div><span class="product-meta-label">Qty</span>1</div>
+                <div><span class="product-meta-label">Color</span>Purple / Navy</div>
+                <div><span class="product-meta-label">Price</span>$60.00</div>
+              </div>
+            </div>
+            <div class="product-card-total">$60.00</div>
+          </div>
+
+          <div class="product-card">
+            <img class="product-card-image" src="https://safirevintage.com/images/skyblueoverwavyfront.png" alt="Oversized Wavy-grid Safire T-Shirt" />
+            <div class="product-card-details">
+              <div class="product-card-name">Oversized Wavy-grid Safire T-Shirt</div>
+              <div class="product-meta">
+                <div><span class="product-meta-label">Size</span>L</div>
+                <div><span class="product-meta-label">Qty</span>1</div>
+                <div><span class="product-meta-label">Color</span>Sky Blue</div>
+                <div><span class="product-meta-label">Price</span>$40.00</div>
+              </div>
+            </div>
+            <div class="product-card-total">$40.00</div>
+          </div>
+        </div>
+
+        <div class="shipping-box">
+          <div class="label">Shipping information</div>
+          <div class="shipping-address">
+            James Carter<br>
+            29 Mercer Street<br>
+            New York, NY 10013<br>
+            United States
+          </div>
+        </div>
+
+        <div class="footer">
+          <p>Thank you for shopping with Safire.</p>
+          <div class="cta"><a href="https://safirevintage.com">Visit Safire</a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
