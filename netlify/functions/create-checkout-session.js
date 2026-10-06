@@ -194,6 +194,7 @@ exports.handler = async function handler(event) {
       payment_intent_data: {
         metadata: sharedMetadata
       },
+      allow_promotion_codes: true,
       shipping_address_collection: {
         allowed_countries: ["US"]
       },

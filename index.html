@@ -5773,8 +5773,8 @@ function addScriptZipPantsSet() {
     const zipImage = zip.colors?.[zip.selectedColor ?? 0]?.images?.front || zip.image1;
     const pantsImage = pants.colors?.[pants.selectedColor ?? 0]?.images?.front || pants.image1;
 
-    addToCart(zip.id, zip.name, Number(zip.price) || 50, zipImage);
-    addToCart(pants.id, pants.name, Number(pants.price) || 50, pantsImage);
+    addToCart(zip.id, zip.name, 60, zipImage);
+    addToCart(pants.id, pants.name, 50, pantsImage);
 }
 
 function showAddToCartSuccess() {

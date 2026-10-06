@@ -47,9 +47,7 @@ function getCart() {
             .map((item) => {
                 const normalizedProductId = normalizeCartValue(item.productId || item.id);
                 const matchedProduct = getProductById(normalizedProductId);
-                const normalizedPrice = matchedProduct
-                    ? (Number(matchedProduct.price) || 0)
-                    : (Number(item.price) || 0);
+                const normalizedPrice = getCanonicalProductPrice(normalizedProductId) || (matchedProduct ? (Number(matchedProduct.price) || 0) : (Number(item.price) || 0));
 
                 return {
                     productId: normalizedProductId,
@@ -104,6 +102,21 @@ function getProductById(productId) {
     }
 
     return null;
+}
+
+function getCanonicalProductPrice(productId) {
+    const explicit = {
+        'safire-sweatpants': 50,
+        'script-zip-hoodie': 60
+    };
+
+    const normalizedProductId = normalizeCartValue(productId);
+    if (normalizedProductId && explicit[normalizedProductId] !== undefined) {
+        return explicit[normalizedProductId];
+    }
+
+    const product = getProductById(productId);
+    return product ? (Number(product.price) || 0) : 0;
 }
 
 function getStripePriceId(productId) {
