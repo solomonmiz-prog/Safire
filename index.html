@@ -1151,6 +1151,7 @@
             aspect-ratio: 1 / 1;
             cursor: pointer;
             overflow: hidden;
+            background: #ffffff;
         }
 
         .product-image-container::after {
@@ -1171,6 +1172,7 @@
             height: 100%;
             touch-action: pan-y;
             overflow: hidden;
+            background: #ffffff;
         }
 
         .image-swap img {
@@ -1187,6 +1189,12 @@
             transform: translateX(100%);
             user-select: none;
             -webkit-user-drag: none;
+        }
+
+        .image-swap.beanie-fit img {
+            object-fit: contain;
+            object-position: center;
+            transform: scale(0.9) translateX(0);
         }
 
         .image-swap.swiping img {
@@ -1378,6 +1386,29 @@
             animation: badgePulse 2s ease-in-out infinite;
         }
 
+        .stock-badge.sold-out {
+            background: rgba(32, 32, 32, 0.96);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            letter-spacing: 0.12em;
+            animation: none;
+        }
+
+        .product.sold-out-card .image-swap img {
+            opacity: 0.72;
+            filter: grayscale(1) contrast(0.92);
+        }
+
+        .product.sold-out-card .product-info h3,
+        .product.sold-out-card .product-price,
+        .product.sold-out-card .product-category {
+            opacity: 0.74;
+        }
+
+        .product.sold-out-card .color-circle {
+            opacity: 0.58;
+        }
+
         @keyframes badgePulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -1549,6 +1580,18 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
+        .add-to-cart-btn:disabled,
+        .add-to-cart-btn.sold-out {
+            background: #4a4a4a;
+            border-color: #4a4a4a;
+            color: #f5f5f5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.96;
+            letter-spacing: 0.08em;
+        }
+
         .add-to-cart-btn:active {
             transform: translateY(0);
         }
@@ -1582,6 +1625,23 @@
         .color-circle.active {
             border-color: rgba(255, 255, 255, 0.72);
             box-shadow: none;
+        }
+
+        .color-circle.new-color {
+            position: relative;
+        }
+
+        .color-circle.new-color::after {
+            content: "";
+            position: absolute;
+            top: -3px;
+            right: -3px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #ff3b30;
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 0 1px rgba(255, 59, 48, 0.2);
         }
 
         .color-count-badge {
@@ -4513,6 +4573,219 @@
 // Product Data (only two items shown)
 const productsData = [
     {
+        id: 22,
+        productId: "waffle-hoodie",
+        name: "Waffle Hoodie",
+        category: "essentials",
+        gender: "unisex",
+        price: 60,
+        image1: "images/wafflehoodiejeansbluefront.png?v=20261022",
+        image2: "images/wafflehoodiejeansblueback.png?v=20261022",
+        description: "Black unisex waffle hoodie with a loose fit, oversized drop shoulder silhouette, and a comfortable hooded finish.",
+        details: "Elevate your daily rotation with this premium knit pullover. Designed with a loose fit and drop shoulder silhouette, this Unisex hoodie features an intricate jacquard pattern that adds sophisticated texture to a classic streetwear staple. Crafted from a midweight dyed polyester blend, it offers exceptional comfort and durability for everyday casual wear, skateboarding, or street dance. Functional details include a cozy hooded neckline, set-in long sleeves, a convenient patch pocket, and classic ribbed trim at the collar, cuffs, and hem to complete the clean H-line shape.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nWAF-HOODIE-BLK\n\nGender\nUnisex\n\nFit\nOversized\n\nFeatures\nWaffle\nPocket\nDrop shoulder\nHooded\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\n63% polyester, 33% cotton, 4% spandex\n\nFabric Weight\n360 gsm (10.6 oz)\n\nThickness\nThick\n\nBreathability\nModerate\n\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "WAF-HOODIE-BLK",
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        selectedColor: 0,
+        colors: [
+            {
+                name: "Blue",
+                hex: "#6F8190",
+                images: {
+                    front: "images/wafflehoodiejeansbluefront.png?v=20261022",
+                    back: "images/wafflehoodiejeansblueback.png?v=20261022"
+                }
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/wafflehoodieblackfront.png?v=20261022",
+                    back: "images/wafflehoodieblackback.png?v=20261022"
+                }
+            },
+            {
+                name: "Light Grey",
+                hex: "#C5C1BB",
+                images: {
+                    front: "images/wafflehoodielightgreyfront.png?v=20261022",
+                    back: "images/wafflehoodielightgreyback.png?v=20261022"
+                }
+            },
+            {
+                name: "Dark Grey",
+                hex: "#4B4F54",
+                images: {
+                    front: "images/wafflehoodiedarkgreyfront.png?v=20261022",
+                    back: "images/wafflehoodiedarkgreyback.png?v=20261022"
+                }
+            },
+            {
+                name: "Brown",
+                hex: "#5D4B3F",
+                images: {
+                    front: "images/wafflehoodiecoffeefront.png?v=20261022",
+                    back: "images/wafflehoodiecoffeeback.png?v=20261022"
+                }
+            }
+        ],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [27.56, 28.35, 29.13, 29.92, 30.71],
+                shoulder: [25.20, 25.98, 26.77, 27.56, 28.35],
+                chest: [25.59, 26.38, 27.17, 27.95, 28.74],
+                sleeveLength: [20.87, 21.26, 21.65, 22.05, 22.44]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [70, 72, 74, 76, 78],
+                shoulder: [64, 66, 68, 70, 72],
+                chest: [65, 67, 69, 71, 73],
+                sleeveLength: [53, 54, 55, 56, 57]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        }
+    },
+    {
+        id: 20,
+        productId: "waffle-beanie",
+        name: "Waffle Beanie",
+        category: "accessories",
+        gender: "unisex",
+        price: 30,
+        image1: "images/blackwafflebeanie.png",
+        image2: "images/blackwafflebeanie.png",
+        description: "Black one-size waffle longtop beanie with an embroidered stitched diamond Safire logo on the front.",
+        details: "Richardson 146R waffle knit beanie in black with a structured longtop silhouette and an embroidered stitched diamond Safire logo on the front. Built for everyday winter wear with a warm, snug fit and a clean street-ready finish.\n\nProduct Code\nR146R-BLK\n\nGender\nUnisex\n\nFit\nOne Size Fits All\n\nStyle\nLongtop / Waffle Knit / Streetwear Essential\n\nMaterial\n100% Acrylic\n\nFabric Weight\nMedium Weight Knit\n\nThickness\nMidweight\n\nBreathability\nModerate\n\nFeatures\nWaffle knit texture\nLongtop silhouette\nEmbroidered stitched diamond logo\nOne size fits all\n\nCare Instructions\nHand wash cold\nDo not bleach\nLay flat to dry",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Hand wash cold\nDo not bleach\nLay flat to dry",
+        freeShipping: true,
+        sku: "WAFFLE-BEANIE-BLK",
+        stock: { "One Size": 0 },
+        sizes: ["One Size"],
+        soldOut: true,
+        colors: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/blackwafflebeanie.png",
+                    back: "images/blackwafflebeanie.png"
+                }
+            }
+        ]
+    },
+    {
+        id: 21,
+        productId: "waffle-barrel",
+        name: "Waffle Barrel",
+        category: "bottoms",
+        gender: "unisex",
+        price: 50,
+        image1: "images/wafflebarreljeansbluefront.png",
+        image2: "images/wafflebarreljeansblueback.png",
+        description: "Black unisex waffle barrel-leg sweatpants with an oversized, very relaxed fit that runs very big and a drawstring waist.",
+        details: "Elevate your daily rotation with these Unisex sweatpants, designed in a directional barrel leg silhouette that curves out through the leg and tapers slightly at the ankle. Crafted from a high-weight knit polyester blend, this piece features a comfortable mid rise drawstring waist and practical side pockets. The fit is intentionally oversized and runs very big, with a loose, drapey shape that gives a strong streetwear presence. The jacquard pattern effect adds subtle texture. Perfect for everyday casual wear or transitioning to yoga and pilates, these pants offer a modern, comfortable custom base.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nWAFBARREL-BLK\n\nGender\nUnisex\n\nFit\nOversized / Runs very big\n\nFeatures\nWaffle\nBarrel leg\nDrawstring / Pocket\nOversized fit\nRuns very big\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\n63% polyester, 33% cotton, 4% spandex\n\nFabric Weight\n360 gsm (10.6 oz)\n\nThickness\nModerate\n\nBreathability\nModerate\n\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        freeShipping: true,
+        sku: "WAFBARREL-BLK",
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        selectedColor: 0,
+        colors: [
+            {
+                name: "Jeans Blue",
+                hex: "#7A8B9A",
+                images: {
+                    front: "images/wafflebarreljeansbluefront.png",
+                    back: "images/wafflebarreljeansblueback.png"
+                }
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: {
+                    front: "images/wafflebarrelsweatssetblackfront.png",
+                    back: "images/wafflebarrelsweatssetblackback.png"
+                }
+            },
+            {
+                name: "Light Grey",
+                hex: "#B9B8B2",
+                images: {
+                    front: "images/wafflebarrellightgreyfront.png",
+                    back: "images/wafflebarrellightgreyback.png"
+                }
+            },
+            {
+                name: "Dark Grey",
+                hex: "#4B4F54",
+                images: {
+                    front: "images/wafflebarreldarkgreyfront.png",
+                    back: "images/wafflebarreldarkgreyback.png"
+                }
+            },
+            {
+                name: "Coffee",
+                hex: "#4F3E35",
+                images: {
+                    front: "images/wafflebarrelcoffeefront.png",
+                    back: "images/wafflebarrelcoffeeback.png"
+                }
+            }
+        ],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [39.76, 40.55, 41.34, 42.13, 42.91],
+                waist: [13.39, 14.17, 14.96, 15.75, 16.54],
+                hip: [21.26, 22.05, 22.83, 23.62, 24.41]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [101, 103, 105, 107, 109],
+                waist: [34, 36, 38, 40, 42],
+                hip: [54, 56, 58, 60, 62]
+            },
+            howToMeasure: [
+                {
+                    title: "Waist",
+                    description: "Measure straight across the narrowest waist line from edge to edge."
+                },
+                {
+                    title: "Hip",
+                    description: "Measure straight across the widest hip line from edge to edge."
+                },
+                {
+                    title: "Length",
+                    description: "Measure from the waistband to the leg opening or hem."
+                }
+            ]
+        }
+    },
+    {
         id: 14,
         productId: "safire-horizon-zip-hoodie",
         name: "Safire Horizon",
@@ -4753,16 +5026,16 @@ const productsData = [
         category: "graphic",
         gender: "unisex",
         price: 40,
-        image1: "images/frontwhiteborough.png",
-        image2: "images/backwhiteborough.png",
+        image1: "images/updatedboroughfrontwhite.png",
+        image2: "images/updatedboroughbackwhite.png",
         description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
-        details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
+        details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nFeatures\nFit\nOversized\nNeckline\nRound Neck / O-Neck\nSleeve Style\nDrop Shoulder\nSleeve Length\nShort Sleeve\nSeason\nSummer\nStyle\nBasics / Casual / Sporty\nCare Instructions\nCare set icon\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n100% cotton\nFabric Weight\n300 gsm (8.8 oz)\nThickness\nModerate\nBreathability\nModerate",
         shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
-        careInstructions: "Machine wash at 30°C (gentle cycle)",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
         freeShipping: true,
         sku: "MT0012-C003-V3",
         selectedColor: 1,
-        stock: { S: 10, M: 10, L: 10, XL: 10 },
+        stock: { S: 10, M: 10, L: 10, XL: 10, XXL: 10 },
         colors: [
             {
                 name: "Black",
@@ -4776,11 +5049,45 @@ const productsData = [
                 name: "White",
                 hex: "#F4F4F4",
                 images: {
-                    front: "images/frontwhiteborough.png",
-                    back: "images/backwhiteborough.png"
+                    front: "images/updatedboroughfrontwhite.png",
+                    back: "images/updatedboroughbackwhite.png"
                 }
             }
-        ]
+        ],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [27.95, 28.74, 29.53, 30.31, 31.10],
+                shoulder: [19.68, 20.87, 22.05, 23.23, 24.41],
+                chest: [20.87, 22.05, 23.23, 24.41, 25.59],
+                sleeveLength: [8.66, 8.86, 9.06, 9.25, 9.45]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [71, 73, 75, 77, 79],
+                shoulder: [50, 53, 56, 59, 62],
+                chest: [53, 56, 59, 62, 65],
+                sleeveLength: [22, 22.5, 23, 23.5, 24]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        }
     },
     {
         id: 3,
@@ -5231,14 +5538,14 @@ const productsData = [
         ]
     },
     {
-        id: 18,
+        id: 24,
         productId: "safire-sweatpants",
         name: "Script Sweatpants",
         category: "bottoms",
         gender: "unisex",
         price: 50,
-        image1: "images/frontgraysweatpants.png",
-        image2: "images/backgraysweatpants.png",
+        image1: "images/pinkpantssetfront.png?v=20261102-pink-source",
+        image2: "images/pinkpantssetback.png?v=20261102-pink-source",
         description: "Relaxed-fit drawstring sweatpants with a tailored cuff and street-ready comfort.",
         details: "These relaxed-fit sweatpants deliver a comfortable, oversized silhouette with an elasticated drawstring waist and clean tapered profile. Designed for everyday wear, they pair smoothly with any layer while keeping a clean, polished look that works for casual streetwear and custom branded essentials.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nNot applicable\n\nSleeve Style\nNot applicable\n\nSleeve Length\nNot applicable\n\nSeason\nAutumn / Winter\n\nStyle\nBasics / Casual / Street\n\nMaterial\n80% cotton, 20% polyester\n\nFabric Weight\n420 gsm (12.4 oz)\n\nThickness\nModerate\n\nBreathability\nModerate",
         shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
@@ -5247,7 +5554,17 @@ const productsData = [
         sku: "SAFIRE-SWEATPANTS",
         stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
         sizes: ["S", "M", "L", "XL", "2XL"],
+        selectedColor: 0,
         colors: [
+            {
+                name: "Pink",
+                hex: "#F7C2CF",
+                isNew: true,
+                images: {
+                    front: "images/pinkpantssetfront.png?v=20261102-pink-source",
+                    back: "images/pinkpantssetback.png?v=20261102-pink-source"
+                }
+            },
             {
                 name: "Black",
                 hex: "#111111",
@@ -5257,19 +5574,19 @@ const productsData = [
                 }
             },
             {
-                name: "Light Grey",
-                hex: "#C8CFCF",
-                images: {
-                    front: "images/lightgreysetpantsfront.png",
-                    back: "images/lightgreypantssetback.png"
-                }
-            },
-            {
                 name: "Haze Blue",
                 hex: "#B9C9D8",
                 images: {
                     front: "images/hazebluepantssetfront.png",
                     back: "images/hazebluesetpantsback.png"
+                }
+            },
+            {
+                name: "Light Grey",
+                hex: "#C8CFCF",
+                images: {
+                    front: "images/lightgreysetpantsfront.png",
+                    back: "images/lightgreypantssetback.png"
                 }
             }
         ]
@@ -5281,8 +5598,8 @@ const productsData = [
         category: "essentials",
         gender: "unisex",
         price: 60,
-        image1: "images/blackzipsetfront.png",
-        image2: "images/blackzipsetback.png",
+        image1: "images/pinkzipsetfront.png?v=20261102-pink-source",
+        image2: "images/pinkzipsetback.png?v=20261102-pink-source",
         description: "Unisex full-zip hoodie with a mineral wash finish, boxy loose fit, and easy print-ready construction.",
         details: "Elevate your streetwear rotation with this Unisex full zip hoodie. Crafted from midweight knit cotton, it features a distinct mineral wash effect for a vintage grunge aesthetic. The boxy silhouette and loose fit are complemented by drop shoulders and a short length, creating a modern, relaxed drape. Functional details include a full-zip closure, patch pockets, and classic ribbed cuffs and hem. Engineered for DTG and DTF customization, this hoodie is the ultimate canvas for your brand's unique graphic designs.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nProduct Code\nUT0291-C001-V2\nGender\nUnisex\nModel\nFeatures\nEffects\nWashed / Snow Wash / Zipper / Pocket\nFit\nLoose\nNeckline\nHooded\nSleeve Style\nRegular Sleeve\nSleeve Length\nLong Sleeve\nSeason\nAutumn / Winter\nStyle\nBasics / Casual / Street / Vintage\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n85% cotton, 15% polyester\nFabric Weight\n350 gsm (10.3 oz)\nThickness\nModerate\nBreathability\nModerate",
         shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
@@ -5325,7 +5642,17 @@ const productsData = [
                 }
             ]
         },
+        selectedColor: 0,
         colors: [
+            {
+                name: "Pink",
+                hex: "#F7C2CF",
+                isNew: true,
+                images: {
+                    front: "images/pinkzipsetfront.png?v=20261102-pink-source",
+                    back: "images/pinkzipsetback.png?v=20261102-pink-source"
+                }
+            },
             {
                 name: "Black",
                 hex: "#111111",
@@ -5335,19 +5662,19 @@ const productsData = [
                 }
             },
             {
-                name: "Light Grey",
-                hex: "#C8CFCF",
-                images: {
-                    front: "images/lightgreyzipsetfront.png",
-                    back: "images/lightgreyzipsetback.png"
-                }
-            },
-            {
                 name: "Haze Blue",
                 hex: "#B9C9D8",
                 images: {
                     front: "images/hazebluezipsetfront.png",
                     back: "images/hazebluezipsetback.png"
+                }
+            },
+            {
+                name: "Light Grey",
+                hex: "#C8CFCF",
+                images: {
+                    front: "images/lightgreyzipsetfront.png",
+                    back: "images/lightgreyzipsetback.png"
                 }
             }
         ]
@@ -5359,8 +5686,8 @@ const productsData = [
         category: "essentials",
         gender: "unisex",
         price: 60,
-        image1: "images/notforeveryonefrontblack.png",
-        image2: "images/notforeveryonebackblack.png",
+        image1: "images/updatednotforeveryonefront.png",
+        image2: "images/updatednotforeveryoneback.png",
         description: "Snow-washed zip-through hoodie with a soft textured feel and relaxed streetwear fit.",
         details: "Presenting the Snow Washed Zip-Through Hoodie, perfect for custom branding. This hoodie features a unique snow-washed finish, offering a soft, textured feel. The zip-through design adds versatility, making it ideal for brands looking to add a stylish, comfortable piece to their casualwear collections.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nRU0074-P001-V3\n\nGender\nUnisex\n\nModel\nGender\nMale\n\nHeight\n186 cm / 6'1\"\n\nWeight\n70 kg / 154 lbs\n\nSize\nXL\n\nEffects\nWashed / Zipper\n\nFit\nLoose\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring / Autumn / Winter\n\nStyle\nBasics / Casual / Street / Vintage\n\nMaterial\n42% cotton, 53% polyester, 5% other fibers\n\nFabric Weight\n355 gsm (10.5 oz)\n\nThickness\nThick\n\nBreathability\nModerate",
         shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
@@ -5373,8 +5700,8 @@ const productsData = [
                 name: "Black",
                 hex: "#111111",
                 images: {
-                    front: "images/notforeveryonefrontblack.png",
-                    back: "images/notforeveryonebackblack.png"
+                    front: "images/updatednotforeveryonefront.png",
+                    back: "images/updatednotforeveryoneback.png"
                 }
             }
         ]
@@ -5471,28 +5798,38 @@ function getProductCardTitle(product) {
 }
 
 // Render Products
+function isProductSoldOut(product) {
+    if (!product || !product.stock) return false;
+    const quantities = Object.values(product.stock).map((qty) => Number(qty) || 0);
+    if (quantities.length === 0) return !!product.soldOut;
+    return quantities.every((qty) => qty <= 0) || !!product.soldOut;
+}
+
 function renderProducts() {
     const productsDiv = document.getElementById('products');
     const paginationDiv = document.getElementById('products-pagination');
     let productsHTML = '';
 
     const featuredOrder = {
-        'script-zip-hoodie': 1,
-        'safire-sweatpants': 2,
-        'signature-stitch-hoodie': 3,
-        'safire-orbit-jersey': 4,
-        'black-socrates-hoodie': 5,
-        'oversized-wavy-grid-tshirt': 6,
-        'safire-horizon-zip-hoodie': 7,
-        'vintage-crewneck': 8,
-        'mesh-drawstring-shorts': 9,
-        'safire-shores-crewneck': 10,
-        'not-for-everyone-hoodie': 11,
-        'borough-oversized-tshirt': 12,
-        'classic-quarter-zip': 13,
-        'varsity-jacket': 14,
-        'melt-sweatshirt': 15,
-        'melt-shirt': 16
+        'waffle-hoodie': 1,
+        'waffle-barrel': 2,
+        'waffle-beanie': 3,
+        'script-zip-hoodie': 4,
+        'safire-sweatpants': 5,
+        'signature-stitch-hoodie': 6,
+        'safire-orbit-jersey': 7,
+        'black-socrates-hoodie': 8,
+        'oversized-wavy-grid-tshirt': 9,
+        'safire-horizon-zip-hoodie': 10,
+        'vintage-crewneck': 11,
+        'mesh-drawstring-shorts': 12,
+        'safire-shores-crewneck': 13,
+        'not-for-everyone-hoodie': 14,
+        'borough-oversized-tshirt': 15,
+        'classic-quarter-zip': 16,
+        'varsity-jacket': 17,
+        'melt-sweatshirt': 18,
+        'melt-shirt': 19
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
@@ -5520,9 +5857,12 @@ function renderProducts() {
         const isInWishlist = wishlist.some(item => item.id === product.id);
         const originalPrice = Number(product.price) || 0;
         const displayPrice = originalPrice;
+        const isSoldOut = isProductSoldOut(product);
         // Check for low stock (less than 3 items in any size)
-        const lowStockSizes = Object.keys(product.stock).filter(size => product.stock[size] > 0 && product.stock[size] < 3);
-        const stockBadge = lowStockSizes.length > 0 ? `<div class="stock-badge">Only ${lowStockSizes.map(size => product.stock[size] + ' ' + size).join(', ')} left!</div>` : '';
+        const lowStockSizes = Object.keys(product.stock || {}).filter(size => (Number(product.stock[size]) || 0) > 0 && (Number(product.stock[size]) || 0) < 3);
+        const stockBadge = isSoldOut
+            ? '<div class="stock-badge sold-out">Sold Out</div>'
+            : (lowStockSizes.length > 0 ? `<div class="stock-badge">Only ${lowStockSizes.map(size => (Number(product.stock[size]) || 0) + ' ' + size).join(', ')} left!</div>` : '');
         
         // Determine which images to use based on selected color
         let currentImage1, currentImage2;
@@ -5545,10 +5885,16 @@ function renderProducts() {
             productBadges = '<div class="product-badge essentials">Everyday Fabric</div>';
         } else if (product.id === 2) {
             productBadges = '<div class="product-badge limited">Limited Drop</div>';
+        } else if (product.productId === 'waffle-hoodie') {
+            productBadges = '<div class="product-badge bestseller">NEW</div>';
+        } else if (product.productId === 'waffle-barrel') {
+            productBadges = '<div class="product-badge bestseller">NEW</div>';
+        } else if (product.productId === 'waffle-beanie') {
+            productBadges = '<div class="product-badge bestseller">NEW</div>';
         } else if (product.productId === 'script-zip-hoodie') {
-            productBadges = '<div class="product-badge bestseller">NEW</div>';
+            productBadges = '<div class="product-badge bestseller">BESTSELLER</div>';
         } else if (product.productId === 'safire-sweatpants') {
-            productBadges = '<div class="product-badge bestseller">NEW</div>';
+            productBadges = '<div class="product-badge bestseller">BESTSELLER</div>';
         } else if (product.productId === 'oversized-wavy-grid-tshirt') {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
         } else if (product.productId === 'safire-orbit-jersey') {
@@ -5563,12 +5909,13 @@ function renderProducts() {
             productBadges = '<div class="product-badge bestseller">Best Seller</div>';
         }
 
+        const isWaffleBeanieCard = product.productId === 'waffle-beanie';
         const productHTML = `
-            <div class="product" onclick="window.location.href='product.html?id=${encodeURIComponent(product.productId)}'">
+            <div class="product${isSoldOut ? ' sold-out-card' : ''}" onclick="window.location.href='product.html?id=${encodeURIComponent(product.productId)}'">
                 <div class="product-image-container">
                     ${productBadges}
                     ${stockBadge}
-                   <div class="image-swap" ontouchstart="handleCardTouchStart(event, this)" ontouchmove="handleCardTouchMove(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2 || ''}')" onpointerdown="handleCardPointerDown(event, this)" onpointermove="handleCardPointerMove(event, this)" onpointerup="handleCardPointerUp(event, this, '${currentImage1}', '${currentImage2 || ''}')" onpointercancel="handleCardPointerCancel(event, this)" onclick="handleCardImageClick(event, this)">
+                   <div class="image-swap${isWaffleBeanieCard ? ' beanie-fit' : ''}" ontouchstart="handleCardTouchStart(event, this)" ontouchmove="handleCardTouchMove(event, this)" ontouchend="handleCardTouchEnd(event, this, '${currentImage1}', '${currentImage2 || ''}')" onpointerdown="handleCardPointerDown(event, this)" onpointermove="handleCardPointerMove(event, this)" onpointerup="handleCardPointerUp(event, this, '${currentImage1}', '${currentImage2 || ''}')" onpointercancel="handleCardPointerCancel(event, this)" onclick="handleCardImageClick(event, this)">
                         <img src="${currentImage1}" alt="${product.name} front" loading="lazy" draggable="false">
                         ${hasSecond ? `<img src="${currentImage2}" alt="${product.name} back" loading="lazy" draggable="false">` : ''}
                         ${hasSecond ? '<div class="image-slider-indicator"><span class="indicator-segment active"></span><span class="indicator-segment"></span></div>' : ''}
@@ -5589,9 +5936,10 @@ function renderProducts() {
                             const visibleColors = product.colors.slice(0, previewLimit);
                             const remainingColors = product.colors.length - visibleColors.length;
 
-                            let html = visibleColors.map((color, index) => 
-                                `<div class="color-circle ${index === (product.selectedColor !== undefined ? product.selectedColor : 0) ? 'active' : ''}" style="background-color: ${color.hex}" onclick="selectColor(this, ${product.id}, ${index})" title="${color.name}"></div>`
-                            ).join('');
+                            let html = visibleColors.map((color, index) => {
+                                const isNew = !!color.isNew;
+                                return `<div class="color-circle ${isNew ? 'new-color' : ''} ${index === (product.selectedColor !== undefined ? product.selectedColor : 0) ? 'active' : ''}" style="background-color: ${color.hex}" onclick="event.stopPropagation(); selectColor(this, ${product.id}, ${index})" title="${color.name}${isNew ? ' - New' : ''}"></div>`;
+                            }).join('');
 
                             if (remainingColors > 0) {
                                 html += `<div class="color-count-badge" title="${remainingColors} more color options">+${remainingColors}</div>`;
@@ -5602,8 +5950,8 @@ function renderProducts() {
                     </div>
                     
                     <div class="product-actions">
-                        <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${product.id}, '${product.name}', ${displayPrice}, '${currentImage1}')">
-                            Add to Cart
+                        <button class="add-to-cart-btn${isSoldOut ? ' sold-out' : ''}" ${isSoldOut ? 'disabled' : ''} onclick="event.stopPropagation(); ${isSoldOut ? 'return false;' : `addToCart(${product.id}, '${product.name}', ${displayPrice}, '${currentImage1}')`} ">
+                            ${isSoldOut ? 'Sold Out' : 'Add to Cart'}
                         </button>
                     </div>
                 </div>
@@ -5649,19 +5997,20 @@ window.addEventListener('resize', () => {
 
 // Select Color Function
 function selectColor(element, productId, colorIndex) {
-    // Remove active class from all color circles in this product
     const productElement = element.closest('.product');
-    const colorCircles = productElement.querySelectorAll('.color-circle');
+    const colorCircles = productElement ? productElement.querySelectorAll('.color-circle') : [];
     colorCircles.forEach(circle => circle.classList.remove('active'));
-    
-    // Add active class to selected color
     element.classList.add('active');
-    
-    // Store selected color for this product
+
     const product = productsData.find(p => p.id === productId);
     if (product) {
         product.selectedColor = colorIndex;
-        // Re-render products to update images
+        const chosenColor = product.colors && product.colors[colorIndex];
+        if (chosenColor && chosenColor.name) {
+            const targetUrl = `product.html?id=${encodeURIComponent(product.productId || product.id)}&color=${encodeURIComponent(chosenColor.name)}`;
+            window.location.href = targetUrl;
+            return;
+        }
         renderProducts();
     }
 }

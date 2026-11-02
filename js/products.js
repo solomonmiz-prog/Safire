@@ -1,5 +1,210 @@
 const products = [
     {
+        id: "waffle-hoodie",
+        name: "Waffle Hoodie",
+        price: 60,
+        description: "Black unisex waffle hoodie with a loose fit, oversized drop shoulder silhouette, and a comfortable hooded finish.",
+        images: [
+            "images/wafflehoodiejeansbluefront.png?v=20261022",
+            "images/wafflehoodiejeansblueback.png?v=20261022"
+        ],
+        colorways: [
+            {
+                name: "Blue",
+                hex: "#6F8190",
+                images: [
+                    "images/wafflehoodiejeansbluefront.png?v=20261022",
+                    "images/wafflehoodiejeansblueback.png?v=20261022"
+                ]
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/wafflehoodieblackfront.png?v=20261022",
+                    "images/wafflehoodieblackback.png?v=20261022"
+                ]
+            },
+            {
+                name: "Light Grey",
+                hex: "#C5C1BB",
+                images: [
+                    "images/wafflehoodielightgreyfront.png?v=20261022",
+                    "images/wafflehoodielightgreyback.png?v=20261022"
+                ]
+            },
+            {
+                name: "Dark Grey",
+                hex: "#4B4F54",
+                images: [
+                    "images/wafflehoodiedarkgreyfront.png?v=20261022",
+                    "images/wafflehoodiedarkgreyback.png?v=20261022"
+                ]
+            },
+            {
+                name: "Brown",
+                hex: "#5D4B3F",
+                images: [
+                    "images/wafflehoodiecoffeefront.png?v=20261022",
+                    "images/wafflehoodiecoffeeback.png?v=20261022"
+                ]
+            }
+        ],
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [27.56, 28.35, 29.13, 29.92, 30.71],
+                shoulder: [25.20, 25.98, 26.77, 27.56, 28.35],
+                chest: [25.59, 26.38, 27.17, 27.95, 28.74],
+                sleeveLength: [20.87, 21.26, 21.65, 22.05, 22.44]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [70, 72, 74, 76, 78],
+                shoulder: [64, 66, 68, 70, 72],
+                chest: [65, 67, 69, 71, 73],
+                sleeveLength: [53, 54, 55, 56, 57]
+            },
+            howToMeasure: [
+                {
+                    title: "Length",
+                    description: "Measure from where the shoulder seam meets the collar to the hem."
+                },
+                {
+                    title: "Shoulder",
+                    description: "Measure from where the shoulder seam meets the sleeve on one side to another side."
+                },
+                {
+                    title: "Chest",
+                    description: "Measure from the stitches below the armpits on one side to another."
+                },
+                {
+                    title: "Sleeve length",
+                    description: "Measure from where the shoulder seam meets armhole to the cuff."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "Elevate your daily rotation with this premium knit pullover. Designed with a loose fit and drop shoulder silhouette, this Unisex hoodie features an intricate jacquard pattern that adds sophisticated texture to a classic streetwear staple. Crafted from a midweight dyed polyester blend, it offers exceptional comfort and durability for everyday casual wear, skateboarding, or street dance. Functional details include a cozy hooded neckline, set-in long sleeves, a convenient patch pocket, and classic ribbed trim at the collar, cuffs, and hem to complete the clean H-line shape.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nWAF-HOODIE-BLK\n\nGender\nUnisex\n\nFit\nOversized\n\nFeatures\nWaffle\nPocket\nDrop shoulder\nHooded\n\nNeckline\nHooded\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nLong Sleeve\n\nSeason\nSpring\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\n63% polyester, 33% cotton, 4% spandex\n\nFabric Weight\n360 gsm (10.6 oz)\n\nThickness\nThick\n\nBreathability\nModerate\n\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
+        id: "waffle-beanie",
+        name: "Waffle Beanie",
+        price: 30,
+        description: "Black one-size waffle longtop beanie with an embroidered stitched diamond Safire logo on the front.",
+        images: [
+            "images/blackwafflebeanie.png",
+            "images/blackwafflebeanie.png"
+        ],
+        colorways: [
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/blackwafflebeanie.png",
+                    "images/blackwafflebeanie.png"
+                ]
+            }
+        ],
+        stock: { "One Size": 0 },
+        sizes: ["One Size"],
+        soldOut: true,
+        freeShipping: true,
+        details: "Long top beanie waffle with white diamond logo stitch on. Richardson 146R one-size-fits-all knit beanie in black, designed for warmth, structure, and easy everyday wear.\n\nProduct Code\nR146R-BLK\n\nGender\nUnisex\n\nFit\nOne Size Fits All\n\nStyle\nLong top / Waffle knit / Streetwear essential\n\nMaterial\n100% Acrylic\n\nFabric Weight\nMedium weight knit\n\nThickness\nMidweight\n\nBreathability\nModerate\n\nFeatures\nWaffle\nEmbroidery\nLong top\nRichardson 146R\n\nCare Instructions\nHand wash cold\nDo not bleach\nLay flat to dry",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Hand wash cold\nDo not bleach\nLay flat to dry"
+    },
+    {
+        id: "waffle-barrel",
+        name: "Waffle Barrel",
+        price: 50,
+        description: "Black unisex waffle barrel-leg sweatpants with an oversized, very relaxed fit that runs very big and a drawstring waist.",
+        images: [
+            "images/wafflebarreljeansbluefront.png",
+            "images/wafflebarreljeansblueback.png"
+        ],
+        colorways: [
+            {
+                name: "Jeans Blue",
+                hex: "#7A8B9A",
+                images: [
+                    "images/wafflebarreljeansbluefront.png",
+                    "images/wafflebarreljeansblueback.png"
+                ]
+            },
+            {
+                name: "Black",
+                hex: "#111111",
+                images: [
+                    "images/wafflebarrelsweatssetblackfront.png",
+                    "images/wafflebarrelsweatssetblackback.png"
+                ]
+            },
+            {
+                name: "Light Grey",
+                hex: "#B9B8B2",
+                images: [
+                    "images/wafflebarrellightgreyfront.png",
+                    "images/wafflebarrellightgreyback.png"
+                ]
+            },
+            {
+                name: "Dark Grey",
+                hex: "#4B4F54",
+                images: [
+                    "images/wafflebarreldarkgreyfront.png",
+                    "images/wafflebarreldarkgreyback.png"
+                ]
+            },
+            {
+                name: "Coffee",
+                hex: "#4F3E35",
+                images: [
+                    "images/wafflebarrelcoffeefront.png",
+                    "images/wafflebarrelcoffeeback.png"
+                ]
+            }
+        ],
+        stock: { S: 10, M: 10, L: 10, XL: 10, "2XL": 10 },
+        sizes: ["S", "M", "L", "XL", "2XL"],
+        sizeGuide: {
+            inches: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [39.76, 40.55, 41.34, 42.13, 42.91],
+                waist: [13.39, 14.17, 14.96, 15.75, 16.54],
+                hip: [21.26, 22.05, 22.83, 23.62, 24.41]
+            },
+            centimeters: {
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [101, 103, 105, 107, 109],
+                waist: [34, 36, 38, 40, 42],
+                hip: [54, 56, 58, 60, 62]
+            },
+            howToMeasure: [
+                {
+                    title: "Waist",
+                    description: "Measure straight across the narrowest waist line from edge to edge."
+                },
+                {
+                    title: "Hip",
+                    description: "Measure straight across the widest hip line from edge to edge."
+                },
+                {
+                    title: "Length",
+                    description: "Measure from the waistband to the leg opening or hem."
+                }
+            ]
+        },
+        freeShipping: true,
+        details: "Elevate your daily rotation with these Unisex sweatpants, designed in a directional barrel leg silhouette that curves out through the leg and tapers slightly at the ankle. Crafted from a high-weight knit polyester blend, this piece features a comfortable mid rise drawstring waist and practical side pockets. The fit is intentionally oversized and runs very big, with a loose, drapey shape that gives a strong streetwear presence. The jacquard pattern effect adds subtle texture. Perfect for everyday casual wear or transitioning to yoga and pilates, these pants offer a modern, comfortable custom base.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nProduct Code\nWAFBARREL-BLK\n\nGender\nUnisex\n\nFit\nOversized / Runs very big\n\nFeatures\nWaffle\nBarrel leg\nDrawstring / Pocket\nOversized fit\nRuns very big\n\nSeason\nSpring / Autumn\n\nStyle\nBasics / Casual / Preppy / Sporty / Street\n\nMaterial\n63% polyester, 33% cotton, 4% spandex\n\nFabric Weight\n360 gsm (10.6 oz)\n\nThickness\nModerate\n\nBreathability\nModerate\n\nCare Instructions\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
+        shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
+        careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
+    },
+    {
         id: "safire-horizon-zip-hoodie",
         name: "Safire Horizon",
         price: 60,
@@ -535,8 +740,8 @@ const products = [
         price: 40,
         description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
         images: [
-            "images/frontwhiteborough.png",
-            "images/backwhiteborough.png"
+            "images/updatedboroughfrontwhite.png",
+            "images/updatedboroughbackwhite.png"
         ],
         colorways: [
             {
@@ -551,26 +756,26 @@ const products = [
                 name: "White",
                 hex: "#F4F4F4",
                 images: [
-                    "images/frontwhiteborough.png",
-                    "images/backwhiteborough.png"
+                    "images/updatedboroughfrontwhite.png",
+                    "images/updatedboroughbackwhite.png"
                 ]
             }
         ],
-        sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
+        sizes: ["S", "M", "L", "XL", "XXL"],
         sizeGuide: {
             inches: {
-                sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
-                length: [29.33, 29.72, 30.12, 30.51, 31.30, 32.09, 32.87, 33.66],
-                shoulder: [18.11, 18.90, 19.68, 20.47, 21.65, 22.83, 24.02, 25.20],
-                chest: [22.05, 22.83, 23.62, 24.41, 25.59, 26.77, 27.95, 29.13],
-                sleeveLength: [7.28, 7.87, 8.46, 8.66, 8.86, 9.06, 9.25, 9.45]
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [27.95, 28.74, 29.53, 30.31, 31.10],
+                shoulder: [19.68, 20.87, 22.05, 23.23, 24.41],
+                chest: [20.87, 22.05, 23.23, 24.41, 25.59],
+                sleeveLength: [8.66, 8.86, 9.06, 9.25, 9.45]
             },
             centimeters: {
-                sizes: ["XS", "S", "M", "L", "XL", "2XL", "3XL", "4XL"],
-                length: [74.5, 75.5, 76.5, 77.5, 79.5, 81.5, 83.5, 85.5],
-                shoulder: [46, 48, 50, 52, 55, 58, 61, 64],
-                chest: [56, 58, 60, 62, 65, 68, 71, 74],
-                sleeveLength: [18.5, 20, 21.5, 22, 22.5, 23, 23.5, 24]
+                sizes: ["S", "M", "L", "XL", "2XL"],
+                length: [71, 73, 75, 77, 79],
+                shoulder: [50, 53, 56, 59, 62],
+                chest: [53, 56, 59, 62, 65],
+                sleeveLength: [22, 22.5, 23, 23.5, 24]
             },
             howToMeasure: [
                 {
@@ -592,7 +797,7 @@ const products = [
             ]
         },
         freeShipping: true,
-        details: "Clean, comfortable, and made to be styled your way. This 180 gsm oversized tee is crafted from slightly stretchy cotton-spandex and features a loose silhouette with a round neckline and short sleeves. With generous front and back print areas, it is ideal for both statement graphics and subtle branding.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nProduct Code\nMT0012-C003-V3\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nRegular Sleeve\n\nSleeve Length\nShort Sleeve\n\nSeason\nSummer\n\nStyle\nCasual\n\nMaterial\n95% cotton, 5% spandex\n\nFabric Weight\n180 gsm (5.3 oz)\n\nThickness\nModerate\n\nElasticity\nSlight Stretch\n\nBreathability\nHigh",
+        details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nFeatures\nFit\nOversized\nNeckline\nRound Neck / O-Neck\nSleeve Style\nDrop Shoulder\nSleeve Length\nShort Sleeve\nSeason\nSummer\nStyle\nBasics / Casual / Sporty\nCare Instructions\nCare set icon\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n100% cotton\nFabric Weight\n300 gsm (8.8 oz)\nThickness\nModerate\nBreathability\nModerate",
         shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
     },
@@ -694,16 +899,16 @@ const products = [
         price: 60,
         description: "Snow-washed zip-through hoodie with a soft textured feel and relaxed streetwear fit.",
         images: [
-            "images/notforeveryonefrontblack.png",
-            "images/notforeveryonebackblack.png"
+            "images/updatednotforeveryonefront.png",
+            "images/updatednotforeveryoneback.png"
         ],
         colorways: [
             {
                 name: "Black",
                 hex: "#111111",
                 images: [
-                    "images/notforeveryonefrontblack.png",
-                    "images/notforeveryonebackblack.png"
+                    "images/updatednotforeveryonefront.png",
+                    "images/updatednotforeveryoneback.png"
                 ]
             }
         ],
@@ -1029,11 +1234,21 @@ const products = [
         name: "Script Sweatpants",
         price: 50,
         description: "Elevate your streetwear lineup with these heavyweight cotton sweatpants. Designed with a distinct balloon silhouette and a loose fit, this pair features a striking mineral wash effect that adds vintage character.",
+        selectedColor: 0,
         images: [
             "images/blackpoantssetfront.png",
             "images/blackpantsbackset.png"
         ],
         colorways: [
+            {
+                name: "Pink",
+                hex: "#F7C2CF",
+                isNew: true,
+                images: [
+                    "images/pinkpantssetfront.png?v=20261102-pink-source",
+                    "images/pinkpantssetback.png?v=20261102-pink-source"
+                ]
+            },
             {
                 name: "Black",
                 hex: "#111111",
@@ -1043,19 +1258,19 @@ const products = [
                 ]
             },
             {
-                name: "Light Grey",
-                hex: "#C8CFCF",
-                images: [
-                    "images/lightgreysetpantsfront.png",
-                    "images/lightgreypantssetback.png"
-                ]
-            },
-            {
                 name: "Haze Blue",
                 hex: "#B9C9D8",
                 images: [
                     "images/hazebluepantssetfront.png",
                     "images/hazebluesetpantsback.png"
+                ]
+            },
+            {
+                name: "Light Grey",
+                hex: "#C8CFCF",
+                images: [
+                    "images/lightgreysetpantsfront.png",
+                    "images/lightgreypantssetback.png"
                 ]
             }
         ],
@@ -1099,11 +1314,21 @@ const products = [
         name: "Script Zip",
         price: 60,
         description: "Unisex full-zip hoodie with a mineral wash finish, boxy loose fit, and easy print-ready construction.",
+        selectedColor: 0,
         images: [
             "images/blackzipsetfront.png",
             "images/blackzipsetback.png"
         ],
         colorways: [
+            {
+                name: "Pink",
+                hex: "#F7C2CF",
+                isNew: true,
+                images: [
+                    "images/pinkzipsetfront.png?v=20261102-pink-source",
+                    "images/pinkzipsetback.png?v=20261102-pink-source"
+                ]
+            },
             {
                 name: "Black",
                 hex: "#111111",
@@ -1113,19 +1338,19 @@ const products = [
                 ]
             },
             {
-                name: "Light Grey",
-                hex: "#C8CFCF",
-                images: [
-                    "images/lightgreyzipsetfront.png",
-                    "images/lightgreyzipsetback.png"
-                ]
-            },
-            {
                 name: "Haze Blue",
                 hex: "#B9C9D8",
                 images: [
                     "images/hazebluezipsetfront.png",
                     "images/hazebluezipsetback.png"
+                ]
+            },
+            {
+                name: "Light Grey",
+                hex: "#C8CFCF",
+                images: [
+                    "images/lightgreyzipsetfront.png",
+                    "images/lightgreyzipsetback.png"
                 ]
             }
         ],
@@ -1289,7 +1514,7 @@ const products = [
         details: "Let your design take center stage with two large print areas on a solid color background. Made from 100% cotton, this tee offers breathability, durability, and long-lasting comfort. Whether you are showcasing bold graphics or subtle designs, this t-shirt is your canvas to make a lasting impression.\n\nBatch variations are normal due to factors like temperature and materials, and we strive to minimize these differences as much as possible. We appreciate your understanding.\n\nGender\nUnisex\n\nFit\nLoose\n\nNeckline\nRound Neck / O-Neck\n\nSleeve Style\nDrop Shoulder\n\nSleeve Length\nShort Sleeve\n\nSeason\nSpring / Summer\n\nStyle\nCasual / Street\n\nMaterial\n100% cotton\n\nFabric Weight\n230 gsm (6.8 oz)\n\nThickness\nThin\n\nElasticity\nNon-Stretch\n\nBreathability\nModerate",
         shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean"
-    }
+    },
 ];
 
 const stripePrices = {
@@ -1311,5 +1536,8 @@ const stripePrices = {
     "safire-orbit-jersey": "price_1U99IT9S93tBM5OXGmptSRPB",
     "orbit-jersey": "price_1U99IT9S93tBM5OXGmptSRPB",
     "safire-sweatpants": "price_1U9IQQ9S93tBM5OXwYLYL88B",
-    "script-zip-hoodie": "price_1UAcxO9S93tBM5OXt0o1yT66"
+    "script-zip-hoodie": "price_1UAcxO9S93tBM5OXt0o1yT66",
+    "waffle-hoodie": "price_1UTXjW9S93tBM5OXzfaI5odJ",
+    "waffle-beanie": "price_1UTAX49S93tBM5OXgLXdOdRJ",
+    "waffle-barrel": "price_1UTXFO9S93tBM5OXH3SzMFfm"
 };

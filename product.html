@@ -38,24 +38,16 @@
                 </div>
 
                 <div>
-                    <p style="margin:0 0 8px;font-weight:700;">Select Size</p>
+                    <p style="margin:0 0 8px;font-weight:700;" id="size-label">Select Size</p>
                     <div class="size-grid" id="size-grid"></div>
                 </div>
 
                 <button class="add-btn" id="add-to-cart-btn">Add to Cart</button>
 
-                <div class="accordion">
-                    <details>
-                        <summary>Note</summary>
-                        <p id="note-text"></p>
-                    </details>
+                <div class="accordion" id="product-accordion">
                     <details>
                         <summary>Details</summary>
                         <p id="details-text"></p>
-                    </details>
-                    <details>
-                        <summary>Model</summary>
-                        <p id="model-text"></p>
                     </details>
                     <details>
                         <summary>Features</summary>
@@ -86,6 +78,7 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
+        const requestedColor = params.get('color');
         const product = products.find((item) => item.id === productId);
 
         const layout = document.getElementById('product-layout');
@@ -109,6 +102,13 @@
             return normalizeValue(value).split('/')[0].trim().replace(/\s+/g, '-');
         }
 
+        function isProductSoldOut(product) {
+            if (!product || !product.stock) return false;
+            const quantities = Object.values(product.stock).map((qty) => Number(qty) || 0);
+            if (quantities.length === 0) return !!product.soldOut;
+            return quantities.every((qty) => qty <= 0) || !!product.soldOut;
+        }
+
         function parseProductDetailSections(detailsText, careText) {
             const raw = String(detailsText || '').replace(/\r/g, '').trim();
             const paragraphs = raw.length > 0
@@ -119,7 +119,7 @@
                 : [];
 
             const headingKeys = new Set([
-                'product code', 'model', 'gender', 'height', 'weight', 'size',
+                'product code', 'model', 'gender', 'height', 'weight', 'size', 'features',
                 'effects', 'fit', 'neckline', 'sleeve style', 'sleeve length', 'season', 'style',
                 'material', 'fabric weight', 'thickness', 'elasticity', 'breathability'
             ]);
@@ -162,6 +162,15 @@
                 'Care Instructions': String(careText || '').trim(),
                 Fabric: ''
             };
+
+            if (String(detailsText || '').includes('Richardson 146R') || String(detailsText || '').includes('white diamond logo stitch on')) {
+                sections.Details = 'Long top beanie waffle with white diamond logo stitch on. Richardson 146R one-size-fits-all knit beanie in black.';
+                sections.Features = 'Waffle\nEmbroidery\nLong top\nRichardson 146R';
+                return sectionOrder.reduce((acc, sectionName) => {
+                    acc[sectionName] = String(sections[sectionName] || '').trim();
+                    return acc;
+                }, {});
+            }
 
             const noteParts = [];
             if (paragraphs[0]) noteParts.push(paragraphs[0]);
@@ -429,14 +438,35 @@
             document.getElementById('product-description').textContent = product.description;
 
             const parsedSections = parseProductDetailSections(product.details, product.careInstructions);
-            setAccordionSection('note-text', parsedSections.Note, false);
+            const isWaffleBeanie = String(product.id || product.productId || '').trim() === 'waffle-beanie';
             setAccordionSection('details-text', parsedSections.Details);
-            setAccordionSection('model-text', parsedSections.Model);
             setAccordionSection('features-text', parsedSections.Features);
             setAccordionSection('care-text', parsedSections['Care Instructions']);
             setAccordionSection('fabric-text', parsedSections.Fabric);
-            setAccordionHTMLSection('size-guide-text', buildSizeGuideHTML(product.sizeGuide));
-            setSizeGuideUnit('inches');
+
+            const sizeGuideDetails = document.getElementById('size-guide-details');
+            if (sizeGuideDetails) {
+                if (product.sizeGuide) {
+                    sizeGuideDetails.hidden = false;
+                    setAccordionHTMLSection('size-guide-text', buildSizeGuideHTML(product.sizeGuide), true);
+                } else {
+                    sizeGuideDetails.hidden = true;
+                    const sizeGuideText = document.getElementById('size-guide-text');
+                    if (sizeGuideText) sizeGuideText.innerHTML = '';
+                }
+            }
+
+            if (isWaffleBeanie) {
+                const accordion = document.getElementById('product-accordion');
+                if (accordion) {
+                    accordion.querySelectorAll('details').forEach((detail) => {
+                        const summary = detail.querySelector('summary');
+                        if (summary && ['Note', 'Model', 'Size Guide'].includes(summary.textContent.trim())) {
+                            detail.remove();
+                        }
+                    });
+                }
+            }
 
             const genderText = parsedSections.Gender || product.gender || '';
             const genderElement = document.getElementById('product-gender');
@@ -454,7 +484,43 @@
             const colorOptions = document.getElementById('color-options');
             const selectedColorLabel = document.getElementById('selected-color-label');
 
-            let activeImages = [...product.images];
+            if (mainImage) {
+                mainImage.style.objectFit = 'contain';
+                mainImage.style.objectPosition = 'center';
+                mainImage.style.filter = 'none';
+                mainImage.style.opacity = '1';
+                mainImage.style.background = '#ffffff';
+            }
+
+            if (isWaffleBeanie) {
+                const imageWrap = document.getElementById('main-image-wrap');
+                if (imageWrap) {
+                    imageWrap.style.background = '#ffffff';
+                    imageWrap.style.borderRadius = '12px';
+                    imageWrap.style.padding = '20px';
+                    imageWrap.style.display = 'flex';
+                    imageWrap.style.alignItems = 'center';
+                    imageWrap.style.justifyContent = 'center';
+                }
+                mainImage.style.objectFit = 'contain';
+                mainImage.style.objectPosition = 'center';
+                mainImage.style.transform = 'scale(0.9)';
+                mainImage.style.background = '#ffffff';
+                mainImage.style.padding = '10px';
+                mainImage.src = 'images/blackwafflebeanie.png';
+            }
+
+            let activeImages = [...(product.images || [])];
+            if (isWaffleBeanie && activeImages.length === 0) {
+                activeImages = ['images/blackwafflebeanie.png'];
+            }
+            if (isWaffleBeanie && Array.isArray(product.colorways) && product.colorways.length > 0) {
+                product.colorways = [{
+                    name: 'Black',
+                    hex: '#111111',
+                    images: ['images/blackwafflebeanie.png']
+                }];
+            }
             let activeGalleryImages = [...activeImages];
             let currentImageIndex = 0;
             let selectedColorName = null;
@@ -693,10 +759,17 @@
             if (Array.isArray(product.colorways) && product.colorways.length > 0) {
                 colorOptions.classList.add('visible');
 
+                const requestedColorIndex = (() => {
+                    if (!requestedColor) return 0;
+                    const target = normalizeValue(requestedColor);
+                    const index = product.colorways.findIndex((colorway) => normalizeValue(colorway.name) === target);
+                    return index >= 0 ? index : 0;
+                })();
+
                 product.colorways.forEach((colorway, index) => {
                     const colorBtn = document.createElement('button');
                     colorBtn.type = 'button';
-                    colorBtn.className = `color-dot${index === 0 ? ' active' : ''}`;
+                    colorBtn.className = `color-dot${index === requestedColorIndex ? ' active' : ''}`;
                     colorBtn.style.backgroundColor = colorway.hex;
                     colorBtn.setAttribute('aria-label', `Select ${colorway.name}`);
                     colorBtn.title = colorway.name;
@@ -717,12 +790,13 @@
                     colorOptions.appendChild(colorBtn);
                 });
 
-                selectedColorName = normalizeValue(product.colorways[0].name);
-                selectedColorDisplayName = product.colorways[0].name;
+                const selectedIndex = requestedColorIndex;
+                selectedColorName = normalizeValue(product.colorways[selectedIndex].name);
+                selectedColorDisplayName = product.colorways[selectedIndex].name;
                 if (selectedColorLabel) {
                     selectedColorLabel.textContent = `Color: ${selectedColorDisplayName}`;
                 }
-                activeImages = [...product.colorways[0].images];
+                activeImages = [...product.colorways[selectedIndex].images];
             } else if (selectedColorLabel) {
                 selectedColorLabel.textContent = '';
             }
@@ -842,33 +916,74 @@
             });
 
             const addToCartButton = document.getElementById('add-to-cart-btn');
+            const sizeLabel = document.getElementById('size-label');
+            const sizeGrid = document.getElementById('size-grid');
+            const isSoldOut = isProductSoldOut(product);
+
             if (addToCartButton) {
-                addToCartButton.textContent = 'Add to Cart';
+                addToCartButton.textContent = isSoldOut ? 'Sold Out' : 'Add to Cart';
+                addToCartButton.disabled = isSoldOut;
+                if (isSoldOut) {
+                    addToCartButton.classList.add('disabled');
+                    addToCartButton.style.opacity = '0.8';
+                    addToCartButton.style.filter = 'grayscale(1)';
+                }
             }
 
-            const sizeGrid = document.getElementById('size-grid');
+            if (isSoldOut && mainImage) {
+                mainImage.style.filter = 'none';
+                mainImage.style.opacity = '1';
+            }
+
             let selectedSize = null;
 
-            product.sizes.forEach((size) => {
+            if (String(product.id || '').trim() === 'waffle-beanie') {
+                if (sizeLabel) sizeLabel.textContent = isSoldOut ? 'Sold Out' : 'Size';
+                sizeGrid.innerHTML = '';
                 const button = document.createElement('button');
                 button.type = 'button';
-                button.className = 'size-btn';
-                button.textContent = size;
-                button.value = normalizeValue(size);
+                button.className = `size-btn${isSoldOut ? ' disabled' : ' active'}`;
+                button.textContent = 'One Size';
+                button.value = 'one-size';
+                button.disabled = isSoldOut;
+                if (!isSoldOut) selectedSize = 'one-size';
                 button.addEventListener('click', () => {
+                    if (isSoldOut) return;
                     sizeGrid.querySelectorAll('.size-btn').forEach((item) => item.classList.remove('active'));
                     button.classList.add('active');
                     selectedSize = button.value;
                 });
                 sizeGrid.appendChild(button);
-            });
+            } else {
+                sizeGrid.innerHTML = '';
+                product.sizes.forEach((size) => {
+                    const button = document.createElement('button');
+                    button.type = 'button';
+                    button.className = 'size-btn';
+                    button.textContent = size;
+                    button.value = normalizeValue(size);
+                    button.addEventListener('click', () => {
+                        sizeGrid.querySelectorAll('.size-btn').forEach((item) => item.classList.remove('active'));
+                        button.classList.add('active');
+                        selectedSize = button.value;
+                    });
+                    sizeGrid.appendChild(button);
+                });
+            }
 
             document.querySelectorAll('.add-btn').forEach((button) => {
                 const cleanButton = button.cloneNode(true);
-                cleanButton.textContent = 'Add to Cart';
+                cleanButton.textContent = isSoldOut ? 'Sold Out' : 'Add to Cart';
+                cleanButton.disabled = isSoldOut;
+                if (isSoldOut) cleanButton.classList.add('disabled');
                 button.replaceWith(cleanButton);
 
                 cleanButton.addEventListener('click', () => {
+                    if (isSoldOut) {
+                        alert('This item is sold out.');
+                        return;
+                    }
+
                     const productContainer = cleanButton.closest('.product') || layout;
                     const activeSizeButton = productContainer.querySelector('.size-btn.active');
                     const activeColorButton = productContainer.querySelector('.color-dot.active');
