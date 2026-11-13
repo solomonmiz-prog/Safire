@@ -1,6 +1,32 @@
 const Stripe = require("stripe");
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+function getStripeSecretKey() {
+  const candidates = [
+    "STRIPE_SECRET_KEY",
+    "STRIPE_BLACK_FRIDAY_KEY",
+    "STRIPE_BLACK_FRIDAY_SECRET_KEY"
+  ];
+
+  for (const key of candidates) {
+    const value = String(process.env[key] || "").trim();
+    if (value) {
+      return value;
+    }
+  }
+
+  throw new Error("Missing required Stripe secret key. Set STRIPE_SECRET_KEY or STRIPE_BLACK_FRIDAY_KEY in your environment.");
+}
+
+const stripe = new Stripe(getStripeSecretKey());
+
+function getActiveCouponConfig() {
+  // Stripe promo codes are configured in Stripe and entered by the shopper at checkout.
+  // Hard-coding a coupon here prevents the manual code field from appearing and can
+  // bypass the promotion code that was created as BLKFDY.
+  return {
+    allow_promotion_codes: true
+  };
+}
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -69,14 +95,6 @@ exports.handler = async function handler(event) {
       statusCode: 405,
       headers: corsHeaders,
       body: JSON.stringify({ error: "Method Not Allowed" })
-    };
-  }
-
-  if (!process.env.STRIPE_SECRET_KEY) {
-    return {
-      statusCode: 500,
-      headers: corsHeaders,
-      body: JSON.stringify({ error: "Missing STRIPE_SECRET_KEY environment variable." })
     };
   }
 
@@ -186,7 +204,9 @@ exports.handler = async function handler(event) {
       ...itemsJsonMetadataChunks
     };
 
-    const session = await stripe.checkout.sessions.create({
+    const blackFridayCouponConfig = getActiveCouponConfig();
+
+    const sessionConfig = {
       mode: "payment",
       payment_method_types: ["card"],
       line_items: stripeLineItems,
@@ -194,7 +214,7 @@ exports.handler = async function handler(event) {
       payment_intent_data: {
         metadata: sharedMetadata
       },
-      allow_promotion_codes: true,
+      ...blackFridayCouponConfig,
       shipping_address_collection: {
         allowed_countries: ["US"]
       },
@@ -203,7 +223,9 @@ exports.handler = async function handler(event) {
       },
       success_url: "https://safirevintage.com/success",
       cancel_url: "https://safirevintage.com/cart"
-    });
+    };
+
+    const session = await stripe.checkout.sessions.create(sessionConfig);
 
     return {
       statusCode: 200,

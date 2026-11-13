@@ -30,6 +30,7 @@
 
             <div class="info">
                 <h1 id="product-name"></h1>
+                <p style="margin: 0 0 8px; color: #d7c7a5; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;">Black Friday Sale • Use code BLKFDY</p>
                 <p class="price" id="product-price"></p>
                 <p class="desc" id="product-description"></p>
                 <div id="product-meta-row" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:-4px;">
@@ -88,10 +89,18 @@
             return Math.round(Number(value) || 0).toString();
         }
 
-        const PRODUCT_PAGE_SALE_OFF = 0;
+        const BLACK_FRIDAY_SALE_START = new Date(2026, 10, 11, 0, 0, 0);
+        const BLACK_FRIDAY_SALE_END = new Date(2026, 11, 30, 23, 59, 59);
+        const BLACK_FRIDAY_DISCOUNT_RATE = 0.25;
+
+        function isBlackFridaySaleActive(now = new Date()) {
+            return now >= BLACK_FRIDAY_SALE_START && now <= BLACK_FRIDAY_SALE_END;
+        }
 
         function getSalePrice(value) {
-            return Math.max(0, (Number(value) || 0) - PRODUCT_PAGE_SALE_OFF);
+            const numericValue = Number(value) || 0;
+            if (!isBlackFridaySaleActive()) return numericValue;
+            return Number((numericValue * (1 - BLACK_FRIDAY_DISCOUNT_RATE)).toFixed(2));
         }
 
         function normalizeValue(value) {
@@ -396,7 +405,18 @@
             document.title = `${product.name} | SAFIRE`;
             document.getElementById('product-name').textContent = product.name;
             const priceElement = document.getElementById('product-price');
-            priceElement.textContent = `$${formatPrice(originalPrice)}`;
+            const salePrice = getSalePrice(originalPrice);
+            const hasSaleDiscount = isBlackFridaySaleActive() && originalPrice > 0 && salePrice < originalPrice;
+            if (hasSaleDiscount) {
+                priceElement.innerHTML = `
+                    <span class="sale-price-row">
+                        <span class="sale-price-current">$${formatPrice(salePrice)}</span>
+                        <span class="sale-price-old">$${formatPrice(originalPrice)}</span>
+                    </span>
+                `;
+            } else {
+                priceElement.textContent = `$${formatPrice(originalPrice)}`;
+            }
 
             // Ensure PDP uses the same canonical price as product cards.
             // Strategy: prefer global `productsData` (used by product cards). If absent,
@@ -432,7 +452,18 @@
                 const canonical = await getCanonicalPriceFor(product);
                 if (canonical !== null && Number(canonical) !== Number(originalPrice)) {
                     originalPrice = Number(canonical);
-                    priceElement.textContent = `$${formatPrice(originalPrice)}`;
+                    const refreshedSalePrice = getSalePrice(originalPrice);
+                    const refreshedDiscount = isBlackFridaySaleActive() && originalPrice > 0 && refreshedSalePrice < originalPrice;
+                    if (refreshedDiscount) {
+                        priceElement.innerHTML = `
+                            <span class="sale-price-row">
+                                <span class="sale-price-current">$${formatPrice(refreshedSalePrice)}</span>
+                                <span class="sale-price-old">$${formatPrice(originalPrice)}</span>
+                            </span>
+                        `;
+                    } else {
+                        priceElement.textContent = `$${formatPrice(originalPrice)}`;
+                    }
                 }
             })();
             document.getElementById('product-description').textContent = product.description;

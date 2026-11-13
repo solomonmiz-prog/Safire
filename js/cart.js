@@ -6,10 +6,18 @@ function normalizeCartColor(value) {
     return normalizeCartValue(value).split('/')[0].trim().replace(/\s+/g, '-');
 }
 
-const SITEWIDE_SALE_OFF = 0;
+const BLACK_FRIDAY_SALE_START = new Date(2026, 10, 11, 0, 0, 0);
+const BLACK_FRIDAY_SALE_END = new Date(2026, 11, 30, 23, 59, 59);
+const BLACK_FRIDAY_DISCOUNT_RATE = 0.25;
+
+function isBlackFridaySaleActive(now = new Date()) {
+    return now >= BLACK_FRIDAY_SALE_START && now <= BLACK_FRIDAY_SALE_END;
+}
 
 function getSalePrice(value) {
-    return Math.max(0, (Number(value) || 0) - SITEWIDE_SALE_OFF);
+    const numericValue = Number(value) || 0;
+    if (!isBlackFridaySaleActive()) return numericValue;
+    return Number((numericValue * (1 - BLACK_FRIDAY_DISCOUNT_RATE)).toFixed(2));
 }
 
 function formatCartColorLabel(value) {
@@ -112,11 +120,11 @@ function getCanonicalProductPrice(productId) {
 
     const normalizedProductId = normalizeCartValue(productId);
     if (normalizedProductId && explicit[normalizedProductId] !== undefined) {
-        return explicit[normalizedProductId];
+        return getSalePrice(explicit[normalizedProductId]);
     }
 
     const product = getProductById(productId);
-    return product ? (Number(product.price) || 0) : 0;
+    return product ? getSalePrice(Number(product.price) || 0) : 0;
 }
 
 function getStripePriceId(productId) {
@@ -153,7 +161,7 @@ function updateCartCount() {
 function addToCart(item) {
     const cart = getCart();
     const productMatch = getProductById(item.productId || item.id);
-    const regularPrice = productMatch ? (Number(productMatch.price) || 0) : (Number(item.price) || 0);
+    const regularPrice = productMatch ? getSalePrice(Number(productMatch.price) || 0) : getSalePrice(Number(item.price) || 0);
 
     const normalizedItem = {
         productId: normalizeCartValue(item.productId),
@@ -310,7 +318,12 @@ async function checkout() {
         : { items: checkoutItems };
 
     try {
-        const response = await fetch('https://safire1.netlify.app/.netlify/functions/create-checkout-session', {
+        const isLocalCheckout = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+        const checkoutEndpoint = isLocalCheckout
+            ? 'http://localhost:4242/.netlify/functions/create-checkout-session'
+            : 'https://safire1.netlify.app/.netlify/functions/create-checkout-session';
+
+        const response = await fetch(checkoutEndpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -319,13 +332,15 @@ async function checkout() {
         });
 
         const rawResponseText = await response.text();
+        const contentType = response.headers.get('content-type') || '';
+        console.log('checkout status:', response.status, 'content-type:', contentType);
         console.log(rawResponseText);
 
         let data;
         try {
             data = JSON.parse(rawResponseText);
         } catch (_parseError) {
-            throw new Error('Checkout backend returned non-JSON response.');
+            throw new Error(`Checkout backend returned non-JSON response. Status: ${response.status}. Content-Type: ${contentType || 'unknown'}. Body preview: ${String(rawResponseText).slice(0, 200)}`);
         }
 
         if (!response.ok || (!data.url && !data.sessionId)) {

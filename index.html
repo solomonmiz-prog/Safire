@@ -3995,6 +3995,13 @@
     </div>
 </section>
 
+<div class="sale-strip-section">
+    <div class="sale-strip-inner">
+        <p class="sale-strip-text">Black Friday Sale • 25% off everything • use code BLKFDY</p>
+        <a class="sale-strip-link" href="#products">Shop the drop</a>
+    </div>
+</div>
+
 <!-- Quick Categories -->
 <section class="quick-category-bar">
     <div class="quick-category-container">
@@ -5711,10 +5718,18 @@ const productsData = [
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 const validProductIds = new Set(productsData.map((product) => product.id));
-const SITEWIDE_SALE_OFF = 0;
+const BLACK_FRIDAY_SALE_START = new Date(2026, 10, 11, 0, 0, 0);
+const BLACK_FRIDAY_SALE_END = new Date(2026, 11, 30, 23, 59, 59);
+const BLACK_FRIDAY_DISCOUNT_RATE = 0.25;
+
+function isBlackFridaySaleActive(now = new Date()) {
+    return now >= BLACK_FRIDAY_SALE_START && now <= BLACK_FRIDAY_SALE_END;
+}
 
 function getSalePrice(value) {
-    return Math.max(0, (Number(value) || 0) - SITEWIDE_SALE_OFF);
+    const numericValue = Number(value) || 0;
+    if (!isBlackFridaySaleActive()) return numericValue;
+    return Number((numericValue * (1 - BLACK_FRIDAY_DISCOUNT_RATE)).toFixed(2));
 }
 
 function findProductForCartItem(item) {
@@ -5739,8 +5754,8 @@ function normalizeCartSalePrices(items) {
     return (Array.isArray(items) ? items : []).map((item) => {
         const matchedProduct = findProductForCartItem(item);
         const normalizedPrice = matchedProduct
-            ? (Number(matchedProduct.price) || 0)
-            : (Number(item.price) || 0);
+            ? getSalePrice(Number(matchedProduct.price) || 0)
+            : getSalePrice(Number(item.price) || 0);
 
         return {
             ...item,
@@ -5856,7 +5871,7 @@ function renderProducts() {
     paginatedProducts.forEach(product => {
         const isInWishlist = wishlist.some(item => item.id === product.id);
         const originalPrice = Number(product.price) || 0;
-        const displayPrice = originalPrice;
+        const displayPrice = getSalePrice(originalPrice);
         const isSoldOut = isProductSoldOut(product);
         // Check for low stock (less than 3 items in any size)
         const lowStockSizes = Object.keys(product.stock || {}).filter(size => (Number(product.stock[size]) || 0) > 0 && (Number(product.stock[size]) || 0) < 3);
@@ -5926,7 +5941,12 @@ function renderProducts() {
                     <div class="product-category">${product.category}</div>
                     <h3>${getProductCardTitle(product)}</h3>
                     <div class="product-price-row">
-                        <div class="product-price">$${displayPrice.toFixed(0)}</div>
+                        ${isBlackFridaySaleActive() && originalPrice > 0 && displayPrice < originalPrice ? `
+                            <div class="product-price">$${displayPrice.toFixed(0)}</div>
+                            <div class="product-price-old">$${originalPrice.toFixed(0)}</div>
+                        ` : `
+                            <div class="product-price">$${displayPrice.toFixed(0)}</div>
+                        `}
                     </div>
                     
                     <!-- Color Options -->
@@ -6037,7 +6057,7 @@ function selectSize(element, productId, size) {
 // Add to Cart
 function addToCart(id, name, price, image) {
     const product = productsData.find(p => p.id === id) || {};
-    const regularPrice = Number(product.price) || Number(price) || 0;
+    const regularPrice = getSalePrice(Number(product.price) || Number(price) || 0);
     let selectedSize = product.selectedSize;
     if (!selectedSize && product.stock) {
         selectedSize = Object.keys(product.stock).find(size => product.stock[size] > 0);

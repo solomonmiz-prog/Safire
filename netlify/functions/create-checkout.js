@@ -1,7 +1,33 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+function getStripeSecretKey() {
+  const candidates = [
+    "STRIPE_SECRET_KEY",
+    "STRIPE_BLACK_FRIDAY_KEY",
+    "STRIPE_BLACK_FRIDAY_SECRET_KEY"
+  ];
+
+  for (const key of candidates) {
+    const value = String(process.env[key] || "").trim();
+    if (value) {
+      return value;
+    }
+  }
+
+  throw new Error("Missing required Stripe secret key. Set STRIPE_SECRET_KEY or STRIPE_BLACK_FRIDAY_KEY in your environment.");
+}
+
+const stripe = require("stripe")(getStripeSecretKey());
 
 function isValidStripePriceId(value) {
   return /^price_[A-Za-z0-9]+$/.test(String(value || "").trim());
+}
+
+function getActiveCouponConfig() {
+  // Stripe promo codes are configured in Stripe and entered by the shopper at checkout.
+  // Hard-coding a coupon here prevents the manual code field from appearing and can
+  // bypass the promotion code that was created as BLKFDY.
+  return {
+    allow_promotion_codes: true
+  };
 }
 
 function sanitizeMetadataValue(value, fallback, maxLength = 500) {
@@ -116,7 +142,9 @@ exports.handler = async function(event) {
       })
     );
 
-    const session = await stripe.checkout.sessions.create({
+    const blackFridayCouponConfig = getActiveCouponConfig();
+
+    const sessionParams = {
       mode: "payment",
       payment_method_types: ["card"],
       line_items: stripeLineItems,
@@ -124,9 +152,12 @@ exports.handler = async function(event) {
       payment_intent_data: {
         metadata: sharedMetadata
       },
+      ...blackFridayCouponConfig,
       success_url: `${origin}/cart.html?checkout=success`,
       cancel_url: `${origin}/cart.html?checkout=cancel`
-    });
+    };
+
+    const session = await stripe.checkout.sessions.create(sessionParams);
 
     return {
       statusCode: 200,
