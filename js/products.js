@@ -19,7 +19,7 @@ const products = [
             },
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/wafflehoodieblackfront.png?v=20261022",
                     "images/wafflehoodieblackback.png?v=20261022"
@@ -103,7 +103,7 @@ const products = [
         colorways: [
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/blackwafflebeanie.png",
                     "images/blackwafflebeanie.png"
@@ -138,7 +138,7 @@ const products = [
             },
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/wafflebarrelsweatssetblackfront.png",
                     "images/wafflebarrelsweatssetblackback.png"
@@ -292,7 +292,7 @@ const products = [
             },
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/signaturestitchblackfront.png",
                     "images/signaturestitchblackback.png"
@@ -355,7 +355,7 @@ const products = [
         colorways: [
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/blackoverwavyfront.png",
                     "images/blackoverwavyback.png",
@@ -462,7 +462,7 @@ const products = [
         colorways: [
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/soccerkitfront.png",
                     "images/soccerkitback.png"
@@ -524,7 +524,7 @@ const products = [
         colorways: [
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/blacksocratesfront.png",
                     "images/blackbacksocrates.png",
@@ -635,7 +635,7 @@ const products = [
         colorways: [
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/meshshortsblackfront.png",
                     "images/meshshortsblackback.png",
@@ -821,7 +821,7 @@ const products = [
             },
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/vintagecrewneckblackfront.png",
                     "images/vintagecrewneckblackback.png"
@@ -905,7 +905,7 @@ const products = [
         colorways: [
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/updatednotforeveryonefront.png",
                     "images/updatednotforeveryoneback.png"
@@ -977,7 +977,7 @@ const products = [
             },
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/blackqzipfront.png",
                     "images/blackqzipback.png",
@@ -1251,7 +1251,7 @@ const products = [
             },
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/blackpoantssetfront.png",
                     "images/blackpantsbackset.png"
@@ -1331,7 +1331,7 @@ const products = [
             },
             {
                 name: "Black",
-                hex: "#111111",
+                hex: "#2a2724",
                 images: [
                     "images/blackzipsetfront.png",
                     "images/blackzipsetback.png"

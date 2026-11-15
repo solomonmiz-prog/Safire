@@ -6,18 +6,12 @@ function normalizeCartColor(value) {
     return normalizeCartValue(value).split('/')[0].trim().replace(/\s+/g, '-');
 }
 
-const BLACK_FRIDAY_SALE_START = new Date(2026, 10, 11, 0, 0, 0);
-const BLACK_FRIDAY_SALE_END = new Date(2026, 11, 30, 23, 59, 59);
-const BLACK_FRIDAY_DISCOUNT_RATE = 0.25;
-
 function isBlackFridaySaleActive(now = new Date()) {
-    return now >= BLACK_FRIDAY_SALE_START && now <= BLACK_FRIDAY_SALE_END;
+    return false;
 }
 
 function getSalePrice(value) {
-    const numericValue = Number(value) || 0;
-    if (!isBlackFridaySaleActive()) return numericValue;
-    return Number((numericValue * (1 - BLACK_FRIDAY_DISCOUNT_RATE)).toFixed(2));
+    return Number(value) || 0;
 }
 
 function formatCartColorLabel(value) {
@@ -57,13 +51,17 @@ function getCart() {
                 const matchedProduct = getProductById(normalizedProductId);
                 const normalizedPrice = getCanonicalProductPrice(normalizedProductId) || (matchedProduct ? (Number(matchedProduct.price) || 0) : (Number(item.price) || 0));
 
+                const selectedImage = String(item.image || item.images?.[0] || '').trim();
+                const resolvedImage = getColorwayImage(matchedProduct, item.color) || selectedImage || matchedProduct?.images?.[0] || matchedProduct?.colorways?.[0]?.images?.[0] || '';
+
                 return {
                     productId: normalizedProductId,
                     name: item.name,
                     color: normalizeCartColor(item.color),
                     size: normalizeCartValue(item.size),
                     price: normalizedPrice,
-                    quantity: Math.max(1, Number(item.quantity) || 1)
+                    quantity: Math.max(1, Number(item.quantity) || 1),
+                    image: resolvedImage
                 };
             })
             .filter((item) => getProductById(item.productId));
@@ -127,6 +125,20 @@ function getCanonicalProductPrice(productId) {
     return product ? getSalePrice(Number(product.price) || 0) : 0;
 }
 
+function getColorwayImage(product, colorName) {
+    if (!product) return '';
+
+    const normalizedColor = normalizeCartColor(colorName || '');
+    const colorwayMatch = product.colorways?.find((entry) => {
+        const entryName = normalizeCartColor(entry.name || '');
+        return entryName && entryName === normalizedColor;
+    });
+
+    if (colorwayMatch?.images?.[0]) return colorwayMatch.images[0];
+    if (product.images?.[0]) return product.images[0];
+    return '';
+}
+
 function getStripePriceId(productId) {
     if (typeof stripePrices !== 'object' || stripePrices === null) return null;
 
@@ -149,6 +161,13 @@ function getStripePriceId(productId) {
     return null;
 }
 
+function updateCartSectionLabel(count) {
+    const label = document.getElementById('cart-section-label');
+    if (!label) return;
+    const total = Number(count) || 0;
+    label.textContent = `${total} ${total === 1 ? 'item' : 'items'} in your bag`;
+}
+
 function updateCartCount() {
     const cart = getCart();
     const totalCount = cart.reduce((sum, item) => sum + (Number(item.quantity) || 1), 0);
@@ -156,6 +175,7 @@ function updateCartCount() {
     countElements.forEach((element) => {
         element.textContent = totalCount;
     });
+    updateCartSectionLabel(totalCount);
 }
 
 function addToCart(item) {
@@ -169,7 +189,8 @@ function addToCart(item) {
         color: normalizeCartColor(item.color),
         size: normalizeCartValue(item.size),
         price: regularPrice,
-        quantity: 1
+        quantity: 1,
+        image: getColorwayImage(productMatch, item.color) || String(item.image || item.images?.[0] || '').trim() || productMatch?.images?.[0] || productMatch?.colorways?.[0]?.images?.[0] || ''
     };
 
     const existingIndex = cart.findIndex((entry) => (
@@ -213,23 +234,130 @@ function updateCartItemQuantity(index, delta) {
 }
 
 
+function getRecommendedProducts() {
+    const cart = getCart();
+    const cartIds = new Set(cart.map((item) => normalizeCartValue(item.productId)).filter(Boolean));
+    const sourceProducts = Array.isArray(products) ? products : [];
+
+    const pool = sourceProducts.filter((product) => {
+        if (!product || !product.name) return false;
+        if (cartIds.has(normalizeCartValue(product.id))) return false;
+        if (product.soldOut) return false;
+        return true;
+    });
+
+    const cartText = cart
+        .map((item) => `${item.productId || ''} ${item.name || ''}`.toLowerCase())
+        .join(' ');
+
+    const categoryRules = [
+        {
+            match: /hoodie|crewneck|zip|quarter/i,
+            priority: ['waffle-barrel', 'mesh-drawstring-shorts', 'classic-quarter-zip', 'safire-shores-crewneck', 'waffle-hoodie']
+        },
+        {
+            match: /t-shirt|shirt|tee/i,
+            priority: ['waffle-hoodie', 'classic-quarter-zip', 'safire-horizon-zip-hoodie', 'safire-shores-crewneck']
+        },
+        {
+            match: /shorts|barrel|sweatpants|pants/i,
+            priority: ['waffle-hoodie', 'safire-horizon-zip-hoodie', 'classic-quarter-zip', 'waffle-barrel']
+        },
+        {
+            match: /beanie|hat|accessory/i,
+            priority: ['waffle-hoodie', 'black-socrates-hoodie', 'classic-quarter-zip']
+        }
+    ];
+
+    let preferredIds = [];
+    for (const rule of categoryRules) {
+        if (rule.match.test(cartText)) {
+            preferredIds = rule.priority;
+            break;
+        }
+    }
+
+    const ordered = [...preferredIds]
+        .map((id) => pool.find((product) => normalizeCartValue(product.id) === id))
+        .filter(Boolean);
+
+    for (const product of pool) {
+        const productId = normalizeCartValue(product.id);
+        const exists = ordered.some((entry) => normalizeCartValue(entry.id) === productId);
+        if (!exists) ordered.push(product);
+    }
+
+    return ordered.slice(0, 2);
+}
+
+function renderFrequentlyBought() {
+    const container = document.getElementById('frequently-bought-list');
+    if (!container) return;
+
+    const recommended = getRecommendedProducts();
+
+    if (!recommended.length) {
+        container.innerHTML = '';
+        return;
+    }
+
+    container.innerHTML = recommended.map((product) => {
+        const image = product.images?.[0]
+            || product.colorways?.[0]?.images?.[0]
+            || 'images/favicon-diamond.svg';
+        const price = Number(product.price) || 0;
+
+        return `
+            <a class="frequently-bought-item" href="product.html?id=${encodeURIComponent(product.id)}">
+                <div class="frequently-bought-media">
+                    <img src="${image}" alt="${product.name}" />
+                </div>
+                <div class="frequently-bought-copy">
+                    <span class="frequently-bought-name">${product.name}</span>
+                    <strong>$${price.toFixed(0)}</strong>
+                </div>
+            </a>
+        `;
+    }).join('');
+}
+
 function renderCart() {
     const cartItemsContainer = document.getElementById('cart-items');
     const cartTotalElement = document.getElementById('cart-total');
+    const cartSubtotalElement = document.getElementById('cart-subtotal');
     if (!cartItemsContainer || !cartTotalElement) return;
 
     const cart = getCart();
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p class="cart-empty">Your cart is empty.</p>';
+        cartItemsContainer.innerHTML = `
+            <div class="cart-empty">
+                <p class="cart-empty-label">0 items</p>
+                <p class="cart-empty-text">Your bag is empty.</p>
+                <a href="index.html" class="cart-empty-link">Continue shopping</a>
+            </div>
+        `;
         cartTotalElement.textContent = '$0';
+        if (cartSubtotalElement) cartSubtotalElement.textContent = '$0';
+        updateCartSectionLabel(0);
         updateCartCount();
+        renderFrequentlyBought();
         return;
     }
+
+    updateCartSectionLabel(cart.length);
 
     let total = 0;
     cartItemsContainer.innerHTML = '';
 
     cart.forEach((item, index) => {
+        const product = getProductById(item.productId);
+        const colorLabel = formatCartColorLabel(item.color || product?.colorways?.[0]?.name || 'Default');
+        const sizeLabel = String(item.size || '').toUpperCase() || 'ONE SIZE';
+        const imageSrc = getColorwayImage(product, item.color)
+            || item.image
+            || product?.images?.[0]
+            || 'images/favicon-diamond.svg';
+
         const price = Number(item.price) || 0;
         const quantity = Math.max(1, Number(item.quantity) || 1);
         const lineTotal = price * quantity;
@@ -238,22 +366,90 @@ function renderCart() {
         const row = document.createElement('article');
         row.className = 'cart-item';
         row.innerHTML = `
-            <h3>${item.name}</h3>
-            <p>Color: ${item.color}</p>
-            <p>Size: ${String(item.size || '').toUpperCase()}</p>
-            <div style="display:flex;align-items:center;gap:8px;margin:8px 0;">
-                <button type="button" onclick="updateCartItemQuantity(${index}, -1)" aria-label="Decrease quantity">−</button>
-                <strong>${quantity}</strong>
-                <button type="button" onclick="updateCartItemQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
-                <button type="button" onclick="removeCartItem(${index})" style="margin-left:auto;">Remove</button>
+            <div class="cart-item-row">
+                <div class="cart-item-media">
+                    <img src="${imageSrc}" alt="${item.name}" />
+                </div>
+                <div class="cart-item-copy">
+                    <h3>${item.name}</h3>
+                    <p class="cart-meta-value">${colorLabel} / ${sizeLabel}</p>
+                    <p class="cart-item-price">$${lineTotal.toFixed(0)}</p>
+                    <div class="cart-item-footer">
+                        <div class="qty-picker" aria-label="Quantity selector">
+                            <button type="button" class="qty-btn" onclick="updateCartItemQuantity(${index}, -1)" aria-label="Decrease quantity">−</button>
+                            <span class="qty-value">${quantity}</span>
+                            <button type="button" class="qty-btn" onclick="updateCartItemQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
+                        </div>
+                        <button type="button" class="remove-btn" onclick="removeCartItem(${index})">Remove</button>
+                    </div>
+                </div>
             </div>
-            <p class="cart-item-price">$${lineTotal.toFixed(0)} <span style="color:#666;font-weight:400;">($${price.toFixed(0)} each)</span></p>
         `;
         cartItemsContainer.appendChild(row);
     });
 
+    if (cartSubtotalElement) cartSubtotalElement.textContent = `$${total.toFixed(0)}`;
     cartTotalElement.textContent = `$${total.toFixed(0)}`;
     updateCartCount();
+    renderFrequentlyBought();
+}
+
+async function createStripeCheckoutSession(payload) {
+    try {
+        const isLocalCheckout = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+        const localCheckoutEndpoint = 'http://localhost:4242/.netlify/functions/create-checkout-session';
+        const remoteCheckoutEndpoint = 'https://safire1.netlify.app/.netlify/functions/create-checkout-session';
+        const candidateEndpoints = isLocalCheckout
+            ? [localCheckoutEndpoint, remoteCheckoutEndpoint]
+            : [remoteCheckoutEndpoint, localCheckoutEndpoint];
+
+        let lastError = null;
+
+        for (const checkoutEndpoint of candidateEndpoints) {
+            try {
+                const response = await fetch(checkoutEndpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const rawResponseText = await response.text();
+                const contentType = response.headers.get('content-type') || '';
+                console.log('checkout status:', response.status, 'url:', checkoutEndpoint, 'content-type:', contentType);
+                console.log(rawResponseText);
+
+                let data;
+                try {
+                    data = JSON.parse(rawResponseText);
+                } catch (_parseError) {
+                    throw new Error(`Checkout backend returned non-JSON response. Status: ${response.status}. Content-Type: ${contentType || 'unknown'}. Body preview: ${String(rawResponseText).slice(0, 200)}`);
+                }
+
+                if (!response.ok || (!data.url && !data.sessionId)) {
+                    throw new Error(data.error || 'Failed to create checkout session.');
+                }
+
+                if (data.url) {
+                    window.location = data.url;
+                    return;
+                }
+
+                if (data.sessionId) {
+                    throw new Error('Checkout session created but redirect URL was missing.');
+                }
+            } catch (error) {
+                lastError = error;
+                console.warn(`Checkout fetch failed for ${checkoutEndpoint}:`, error.message || error);
+                continue;
+            }
+        }
+
+        throw lastError || new Error('Checkout failed. Please try again.');
+    } catch (error) {
+        alert(error.message || 'Checkout failed. Please try again.');
+    }
 }
 
 async function checkout() {
@@ -299,11 +495,6 @@ async function checkout() {
         return;
     }
 
-    checkoutItems.forEach((item) => {
-        const selectedPriceId = item.priceId;
-        console.log("Stripe price:", selectedPriceId);
-    });
-
     const payload = checkoutItems.length === 1
         ? {
             productId: checkoutItems[0].productId,
@@ -317,45 +508,43 @@ async function checkout() {
         }
         : { items: checkoutItems };
 
-    try {
-        const isLocalCheckout = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-        const checkoutEndpoint = isLocalCheckout
-            ? 'http://localhost:4242/.netlify/functions/create-checkout-session'
-            : 'https://safire1.netlify.app/.netlify/functions/create-checkout-session';
+    await createStripeCheckoutSession(payload);
+}
 
-        const response = await fetch(checkoutEndpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        });
+async function directCheckoutProduct(item) {
+    const productId = normalizeCartValue(item.productId || item.id);
+    const product = getProductById(productId);
+    const selectedSize = normalizeCartValue(item.size || 'default');
+    const selectedColor = normalizeCartColor(item.color || 'default');
+    const selectedPriceId = getStripePriceId(productId);
 
-        const rawResponseText = await response.text();
-        const contentType = response.headers.get('content-type') || '';
-        console.log('checkout status:', response.status, 'content-type:', contentType);
-        console.log(rawResponseText);
-
-        let data;
-        try {
-            data = JSON.parse(rawResponseText);
-        } catch (_parseError) {
-            throw new Error(`Checkout backend returned non-JSON response. Status: ${response.status}. Content-Type: ${contentType || 'unknown'}. Body preview: ${String(rawResponseText).slice(0, 200)}`);
-        }
-
-        if (!response.ok || (!data.url && !data.sessionId)) {
-            throw new Error(data.error || 'Failed to create checkout session.');
-        }
-
-        if (data.url) {
-            window.location = data.url;
-            return;
-        }
-
-        throw new Error('Checkout session created but redirect URL was missing.');
-    } catch (error) {
-        alert(error.message || 'Checkout failed. Please try again.');
+    if (!productId) {
+        alert('Product not found.');
+        return;
     }
+
+    if (!selectedPriceId || selectedPriceId === 'price_xxxxx') {
+        alert(`Missing Stripe price ID for: ${productId}`);
+        return;
+    }
+
+    if (!isValidStripePriceId(selectedPriceId)) {
+        alert(`Invalid Stripe price ID format for: ${productId} (${selectedPriceId})`);
+        return;
+    }
+
+    const payload = {
+        productId,
+        name: sanitizeCheckoutString(item.name || product?.name || productId, 120),
+        priceId: selectedPriceId,
+        quantity: Math.max(1, Number(item.quantity) || 1),
+        size: selectedSize,
+        color: selectedColor,
+        sizeLabel: sanitizeCheckoutString(selectedSize.toUpperCase(), 40),
+        colorLabel: sanitizeCheckoutString(formatCartColorLabel(selectedColor), 80)
+    };
+
+    await createStripeCheckoutSession(payload);
 }
 
 function handleCheckoutStatus() {
