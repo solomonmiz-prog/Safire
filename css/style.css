@@ -335,6 +335,14 @@ a {
     box-shadow: none;
 }
 
+.main-image-wrap.zoom-enabled {
+    cursor: zoom-in;
+}
+
+.main-image-wrap.zoom-enabled.zoom-active {
+    cursor: zoom-out;
+}
+
 #main-image {
     width: 100%;
     height: 100%;
@@ -343,12 +351,12 @@ a {
     background: #ffffff;
     opacity: 1;
     filter: none;
-    transition: transform 0.25s ease;
+    transition: transform 0.18s ease, transform-origin 0.06s linear;
     touch-action: pan-y;
 }
 
 #main-image.zoomed {
-    transform: scale(1.06);
+    transform: scale(2.05);
 }
 
 .thumbnail-row {

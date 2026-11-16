@@ -3,116 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - StyleFlow</title>
+    <title>About Safire</title>
     <link rel="icon" type="image/svg+xml" href="images/favicon-diamond.svg">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style.css?v=20261112-1">
+    <style>
+        body {
+            margin: 0;
+            background: #f5f3ef;
+            color: #171717;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .about-shell {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 26px 20px 64px;
+        }
+
+        .about-hero {
+            border: 1px solid #d8d4cc;
+            background: linear-gradient(140deg, #fffdf9, #f2eee8);
+            padding: 24px;
+            margin-bottom: 18px;
+        }
+
+        .about-kicker {
+            margin: 0 0 8px;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #6f6a63;
+            font-weight: 600;
+        }
+
+        .about-title {
+            margin: 0 0 10px;
+            font-size: clamp(30px, 5vw, 54px);
+            line-height: 1;
+            color: #171717;
+        }
+
+        .about-sub {
+            margin: 0;
+            color: #4d4943;
+            max-width: 740px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 14px;
+        }
+
+        .about-card {
+            background: #fffdf8;
+            border: 1px solid #d8d4cc;
+            padding: 18px;
+        }
+
+        .about-card h2 {
+            margin: 0 0 10px;
+            font-size: 20px;
+            color: #171717;
+            letter-spacing: -0.01em;
+        }
+
+        .about-card p {
+            margin: 0;
+            color: #534f48;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .values-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .value-item {
+            border: 1px solid #e1dcd3;
+            background: #faf8f3;
+            padding: 12px;
+        }
+
+        .value-item h3 {
+            margin: 0 0 6px;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #171717;
+        }
+
+        .value-item p {
+            margin: 0;
+            font-size: 13px;
+            color: #59554e;
+            line-height: 1.6;
+        }
+
+        .about-actions {
+            margin-top: 16px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .about-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border: 1px solid #171717;
+            background: #171717;
+            color: #f5f3ef;
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .about-link.secondary {
+            background: #fffdf8;
+            color: #171717;
+            border-color: #d8d4cc;
+        }
+
+        @media (max-width: 860px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-shell {
+                padding: 18px 14px 48px;
+            }
+
+            .about-hero {
+                padding: 18px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">StyleFlow</div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Shop</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
-                <li><a href="cart.html" class="cart-link">Cart <span id="cart-count">0</span></a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <header class="site-header product-header" style="padding:16px 20px 12px;border-bottom:1px solid rgba(20,20,20,0.08);background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 1px 0 rgba(20,20,20,0.02);">
+        <a href="index.html" class="back-link product-back-link" style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(20,20,20,0.12);background:rgba(255,255,255,0.9);color:#5f5c58;text-decoration:none;font-size:0.72rem;letter-spacing:0.12em;font-weight:300;">← Back to shop</a>
+        <span style="font-size:0.74rem;letter-spacing:0.14em;text-transform:uppercase;color:#5f5c58;">About Safire</span>
+        <a href="contact.html" style="display:inline-flex;align-items:center;gap:8px;color:#5f5c58;text-decoration:none;font-size:0.72rem;letter-spacing:0.12em;font-weight:300;">Contact</a>
+    </header>
 
-    <!-- Hero -->
-    <section class="hero-small">
-        <h1>About StyleFlow</h1>
-    </section>
-
-    <!-- About Content -->
-    <div class="container">
-        <section class="about-section">
-            <div class="about-content">
-                <h2>Our Story</h2>
-                <p>StyleFlow was founded with a simple mission: to create streetwear essentials that empowers people to express their authentic style. We believe that fashion is more than just clothing—it's a form of self-expression.</p>
-                
-                <p>Since our inception, we've been committed to sustainable practices, ethical manufacturing, and using only the finest materials. Every piece in our collection is designed with care and crafted to perfection.</p>
-
-                <h2>Our Values</h2>
-                <div class="values-grid">
-                    <div class="value-card">
-                        <h3>Sustainability</h3>
-                        <p>We're committed to reducing our environmental impact through eco-friendly materials and sustainable practices.</p>
-                    </div>
-                    <div class="value-card">
-                        <h3>Quality</h3>
-                        <p>Each garment is inspected to ensure it meets our high standards for comfort and durability.</p>
-                    </div>
-                    <div class="value-card">
-                        <h3>Innovation</h3>
-                        <p>We continuously innovate our designs to stay ahead of trends while maintaining timeless appeal.</p>
-                    </div>
-                    <div class="value-card">
-                        <h3>Inclusivity</h3>
-                        <p>Fashion is for everyone. We offer diverse sizes and styles for all body types and preferences.</p>
-                    </div>
-                </div>
-
-                <h2>Why Choose StyleFlow?</h2>
-                <ul class="features-list">
-                    <li>Good-quality materials sourced with care</li>
-                    <li>Ethical manufacturing and fair wages</li>
-                    <li>Sustainable packaging and shipping practices</li>
-                    <li>Lifetime customer support</li>
-                    <li>Easy returns and exchanges</li>
-                    <li>Regular collections with fresh designs</li>
-                </ul>
-            </div>
+    <main class="about-shell">
+        <section class="about-hero">
+            <p class="about-kicker">Who We Are</p>
+            <h1 class="about-title">Safire</h1>
+            <p class="about-sub">Safire builds clean streetwear essentials with strong fit, premium feel, and everyday wearability. Every drop is designed to look sharp without trying too hard.</p>
         </section>
-    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>About StyleFlow</h4>
-                    <p>Streetwear essentials for modern living</p>
+        <section class="about-grid">
+            <article class="about-card">
+                <h2>Our Direction</h2>
+                <p>We focus on pieces that hold shape, layer easily, and work across real day-to-day outfits. The goal is simple: quality staples that feel elevated and still easy to wear. Safire is built around consistency, comfort, and style that stays in rotation.</p>
+                <div class="about-actions">
+                    <a class="about-link" href="products.html">Shop Collection</a>
+                    <a class="about-link secondary" href="contact.html">Talk To Us</a>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="products.html">Shop</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Customer Service</h4>
-                    <ul>
-                        <li><a href="#">Track Order</a></li>
-                        <li><a href="#">Returns</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#">Facebook</a>
-                        <a href="#">Instagram</a>
-                        <a href="#">Twitter</a>
+            </article>
+
+            <article class="about-card">
+                <h2>What Matters</h2>
+                <div class="values-list">
+                    <div class="value-item">
+                        <h3>Quality First</h3>
+                        <p>Durable fabrics, clean construction, and dependable fit standards.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>Wearability</h3>
+                        <p>Pieces made to be worn often, not saved for one look.</p>
+                    </div>
+                    <div class="value-item">
+                        <h3>Culture</h3>
+                        <p>Streetwear with identity, built for real people and everyday movement.</p>
                     </div>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 StyleFlow. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="js/script.js"></script>
+            </article>
+        </section>
+    </main>
 </body>
 </html>

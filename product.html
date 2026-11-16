@@ -526,6 +526,7 @@
             }
 
             const mainImage = document.getElementById('main-image');
+            const mainImageWrap = document.getElementById('main-image-wrap');
             const thumbRow = document.getElementById('thumbnail-row');
             const colorOptions = document.getElementById('color-options');
             const selectedColorLabel = document.getElementById('selected-color-label');
@@ -571,8 +572,43 @@
             let currentImageIndex = 0;
             let selectedColorName = null;
             let selectedColorDisplayName = null;
+            let zoomEnabled = false;
+            let zoomActive = false;
             const isMeshShortsProduct = product.id === 'mesh-drawstring-shorts';
             const collageUrlCache = new Map();
+
+            function clearImageZoom() {
+                zoomActive = false;
+                if (!mainImage) return;
+                mainImage.classList.remove('zoomed');
+                mainImage.style.transformOrigin = '50% 50%';
+                if (mainImageWrap) {
+                    mainImageWrap.classList.remove('zoom-active');
+                }
+            }
+
+            function setImageZoomState(active) {
+                if (!zoomEnabled || !mainImage) return;
+                zoomActive = !!active;
+                mainImage.classList.toggle('zoomed', zoomActive);
+                if (mainImageWrap) {
+                    mainImageWrap.classList.toggle('zoom-active', zoomActive);
+                }
+                if (!zoomActive) {
+                    mainImage.style.transformOrigin = '50% 50%';
+                }
+            }
+
+            function updateZoomOriginFromPoint(clientX, clientY) {
+                if (!zoomActive || !mainImageWrap || !mainImage) return;
+                const rect = mainImageWrap.getBoundingClientRect();
+                if (!rect.width || !rect.height) return;
+                const x = ((clientX - rect.left) / rect.width) * 100;
+                const y = ((clientY - rect.top) / rect.height) * 100;
+                const clampedX = Math.max(0, Math.min(100, x));
+                const clampedY = Math.max(0, Math.min(100, y));
+                mainImage.style.transformOrigin = `${clampedX}% ${clampedY}%`;
+            }
 
             function loadImageElement(src) {
                 return new Promise((resolve, reject) => {
@@ -688,7 +724,7 @@
 
             function setMainImage(src, thumbButton, imageIndex = 0) {
                 mainImage.src = src;
-                mainImage.classList.remove('zoomed');
+                clearImageZoom();
                 currentImageIndex = imageIndex;
                 document.querySelectorAll('.thumb').forEach((thumb) => thumb.classList.remove('active'));
                 if (thumbButton) thumbButton.classList.add('active');
@@ -849,13 +885,32 @@
 
             renderThumbnails(activeImages);
 
-            mainImage.addEventListener('click', () => {
-                if (didImageSwipe) {
-                    didImageSwipe = false;
-                    return;
-                }
-                mainImage.classList.toggle('zoomed');
-            });
+            zoomEnabled = !!mainImage && !!mainImageWrap;
+            if (zoomEnabled) {
+                mainImageWrap.classList.add('zoom-enabled');
+
+                mainImage.addEventListener('click', (event) => {
+                    if (didImageSwipe) {
+                        didImageSwipe = false;
+                        return;
+                    }
+
+                    if (!zoomActive) {
+                        updateZoomOriginFromPoint(event.clientX, event.clientY);
+                    }
+                    setImageZoomState(!zoomActive);
+                });
+
+                mainImage.addEventListener('pointermove', (event) => {
+                    if (!zoomActive) return;
+                    updateZoomOriginFromPoint(event.clientX, event.clientY);
+                });
+
+                mainImage.addEventListener('mouseleave', () => {
+                    if (!zoomActive) return;
+                    setImageZoomState(false);
+                });
+            }
 
             let touchStartX = 0;
             let touchStartY = 0;
@@ -873,6 +928,11 @@
 
             mainImage.addEventListener('touchmove', (event) => {
                 if (!event.touches || event.touches.length !== 1) return;
+                if (zoomActive) {
+                    updateZoomOriginFromPoint(event.touches[0].clientX, event.touches[0].clientY);
+                    if (event.cancelable) event.preventDefault();
+                    return;
+                }
                 touchCurrentX = event.touches[0].clientX;
                 touchCurrentY = event.touches[0].clientY;
                 const deltaX = touchCurrentX - touchStartX;
@@ -885,6 +945,7 @@
 
             mainImage.addEventListener('touchend', (event) => {
                 if (!event.changedTouches || event.changedTouches.length !== 1) return;
+                if (zoomActive) return;
                 const deltaX = event.changedTouches[0].clientX - touchStartX;
                 const deltaY = event.changedTouches[0].clientY - touchStartY;
 
@@ -934,6 +995,8 @@
                 const deltaX = event.clientX - pointerStartX;
                 const deltaY = event.clientY - pointerStartY;
                 activePointerId = null;
+
+                if (zoomActive) return;
 
                 if (Math.abs(deltaX) < swipeThreshold || Math.abs(deltaX) <= Math.abs(deltaY)) {
                     return;

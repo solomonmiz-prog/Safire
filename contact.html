@@ -3,139 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - StyleFlow</title>
+    <title>Contact Safire</title>
     <link rel="icon" type="image/svg+xml" href="images/favicon-diamond.svg">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/style.css?v=20261112-1">
+    <style>
+        body {
+            margin: 0;
+            background: #f5f3ef;
+            color: #171717;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .contact-shell {
+            max-width: 1060px;
+            margin: 0 auto;
+            padding: 26px 20px 64px;
+        }
+
+        .contact-hero {
+            border: 1px solid #d8d4cc;
+            background: linear-gradient(140deg, #fffdf9, #f2eee8);
+            padding: 24px;
+            margin-bottom: 18px;
+        }
+
+        .contact-kicker {
+            margin: 0 0 8px;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #6f6a63;
+            font-weight: 600;
+        }
+
+        .contact-title {
+            margin: 0 0 10px;
+            font-size: clamp(30px, 5vw, 54px);
+            line-height: 1;
+            color: #171717;
+        }
+
+        .contact-sub {
+            margin: 0;
+            color: #4d4943;
+            max-width: 740px;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .contact-card {
+            background: #fffdf8;
+            border: 1px solid #d8d4cc;
+            padding: 18px;
+        }
+
+        .contact-card h2 {
+            margin: 0 0 10px;
+            font-size: 20px;
+            color: #171717;
+            letter-spacing: -0.01em;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .contact-item {
+            border: 1px solid #e1dcd3;
+            background: #faf8f3;
+            padding: 12px;
+        }
+
+        .contact-item h3 {
+            margin: 0 0 6px;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #171717;
+        }
+
+        .contact-item p,
+        .contact-item a {
+            margin: 0;
+            font-size: 14px;
+            color: #59554e;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .contact-item a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-actions {
+            margin-top: 12px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .contact-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            border: 1px solid #171717;
+            background: #171717;
+            color: #f5f3ef;
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .contact-link.secondary {
+            background: #fffdf8;
+            color: #171717;
+            border-color: #d8d4cc;
+        }
+
+        @media (max-width: 860px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-shell {
+                padding: 18px 14px 48px;
+            }
+
+            .contact-hero {
+                padding: 18px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">StyleFlow</div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html">Shop</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html" class="active">Contact</a></li>
-                <li><a href="cart.html" class="cart-link">Cart <span id="cart-count">0</span></a></li>
-            </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
+    <header class="site-header product-header" style="padding:16px 20px 12px;border-bottom:1px solid rgba(20,20,20,0.08);background:rgba(255,255,255,0.96);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 1px 0 rgba(20,20,20,0.02);">
+        <a href="index.html" class="back-link product-back-link" style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(20,20,20,0.12);background:rgba(255,255,255,0.9);color:#5f5c58;text-decoration:none;font-size:0.72rem;letter-spacing:0.12em;font-weight:300;">← Back to shop</a>
+        <span style="font-size:0.74rem;letter-spacing:0.14em;text-transform:uppercase;color:#5f5c58;">Contact Safire</span>
+        <a href="about.html" style="display:inline-flex;align-items:center;gap:8px;color:#5f5c58;text-decoration:none;font-size:0.72rem;letter-spacing:0.12em;font-weight:300;">About</a>
+    </header>
 
-    <!-- Hero -->
-    <section class="hero-small">
-        <h1>Contact Us</h1>
-    </section>
-
-    <!-- Contact Content -->
-    <div class="container">
-        <section class="contact-section">
-            <div class="contact-grid">
-                <!-- Contact Form -->
-                <div class="contact-form-container">
-                    <h2>Get in Touch</h2>
-                    <form class="contact-form" onsubmit="handleContactSubmit(event)">
-                        <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="Subject" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Your Message" rows="6" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Send Message</button>
-                    </form>
-                    <div id="form-message"></div>
-                </div>
-
-                <!-- Contact Info -->
-                <div class="contact-info">
-                    <h2>Contact Information</h2>
-                    
-                    <div class="info-item">
-                        <h4>Address</h4>
-                        <p>123 Fashion Street<br>New York, NY 10001<br>United States</p>
-                    </div>
-
-                    <div class="info-item">
-                        <h4>Email</h4>
-                        <p><a href="mailto:info@styleflow.com">info@styleflow.com</a><br>
-                        <a href="mailto:support@styleflow.com">support@styleflow.com</a></p>
-                    </div>
-
-                    <div class="info-item">
-                        <h4>Phone</h4>
-                        <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
-                    </div>
-
-                    <div class="info-item">
-                        <h4>Business Hours</h4>
-                        <p>Monday - Friday: 9:00 AM - 6:00 PM EST<br>
-                        Saturday: 10:00 AM - 4:00 PM EST<br>
-                        Sunday: Closed</p>
-                    </div>
-
-                    <div class="info-item">
-                        <h4>Follow Us</h4>
-                        <div class="social-links">
-                            <a href="#">Facebook</a>
-                            <a href="#">Instagram</a>
-                            <a href="#">Twitter</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <main class="contact-shell">
+        <section class="contact-hero">
+            <p class="contact-kicker">Support</p>
+            <h1 class="contact-title">Contact</h1>
+            <p class="contact-sub">Questions about orders, shipping, returns, sizing, or collaborations? Reach out and our team will get back to you as soon as possible.</p>
         </section>
-    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>About StyleFlow</h4>
-                    <p>Streetwear essentials for modern living</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="products.html">Shop</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Customer Service</h4>
-                    <ul>
-                        <li><a href="#">Track Order</a></li>
-                        <li><a href="#">Returns</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#">Facebook</a>
-                        <a href="#">Instagram</a>
-                        <a href="#">Twitter</a>
+        <section class="contact-grid">
+            <article class="contact-card">
+                <h2>Customer Support</h2>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <h3>Email</h3>
+                        <p><a href="mailto:safireorders@gmail.com">safireorders@gmail.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Instagram</h3>
+                        <p><a href="https://www.instagram.com/safire_vintage?igsh=NXVqcWw4ZnI5c2pz&utm_source=qr" target="_blank" rel="noopener noreferrer">@safire_vintage</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Response Time</h3>
+                        <p>Usually within 24-48 hours on business days.</p>
                     </div>
                 </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 StyleFlow. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+            </article>
 
-    <script src="js/script.js"></script>
+            <article class="contact-card">
+                <h2>Quick Actions</h2>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <h3>Track Or Review Order</h3>
+                        <p>Include your order email and any order details in your message.</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Returns And Exchanges</h3>
+                        <p>Contact support within 30 days of delivery and we will guide you through next steps.</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Collaborations</h3>
+                        <p>For partnerships or creator requests, send a short intro and proposal.</p>
+                    </div>
+                </div>
+                <div class="contact-actions">
+                    <a class="contact-link" href="mailto:safireorders@gmail.com?subject=Safire%20Support">Email Support</a>
+                    <a class="contact-link secondary" href="products.html">Shop Collection</a>
+                </div>
+            </article>
+        </section>
+    </main>
 </body>
 </html>

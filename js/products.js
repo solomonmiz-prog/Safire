@@ -110,9 +110,9 @@ const products = [
                 ]
             }
         ],
-        stock: { "One Size": 0 },
+        stock: { "One Size": 18 },
         sizes: ["One Size"],
-        soldOut: true,
+        soldOut: false,
         freeShipping: true,
         details: "Long top beanie waffle with white diamond logo stitch on. Richardson 146R one-size-fits-all knit beanie in black, designed for warmth, structure, and easy everyday wear.\n\nProduct Code\nR146R-BLK\n\nGender\nUnisex\n\nFit\nOne Size Fits All\n\nStyle\nLong top / Waffle knit / Streetwear essential\n\nMaterial\n100% Acrylic\n\nFabric Weight\nMedium weight knit\n\nThickness\nMidweight\n\nBreathability\nModerate\n\nFeatures\nWaffle\nEmbroidery\nLong top\nRichardson 146R\n\nCare Instructions\nHand wash cold\nDo not bleach\nLay flat to dry",
         shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
@@ -1234,10 +1234,10 @@ const products = [
         name: "Script Sweatpants",
         price: 50,
         description: "Elevate your streetwear lineup with these heavyweight cotton sweatpants. Designed with a distinct balloon silhouette and a loose fit, this pair features a striking mineral wash effect that adds vintage character.",
-        selectedColor: 0,
+        selectedColor: 3,
         images: [
-            "images/blackpoantssetfront.png",
-            "images/blackpantsbackset.png"
+            "images/lightgreysetpantsfront.png",
+            "images/lightgreypantssetback.png"
         ],
         colorways: [
             {
@@ -1314,10 +1314,10 @@ const products = [
         name: "Script Zip",
         price: 60,
         description: "Unisex full-zip hoodie with a mineral wash finish, boxy loose fit, and easy print-ready construction.",
-        selectedColor: 0,
+        selectedColor: 3,
         images: [
-            "images/blackzipsetfront.png",
-            "images/blackzipsetback.png"
+            "images/lightgreyzipsetfront.png",
+            "images/lightgreyzipsetback.png"
         ],
         colorways: [
             {
