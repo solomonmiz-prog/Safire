@@ -3313,10 +3313,42 @@ function selectColor(element, productId, colorIndex) {
     
     // Store selected color for this product
     const product = productsData.find(p => p.id === productId);
-    if (product) {
-        product.selectedColor = colorIndex;
-        // Re-render products to update images
-        renderProducts();
+    if (!product) return;
+
+    product.selectedColor = colorIndex;
+    const chosenColor = product.colors && product.colors[colorIndex];
+    if (!chosenColor) return;
+
+    const imageSwap = productElement.querySelector('.image-swap');
+    if (!imageSwap) return;
+
+    const frontImage = chosenColor.images && chosenColor.images.front ? chosenColor.images.front : product.image1;
+    const backImage = chosenColor.images && chosenColor.images.back ? chosenColor.images.back : '';
+    const existingImages = imageSwap.querySelectorAll('img');
+    const primaryImage = existingImages[0];
+    const secondaryImage = existingImages[1];
+
+    if (primaryImage) {
+        primaryImage.src = frontImage;
+        primaryImage.alt = `${product.name} front`;
+    }
+
+    if (secondaryImage) {
+        secondaryImage.src = backImage || frontImage;
+        secondaryImage.alt = `${product.name} back`;
+        secondaryImage.style.display = backImage && backImage !== frontImage ? 'block' : 'none';
+    } else if (backImage && backImage !== frontImage) {
+        const newSecondaryImage = document.createElement('img');
+        newSecondaryImage.src = backImage;
+        newSecondaryImage.alt = `${product.name} back`;
+        newSecondaryImage.loading = 'lazy';
+        newSecondaryImage.draggable = false;
+        imageSwap.appendChild(newSecondaryImage);
+    }
+
+    const addToCartButton = productElement.querySelector('.add-to-cart-btn');
+    if (addToCartButton) {
+        addToCartButton.setAttribute('onclick', `event.stopPropagation(); addToCart(${product.id}, '${String(product.name).replace(/'/g, "\\'")}', ${Number(product.price) || 0}, '${frontImage.replace(/'/g, "\\'")}')`);
     }
 }
 
