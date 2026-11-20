@@ -42,6 +42,22 @@
                     <p class="desc" id="selected-color-label" style="margin:0;font-weight:600;"></p>
                 </div>
 
+                <div class="size-block" style="display:grid;gap:10px;">
+                    <div class="size-header-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:20px;width:100%;">
+                        <p id="size-label" style="margin:0;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#5f5c58;flex:0 0 auto;">Size</p>
+                        <details class="size-guide-inline" id="size-guide-details" style="margin-left:auto;display:flex;justify-content:flex-end;color:#a39d96;">
+                            <summary style="list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:0.6rem;line-height:1.2;letter-spacing:0.1em;text-transform:uppercase;color:#a39d96;font-weight:300;">Size guide <span aria-hidden="true" style="font-size:0.9rem;color:#a39d96;line-height:1;">↗</span></summary>
+                            <div id="size-guide-text"></div>
+                        </details>
+                    </div>
+                    <div class="size-grid" id="size-grid"></div>
+                </div>
+
+                <div class="product-actions" id="product-actions">
+                    <button class="add-btn" id="add-to-cart-btn">Add to Cart</button>
+                    <button class="checkout-inline-btn" id="checkout-inline-btn" type="button">Checkout</button>
+                </div>
+
                 <div class="accordion" id="product-accordion">
                     <details>
                         <summary>Details</summary>
@@ -59,22 +75,6 @@
                         <summary>Fabric</summary>
                         <p id="fabric-text"></p>
                     </details>
-                </div>
-
-                <div class="size-block" style="display:grid;gap:10px;">
-                    <div class="size-header-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:20px;width:100%;">
-                        <p id="size-label" style="margin:0;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#5f5c58;flex:0 0 auto;">Size</p>
-                        <details class="size-guide-inline" id="size-guide-details" style="margin-left:auto;display:flex;justify-content:flex-end;color:#a39d96;">
-                            <summary style="list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:0.6rem;line-height:1.2;letter-spacing:0.1em;text-transform:uppercase;color:#a39d96;font-weight:300;">Size guide <span aria-hidden="true" style="font-size:0.9rem;color:#a39d96;line-height:1;">↗</span></summary>
-                            <div id="size-guide-text"></div>
-                        </details>
-                    </div>
-                    <div class="size-grid" id="size-grid"></div>
-                </div>
-
-                <div class="product-actions" id="product-actions">
-                    <button class="add-btn" id="add-to-cart-btn">Add to Cart</button>
-                    <button class="checkout-inline-btn" id="checkout-inline-btn" type="button">Checkout</button>
                 </div>
             </div>
         </section>
