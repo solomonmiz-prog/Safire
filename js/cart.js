@@ -6,12 +6,18 @@ function normalizeCartColor(value) {
     return normalizeCartValue(value).split('/')[0].trim().replace(/\s+/g, '-');
 }
 
+const BLACK_FRIDAY_SALE_START = new Date(2026, 10, 20, 0, 0, 0);
+const BLACK_FRIDAY_SALE_END = new Date(2026, 10, 30, 23, 59, 59);
+const BLACK_FRIDAY_DISCOUNT_RATE = 0.25;
+
 function isBlackFridaySaleActive(now = new Date()) {
-    return false;
+    return now >= BLACK_FRIDAY_SALE_START && now <= BLACK_FRIDAY_SALE_END;
 }
 
 function getSalePrice(value) {
-    return Number(value) || 0;
+    const basePrice = Number(value) || 0;
+    if (!isBlackFridaySaleActive()) return basePrice;
+    return Math.max(0, Math.round(basePrice * (1 - BLACK_FRIDAY_DISCOUNT_RATE)));
 }
 
 function formatCartColorLabel(value) {
@@ -305,7 +311,7 @@ function renderFrequentlyBought() {
         const image = product.images?.[0]
             || product.colorways?.[0]?.images?.[0]
             || 'images/favicon-diamond.svg';
-        const price = Number(product.price) || 0;
+        const price = getSalePrice(Number(product.price) || 0);
 
         return `
             <a class="frequently-bought-item" href="product.html?id=${encodeURIComponent(product.id)}">
@@ -347,6 +353,8 @@ function renderCart() {
     updateCartSectionLabel(cart.length);
 
     let total = 0;
+    let originalTotal = 0;
+    let hasSalePricing = false;
     cartItemsContainer.innerHTML = '';
 
     cart.forEach((item, index) => {
@@ -358,10 +366,16 @@ function renderCart() {
             || product?.images?.[0]
             || 'images/favicon-diamond.svg';
 
-        const price = Number(item.price) || 0;
+        const originalUnitPrice = Number(product?.price) || Number(item.price) || 0;
+        const saleUnitPrice = getSalePrice(originalUnitPrice);
+        const price = saleUnitPrice;
         const quantity = Math.max(1, Number(item.quantity) || 1);
         const lineTotal = price * quantity;
+        const originalLineTotal = originalUnitPrice * quantity;
         total += lineTotal;
+        originalTotal += originalLineTotal;
+        const hasLineSale = isBlackFridaySaleActive() && originalUnitPrice > 0 && saleUnitPrice < originalUnitPrice;
+        if (hasLineSale) hasSalePricing = true;
 
         const row = document.createElement('article');
         row.className = 'cart-item';
@@ -373,7 +387,12 @@ function renderCart() {
                 <div class="cart-item-copy">
                     <h3>${item.name}</h3>
                     <p class="cart-meta-value">${colorLabel} / ${sizeLabel}</p>
-                    <p class="cart-item-price">$${lineTotal.toFixed(0)}</p>
+                    <p class="cart-item-price">
+                        <span class="cart-item-price-row">
+                            <span class="cart-item-price-current">$${lineTotal.toFixed(0)}</span>
+                            ${hasLineSale ? `<span class="cart-item-price-old">$${originalLineTotal.toFixed(0)}</span>` : ''}
+                        </span>
+                    </p>
                     <div class="cart-item-footer">
                         <div class="qty-picker" aria-label="Quantity selector">
                             <button type="button" class="qty-btn" onclick="updateCartItemQuantity(${index}, -1)" aria-label="Decrease quantity">−</button>
@@ -388,8 +407,19 @@ function renderCart() {
         cartItemsContainer.appendChild(row);
     });
 
-    if (cartSubtotalElement) cartSubtotalElement.textContent = `$${total.toFixed(0)}`;
-    cartTotalElement.textContent = `$${total.toFixed(0)}`;
+    if (cartSubtotalElement) {
+        if (hasSalePricing && originalTotal > total) {
+            cartSubtotalElement.innerHTML = `<span class="cart-summary-sale-current">$${total.toFixed(0)}</span> <span class="cart-summary-sale-old">$${originalTotal.toFixed(0)}</span>`;
+        } else {
+            cartSubtotalElement.textContent = `$${total.toFixed(0)}`;
+        }
+    }
+
+    if (hasSalePricing && originalTotal > total) {
+        cartTotalElement.innerHTML = `<span class="cart-summary-sale-current">$${total.toFixed(0)}</span> <span class="cart-summary-sale-old">$${originalTotal.toFixed(0)}</span>`;
+    } else {
+        cartTotalElement.textContent = `$${total.toFixed(0)}`;
+    }
     updateCartCount();
     renderFrequentlyBought();
 }
@@ -556,6 +586,15 @@ function handleCheckoutStatus() {
 
     statusElement.style.display = 'none';
     statusElement.textContent = '';
+
+    if (!status && isBlackFridaySaleActive()) {
+        statusElement.style.display = 'block';
+        statusElement.style.background = '#f6f4ef';
+        statusElement.style.color = '#5c564f';
+        statusElement.style.border = '1px solid rgba(42, 39, 36, 0.16)';
+        statusElement.textContent = 'Use code BLKFDY at checkout for 25% off';
+        return;
+    }
 
     if (status === 'success') {
         saveCart([]);

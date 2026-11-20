@@ -736,20 +736,20 @@ const products = [
     },
     {
         id: "borough-oversized-tshirt",
-        name: "Borough Oversized T-Shirt",
+        name: "Borough Tee",
         price: 40,
         description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
         images: [
-            "images/updatedboroughfrontwhite.png",
-            "images/updatedboroughbackwhite.png"
+            "images/updatedoversizebouroughblackfront.png",
+            "images/updatedoversizedboroughblackback.png"
         ],
         colorways: [
             {
                 name: "Black",
                 hex: "#0A0A0A",
                 images: [
-                    "images/frontblackborough.png",
-                    "images/backblackborough.png"
+                    "images/updatedoversizebouroughblackfront.png",
+                    "images/updatedoversizedboroughblackback.png"
                 ]
             },
             {

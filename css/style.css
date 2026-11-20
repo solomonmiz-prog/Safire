@@ -302,6 +302,15 @@ a {
     text-decoration-thickness: 2px;
 }
 
+.sale-note {
+    margin: 2px 0 0;
+    color: rgba(31, 27, 22, 0.65);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
 .product-page {
     max-width: 1280px;
     margin: 0 auto;
@@ -723,6 +732,27 @@ main.cart-page,
     font-weight: 600;
     font-size: 0.98rem;
     margin: 8px 0 0;
+}
+
+.cart-item-price-row {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.cart-item-price-current,
+.cart-summary-sale-current {
+    color: #5f5c58;
+    font-weight: 600;
+}
+
+.cart-item-price-old,
+.cart-summary-sale-old {
+    font-size: 0.78rem;
+    color: rgba(95, 92, 88, 0.68);
+    text-decoration: line-through;
+    text-decoration-color: rgba(95, 92, 88, 0.6);
+    text-decoration-thickness: 2px;
 }
 
 .cart-summary {

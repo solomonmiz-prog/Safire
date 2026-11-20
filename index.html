@@ -173,7 +173,7 @@
             border: none;
             padding: 4px;
             cursor: pointer;
-            color: #2a2724;
+            color: rgba(255,255,255,0.96);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -274,7 +274,7 @@
             cursor: pointer;
             position: relative;
             transition: transform 0.3s;
-            color: #2a2724;
+            color: rgba(255,255,255,0.96);
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -290,7 +290,7 @@
             top: -10px;
             right: -10px;
             background: transparent;
-            color: #2a2724;
+            color: rgba(255,255,255,0.98);
             border-radius: 0;
             width: auto;
             height: auto;
@@ -305,7 +305,7 @@
             width: 20px;
             height: 20px;
             display: inline-block;
-            color: #2a2724;
+            color: rgba(255,255,255,0.96);
         }
 
         #wishlist-count {
@@ -334,6 +334,15 @@
             inset: 0;
             z-index: 0;
             overflow: hidden;
+        }
+
+        .hero-bg-carousel::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.36) 0%, rgba(0, 0, 0, 0.18) 18%, rgba(0, 0, 0, 0.03) 45%, rgba(0, 0, 0, 0) 70%);
+            pointer-events: none;
+            z-index: 2;
         }
 
         .hero-bg-track {
@@ -397,6 +406,42 @@
             text-transform: none;
             line-height: 1.6;
             text-shadow: 0 1px 6px rgba(0,0,0,0.5);
+        }
+
+        .hero-sale-note {
+            position: absolute;
+            left: 16px;
+            bottom: 14px;
+            z-index: 4;
+            display: inline-flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2px;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: #f5f3ef;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(20, 20, 20, 0.6);
+        }
+
+        .hero-sale-note strong {
+            color: #ffd26a;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-shadow: 0 1px 10px rgba(255, 210, 106, 0.45);
+        }
+
+        .hero-sale-note .hero-sale-percent {
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: 0.06em;
+            color: #ffffff;
+            font-weight: 800;
+            text-shadow: 0 3px 12px rgba(20, 20, 20, 0.7);
         }
 
         /* Quick Category Bar */
@@ -1784,12 +1829,12 @@
         }
 
         .product-price-old {
-            display: none;
+            display: inline;
             font-size: 12px;
             color: rgba(120, 120, 120, 0.86);
             font-weight: 600;
             text-decoration: line-through;
-            text-decoration-color: #cc1111;
+            text-decoration-color: rgba(42, 39, 36, 0.55);
             text-decoration-thickness: 2px;
         }
 
@@ -3328,18 +3373,18 @@
             left: 0;
             height: 2px;
             border-radius: 999px;
-            background: #2a2724;
+            background: rgba(255,255,255,0.96);
             transform: none;
             transition: all 0.25s ease;
         }
 
         .menu-line-top {
-            top: 7px;
+            top: 9px;
             width: 28px;
         }
 
         .menu-line-bottom {
-            bottom: 7px;
+            bottom: 9px;
             width: 18px;
         }
 
@@ -4696,6 +4741,7 @@
             <div class="hero-bg-slide"></div>
         </div>
     </div>
+    <div class="hero-sale-note" id="hero-sale-note" hidden><span class="hero-sale-percent">25% OFF</span><strong>BLKFDY</strong> Use BLKFDY in checkout</div>
 </section>
 
 <div class="filters-toggle-wrap">
@@ -5087,7 +5133,7 @@
                         <span class="look-item-tag">New Set</span>
                         <h3>Script Zip + Script Sweatpants</h3>
                         <p>$110 total</p>
-                        <button class="btn btn-primary" onclick="addScriptZipPantsSet()">Add to Cart</button>
+                        <button class="btn btn-primary" onclick="expressScriptZipPantsSet()">Express Checkout</button>
                     </div>
                 </div>
 
@@ -5097,16 +5143,16 @@
                             <img src="images/whiteoverwavyfront.png" alt="White Safire Grid Tee" class="look-mini-image">
                         </a>
 
-                        <a class="look-mini-link" href="product.html?id=mesh-drawstring-shorts">
-                            <img src="images/meshshortsblackfront.png" alt="Black Safire Mesh Shorts" class="look-mini-image">
+                        <a class="look-mini-link" href="product.html?id=waffle-barrel">
+                            <img src="images/wafflebarrelsweatssetblackfront.png" alt="Black Waffle Barrel" class="look-mini-image">
                         </a>
                     </div>
 
                     <div class="look-item-body">
                         <span class="look-item-tag">Starter Collection</span>
-                        <h3>White Tee + Black Mesh Shorts</h3>
-                        <p>$80 total</p>
-                        <button class="btn btn-primary" onclick="addWhiteTeeBlackShortsSet()">Add to Cart</button>
+                        <h3>White Wavy Grid Tee + Black Waffle Barrel</h3>
+                        <p>$90 total</p>
+                        <button class="btn btn-primary" onclick="expressWavyTeeWaffleBarrelSet()">Express Checkout</button>
                     </div>
                 </div>
 
@@ -5663,27 +5709,27 @@ const productsData = [
     {
         id: 7,
         productId: "borough-oversized-tshirt",
-        name: "Borough Oversized T-Shirt",
+        name: "Borough Tee",
         category: "graphic",
         gender: "unisex",
         price: 40,
-        image1: "images/updatedboroughfrontwhite.png",
-        image2: "images/updatedboroughbackwhite.png",
+        image1: "images/updatedoversizebouroughblackfront.png",
+        image2: "images/updatedoversizedboroughblackback.png",
         description: "Streetwear oversized cotton t-shirt with a loose fit and clean custom-ready print areas.",
         details: "Channeling a modern streetwear aesthetic, this Unisex Oversized T-Shirt redefines the standard blank. The silhouette features dropped shoulders and a generous width, creating that sought-after structured drape that defines current trends. Constructed from dense, heavyweight cotton, it provides a substantial canvas that holds its shape through daily wear. The smooth surface is engineered for superior DTG and DTF results, ensuring your graphics pop with retail-quality sharpness. A true essential for brands demanding impact and durability.\n\nMinor batch differences can occur during blank garment production due to variations in fabric, dye and processing. This is common in apparel manufacturing, and we work hard to keep every item consistent.\n\nDetails\nFeatures\nFit\nOversized\nNeckline\nRound Neck / O-Neck\nSleeve Style\nDrop Shoulder\nSleeve Length\nShort Sleeve\nSeason\nSummer\nStyle\nBasics / Casual / Sporty\nCare Instructions\nCare set icon\nMachine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean\nFabric\nMaterial\n100% cotton\nFabric Weight\n300 gsm (8.8 oz)\nThickness\nModerate\nBreathability\nModerate",
         shippingReturns: "Free shipping from U.S. fulfillment. International shipping available. Returns accepted within 30 days if unworn with tags.",
         careInstructions: "Machine wash at 30°C (gentle cycle)\nDo not bleach\nTumble dry low\nIron at low temperature, avoid ironing on print\nDo not dry clean",
         freeShipping: true,
         sku: "MT0012-C003-V3",
-        selectedColor: 1,
+        selectedColor: 0,
         stock: { S: 10, M: 10, L: 10, XL: 10, XXL: 10 },
         colors: [
             {
                 name: "Black",
                 hex: "#0A0A0A",
                 images: {
-                    front: "images/frontblackborough.png",
-                    back: "images/backblackborough.png"
+                    front: "images/updatedoversizebouroughblackfront.png",
+                    back: "images/updatedoversizedboroughblackback.png"
                 }
             },
             {
@@ -6352,8 +6398,8 @@ const productsData = [
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 const validProductIds = new Set(productsData.map((product) => product.id));
-const BLACK_FRIDAY_SALE_START = new Date(2099, 10, 1, 0, 0, 0);
-const BLACK_FRIDAY_SALE_END = new Date(2099, 10, 30, 23, 59, 59);
+const BLACK_FRIDAY_SALE_START = new Date(2026, 10, 20, 0, 0, 0);
+const BLACK_FRIDAY_SALE_END = new Date(2026, 10, 30, 23, 59, 59);
 const BLACK_FRIDAY_DISCOUNT_RATE = 0.25;
 const stripePrices = {
     "safire-horizon-zip-hoodie": "price_1Tn7mf9S93tBM5OXMTuyhDn8",
@@ -6380,11 +6426,18 @@ const stripePrices = {
 };
 
 function isBlackFridaySaleActive(now = new Date()) {
-    return false;
+    return now >= BLACK_FRIDAY_SALE_START && now <= BLACK_FRIDAY_SALE_END;
 }
 
 function getSalePrice(value) {
-    return Number(value) || 0;
+    const basePrice = Number(value) || 0;
+    if (!isBlackFridaySaleActive()) return basePrice;
+    return Math.max(0, Math.round(basePrice * (1 - BLACK_FRIDAY_DISCOUNT_RATE)));
+}
+
+const heroSaleNote = document.getElementById('hero-sale-note');
+if (heroSaleNote) {
+    heroSaleNote.hidden = !isBlackFridaySaleActive();
 }
 
 function findProductForCartItem(item) {
@@ -6462,7 +6515,7 @@ function getProductCardTitle(product) {
     if (productId === 'safire-orbit-jersey') return 'Safire Orbit';
     if (productId === 'oversized-wavy-grid-tshirt') return 'Wavy Grid';
     if (productId === 'mesh-drawstring-shorts') return 'Mesh Shorts';
-    if (productId === 'borough-oversized-tshirt') return 'Oversized Borough';
+    if (productId === 'borough-oversized-tshirt') return 'Borough Tee';
 
     return product && product.name ? product.name : '';
 }
@@ -6503,14 +6556,6 @@ function renderProducts() {
     };
 
     const sortedProducts = [...filteredProducts].sort((a, b) => {
-        if (activeQuickCategory === 'women') {
-            const aIsVintage = a.productId === 'vintage-crewneck';
-            const bIsVintage = b.productId === 'vintage-crewneck';
-            if (aIsVintage !== bIsVintage) {
-                return aIsVintage ? -1 : 1;
-            }
-        }
-
         const orderA = featuredOrder[a.productId] || 999;
         const orderB = featuredOrder[b.productId] || 999;
         if (orderA !== orderB) return orderA - orderB;
@@ -6593,6 +6638,7 @@ function renderProducts() {
                     <h3>${getProductCardTitle(product)}</h3>
                     <div class="product-price-row">
                         <div class="product-price">$${displayPrice.toFixed(0)}</div>
+                        ${isBlackFridaySaleActive() && displayPrice < originalPrice ? `<div class="product-price-old">$${originalPrice.toFixed(0)}</div>` : ''}
                     </div>
                     
                     <!-- Color Options -->
@@ -6802,45 +6848,28 @@ function addToCart(id, name, price, image) {
     showAddToCartSuccess();
 }
 
-function addWhiteTeeBlackShortsSet() {
-    const tee = productsData.find(p => p.productId === 'oversized-wavy-grid-tshirt');
-    const shorts = productsData.find(p => p.productId === 'mesh-drawstring-shorts');
+function expressWavyTeeWaffleBarrelSet() {
+    const tee = productsData.find((p) => p.productId === 'oversized-wavy-grid-tshirt');
+    const barrel = productsData.find((p) => p.productId === 'waffle-barrel');
 
-    if (tee && Array.isArray(tee.colors)) {
-        const whiteIndex = tee.colors.findIndex(color => String(color.name || '').toLowerCase() === 'white');
-        if (whiteIndex >= 0) tee.selectedColor = whiteIndex;
-    }
+    if (!tee || !barrel) return;
 
-    if (shorts && Array.isArray(shorts.colors)) {
-        const blackIndex = shorts.colors.findIndex(color => String(color.name || '').toLowerCase().includes('black'));
-        if (blackIndex >= 0) shorts.selectedColor = blackIndex;
-    }
-
-    addToCart(9, 'Oversized Wavy-grid Safire T-Shirt', 40, 'images/whiteoverwavyfront.png');
-    addToCart(12, 'Mesh Drawstring Shorts', 40, 'images/meshshortsblackfront.png');
+    openExpressBundleCheckout(null, [
+        { productId: tee.id, preferredColor: 'White' },
+        { productId: barrel.id, preferredColor: 'Black' }
+    ]);
 }
 
-function addScriptZipPantsSet() {
+function expressScriptZipPantsSet() {
     const zip = productsData.find(p => p.productId === 'script-zip-hoodie');
     const pants = productsData.find(p => p.productId === 'safire-sweatpants');
 
     if (!zip || !pants) return;
 
-    if (Array.isArray(zip.colors)) {
-        const lightGreyIndex = zip.colors.findIndex(color => String(color.name || '').toLowerCase().includes('light grey'));
-        if (lightGreyIndex >= 0) zip.selectedColor = lightGreyIndex;
-    }
-
-    if (Array.isArray(pants.colors)) {
-        const lightGreyIndex = pants.colors.findIndex(color => String(color.name || '').toLowerCase().includes('light grey'));
-        if (lightGreyIndex >= 0) pants.selectedColor = lightGreyIndex;
-    }
-
-    const zipImage = zip.colors?.[zip.selectedColor ?? 0]?.images?.front || zip.image1;
-    const pantsImage = pants.colors?.[pants.selectedColor ?? 0]?.images?.front || pants.image1;
-
-    addToCart(zip.id, zip.name, 60, zipImage);
-    addToCart(pants.id, pants.name, 50, pantsImage);
+    openExpressBundleCheckout(null, [
+        { productId: zip.id, preferredColor: 'Light Grey' },
+        { productId: pants.id, preferredColor: 'Light Grey' }
+    ]);
 }
 
 function showAddToCartSuccess() {
@@ -7872,11 +7901,30 @@ function normalizeExpressColorKey(value) {
 }
 
 const expressCheckoutState = {
-    product: null,
+    products: [],
+    selections: {},
+    preferredColors: {},
+    currentIndex: 0,
     step: 'size',
-    selectedSize: '',
-    selectedColor: ''
+    mode: 'single'
 };
+
+function getExpressProductKey(product) {
+    return String(product?.productId || product?.id || '').trim().toLowerCase();
+}
+
+function getExpressCurrentProduct() {
+    return expressCheckoutState.products[expressCheckoutState.currentIndex] || null;
+}
+
+function ensureExpressSelection(product) {
+    const key = getExpressProductKey(product);
+    if (!key) return { key: '', selection: { size: '', color: '' } };
+    if (!expressCheckoutState.selections[key]) {
+        expressCheckoutState.selections[key] = { size: '', color: '' };
+    }
+    return { key, selection: expressCheckoutState.selections[key] };
+}
 
 function getAvailableSizesForExpress(product) {
     const stock = product && product.stock ? product.stock : {};
@@ -7916,32 +7964,45 @@ function renderExpressCheckoutStep() {
     const nextButton = document.getElementById('express-next-btn');
     const stepLabel = document.getElementById('express-step');
     const productLabel = document.getElementById('express-product-label');
-    if (!nextButton || !stepLabel || !productLabel || !expressCheckoutState.product) return;
+    const product = getExpressCurrentProduct();
+    if (!nextButton || !stepLabel || !productLabel || !product) return;
 
-    productLabel.textContent = expressCheckoutState.product.name;
+    const totalItems = Math.max(1, expressCheckoutState.products.length);
+    const totalSteps = totalItems * 2;
+    const stepNumber = (expressCheckoutState.currentIndex * 2) + (expressCheckoutState.step === 'size' ? 1 : 2);
+    const { key, selection } = ensureExpressSelection(product);
+
+    productLabel.textContent = totalItems > 1
+        ? `${product.name} (${expressCheckoutState.currentIndex + 1}/${totalItems})`
+        : product.name;
 
     if (expressCheckoutState.step === 'size') {
-        stepLabel.textContent = 'Step 1 of 2';
-        const sizes = getAvailableSizesForExpress(expressCheckoutState.product);
-        renderExpressOptions(sizes, expressCheckoutState.selectedSize, (value) => {
-            expressCheckoutState.selectedSize = value;
-            nextButton.disabled = !expressCheckoutState.selectedSize;
+        stepLabel.textContent = `Step ${stepNumber} of ${totalSteps}`;
+        const sizes = getAvailableSizesForExpress(product);
+        renderExpressOptions(sizes, selection.size, (value) => {
+            selection.size = value;
             renderExpressCheckoutStep();
         });
         nextButton.textContent = 'Next: Select Color';
-        nextButton.disabled = !expressCheckoutState.selectedSize;
+        nextButton.disabled = !selection.size;
         return;
     }
 
-    stepLabel.textContent = 'Step 2 of 2';
-    const colors = getAvailableColorsForExpress(expressCheckoutState.product);
-    renderExpressOptions(colors, expressCheckoutState.selectedColor, (value) => {
-        expressCheckoutState.selectedColor = value;
-        nextButton.disabled = !expressCheckoutState.selectedColor;
+    stepLabel.textContent = `Step ${stepNumber} of ${totalSteps}`;
+    const colors = getAvailableColorsForExpress(product);
+    const recommendedColor = expressCheckoutState.preferredColors[key];
+    if (!selection.color && recommendedColor) {
+        const matchedColor = colors.find((value) => String(value).toLowerCase() === String(recommendedColor).toLowerCase());
+        if (matchedColor) selection.color = matchedColor;
+    }
+
+    renderExpressOptions(colors, selection.color, (value) => {
+        selection.color = value;
         renderExpressCheckoutStep();
     });
-    nextButton.textContent = 'Go To Stripe Checkout';
-    nextButton.disabled = !expressCheckoutState.selectedColor;
+    const isLastProduct = expressCheckoutState.currentIndex >= (totalItems - 1);
+    nextButton.textContent = isLastProduct ? 'Go To Stripe Checkout' : 'Next Item';
+    nextButton.disabled = !selection.color;
 }
 
 function openExpressCheckout(event, productId) {
@@ -7956,10 +8017,58 @@ function openExpressCheckout(event, productId) {
         return;
     }
 
-    expressCheckoutState.product = product;
+    expressCheckoutState.products = [product];
+    expressCheckoutState.selections = {};
+    expressCheckoutState.preferredColors = {};
+    expressCheckoutState.currentIndex = 0;
     expressCheckoutState.step = 'size';
-    expressCheckoutState.selectedSize = '';
-    expressCheckoutState.selectedColor = '';
+    expressCheckoutState.mode = 'single';
+
+    const modal = document.getElementById('express-modal');
+    if (!modal) return;
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
+
+    renderExpressCheckoutStep();
+}
+
+function openExpressBundleCheckout(event, bundleItems) {
+    if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
+    const requestedItems = Array.isArray(bundleItems) ? bundleItems : [];
+    if (requestedItems.length === 0) return;
+
+    const resolvedItems = requestedItems
+        .map((entry) => {
+            const productId = Number(entry?.productId);
+            const product = productsData.find((item) => Number(item.id) === productId);
+            if (!product || isProductSoldOut(product)) return null;
+            return {
+                product,
+                preferredColor: String(entry?.preferredColor || '').trim()
+            };
+        })
+        .filter(Boolean);
+
+    if (resolvedItems.length !== requestedItems.length) {
+        alert('One of the selected set items is currently sold out.');
+        return;
+    }
+
+    const preferredColors = {};
+    resolvedItems.forEach((entry) => {
+        preferredColors[getExpressProductKey(entry.product)] = entry.preferredColor;
+    });
+
+    expressCheckoutState.products = resolvedItems.map((entry) => entry.product);
+    expressCheckoutState.selections = {};
+    expressCheckoutState.preferredColors = preferredColors;
+    expressCheckoutState.currentIndex = 0;
+    expressCheckoutState.step = 'size';
+    expressCheckoutState.mode = 'bundle';
 
     const modal = document.getElementById('express-modal');
     if (!modal) return;
@@ -8025,30 +8134,41 @@ async function createExpressCheckoutSession(payload) {
 }
 
 async function submitExpressCheckout() {
-    const product = expressCheckoutState.product;
-    if (!product) return;
+    const selectedProducts = Array.isArray(expressCheckoutState.products) ? expressCheckoutState.products : [];
+    if (selectedProducts.length === 0) return;
 
-    const productId = String(product.productId || product.id || '').trim();
-    const priceId = getStripePriceIdForProduct(productId);
+    const checkoutItems = [];
+    for (const product of selectedProducts) {
+        const productId = String(product.productId || product.id || '').trim();
+        const priceId = getStripePriceIdForProduct(productId);
 
-    if (!priceId) {
-        alert(`Missing Stripe price ID for: ${productId}`);
-        return;
+        if (!priceId) {
+            alert(`Missing Stripe price ID for: ${productId}`);
+            return;
+        }
+
+        const key = getExpressProductKey(product);
+        const selection = expressCheckoutState.selections[key] || { size: '', color: '' };
+        if (!selection.size || !selection.color) {
+            alert('Please select size and color for all items.');
+            return;
+        }
+
+        checkoutItems.push({
+            productId,
+            name: String(product.name || productId),
+            priceId,
+            quantity: 1,
+            size: normalizeExpressVariant(selection.size, 'default'),
+            color: normalizeExpressColorKey(selection.color),
+            sizeLabel: String(selection.size || 'Default').toUpperCase(),
+            colorLabel: String(selection.color || 'Default')
+        });
     }
 
-    const sizeValue = normalizeExpressVariant(expressCheckoutState.selectedSize, 'default');
-    const colorValue = normalizeExpressColorKey(expressCheckoutState.selectedColor);
-
-    const payload = {
-        productId,
-        name: String(product.name || productId),
-        priceId,
-        quantity: 1,
-        size: sizeValue,
-        color: colorValue,
-        sizeLabel: String(expressCheckoutState.selectedSize || 'Default').toUpperCase(),
-        colorLabel: String(expressCheckoutState.selectedColor || 'Default')
-    };
+    const payload = checkoutItems.length === 1
+        ? checkoutItems[0]
+        : { items: checkoutItems };
 
     const nextButton = document.getElementById('express-next-btn');
     if (nextButton) {
@@ -8062,7 +8182,7 @@ async function submitExpressCheckout() {
         alert(error.message || 'Checkout failed. Please try again.');
         if (nextButton) {
             nextButton.disabled = false;
-            nextButton.textContent = 'Go To Stripe Checkout';
+            renderExpressCheckoutStep();
         }
     }
 }
@@ -8411,14 +8531,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (expressNext) {
         expressNext.addEventListener('click', async function() {
+            const product = getExpressCurrentProduct();
+            if (!product) return;
+            const { selection } = ensureExpressSelection(product);
+
             if (expressCheckoutState.step === 'size') {
-                if (!expressCheckoutState.selectedSize) return;
+                if (!selection.size) return;
                 expressCheckoutState.step = 'color';
                 renderExpressCheckoutStep();
                 return;
             }
 
-            if (!expressCheckoutState.selectedColor) return;
+            if (!selection.color) return;
+
+            if (expressCheckoutState.currentIndex < (expressCheckoutState.products.length - 1)) {
+                expressCheckoutState.currentIndex += 1;
+                expressCheckoutState.step = 'size';
+                renderExpressCheckoutStep();
+                return;
+            }
+
             await submitExpressCheckout();
         });
     }

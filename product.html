@@ -35,26 +35,11 @@
             <div class="info">
                 <h1 id="product-name"></h1>
                 <p class="price" id="product-price"></p>
+                <p class="sale-note" id="sale-note" hidden>Use code BLKFDY at checkout for 25% off</p>
                 <p class="desc" id="product-description"></p>
                 <div id="product-meta-row" style="display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-top:-4px;">
                     <p class="desc" id="product-gender" style="margin:0;font-weight:600;"></p>
                     <p class="desc" id="selected-color-label" style="margin:0;font-weight:600;"></p>
-                </div>
-
-                <div class="size-block" style="display:grid;gap:10px;">
-                    <div class="size-header-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:20px;width:100%;">
-                        <p id="size-label" style="margin:0;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#5f5c58;flex:0 0 auto;">Size</p>
-                        <details class="size-guide-inline" id="size-guide-details" style="margin-left:auto;display:flex;justify-content:flex-end;color:#a39d96;">
-                            <summary style="list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:0.6rem;line-height:1.2;letter-spacing:0.1em;text-transform:uppercase;color:#a39d96;font-weight:300;">Size guide <span aria-hidden="true" style="font-size:0.9rem;color:#a39d96;line-height:1;">↗</span></summary>
-                            <div id="size-guide-text"></div>
-                        </details>
-                    </div>
-                    <div class="size-grid" id="size-grid"></div>
-                </div>
-
-                <div class="product-actions" id="product-actions">
-                    <button class="add-btn" id="add-to-cart-btn">Add to Cart</button>
-                    <button class="checkout-inline-btn" id="checkout-inline-btn" type="button">Checkout</button>
                 </div>
 
                 <div class="accordion" id="product-accordion">
@@ -75,6 +60,22 @@
                         <p id="fabric-text"></p>
                     </details>
                 </div>
+
+                <div class="size-block" style="display:grid;gap:10px;">
+                    <div class="size-header-row" style="display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:20px;width:100%;">
+                        <p id="size-label" style="margin:0;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#5f5c58;flex:0 0 auto;">Size</p>
+                        <details class="size-guide-inline" id="size-guide-details" style="margin-left:auto;display:flex;justify-content:flex-end;color:#a39d96;">
+                            <summary style="list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:0.6rem;line-height:1.2;letter-spacing:0.1em;text-transform:uppercase;color:#a39d96;font-weight:300;">Size guide <span aria-hidden="true" style="font-size:0.9rem;color:#a39d96;line-height:1;">↗</span></summary>
+                            <div id="size-guide-text"></div>
+                        </details>
+                    </div>
+                    <div class="size-grid" id="size-grid"></div>
+                </div>
+
+                <div class="product-actions" id="product-actions">
+                    <button class="add-btn" id="add-to-cart-btn">Add to Cart</button>
+                    <button class="checkout-inline-btn" id="checkout-inline-btn" type="button">Checkout</button>
+                </div>
             </div>
         </section>
 
@@ -82,27 +83,74 @@
     </main>
 
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="js/products.js?v=20261001"></script>
+    <script src="js/products.js?v=20261120"></script>
     <script src="js/cart.js?v=20261001"></script>
     <script>
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
         const requestedColor = params.get('color');
-        const product = products.find((item) => item.id === productId);
+        const normalizedProductId = String(productId || '').trim().toLowerCase();
+        const legacyProductIdMap = {
+            '22': 'waffle-hoodie',
+            '20': 'waffle-beanie',
+            '21': 'waffle-barrel',
+            '14': 'safire-horizon-zip-hoodie',
+            '18': 'signature-stitch-hoodie',
+            '17': 'safire-orbit-jersey',
+            '9': 'oversized-wavy-grid-tshirt',
+            '12': 'mesh-drawstring-shorts',
+            '7': 'borough-oversized-tshirt',
+            '3': 'classic-quarter-zip',
+            '4': 'varsity-jacket',
+            '5': 'black-socrates-hoodie',
+            '11': 'vintage-crewneck',
+            '13': 'safire-shores-crewneck',
+            '15': 'melt-sweatshirt',
+            '16': 'melt-shirt',
+            '24': 'safire-sweatpants',
+            '19': 'script-zip-hoodie',
+            '10': 'not-for-everyone-hoodie'
+        };
+
+        function normalizeProductToken(value) {
+            return String(value || '')
+                .trim()
+                .toLowerCase()
+                .replace(/[_\s]+/g, '-')
+                .replace(/[^a-z0-9-]/g, '');
+        }
+
+        const resolvedProductId = (() => {
+            const mappedLegacy = legacyProductIdMap[normalizedProductId];
+            if (mappedLegacy) return mappedLegacy;
+
+            if (normalizedProductId === 'orbit-jersey') return 'safire-orbit-jersey';
+            return normalizedProductId;
+        })();
+
+        const product = products.find((item) => {
+            const candidates = [item.id, item.productId, item.name].filter((value) => value !== undefined && value !== null);
+            return candidates.some((value) => normalizeProductToken(value) === normalizeProductToken(resolvedProductId));
+        });
 
         const layout = document.getElementById('product-layout');
         const notFound = document.getElementById('not-found');
+        const PDP_BLACK_FRIDAY_SALE_START = new Date(2026, 10, 20, 0, 0, 0);
+        const PDP_BLACK_FRIDAY_SALE_END = new Date(2026, 10, 30, 23, 59, 59);
+        const PDP_BLACK_FRIDAY_DISCOUNT_RATE = 0.25;
 
         function formatPrice(value) {
             return Math.round(Number(value) || 0).toString();
         }
 
         function isBlackFridaySaleActive(now = new Date()) {
-            return false;
+            return now >= PDP_BLACK_FRIDAY_SALE_START && now <= PDP_BLACK_FRIDAY_SALE_END;
         }
 
         function getSalePrice(value) {
-            return Number(value) || 0;
+            const basePrice = Number(value) || 0;
+            if (!isBlackFridaySaleActive()) return basePrice;
+            return Math.max(0, Math.round(basePrice * (1 - PDP_BLACK_FRIDAY_DISCOUNT_RATE)));
         }
 
         function normalizeValue(value) {
@@ -308,12 +356,12 @@
             const section = (title, data, unitKey) => `
                 <div data-size-panel="${unitKey}" style="margin-top: 18px; background: #ffffff; color: #5f5c58; ${unitKey === 'inches' ? '' : ' display: none;'}" ${unitKey === 'inches' ? '' : 'hidden'}>
                     <h4 style="margin: 0 0 10px; font-size: 15px; color: #5f5c58; background: #ffffff;">${title}</h4>
-                    <div style="overflow-x: auto; background: #ffffff;">
-                        <table style="width: 100%; border-collapse: collapse; min-width: 520px; font-size: 13px; color: #5f5c58; background: #ffffff;">
+                    <div style="overflow: visible; background: #ffffff;">
+                        <table style="width: 100%; border-collapse: collapse; table-layout: fixed; font-size: clamp(11px, 2.6vw, 13px); color: #5f5c58; background: #ffffff;">
                             <thead>
                                 <tr>
-                                    <th style="text-align: left; padding: 10px 8px; border-bottom: 1px solid rgba(20, 20, 20, 0.08); color: #5f5c58; background: #ffffff;">Size</th>
-                                    ${data.sizes.map((size) => `<th style="text-align: left; padding: 10px 8px; border-bottom: 1px solid rgba(20, 20, 20, 0.08); color: #5f5c58; background: #ffffff;">${size}</th>`).join('')}
+                                    <th style="text-align: left; padding: 8px 6px; border-bottom: 1px solid rgba(20, 20, 20, 0.08); color: #5f5c58; background: #ffffff; white-space: normal; word-break: break-word;">Size</th>
+                                    ${data.sizes.map((size) => `<th style="text-align: left; padding: 8px 6px; border-bottom: 1px solid rgba(20, 20, 20, 0.08); color: #5f5c58; background: #ffffff; white-space: normal; word-break: break-word;">${size}</th>`).join('')}
                                 </tr>
                             </thead>
                             <tbody>
@@ -327,8 +375,8 @@
                                 ].filter(([, key]) => Array.isArray(data[key]))
                                     .map(([label, key]) => `
                                 <tr>
-                                    <td style="padding: 10px 8px; border-bottom: 1px solid rgba(20, 20, 20, 0.06); font-weight: 600; color: #5f5c58; background: #ffffff;">${label}</td>
-                                    ${data[key].map((value) => `<td style="padding: 10px 8px; border-bottom: 1px solid rgba(20, 20, 20, 0.06); color: #5f5c58; background: #ffffff;">${value}</td>`).join('')}
+                                    <td style="padding: 8px 6px; border-bottom: 1px solid rgba(20, 20, 20, 0.06); font-weight: 600; color: #5f5c58; background: #ffffff; white-space: normal; word-break: break-word;">${label}</td>
+                                    ${data[key].map((value) => `<td style="padding: 8px 6px; border-bottom: 1px solid rgba(20, 20, 20, 0.06); color: #5f5c58; background: #ffffff; white-space: normal; word-break: break-word;">${value}</td>`).join('')}
                                 </tr>
                                 `).join('')}
                             </tbody>
@@ -407,6 +455,7 @@
             document.title = `${product.name} | SAFIRE`;
             document.getElementById('product-name').textContent = product.name;
             const priceElement = document.getElementById('product-price');
+            const saleNoteElement = document.getElementById('sale-note');
             const salePrice = getSalePrice(originalPrice);
             const hasSaleDiscount = isBlackFridaySaleActive() && originalPrice > 0 && salePrice < originalPrice;
             if (hasSaleDiscount) {
@@ -418,6 +467,9 @@
                 `;
             } else {
                 priceElement.textContent = `$${formatPrice(originalPrice)}`;
+            }
+            if (saleNoteElement) {
+                saleNoteElement.hidden = !hasSaleDiscount;
             }
 
             // Ensure PDP uses the same canonical price as product cards.
@@ -465,6 +517,9 @@
                         `;
                     } else {
                         priceElement.textContent = `$${formatPrice(originalPrice)}`;
+                    }
+                    if (saleNoteElement) {
+                        saleNoteElement.hidden = !refreshedDiscount;
                     }
                 }
             })();
@@ -842,7 +897,15 @@
                 colorOptions.classList.add('visible');
 
                 const requestedColorIndex = (() => {
-                    if (!requestedColor) return 0;
+                    const productToken = normalizeProductToken(product.productId || product.id || product.name || '');
+                    const boroughDefaultBlack = productToken === 'borough-oversized-tshirt';
+
+                    if (!requestedColor) {
+                        if (!boroughDefaultBlack) return 0;
+                        const blackIndex = product.colorways.findIndex((colorway) => normalizeValue(colorway.name) === 'black');
+                        return blackIndex >= 0 ? blackIndex : 0;
+                    }
+
                     const target = normalizeValue(requestedColor);
                     const index = product.colorways.findIndex((colorway) => normalizeValue(colorway.name) === target);
                     return index >= 0 ? index : 0;
